@@ -56,7 +56,6 @@ export const metadata: Metadata = {
 export default function CoverPage() {
   const coverPath = path.join(
     process.cwd(),
-    "src",
     "data",
     "profile",
     "cover-letter.md",

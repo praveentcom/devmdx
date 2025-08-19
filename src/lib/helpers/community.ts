@@ -10,12 +10,7 @@ import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-const COMMUNITY_CONTENT_DIR = path.join(
-  process.cwd(),
-  "src",
-  "data",
-  "community",
-);
+const COMMUNITY_CONTENT_DIR = path.join(process.cwd(), "data", "community");
 
 const CommunityLinkSchema = z.object({
   title: z.string(),
@@ -31,7 +26,7 @@ export const CommunityFrontmatterSchema = z.object({
   slug: z.string().optional(),
   youtubeUrl: z.string().optional(),
   externalLinks: z.array(CommunityLinkSchema).optional(),
-  type: z.nativeEnum(EnumCommunityContributionType),
+  type: z.enum(EnumCommunityContributionType),
 });
 
 export type CommunityFrontmatter = Required<

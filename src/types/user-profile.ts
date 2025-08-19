@@ -18,14 +18,15 @@ export interface Profile {
   firstName: string;
   lastName: string;
   gender?: string;
-  currentPosition: string;
+  email?: string;
+  currentPosition?: string;
   ogCoverImage?: string;
   footerSubtitle?: string;
   imageUrl?: string;
-  description: string;
+  description?: string;
   bulletPoints?: string[];
-  socialMedia: SocialMediaLinks;
-  links: OtherLinks;
+  socialMedia?: SocialMediaLinks;
+  links?: OtherLinks;
 }
 
 export interface ProfileData {

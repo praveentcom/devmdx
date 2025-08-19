@@ -20,12 +20,12 @@ export function generatePersonSchema() {
     url: baseUrl,
     image: profile.imageUrl,
     sameAs: [
-      profile.socialMedia.linkedin,
-      profile.socialMedia.x,
-      profile.socialMedia.instagram,
-      profile.socialMedia.youtube,
-      profile.links.github,
-      profile.links.stackoverflow,
+      profile.socialMedia?.linkedin,
+      profile.socialMedia?.x,
+      profile.socialMedia?.instagram,
+      profile.socialMedia?.youtube,
+      profile.links?.github,
+      profile.links?.stackoverflow,
     ].filter(Boolean),
     worksFor: profileData.workExperience[0]
       ? {
