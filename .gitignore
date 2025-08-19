@@ -49,3 +49,6 @@ next-env.d.ts
 # data folder
 /data
 /_data
+
+public/images/
+!public/images/tech-icons/
