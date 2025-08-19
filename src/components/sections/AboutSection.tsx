@@ -68,11 +68,15 @@ export function AboutSection({ profile }: AboutSectionProps) {
               <p className="text-xl font-semibold">
                 Hi, I&apos;m {firstName} {lastName}
               </p>
-              <p className="text-md font-medium text-muted-foreground">
-                {currentPosition}
-              </p>
+              {currentPosition && (
+                <p className="text-md font-medium text-muted-foreground">
+                  {currentPosition}
+                </p>
+              )}
             </div>
-            <p className="text-muted-foreground text-sm">{description}</p>
+            {description && (
+              <p className="text-muted-foreground text-sm">{description}</p>
+            )}
           </div>
         </div>
       </CardHeader>
@@ -92,54 +96,58 @@ export function AboutSection({ profile }: AboutSectionProps) {
         )}
 
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-2">
-            <p className="font-semibold text-sm">Links</p>
-            <div className="flex flex-wrap gap-2">
-              {Object.entries(links).map(([platform, url]) => {
-                if (!url) return null;
-                const iconPath =
-                  socialIconPaths[platform as keyof typeof socialIconPaths];
+          {links && Object.values(links).some(Boolean) && (
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-sm">Links</p>
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(links).map(([platform, url]) => {
+                  if (!url) return null;
+                  const iconPath =
+                    socialIconPaths[platform as keyof typeof socialIconPaths];
 
-                return (
-                  <Button key={platform} variant="outline" size="sm" asChild>
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-xs"
-                    >
-                      {iconPath ? <SimpleIcon iconPath={iconPath} /> : null}
-                      {platform.charAt(0).toUpperCase() + platform.slice(1)}
-                    </a>
-                  </Button>
-                );
-              })}
+                  return (
+                    <Button key={platform} variant="outline" size="sm" asChild>
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-xs"
+                      >
+                        {iconPath ? <SimpleIcon iconPath={iconPath} /> : null}
+                        {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                      </a>
+                    </Button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="font-semibold text-sm">Socials</p>
-            <div className="flex flex-wrap gap-2">
-              {Object.entries(socialMedia).map(([platform, url]) => {
-                if (!url) return null;
-                const iconPath =
-                  socialIconPaths[platform as keyof typeof socialIconPaths];
+          )}
+          {socialMedia && Object.values(socialMedia).some(Boolean) && (
+            <div className="flex flex-col gap-2">
+              <p className="font-semibold text-sm">Socials</p>
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(socialMedia).map(([platform, url]) => {
+                  if (!url) return null;
+                  const iconPath =
+                    socialIconPaths[platform as keyof typeof socialIconPaths];
 
-                return (
-                  <Button key={platform} variant="outline" size="sm" asChild>
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-xs"
-                    >
-                      {iconPath ? <SimpleIcon iconPath={iconPath} /> : null}
-                      {platform.charAt(0).toUpperCase() + platform.slice(1)}
-                    </a>
-                  </Button>
-                );
-              })}
+                  return (
+                    <Button key={platform} variant="outline" size="sm" asChild>
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-xs"
+                      >
+                        {iconPath ? <SimpleIcon iconPath={iconPath} /> : null}
+                        {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                      </a>
+                    </Button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </CardContent>
     </Card>

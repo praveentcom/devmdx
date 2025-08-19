@@ -1,70 +1,35 @@
-# Developer Spotlight Website Template
+## ✨ DevCard: Developer Spotlight Template
 
-A modern, customizable developer profile spotlight landing page built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui components. Maintained by Praveen Thirumurugan (mail@praveent.com).
+A modern, customizable developer profile spotlight landing page built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui components.
 
-## Features
+**Modern Design**: Clean, professional layout with dark/light mode support.  
+**Fully Customizable**: Single configuration file for all profile data.  
+**Fast & Responsive**: Optimized for all screens & built with Next.js app router.
 
-✨ **Modern Design**: Clean, professional layout with dark/light mode support
-🔧 **Fully Customizable**: Single configuration file for all profile data
-📱 **Fast & Responsive**: Optimized for all screens & built with Next.js app router
+Maintained by Praveen Thirumurugan (mail@praveent.com) and the community.
 
-## Quick start
+---
 
-### 1. Installation
+### Quick start
+
+#### Installation
 
 ```bash
-# Clone or download this template
 npm install
+npm run init
 ```
 
-### 2. Customize your profile & site data
+This will install the required package dependencies and load the dynamic data into your workspace. The `/data` directory contains the basic information for your profile, such as your name, social networks, work experience, etc.
 
-Edit the `src/data/profile/index.ts` file with your information:
-
-```typescript
-export const profileData: ProfileData = {
-  profile: {
-    firstName: "Your",
-    lastName: "Name",
-    currentPosition: "Your Job Title",
-    imageUrl: "/your-profile-photo.jpg",
-    description: "Your professional description...",
-    // ... more fields
-  },
-  // ... more fields
-};
-```
-
-### 3. Run the development server
+#### Start developing
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your developer spotlight website.
+Server will start running on `http://localhost:3000`, create `.env.local` file for development (check `.env.example` for reference). Feel free to modify the components to suit your use-case. Note that we keep the `/data` folder backwards-compatible for future versions, but you will see conflicts if `/src` is modified.
 
-### Environment variables
-
-Create a `.env.local` file for local development (see `.env.example` for reference).
-
-### Styling Customization
-
-The template uses Tailwind CSS and shadcn/ui. To customize:
-
-1. **Colors**: Modify `src/styles/globals.css` color variables
-2. **Components**: Edit individual components in `src/components/`
-3. **Layout**: Adjust the main layout in `src/app/page.tsx`
-
-### Adding sections
-
-To add new sections:
-
-1. Create a new component in `src/components/`
-2. Add the data structure to `src/types/profile.ts`
-3. Update `src/data/profile/index.ts` with the new data
-4. Import and use the component in `src/app/page.tsx`
-
-## File Structure
+#### File Structure
 
 ```
 src/
@@ -77,28 +42,21 @@ src/
 │   ├── work/                  # Work experience pages
 │   └── education/             # Education pages
 ├── components/                # UI and section components
-├── data/
-│   ├── profile/               # Your profile data (EDIT `index.ts`)
-│   ├── articles/              # MDX articles
-│   └── community/             # MDX community contributions
-├── styles/
-│   └── globals.css            # Global styles and theme
+├── styles/                    # Global styles and theme
 ├── types/                     # TypeScript type definitions
 └── lib/                       # Helper utilities
 ```
 
-## Contributing
+---
 
-This is an open-source template. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+##### Contributing & License
 
-## License
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details on open-source contributions. This project is licensed under the MIT License.
 
-This project is licensed under the MIT License. See `LICENSE` for details.
-
-## Assets and trademarks
+##### Assets and trademarks
 
 Logos and trademarks in `public/images/tech-icons` and elsewhere are the property of their respective owners and are used here for identification purposes only. If you are an owner and would like your asset removed or attributed differently, please open an issue.
 
 ---
 
-Made with ❤️ using Next.js, TypeScript, Tailwind CSS, and shadcn/ui.
+Made with love, for the community ❤️

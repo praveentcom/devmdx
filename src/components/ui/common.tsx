@@ -145,15 +145,17 @@ export function DateRange({
   startDate,
   endDate,
   Icon,
+  textSize = "text-xs",
 }: {
   startDate: Date;
   endDate?: Date;
   Icon: LucideIcon;
+  textSize?: string;
 }) {
   return (
     <div className="flex items-center gap-1.5">
       <Icon className="icon-xs text-muted-foreground" />
-      <span className="text-muted-foreground text-xs font-medium">
+      <span className={`text-muted-foreground ${textSize} font-medium`}>
         {format(startDate, "LLLL yyyy")} -{" "}
         {endDate ? format(endDate, "LLLL yyyy") : "Present"}
       </span>

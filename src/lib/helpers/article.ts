@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { z } from "zod";
-import { EnumTopic } from "@/lib/helpers/topic-mapper";
+import { EnumTopic, TopicMapper } from "@/lib/helpers/topic-mapper";
 import { calculateReadTime } from "@/lib/helpers/markdown";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { compileMDX } from "next-mdx-remote/rsc";
@@ -10,13 +10,21 @@ import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-const ARTICLE_CONTENT_DIR = path.join(process.cwd(), "src", "data", "articles");
+const ARTICLE_CONTENT_DIR = path.join(process.cwd(), "data", "articles");
+
+const topicMapper = new TopicMapper();
+
+// Custom schema that filters out invalid tags instead of throwing errors
+const safeTagsSchema = z.array(z.string()).transform((tags) => {
+  // Filter out invalid tags and only keep valid ones
+  return tags.filter((tag) => topicMapper.isValidTopic(tag)) as EnumTopic[];
+});
 
 export const ArticleFrontmatterSchema = z.object({
   title: z.string(),
   description: z.string(),
   date: z.string(),
-  tags: z.array(z.enum(EnumTopic)),
+  tags: safeTagsSchema,
   published: z.boolean().default(true),
   image: z.string().optional(),
   slug: z.string().optional(),

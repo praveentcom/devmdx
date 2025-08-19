@@ -49,6 +49,7 @@ export default async function EducationPage({ params }: PageProps) {
               startDate={education.startDate}
               endDate={education.endDate}
               Icon={CalendarDays}
+              textSize="text-sm"
             />
           </SectionCard>
 

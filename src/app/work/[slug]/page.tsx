@@ -52,6 +52,7 @@ export default async function WorkExperiencePage({ params }: PageProps) {
               startDate={experience.startDate}
               endDate={experience.endDate}
               Icon={CalendarDays}
+              textSize="text-sm"
             />
           </SectionCard>
 

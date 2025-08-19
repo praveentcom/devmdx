@@ -26,7 +26,7 @@ export const metadata: Metadata = {
           ),
         width: 1200,
         height: 630,
-        alt: `${profileData.profile.firstName} ${profileData.profile.lastName} - ${profileData.profile.currentPosition}`,
+        alt: `${profileData.profile.firstName} ${profileData.profile.lastName} - ${profileData.profile.currentPosition || "Professional"}`,
       },
     ],
   },
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
         ),
     ],
   },
-  keywords: `${profileData.profile.firstName} ${profileData.profile.lastName}, ${profileData.profile.currentPosition}, developer, portfolio, ${profileData.profile.bulletPoints?.join(", ")}`,
+  keywords: `${profileData.profile.firstName} ${profileData.profile.lastName}, ${profileData.profile.currentPosition || "professional"}, developer, portfolio, ${profileData.profile.bulletPoints?.join(", ")}`,
   authors: [
     {
       name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
