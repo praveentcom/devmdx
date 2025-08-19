@@ -1,0 +1,36 @@
+import type { WorkExperience } from "@/types/work";
+import type { Education } from "@/types/education";
+import type { Project } from "@/types/project";
+
+export interface SocialMediaLinks {
+  linkedin?: string;
+  x?: string;
+  instagram?: string;
+  youtube?: string;
+}
+
+export interface OtherLinks {
+  github?: string;
+  stackoverflow?: string;
+}
+
+export interface Profile {
+  firstName: string;
+  lastName: string;
+  gender?: string;
+  currentPosition: string;
+  ogCoverImage?: string;
+  footerSubtitle?: string;
+  imageUrl?: string;
+  description: string;
+  bulletPoints?: string[];
+  socialMedia: SocialMediaLinks;
+  links: OtherLinks;
+}
+
+export interface ProfileData {
+  profile: Profile;
+  workExperience: WorkExperience[];
+  education: Education[];
+  projects: Project[];
+}

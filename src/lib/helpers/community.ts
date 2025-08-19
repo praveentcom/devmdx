@@ -1,0 +1,256 @@
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { z } from "zod";
+import { EnumCommunityContributionType } from "@/types/community";
+import { calculateReadTime } from "@/lib/helpers/markdown";
+import { generateCommunityPlaceholderImage } from "@/lib/helpers/image";
+import { compileMDX } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+
+const COMMUNITY_CONTENT_DIR = path.join(
+  process.cwd(),
+  "src",
+  "data",
+  "community",
+);
+
+const CommunityLinkSchema = z.object({
+  title: z.string(),
+  url: z.string(),
+});
+
+export const CommunityFrontmatterSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  date: z.string(),
+  published: z.boolean().default(true),
+  image: z.string().optional(),
+  slug: z.string().optional(),
+  youtubeUrl: z.string().optional(),
+  externalLinks: z.array(CommunityLinkSchema).optional(),
+  type: z.nativeEnum(EnumCommunityContributionType),
+});
+
+export type CommunityFrontmatter = Required<
+  Pick<
+    z.infer<typeof CommunityFrontmatterSchema>,
+    "title" | "description" | "date" | "published"
+  >
+> &
+  Omit<
+    z.infer<typeof CommunityFrontmatterSchema>,
+    "title" | "description" | "date" | "published"
+  > & {
+    year: string;
+    slug: string;
+    readTime: number;
+  };
+
+export type CommunityIndexItem = CommunityFrontmatter;
+
+function isMdxFile(filePath: string): boolean {
+  return filePath.endsWith(".mdx");
+}
+
+function readDirRecursive(dir: string): string[] {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  const files: string[] = [];
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...readDirRecursive(full));
+    } else if (isMdxFile(full)) {
+      files.push(full);
+    }
+  }
+  return files;
+}
+
+function extractYearFromPath(fullPath: string): string {
+  const rel = path.relative(COMMUNITY_CONTENT_DIR, fullPath);
+  const segments = rel.split(path.sep);
+  const year = segments[0];
+  return year ?? "unknown";
+}
+
+function deriveSlug(
+  frontmatterSlug: string | undefined,
+  fullPath: string,
+): string {
+  if (frontmatterSlug && frontmatterSlug.trim().length > 0)
+    return frontmatterSlug.trim();
+  const base = path.basename(fullPath, path.extname(fullPath));
+  return base;
+}
+
+export function getAllCommunityFiles(): string[] {
+  if (!fs.existsSync(COMMUNITY_CONTENT_DIR)) return [];
+  return readDirRecursive(COMMUNITY_CONTENT_DIR);
+}
+
+export function getAllCommunitySlugs(): CommunityIndexItem[] {
+  const files = getAllCommunityFiles();
+  const items: CommunityIndexItem[] = files.map((fullPath) => {
+    const raw = fs.readFileSync(fullPath, "utf-8");
+    const { data, content } = matter(raw);
+
+    const parsed = CommunityFrontmatterSchema.parse(data);
+    const year = extractYearFromPath(fullPath);
+    const slug = deriveSlug(parsed.slug, fullPath);
+    const readTime = calculateReadTime(content);
+
+    const normalized: CommunityFrontmatter = {
+      title: parsed.title,
+      description: parsed.description,
+      date: parsed.date,
+      published: parsed.published ?? true,
+      image: parsed.image || generateCommunityPlaceholderImage(parsed.title),
+      slug,
+      year,
+      readTime,
+      youtubeUrl: parsed.youtubeUrl,
+      externalLinks: parsed.externalLinks,
+      type: parsed.type,
+    };
+
+    return normalized;
+  });
+
+  return items
+    .filter((p) => p.published)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export async function getCommunityBySlugCompiled(slug: string): Promise<{
+  meta: CommunityIndexItem;
+  Content: React.ReactNode;
+} | null> {
+  const files = getAllCommunityFiles();
+  const match = files.find((full) => {
+    const raw = fs.readFileSync(full, "utf-8");
+    const { data } = matter(raw);
+    const parsed = CommunityFrontmatterSchema.safeParse(data);
+    const derivedSlug = deriveSlug(
+      parsed.success ? parsed.data.slug : undefined,
+      full,
+    );
+    return derivedSlug === slug;
+  });
+
+  if (!match) return null;
+
+  const raw = fs.readFileSync(match, "utf-8");
+
+  // compileMDX can parse frontmatter directly
+  const { content, frontmatter } = await compileMDX<{ [key: string]: unknown }>(
+    {
+      source: raw,
+      options: {
+        parseFrontmatter: true,
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+          rehypePlugins: [
+            rehypeSlug,
+            [rehypeAutolinkHeadings, { behavior: "wrap" }],
+          ],
+        },
+      },
+    },
+  );
+
+  const year = extractYearFromPath(match);
+  const ensuredSlug = deriveSlug(
+    typeof (frontmatter as Record<string, unknown>)?.slug === "string"
+      ? ((frontmatter as Record<string, unknown>).slug as string)
+      : undefined,
+    match,
+  );
+  const readTime = calculateReadTime(raw);
+
+  const parsed = CommunityFrontmatterSchema.parse(frontmatter);
+  const meta: CommunityFrontmatter = {
+    title: parsed.title,
+    description: parsed.description,
+    date: parsed.date,
+    published: parsed.published ?? true,
+    image: parsed.image || generateCommunityPlaceholderImage(parsed.title),
+    slug: ensuredSlug,
+    year,
+    readTime,
+    youtubeUrl: parsed.youtubeUrl,
+    externalLinks: parsed.externalLinks,
+    type: parsed.type,
+  };
+
+  return { meta, Content: content };
+}
+
+export function getCommunityBySlugRaw(
+  slug: string,
+): { meta: CommunityIndexItem; raw: string } | null {
+  const files = getAllCommunityFiles();
+  const match = files.find((full) => {
+    const raw = fs.readFileSync(full, "utf-8");
+    const { data } = matter(raw);
+    const parsed = CommunityFrontmatterSchema.safeParse(data);
+    const derivedSlug = deriveSlug(
+      parsed.success ? parsed.data.slug : undefined,
+      full,
+    );
+    return derivedSlug === slug;
+  });
+
+  if (!match) return null;
+
+  const raw = fs.readFileSync(match, "utf-8");
+  const { data, content } = matter(raw);
+  const year = extractYearFromPath(match);
+  const parsed = CommunityFrontmatterSchema.parse(data);
+  const ensuredSlug = deriveSlug(parsed.slug, match);
+  const readTime = calculateReadTime(content);
+  const meta: CommunityFrontmatter = {
+    title: parsed.title,
+    description: parsed.description,
+    date: parsed.date,
+    published: parsed.published ?? true,
+    image: parsed.image || generateCommunityPlaceholderImage(parsed.title),
+    slug: ensuredSlug,
+    year,
+    readTime,
+    youtubeUrl: parsed.youtubeUrl,
+    externalLinks: parsed.externalLinks,
+    type: parsed.type,
+  };
+
+  return { meta, raw: content };
+}
+
+export function getAllCommunityIndex(): CommunityIndexItem[] {
+  const files = getAllCommunityFiles();
+  const items: CommunityIndexItem[] = files.map((fullPath) => {
+    const raw = fs.readFileSync(fullPath, "utf-8");
+    const { data, content } = matter(raw);
+    const parsed = CommunityFrontmatterSchema.parse(data);
+
+    const normalized: CommunityFrontmatter = {
+      title: parsed.title,
+      description: parsed.description,
+      date: parsed.date,
+      published: parsed.published ?? true,
+      image: parsed.image || generateCommunityPlaceholderImage(parsed.title),
+      readTime: calculateReadTime(content),
+      year: extractYearFromPath(fullPath),
+      slug: deriveSlug(parsed.slug, fullPath),
+      youtubeUrl: parsed.youtubeUrl,
+      externalLinks: parsed.externalLinks,
+      type: parsed.type,
+    };
+
+    return normalized;
+  });
+
+  return items.filter((p) => p.published);
+}
