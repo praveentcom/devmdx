@@ -51,7 +51,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
   return (
     <Card className="w-full card-shadow py-5">
       <CardHeader>
-        <div className="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
+        <div className="flex flex-col sm:flex-row gap-5 items-start">
           {imageUrl && (
             <div className="card-image-container">
               <Image
@@ -63,7 +63,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
               />
             </div>
           )}
-          <div className="text-center sm:text-left flex-1 grid gap-4">
+          <div className="text-left flex-1 grid gap-4">
             <div className="flex-1 grid">
               <p className="text-xl font-semibold">
                 Hi, I&apos;m {firstName} {lastName}

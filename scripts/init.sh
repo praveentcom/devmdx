@@ -251,7 +251,7 @@ cat > data/articles/2025/hello-world.mdx << EOL
 title: "Hello World"
 description: "This is my first article."
 date: "2025-01-01"
-tags: ["Next.js", "TypeScript"]
+tags: ["nextjs", "typescript"]
 published: true
 ---
 
@@ -265,7 +265,7 @@ cat > data/articles/2025/getting-started.mdx << EOL
 title: "Getting Started with devcard"
 description: "How to get started with devcard."
 date: "2025-01-02"
-tags: ["devcard", "tutorial"]
+tags: ["aws", "javascript"]
 published: true
 ---
 
