@@ -27,6 +27,9 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
+    - name: Initialize data directory
+      run: npm run init -- --skip
+      
     - name: Run linter
       run: npm run lint
       
