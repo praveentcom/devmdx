@@ -26,7 +26,7 @@ export const CommunityFrontmatterSchema = z.object({
   slug: z.string().optional(),
   youtubeUrl: z.string().optional(),
   externalLinks: z.array(CommunityLinkSchema).optional(),
-  type: z.nativeEnum(EnumCommunityContributionType),
+  type: z.enum(EnumCommunityContributionType),
 });
 
 export type CommunityFrontmatter = Required<
