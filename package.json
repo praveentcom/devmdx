@@ -28,9 +28,9 @@
     }
   ],
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack --port ${PORT:-3000}",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --port ${PORT:-3000}",
     "lint": "next lint",
     "pretty": "prettier --write .",
     "init": "./scripts/init.sh"
