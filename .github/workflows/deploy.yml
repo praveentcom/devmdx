@@ -71,7 +71,7 @@ jobs:
           fi
           
           # Create app directory if it doesn't exist
-          mkdir -p $APP_DIR
+          sudo mkdir -p $APP_DIR
           cd $APP_DIR
           
           # Clone or update repository
@@ -123,7 +123,7 @@ jobs:
           
           # Test NGINX configuration
           echo "🔍 Testing NGINX configuration..."
-          nginx -t
+          sudo nginx -t
           
           # Stop existing PM2 process if running
           pm2 stop $WEBSITE_URL 2>/dev/null || true
@@ -135,7 +135,7 @@ jobs:
           pm2 save
           
           # Reload NGINX
-          systemctl reload nginx
+          sudo systemctl reload nginx
           
           echo "✅ Deployment completed successfully!"
           echo "🌐 Website should be available at: https://$WEBSITE_URL"
