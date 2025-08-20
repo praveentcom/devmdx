@@ -30,7 +30,7 @@ jobs:
           # Variables from GitHub secrets
           WEBSITE_URL="${{ secrets.CD_SSH_WEBSITE_URL }}"
           REPO_URL="${{ github.repositoryUrl }}"
-          APP_DIR="/root/apps/$WEBSITE_URL"
+          APP_DIR="./apps/$WEBSITE_URL"
           NGINX_SITE="/etc/nginx/sites-available/$WEBSITE_URL"
           NGINX_ENABLED="/etc/nginx/sites-enabled/$WEBSITE_URL"
           
