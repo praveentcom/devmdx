@@ -11,7 +11,7 @@ if [ -f .env ]; then
 fi
 
 # Set default port if not specified
-PORT=${PORT:-3000}
+PORT=${PORT:-3001}
 
 echo "Starting production server on port $PORT..."
 next start --port $PORT
