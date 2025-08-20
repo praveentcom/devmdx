@@ -1,0 +1,117 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup SSH key
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.CD_SSH_PRIVATE_KEY }}
+        
+    - name: Add server to known hosts
+      run: |
+        ssh-keyscan -H ${{ secrets.CD_SSH_IP }} >> ~/.ssh/known_hosts
+        
+    - name: Deploy to server
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.CD_SSH_USERNAME }}@${{ secrets.CD_SSH_IP }} << 'DEPLOY_SCRIPT'
+          set -e
+          
+          # Variables from GitHub secrets
+          WEBSITE_URL="${{ secrets.CD_SSH_WEBSITE_URL }}"
+          REPO_URL="${{ github.repositoryUrl }}"
+          APP_DIR="/root/apps/$WEBSITE_URL"
+          NGINX_SITE="/etc/nginx/sites-available/$WEBSITE_URL"
+          NGINX_ENABLED="/etc/nginx/sites-enabled/$WEBSITE_URL"
+          
+          echo "🚀 Starting deployment for $WEBSITE_URL..."
+          
+          # Create app directory if it doesn't exist
+          mkdir -p $APP_DIR
+          cd $APP_DIR
+          
+          # Clone or update repository
+          if [ -d ".git" ]; then
+            echo "📦 Updating existing repository..."
+            git fetch origin
+            git reset --hard origin/main
+          else
+            echo "📦 Cloning repository..."
+            git clone ${{ github.server_url }}/${{ github.repository }}.git .
+          fi
+          
+          # Preserve existing data directory
+          if [ -d "data" ]; then
+            echo "💾 Preserving existing data directory..."
+          else
+            echo "📝 No existing data directory found"
+          fi
+          
+          # Create .env from .env.example if not exists
+          if [ ! -f ".env" ] && [ -f ".env.example" ]; then
+            echo "⚙️  Creating .env from .env.example..."
+            cp .env.example .env
+          fi
+          
+          # Install dependencies
+          echo "📋 Installing dependencies..."
+          npm ci --production
+          
+          # Initialize data if needed (only if data directory doesn't exist)
+          if [ ! -d "data" ]; then
+            echo "🔧 Initializing data directory..."
+            npm run init -- --skip
+          fi
+          
+          # Build the application
+          echo "🏗️  Building application..."
+          npm run build
+          
+          # Check if NGINX configuration exists
+          if [ ! -f "$NGINX_SITE" ]; then
+            echo "❌ NGINX configuration not found at $NGINX_SITE"
+            echo "Please create NGINX configuration manually before deployment."
+            echo "See .github/DEPLOYMENT.md for setup instructions."
+            exit 1
+          else
+            echo "✅ NGINX configuration found"
+          fi
+          
+          # Test NGINX configuration
+          echo "🔍 Testing NGINX configuration..."
+          nginx -t
+          
+          # Stop existing PM2 process if running
+          pm2 stop $WEBSITE_URL 2>/dev/null || true
+          pm2 delete $WEBSITE_URL 2>/dev/null || true
+          
+          # Start application with PM2
+          echo "🚀 Starting application with PM2..."
+          pm2 start npm --name "$WEBSITE_URL" -- run start
+          pm2 save
+          
+          # Reload NGINX
+          systemctl reload nginx
+          
+          echo "✅ Deployment completed successfully!"
+          echo "🌐 Website should be available at: https://$WEBSITE_URL"
+          
+          # Show PM2 status
+          pm2 list
+          
+        DEPLOY_SCRIPT
+        
+    - name: Deployment Status
+      run: |
+        echo "🎉 Deployment completed!"
+        echo "📊 Check your website at: https://${{ secrets.CD_SSH_WEBSITE_URL }}"

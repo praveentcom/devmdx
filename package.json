@@ -28,9 +28,9 @@
     }
   ],
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "./scripts/dev.sh",
     "build": "next build",
-    "start": "next start",
+    "start": "./scripts/start.sh",
     "lint": "next lint",
     "pretty": "prettier --write .",
     "init": "./scripts/init.sh"

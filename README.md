@@ -27,7 +27,18 @@ This will install the required package dependencies and load the dynamic data in
 npm run dev
 ```
 
-Server will start running on `http://localhost:3000`, create `.env.local` file for development (check `.env.example` for reference). Feel free to modify the components to suit your use-case. Note that we keep the `/data` folder backwards-compatible for future versions, but you will see conflicts if `/src` is modified.
+Server will start running on `http://localhost:3000` by default. 
+
+**Custom Port Configuration:**
+
+```bash
+# .env.local
+PORT=4000
+```
+
+Then run `npm run dev` and the server will start on `http://localhost:4000`.
+
+Feel free to modify the components to suit your use-case. Note that we keep the `/data` folder backwards-compatible for future versions, but you will see conflicts if `/src` is modified.
 
 #### File Structure
 
