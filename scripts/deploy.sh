@@ -127,55 +127,18 @@ deploy() {
         echo "🏗️  Building application..."
         npm run build
         
-        # Create NGINX configuration if it doesn't exist
+        # Check if NGINX configuration exists
         if [ ! -f "\$NGINX_SITE" ]; then
-            echo "🌐 Creating NGINX configuration..."
-            cat > \$NGINX_SITE << 'NGINX_CONFIG'
-server {
-    listen 80;
-    server_name WEBSITE_URL_PLACEHOLDER;
-    
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-        proxy_cache_bypass \$http_upgrade;
-        proxy_redirect off;
-    }
-    
-    # Static files
-    location /_next/static {
-        alias APP_DIR_PLACEHOLDER/.next/static;
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-    
-    location /images {
-        alias APP_DIR_PLACEHOLDER/public/images;
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-}
-NGINX_CONFIG
-            
-            # Replace placeholders
-            sed -i "s/WEBSITE_URL_PLACEHOLDER/\$WEBSITE_URL/g" \$NGINX_SITE
-            sed -i "s|APP_DIR_PLACEHOLDER|\$APP_DIR|g" \$NGINX_SITE
-            
-            # Enable the site
-            ln -sf \$NGINX_SITE \$NGINX_ENABLED
-            
-            echo "✅ NGINX configuration created and enabled"
+            echo "❌ NGINX configuration not found at \$NGINX_SITE"
+            echo "Please create NGINX configuration manually before deployment."
+            echo "See .github/DEPLOYMENT.md for setup instructions."
+            exit 1
         else
-            echo "ℹ️  NGINX configuration already exists"
+            echo "✅ NGINX configuration found"
         fi
         
         # Test NGINX configuration
+        echo "🔍 Testing NGINX configuration..."
         nginx -t
         
         # Stop existing PM2 process if running

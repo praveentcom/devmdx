@@ -52,6 +52,52 @@ Your server should have:
    sudo mkdir -p /etc/nginx/sites-enabled
    ```
 
+4. **Create NGINX configuration** (replace `yourdomain.com` with your actual domain):
+   ```bash
+   sudo nano /etc/nginx/sites-available/yourdomain.com
+   ```
+   
+   **Basic HTTP configuration:**
+   ```nginx
+   server {
+       listen 80;
+       server_name yourdomain.com www.yourdomain.com;
+       
+       location / {
+           proxy_pass http://localhost:3000;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'upgrade';
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+           proxy_cache_bypass $http_upgrade;
+           proxy_redirect off;
+       }
+       
+       # Static files optimization
+       location /_next/static {
+           alias /root/apps/yourdomain.com/.next/static;
+           expires 1y;
+           add_header Cache-Control "public, immutable";
+       }
+       
+       location /images {
+           alias /root/apps/yourdomain.com/public/images;
+           expires 1y;
+           add_header Cache-Control "public, immutable";
+       }
+   }
+   ```
+   
+   **Enable the site:**
+   ```bash
+   sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
+   sudo nginx -t
+   sudo systemctl reload nginx
+   ```
+
 ### GitHub Secrets Configuration
 
 Go to your repository → **Settings** → **Secrets and variables** → **Actions** and add:
@@ -73,9 +119,10 @@ When you push to the `main` branch:
 4. **Preserves existing data** directory (if present)
 5. **Creates .env** from .env.example (if needed)
 6. **Installs dependencies** and builds the application
-7. **Creates NGINX configuration** (if not exists)
-8. **Starts/restarts PM2 process** with your domain as the name
-9. **Reloads NGINX** to apply configuration
+7. **Checks NGINX configuration exists** (fails if not found)
+8. **Tests NGINX configuration** for syntax errors
+9. **Starts/restarts PM2 process** with your domain as the name
+10. **Reloads NGINX** to apply any changes
 
 ### File Structure on Server
 
@@ -111,13 +158,15 @@ export CD_SSH_PORT="22"  # Optional, defaults to 22
 
 ## 🌐 NGINX Configuration
 
-The deployment automatically creates an NGINX configuration with:
+**⚠️ Important:** You must manually create the NGINX configuration before running deployments.
+
+The deployment expects an NGINX configuration at `/etc/nginx/sites-available/{your-domain}` with:
 
 - **Reverse proxy** to your Next.js application (port 3000)
-- **Static file serving** for optimized assets
-- **Gzip compression** for better performance
-- **Security headers** for enhanced security
-- **Caching headers** for static assets
+- **Static file serving** for optimized assets (optional)
+- **Proper headers** for Next.js applications
+
+**The deployment will fail if no NGINX configuration is found.**
 
 ### SSL/HTTPS Setup (Manual)
 
