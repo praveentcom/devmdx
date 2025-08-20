@@ -1,0 +1,188 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup SSH key
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.CD_SSH_PRIVATE_KEY }}
+        
+    - name: Add server to known hosts
+      run: |
+        ssh-keyscan -H ${{ secrets.CD_SSH_IP }} >> ~/.ssh/known_hosts
+        
+    - name: Deploy to server
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.CD_SSH_USERNAME }}@${{ secrets.CD_SSH_IP }} << 'DEPLOY_SCRIPT'
+          set -e
+          
+          # Variables from GitHub secrets
+          WEBSITE_URL="${{ secrets.CD_SSH_WEBSITE_URL }}"
+          REPO_URL="${{ github.repositoryUrl }}"
+          APP_DIR="/root/apps/$WEBSITE_URL"
+          NGINX_SITE="/etc/nginx/sites-available/$WEBSITE_URL"
+          NGINX_ENABLED="/etc/nginx/sites-enabled/$WEBSITE_URL"
+          
+          echo "🚀 Starting deployment for $WEBSITE_URL..."
+          
+          # Create app directory if it doesn't exist
+          mkdir -p $APP_DIR
+          cd $APP_DIR
+          
+          # Clone or update repository
+          if [ -d ".git" ]; then
+            echo "📦 Updating existing repository..."
+            git fetch origin
+            git reset --hard origin/main
+          else
+            echo "📦 Cloning repository..."
+            git clone ${{ github.server_url }}/${{ github.repository }}.git .
+          fi
+          
+          # Preserve existing data directory
+          if [ -d "data" ]; then
+            echo "💾 Preserving existing data directory..."
+          else
+            echo "📝 No existing data directory found"
+          fi
+          
+          # Create .env from .env.example if not exists
+          if [ ! -f ".env" ] && [ -f ".env.example" ]; then
+            echo "⚙️  Creating .env from .env.example..."
+            cp .env.example .env
+            echo "PORT=3000" >> .env
+          fi
+          
+          # Install dependencies
+          echo "📋 Installing dependencies..."
+          npm ci --production
+          
+          # Initialize data if needed (only if data directory doesn't exist)
+          if [ ! -d "data" ]; then
+            echo "🔧 Initializing data directory..."
+            npm run init -- --skip
+          fi
+          
+          # Build the application
+          echo "🏗️  Building application..."
+          npm run build
+          
+          # Create NGINX configuration if it doesn't exist
+          if [ ! -f "$NGINX_SITE" ]; then
+            echo "🌐 Creating NGINX configuration..."
+            cat > $NGINX_SITE << 'NGINX_CONFIG'
+server {
+    listen 80;
+    server_name $WEBSITE_URL;
+    
+    # Redirect HTTP to HTTPS
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name $WEBSITE_URL;
+    
+    # SSL configuration (you'll need to set up SSL certificates)
+    # ssl_certificate /path/to/certificate.crt;
+    # ssl_certificate_key /path/to/private.key;
+    
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+    
+    # Gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied expired no-cache no-store private must-revalidate auth;
+    gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss;
+    
+    # Static files caching
+    location /_next/static {
+        alias $APP_DIR/.next/static;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    location /images {
+        alias $APP_DIR/public/images;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    # Main application
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+        proxy_redirect off;
+    }
+    
+    # Health check endpoint
+    location /health {
+        proxy_pass http://localhost:3000;
+        access_log off;
+    }
+}
+NGINX_CONFIG
+            
+            # Replace placeholder with actual website URL
+            sed -i "s/\$WEBSITE_URL/$WEBSITE_URL/g" $NGINX_SITE
+            sed -i "s|\$APP_DIR|$APP_DIR|g" $NGINX_SITE
+            
+            # Enable the site
+            ln -sf $NGINX_SITE $NGINX_ENABLED
+            
+            echo "✅ NGINX configuration created and enabled"
+          else
+            echo "ℹ️  NGINX configuration already exists"
+          fi
+          
+          # Test NGINX configuration
+          nginx -t
+          
+          # Stop existing PM2 process if running
+          pm2 stop $WEBSITE_URL 2>/dev/null || true
+          pm2 delete $WEBSITE_URL 2>/dev/null || true
+          
+          # Start application with PM2
+          echo "🚀 Starting application with PM2..."
+          pm2 start npm --name "$WEBSITE_URL" -- run start
+          pm2 save
+          
+          # Reload NGINX
+          systemctl reload nginx
+          
+          echo "✅ Deployment completed successfully!"
+          echo "🌐 Website should be available at: https://$WEBSITE_URL"
+          
+          # Show PM2 status
+          pm2 list
+          
+        DEPLOY_SCRIPT
+        
+    - name: Deployment Status
+      run: |
+        echo "🎉 Deployment completed!"
+        echo "📊 Check your website at: https://${{ secrets.CD_SSH_WEBSITE_URL }}"
