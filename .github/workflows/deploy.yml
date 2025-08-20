@@ -27,6 +27,17 @@ jobs:
         ssh -o StrictHostKeyChecking=no ${{ secrets.CD_SSH_USERNAME }}@${{ secrets.CD_SSH_IP }} << 'DEPLOY_SCRIPT'
           set -e
           
+          # Source the user's profile to load Node.js/npm
+          if [ -f ~/.bashrc ]; then
+            source ~/.bashrc
+          fi
+          if [ -f ~/.profile ]; then
+            source ~/.profile
+          fi
+          if [ -f ~/.nvm/nvm.sh ]; then
+            source ~/.nvm/nvm.sh
+          fi
+          
           # Variables from GitHub secrets
           WEBSITE_URL="${{ secrets.CD_SSH_WEBSITE_URL }}"
           REPO_URL="${{ github.repositoryUrl }}"
@@ -35,6 +46,29 @@ jobs:
           NGINX_ENABLED="/etc/nginx/sites-enabled/$WEBSITE_URL"
           
           echo "🚀 Starting deployment for $WEBSITE_URL..."
+          
+          # Check if npm is available
+          if ! command -v npm &> /dev/null; then
+            echo "❌ npm command not found. Checking common Node.js installation paths..."
+            
+            # Try to find and use Node.js from common installation paths
+            if [ -f /usr/local/bin/npm ]; then
+              export PATH="/usr/local/bin:$PATH"
+              echo "✅ Found npm at /usr/local/bin/npm"
+            elif [ -f /opt/nodejs/bin/npm ]; then
+              export PATH="/opt/nodejs/bin:$PATH"
+              echo "✅ Found npm at /opt/nodejs/bin/npm"
+            elif [ -f ~/.nvm/versions/node/*/bin/npm ]; then
+              NVM_NODE_PATH=$(find ~/.nvm/versions/node -name "npm" | head -1 | xargs dirname)
+              export PATH="$NVM_NODE_PATH:$PATH"
+              echo "✅ Found npm via nvm at $NVM_NODE_PATH"
+            else
+              echo "❌ npm not found in common paths. Please ensure Node.js is properly installed."
+              exit 1
+            fi
+          else
+            echo "✅ npm found at: $(which npm)"
+          fi
           
           # Create app directory if it doesn't exist
           mkdir -p $APP_DIR
