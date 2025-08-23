@@ -9,7 +9,7 @@ import { TechnologyMapper } from "@/lib/helpers/technology-mapper";
 // Schema.org structured data generators for SEO rich snippets
 export function generatePersonSchema() {
   const profile = profileData.profile;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   return {
     "@context": "https://schema.org",
@@ -42,7 +42,7 @@ export function generatePersonSchema() {
 
 export function generateArticleSchema(article: Article & { year?: string }) {
   const profile = profileData.profile;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const year = article.year ?? new Date(article.date).getFullYear().toString();
 
   return {
@@ -81,7 +81,7 @@ export function generateCommunitySchema(
   },
 ) {
   const profile = profileData.profile;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const year =
     community.year ?? new Date(community.date).getFullYear().toString();
 
@@ -127,7 +127,7 @@ export function generateCommunitySchema(
 
 export function generateProjectSchema(project: Project) {
   const profile = profileData.profile;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const techMapper = new TechnologyMapper();
   const programmingLanguages = (project.stack || [])
     .map((tech) => techMapper.getDetails(tech)?.label)
