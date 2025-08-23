@@ -46,7 +46,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navigation />
-          <main className="flex-1">
+          <main id="main-content" className="flex-1">
             <AnimatedLayout>{children}</AnimatedLayout>
           </main>
           <Footer />
