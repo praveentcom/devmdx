@@ -105,6 +105,8 @@ export function Navigation() {
               size="sm"
               onClick={toggleMobileMenu}
               className="p-2"
+              aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -145,6 +147,7 @@ export function Navigation() {
                 size="sm"
                 onClick={toggleMobileMenu}
                 className="p-2"
+                aria-label="Close mobile menu"
               >
                 <X className="h-5 w-5" />
               </Button>
