@@ -41,8 +41,8 @@ export function Footer() {
           </div>
           
           {/* Navigation Links */}
-          <div className="flex flex-col items-center sm:items-end gap-3">
-            <div className="flex flex-wrap justify-center sm:justify-end gap-4">
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-wrap justify-center gap-4">
               {navigationItems.map((item) => (
                 <Link
                   key={item.href}
@@ -56,7 +56,7 @@ export function Footer() {
             
             {/* Social/External Links */}
             {allLinks.length > 0 && (
-              <div className="flex flex-wrap justify-center sm:justify-end gap-3">
+              <div className="flex flex-wrap justify-center gap-3">
                 {allLinks.map(([platform, url]) => {
                   const iconPath =
                     socialIconPaths[platform as keyof typeof socialIconPaths];

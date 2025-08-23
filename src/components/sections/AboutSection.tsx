@@ -25,51 +25,40 @@ export function AboutSection({ profile }: AboutSectionProps) {
   } = profile;
 
   const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const nameHref = isHomePage ? "/about" : "/";
 
   return (
-    <Card className="col-span-full">
-      <CardHeader className="pb-6">
-        <div className="flex flex-col sm:flex-row gap-6">
-          <div className="flex-shrink-0 mx-auto sm:mx-0">
-            {imageUrl && (
-              <div className="relative">
-                <Image
-                  src={imageUrl}
-                  alt={`${firstName} ${lastName}`}
-                  width={120}
-                  height={120}
-                  className="rounded-full object-cover border-4 border-border"
-                  priority
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="flex-1 space-y-4 text-center sm:text-left">
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight">
-                {firstName} {lastName}
-              </h1>
+    <Card className="w-full card-shadow py-5">
+      <CardHeader>
+        <div className="flex flex-col sm:flex-row gap-5 items-start">
+          {imageUrl && (
+            <div className="card-image-container">
+              <Image
+                src={imageUrl}
+                alt={`${firstName} ${lastName}`}
+                width={150}
+                height={150}
+                className="profile-image-lg"
+              />
+            </div>
+          )}
+          <div className="text-left flex-1 grid gap-4">
+            <div className="flex-1 grid">
+              <Link 
+                href={nameHref}
+                className="text-xl font-semibold hover:text-primary transition-colors duration-200 w-fit"
+              >
+                Hi, I&apos;m {firstName} {lastName}
+              </Link>
               {currentPosition && (
-                <p className="text-lg text-muted-foreground mt-1">
+                <p className="text-md font-medium text-muted-foreground">
                   {currentPosition}
                 </p>
               )}
             </div>
-
             {description && (
-              <p className="text-muted-foreground leading-relaxed max-w-2xl">
-                {description}
-              </p>
-            )}
-
-            {pathname === "/" && (
-              <Link
-                href="/about"
-                className="inline-flex items-center text-sm text-primary hover:underline"
-              >
-                Learn more about me →
-              </Link>
+              <p className="text-muted-foreground text-sm">{description}</p>
             )}
           </div>
         </div>
