@@ -67,7 +67,11 @@ function EducationCard({ education }: { education: Education }) {
 
 export function EducationSection({ education }: EducationSectionProps) {
   return (
-    <section role="region" aria-label="Education" className="w-full grid gap-4 h-min">
+    <section
+      role="region"
+      aria-label="Education"
+      className="w-full grid gap-4 h-min"
+    >
       <div className="flex items-center gap-2">
         <GraduationCap className="size-5 text-primary" />
         <h2 className="text-md font-semibold">Education</h2>

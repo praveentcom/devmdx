@@ -15,7 +15,7 @@ export function ArticleMetadata({ article }: ArticleMetadataProps) {
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center gap-1">
-              <BookOpenText className="icon-sm text-primary cursor-pointer" />
+              <BookOpenText className="icon-sm text-primary" />
               <h3 className="text-sm font-semibold">Metadata</h3>
             </div>
             <div className="flex flex-col gap-1 text-xs text-muted-foreground font-medium">
@@ -37,7 +37,7 @@ export function ArticleMetadata({ article }: ArticleMetadataProps) {
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center gap-1">
-              <TagsIcon className="icon-sm text-primary cursor-pointer" />
+              <TagsIcon className="icon-sm text-primary" />
               <h3 className="text-sm font-semibold">Tags</h3>
             </div>
             <div className="flex flex-wrap gap-1.5">

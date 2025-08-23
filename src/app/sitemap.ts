@@ -90,7 +90,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Project stack pages
   const usedProjectTags = Array.from(
-    new Set(profileData.projects.flatMap((project) => project.stack || []))
+    new Set(profileData.projects.flatMap((project) => project.stack || [])),
   );
   const projectTags = usedProjectTags.map((tag) => ({
     url: `${BASE_URL}/projects/stack/${tag}`,

@@ -47,7 +47,9 @@ export function Navigation() {
   // Focus management for mobile menu
   useEffect(() => {
     if (isMobileMenuOpen) {
-      const firstFocusableElement = document.querySelector('[role="dialog"] button, [role="dialog"] a');
+      const firstFocusableElement = document.querySelector(
+        '[role="dialog"] button, [role="dialog"] a',
+      );
       if (firstFocusableElement instanceof HTMLElement) {
         firstFocusableElement.focus();
       }
@@ -71,10 +73,12 @@ export function Navigation() {
       >
         Skip to main content
       </a>
-      
+
       {/* Live region for mobile menu state changes */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">
-        {isMobileMenuOpen ? "Mobile navigation menu opened" : "Mobile navigation menu closed"}
+        {isMobileMenuOpen
+          ? "Mobile navigation menu opened"
+          : "Mobile navigation menu closed"}
       </div>
       <nav
         role="navigation"
@@ -130,7 +134,9 @@ export function Navigation() {
               size="sm"
               onClick={toggleMobileMenu}
               className="p-2"
-              aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
+              aria-label={
+                isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
+              }
               aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
@@ -158,7 +164,7 @@ export function Navigation() {
           )}
           onClick={toggleMobileMenu}
           onKeyDown={(e) => {
-            if (e.key === 'Escape') {
+            if (e.key === "Escape") {
               toggleMobileMenu();
             }
           }}

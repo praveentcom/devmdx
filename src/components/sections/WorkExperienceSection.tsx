@@ -63,7 +63,11 @@ export function WorkExperienceSection({
   workExperience,
 }: WorkExperienceSectionProps) {
   return (
-    <section role="region" aria-label="Work experience" className="w-full grid gap-4 h-min">
+    <section
+      role="region"
+      aria-label="Work experience"
+      className="w-full grid gap-4 h-min"
+    >
       <div className="flex items-center gap-2">
         <Briefcase className="size-5 text-primary" />
         <h2 className="text-md font-semibold">Work</h2>

@@ -87,7 +87,11 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     .slice(0, 3);
 
   return (
-    <section role="region" aria-label="Featured projects" className="w-full grid gap-4 h-min">
+    <section
+      role="region"
+      aria-label="Featured projects"
+      className="w-full grid gap-4 h-min"
+    >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <GitPullRequestArrow className="size-5 text-primary" />
