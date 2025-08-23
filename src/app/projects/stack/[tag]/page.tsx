@@ -181,11 +181,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
         {filteredProjects.length > 0 ? (
           <div className="space-y-4">
             {filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={index}
-                project={project}
-                currentTag={tag}
-              />
+              <ProjectCard key={index} project={project} currentTag={tag} />
             ))}
           </div>
         ) : (

@@ -86,7 +86,12 @@ export default async function ProjectPage({ params }: PageProps) {
           <SectionCard title="Tech stack">
             <div className="flex flex-wrap gap-1.5">
               {project.stack.map((tag, index) => (
-                <TagBadge key={index} tag={tag} iconSize={14} source="projects" />
+                <TagBadge
+                  key={index}
+                  tag={tag}
+                  iconSize={14}
+                  source="projects"
+                />
               ))}
             </div>
           </SectionCard>

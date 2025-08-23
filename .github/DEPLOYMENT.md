@@ -18,92 +18,92 @@ Your server should have:
 
 1. **Install required packages:**
 
-  ```bash
-  # Ubuntu/Debian
-  sudo apt update
-  sudo apt install -y nodejs npm nginx git
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install -y nodejs npm nginx git
 
-  # Install PM2 globally
-  sudo npm install -g pm2
+# Install PM2 globally
+sudo npm install -g pm2
 
-  # Start PM2 on boot
-  pm2 startup
-  sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u $USER --hp $HOME
-  ```
+# Start PM2 on boot
+pm2 startup
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u $USER --hp $HOME
+```
 
 2. **Create SSH key for GitHub Actions:**
 
-  ```bash
-  # On your server, generate SSH key
-  ssh-keygen -t rsa -b 4096 -C "github-actions@yourserver.com"
+```bash
+# On your server, generate SSH key
+ssh-keygen -t rsa -b 4096 -C "github-actions@yourserver.com"
 
-  # Add the public key to authorized_keys
-  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+# Add the public key to authorized_keys
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-  # Copy the private key (you'll need this for GitHub secrets)
-  cat ~/.ssh/id_rsa
-  ```
+# Copy the private key (you'll need this for GitHub secrets)
+cat ~/.ssh/id_rsa
+```
 
 3. **Configure NGINX:**
 
-  ```bash
-  # Ensure NGINX is running
-  sudo systemctl enable nginx
-  sudo systemctl start nginx
+```bash
+# Ensure NGINX is running
+sudo systemctl enable nginx
+sudo systemctl start nginx
 
-  # Create sites directories if they don't exist
-  sudo mkdir -p /etc/nginx/sites-available
-  sudo mkdir -p /etc/nginx/sites-enabled
-  ```
+# Create sites directories if they don't exist
+sudo mkdir -p /etc/nginx/sites-available
+sudo mkdir -p /etc/nginx/sites-enabled
+```
 
 4. **Create NGINX configuration** (replace `yourdomain.com` with your actual domain):
 
-  ```bash
-  sudo nano /etc/nginx/sites-available/yourdomain.com
-  ```
+```bash
+sudo nano /etc/nginx/sites-available/yourdomain.com
+```
 
-  **Basic HTTP configuration:**
+**Basic HTTP configuration:**
 
-  ```nginx
-  server {
-    listen 80;
-    server_name yourdomain.com www.yourdomain.com;
+```nginx
+server {
+  listen 80;
+  server_name yourdomain.com www.yourdomain.com;
 
-    location / {
-      proxy_pass http://localhost:3000;
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection 'upgrade';
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto $scheme;
-      proxy_cache_bypass $http_upgrade;
-      proxy_redirect off;
-      }
-
-    # Static files optimization
-    location /_next/static {
-      alias /root/apps/yourdomain.com/.next/static;
-      expires 1y;
-      add_header Cache-Control "public, immutable";
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_cache_bypass $http_upgrade;
+    proxy_redirect off;
     }
 
-    location /images {
-      alias /root/apps/yourdomain.com/public/images;
-      expires 1y;
-      add_header Cache-Control "public, immutable";
-    }
+  # Static files optimization
+  location /_next/static {
+    alias /root/apps/yourdomain.com/.next/static;
+    expires 1y;
+    add_header Cache-Control "public, immutable";
   }
-  ```
 
-  **Enable the site:**
+  location /images {
+    alias /root/apps/yourdomain.com/public/images;
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+  }
+}
+```
 
-  ```bash
-  sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
-  sudo nginx -t
-  sudo systemctl reload nginx
-  ```
+**Enable the site:**
+
+```bash
+sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
 
 ### GitHub Secrets Configuration
 
@@ -233,23 +233,27 @@ sudo systemctl status nginx
 ### Common Issues
 
 1. **Deployment fails with SSH connection error:**
-  - Verify SSH key is correctly added to GitHub secrets
-  - Check server IP and username
-  - Ensure SSH service is running on server
+
+- Verify SSH key is correctly added to GitHub secrets
+- Check server IP and username
+- Ensure SSH service is running on server
 
 2. **NGINX configuration error:**
-  - Run `sudo nginx -t` to check configuration
-  - Check NGINX error logs: `sudo tail -f /var/log/nginx/error.log`
+
+- Run `sudo nginx -t` to check configuration
+- Check NGINX error logs: `sudo tail -f /var/log/nginx/error.log`
 
 3. **Application not starting:**
-  - Check PM2 logs: `pm2 logs yourdomain.com`
-  - Verify Node.js and npm versions
-  - Check if port 3000 is available
+
+- Check PM2 logs: `pm2 logs yourdomain.com`
+- Verify Node.js and npm versions
+- Check if port 3000 is available
 
 4. **Website not accessible:**
-  - Verify domain DNS points to server IP
-  - Check firewall settings (ports 80, 443)
-  - Ensure NGINX is running and configuration is correct
+
+- Verify domain DNS points to server IP
+- Check firewall settings (ports 80, 443)
+- Ensure NGINX is running and configuration is correct
 
 ### Logs Location
 

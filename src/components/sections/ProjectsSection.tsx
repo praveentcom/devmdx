@@ -48,7 +48,12 @@ function ProjectCard({ project }: { project: Project }) {
               </p>
               <div className="flex flex-wrap gap-2">
                 {stack.map((tag, index) => (
-                  <TagBadge key={index} tag={tag} clickable={false} source="projects" />
+                  <TagBadge
+                    key={index}
+                    tag={tag}
+                    clickable={false}
+                    source="projects"
+                  />
                 ))}
               </div>
             </div>
