@@ -1,7 +1,11 @@
+"use client";
+
 import { Profile } from "@/types/user-profile";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface AboutSectionProps {
   profile: Profile;
@@ -48,6 +52,10 @@ export function AboutSection({ profile }: AboutSectionProps) {
     links,
   } = profile;
 
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  const nameHref = isHomePage ? "/about" : "/";
+
   return (
     <Card className="w-full card-shadow py-5">
       <CardHeader>
@@ -65,9 +73,12 @@ export function AboutSection({ profile }: AboutSectionProps) {
           )}
           <div className="text-left flex-1 grid gap-4">
             <div className="flex-1 grid">
-              <p className="text-xl font-semibold">
+              <Link 
+                href={nameHref}
+                className="text-xl font-semibold hover:text-primary transition-colors duration-200 w-fit"
+              >
                 Hi, I&apos;m {firstName} {lastName}
-              </p>
+              </Link>
               {currentPosition && (
                 <p className="text-md font-medium text-muted-foreground">
                   {currentPosition}

@@ -22,6 +22,8 @@ export function Navigation() {
   const pathname = usePathname();
 
   const personName = `${profileData.profile.firstName} ${profileData.profile.lastName}`;
+  const isHomePage = pathname === "/";
+  const nameHref = isHomePage ? "/about" : "/";
 
   // Scroll detection
   useEffect(() => {
@@ -95,7 +97,7 @@ export function Navigation() {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="hidden sm:flex items-center justify-start py-4 gap-4">
             <h1 className="text-md font-semibold hover:scale-105 transition-all duration-200">
-              <Link href="/" aria-label="Go to home">
+              <Link href={nameHref} aria-label={isHomePage ? "Go to about" : "Go to home"}>
                 {personName}
               </Link>
             </h1>
@@ -124,7 +126,7 @@ export function Navigation() {
 
           <div className="flex items-center justify-between py-2.5 sm:hidden">
             <h1 className="text-md font-semibold hover:scale-105 transition-all duration-200">
-              <Link href="/" aria-label="Go to home">
+              <Link href={nameHref} aria-label={isHomePage ? "Go to about" : "Go to home"}>
                 {personName}
               </Link>
             </h1>

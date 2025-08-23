@@ -13,42 +13,42 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Cover letter`,
+  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | About`,
   description:
-    "A personalized introduction highlighting my experience and interest in joining your team. Learn about my background, skills, and what I can bring to your organization.",
+    "Learn more about my background, experiences, and what drives me professionally and personally.",
   openGraph: {
-    title: "Cover letter",
+    title: "About",
     description:
-      "A personalized introduction highlighting my experience and interest in joining your team.",
+      "Learn more about my background, experiences, and what drives me professionally and personally.",
     type: "article",
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: "Cover letter",
+          text: "About",
           backgroundColor: PLACEHOLDER_COLORS.INFO,
           textColor: PLACEHOLDER_COLORS.WHITE,
         }),
         width: 1200,
         height: 630,
-        alt: "Cover letter",
+        alt: "About",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cover letter",
+    title: "About",
     description:
-      "A personalized introduction highlighting my experience and interest in joining your team.",
+      "Learn more about my background, experiences, and what drives me professionally and personally.",
     images: [
       generatePlaceholderImageUrl({
-        text: "Cover letter",
+        text: "About",
         backgroundColor: PLACEHOLDER_COLORS.INFO,
         textColor: PLACEHOLDER_COLORS.WHITE,
       }),
     ],
   },
   keywords:
-    "cover letter, introduction, experience, skills, professional, career",
+    "about, background, experience, professional, personal, biography",
   authors: [
     {
       name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
@@ -56,23 +56,23 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function CoverPage() {
-  const coverPath = path.join(
+export default function AboutPage() {
+  const aboutPath = path.join(
     process.cwd(),
     "data",
     "profile",
-    "cover-letter.md",
+    "about.md",
   );
   
-  let coverContent: string | null = null;
-  let hasCoverFile = false;
+  let aboutContent: string | null = null;
+  let hasAboutFile = false;
 
   try {
-    coverContent = fs.readFileSync(coverPath, "utf-8");
-    hasCoverFile = true;
+    aboutContent = fs.readFileSync(aboutPath, "utf-8");
+    hasAboutFile = true;
   } catch {
     // File doesn't exist, will show placeholder
-    hasCoverFile = false;
+    hasAboutFile = false;
   }
 
   return (
@@ -80,9 +80,9 @@ export default function CoverPage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Cover letter",
+        name: "About",
         description:
-          "A personalized introduction highlighting my experience and interest in joining your team.",
+          "Learn more about my background, experiences, and what drives me professionally and personally.",
       }}
     >
       <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
@@ -90,25 +90,25 @@ export default function CoverPage() {
           <div className="grid">
             <div className="flex items-center gap-2">
               <FileText className="size-5 text-primary" />
-              <h1 className="text-lg font-semibold">Cover letter</h1>
+              <h1 className="text-lg font-semibold">About</h1>
             </div>
             <p className="text-sm text-muted-foreground">
-              A personalized introduction highlighting my experience and
-              interest in joining your team
+              Learn more about my background, experiences, and what drives me
+              professionally and personally
             </p>
           </div>
 
           <div className="space-y-4">
-            {hasCoverFile && coverContent ? (
+            {hasAboutFile && aboutContent ? (
               <Card className="card-hover-shadow">
                 <CardContent>
-                  <Markdown content={coverContent} muted />
+                  <Markdown content={aboutContent} muted />
                 </CardContent>
               </Card>
             ) : (
               <EmptyPlaceholderCard
-                title="Cover letter not yet written"
-                subtitle="This personalized introduction is currently being crafted. Check back soon for a detailed professional overview."
+                title="About page not yet written"
+                subtitle="This section is currently being crafted. Check back soon to learn more about my background and journey."
               >
                 <Button variant="outline" asChild>
                   <Link href="/">Go home</Link>
