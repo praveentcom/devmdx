@@ -72,7 +72,11 @@ export function TagBadge({
     }
 
     return (
-      <Link href={href} className="inline-block">
+      <Link 
+        href={href} 
+        className="inline-block"
+        aria-label={`View ${techDetails?.label || tag} ${source}`}
+      >
         {badgeContent}
       </Link>
     );

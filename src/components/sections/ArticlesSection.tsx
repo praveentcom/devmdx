@@ -10,10 +10,10 @@ export function ArticlesSection() {
   const recentArticles = publishedArticles.slice(0, 3);
 
   return (
-    <section className="space-y-4">
+    <section role="region" aria-label="Recent articles" className="space-y-4">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Newspaper className="size-5 text-primary cursor-pointer" />
+          <Newspaper className="size-5 text-primary" />
           <h2 className="text-md font-semibold">Recent articles</h2>
         </div>
         <Button variant="outline" size="sm" asChild>

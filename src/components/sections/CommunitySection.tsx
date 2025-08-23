@@ -10,10 +10,10 @@ export function CommunitySection() {
   const recent = contributions.slice(0, 3);
 
   return (
-    <section className="space-y-4">
+    <section role="region" aria-label="Recent community contributions" className="space-y-4">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Users className="size-5 text-primary cursor-pointer" />
+          <Users className="size-5 text-primary" />
           <h2 className="text-md font-semibold">Recent contributions</h2>
         </div>
         <Button variant="outline" size="sm" asChild>
