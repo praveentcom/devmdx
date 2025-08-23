@@ -2,7 +2,6 @@ import { MetadataRoute } from "next";
 import { profileData } from "@/data/profile";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
-import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { BASE_URL } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -90,7 +89,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Project stack pages
-  const projectTags = Object.values(EnumTag).map((tag) => ({
+  const usedProjectTags = Array.from(
+    new Set(profileData.projects.flatMap((project) => project.stack || []))
+  );
+  const projectTags = usedProjectTags.map((tag) => ({
     url: `${BASE_URL}/projects/stack/${tag}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
