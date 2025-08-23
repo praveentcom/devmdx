@@ -1,4 +1,7 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
+import { getEnvConfig } from "../helpers/env-config";
+
+const envConfig = getEnvConfig();
+export const BASE_URL = envConfig.baseUrl;
 
 // Common URL patterns
 export const URLS = {
