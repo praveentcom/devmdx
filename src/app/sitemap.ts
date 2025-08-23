@@ -2,11 +2,10 @@ import { MetadataRoute } from "next";
 import { profileData } from "@/data/profile";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
-import { EnumTechnology } from "@/lib/helpers/technology-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { BASE_URL } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-
   // Static pages
   const staticPages = [
     "",
@@ -23,9 +22,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Get articles without client-side image generation
   const allArticles = getAllArticlesIndex();
-
-  // Get community contributions
-  const allCommunity = getAllCommunityIndex();
 
   // Article pages
   const articles = allArticles.map((article) => ({
@@ -45,17 +41,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   );
 
-  const articleTopics = Array.from(
+  const articleTags = Array.from(
     new Set(allArticles.flatMap((article) => article.tags)),
-  ).map((topic) => ({
-    url: `${BASE_URL}/articles/topic/${topic}`,
+  ).map((tag) => ({
+    url: `${BASE_URL}/articles/tag/${tag}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
+  // Get community contributions
+  const allCommunity = getAllCommunityIndex();
+
   // Community contribution pages
-  const community = allCommunity.map((contribution) => ({
+  const communityContributions = allCommunity.map((contribution) => ({
     url: `${BASE_URL}/community/${contribution.year}/${contribution.slug}`,
     lastModified: new Date(contribution.date),
     changeFrequency: "monthly" as const,
@@ -73,7 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Community type listing pages
-  const communityTypes = Array.from(
+  const communityContributionTypes = Array.from(
     new Set(allCommunity.map((c) => c.type)),
   ).map((type) => ({
     url: `${BASE_URL}/community/contributions/${type}`,
@@ -90,9 +89,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Technology stack pages
-  const projectStacks = Object.values(EnumTechnology).map((tech) => ({
-    url: `${BASE_URL}/projects/stack/${tech}`,
+  // Project stack pages
+  const projectTags = Object.values(EnumTag).map((tag) => ({
+    url: `${BASE_URL}/projects/stack/${tag}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
@@ -117,13 +116,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPages,
     ...articles,
-    ...articleTopics,
-    ...community,
     ...articleYears,
+    ...articleTags,
+    ...communityContributions,
     ...communityYears,
-    ...communityTypes,
+    ...communityContributionTypes,
     ...projects,
-    ...projectStacks,
+    ...projectTags,
     ...workExperience,
     ...education,
   ];

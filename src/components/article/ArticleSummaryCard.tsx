@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Article } from "@/types/article";
 import { Calendar, Eye } from "lucide-react";
 import { formatDate } from "@/lib/helpers/markdown";
-import { TopicBadge } from "../ui/topic-badge";
+import { TagBadge } from "../ui/tag-badge";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { truncate } from "@/lib/utils";
 import Link from "next/link";
@@ -67,12 +67,13 @@ export function ArticleSummaryCard({
 
             <div className="flex flex-wrap gap-1.5">
               {article.tags.map((tag) => (
-                <TopicBadge
+                <TagBadge
                   key={`${article.slug}-${tag}`}
-                  topic={tag}
+                  tag={tag}
                   variant="outline"
                   iconSize={12}
                   clickable={false}
+                  source="articles"
                 />
               ))}
             </div>

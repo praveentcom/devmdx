@@ -7,7 +7,7 @@ import {
   Github,
 } from "lucide-react";
 import { notFound } from "next/navigation";
-import { TechnologyBadge } from "@/components/ui/technology-badge";
+import { TagBadge } from "@/components/ui/tag-badge";
 import type { Metadata } from "next";
 import {
   PageWithStructuredData,
@@ -85,8 +85,8 @@ export default async function ProjectPage({ params }: PageProps) {
 
           <SectionCard title="Tech stack">
             <div className="flex flex-wrap gap-1.5">
-              {project.stack.map((tech, index) => (
-                <TechnologyBadge key={index} technology={tech} iconSize={14} />
+              {project.stack.map((tag, index) => (
+                <TagBadge key={index} tag={tag} iconSize={14} source="projects" />
               ))}
             </div>
           </SectionCard>

@@ -27,7 +27,7 @@ This will install the required package dependencies and load the dynamic data in
 npm run dev
 ```
 
-Server will start running on `http://localhost:3000` by default. 
+Server will start running on `http://localhost:3000` by default.
 
 **Custom Port Configuration:**
 

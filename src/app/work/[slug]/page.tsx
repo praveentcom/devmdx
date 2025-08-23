@@ -2,7 +2,7 @@ import { profileData } from "@/data/profile";
 import { CalendarDays, ArrowLeft, Briefcase } from "lucide-react";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
-import { TechnologyBadge } from "@/components/ui/technology-badge";
+import { TagBadge } from "@/components/ui/tag-badge";
 import type { Metadata } from "next";
 import { generateWorkSchema } from "@/lib/helpers/structured-data";
 import { findBySlug, generateSlugParams } from "@/lib/helpers/page";
@@ -59,12 +59,13 @@ export default async function WorkExperiencePage({ params }: PageProps) {
           {experience.skills && experience.skills.length > 0 && (
             <SectionCard title="Skills">
               <div className="flex flex-wrap gap-1.5">
-                {experience.skills.map((skill, index) => (
-                  <TechnologyBadge
+                {experience.skills.map((tag, index) => (
+                  <TagBadge
                     key={index}
-                    technology={skill}
+                    tag={tag}
                     variant="outline"
                     iconSize={14}
+                    source="work"
                   />
                 ))}
               </div>

@@ -1,10 +1,10 @@
-import { EnumTechnology } from "@/lib/helpers/technology-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { Project } from "@/types/project";
 
 export class ProjectItem implements Project {
   slug: string;
   name: string;
-  stack: EnumTechnology[];
+  stack: EnumTag[];
   description: string;
   bulletPoints: string[];
   url?: string;

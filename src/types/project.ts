@@ -1,9 +1,9 @@
-import { EnumTechnology } from "@/lib/helpers/technology-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 
 export interface Project {
   slug: string;
   name: string;
-  stack: EnumTechnology[];
+  stack: EnumTag[];
   description: string;
   bulletPoints: string[];
   url?: string;

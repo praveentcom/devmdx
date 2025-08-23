@@ -89,7 +89,7 @@ else
   echo "Creating profile data..."
 fi
 cat > data/profile/index.ts << EOL
-import { EnumTechnology } from "@/lib/helpers/technology-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { ProfileData } from "@/types/user-profile";
 import WorkExperienceItem from "@/models/WorkExperienceItem";
 import EducationItem from "@/models/EducationItem";
@@ -131,10 +131,10 @@ export const profileData: ProfileData = {
       companyImagePath: "https://placehold.co/320x320.png",
       startDate: new Date(2022, 0),
       skills: [
-        EnumTechnology.NEXT_JS,
-        EnumTechnology.NODE_JS,
-        EnumTechnology.AWS,
-        EnumTechnology.POSTGRESQL,
+        EnumTag.NEXT_JS,
+        EnumTag.NODE_JS,
+        EnumTag.AWS,
+        EnumTag.POSTGRESQL,
       ],
       bulletPoints: [
         "Led development of microservices architecture serving 1M+ users",
@@ -151,10 +151,10 @@ export const profileData: ProfileData = {
       startDate: new Date(2020, 2),
       endDate: new Date(2021, 11),
       skills: [
-        EnumTechnology.REACT,
-        EnumTechnology.EXPRESS,
-        EnumTechnology.MONGODB,
-        EnumTechnology.DOCKER,
+        EnumTag.REACT,
+        EnumTag.EXPRESS,
+        EnumTag.MONGODB,
+        EnumTag.DOCKER,
       ],
       bulletPoints: [
         "Built the entire MVP from scratch using React and Node.js",
@@ -185,10 +185,10 @@ export const profileData: ProfileData = {
       slug: "ecotracker-carbon-footprint-app",
       name: "EcoTracker - Carbon Footprint App",
       stack: [
-        EnumTechnology.REACT_NATIVE,
-        EnumTechnology.NODE_JS,
-        EnumTechnology.MONGODB,
-        EnumTechnology.AWS,
+        EnumTag.REACT_NATIVE,
+        EnumTag.NODE_JS,
+        EnumTag.MONGODB,
+        EnumTag.AWS,
       ],
       description:
         "A mobile application that helps users track and reduce their carbon footprint through daily habit tracking and personalized recommendations.",
@@ -208,10 +208,10 @@ export const profileData: ProfileData = {
       slug: "taskmaster-pro-project-management-tool",
       name: "TaskMaster Pro - Project Management Tool",
       stack: [
-        EnumTechnology.NEXT_JS,
-        EnumTechnology.TYPESCRIPT,
-        EnumTechnology.POSTGRESQL,
-        EnumTechnology.NODE_JS,
+        EnumTag.NEXT_JS,
+        EnumTag.TYPESCRIPT,
+        EnumTag.POSTGRESQL,
+        EnumTag.NODE_JS,
       ],
       description:
         "A comprehensive project management platform with real-time collaboration, time tracking, and advanced analytics for teams.",
@@ -337,8 +337,8 @@ import { CommunityPageData } from "@/types/community";
 
 export const communityData: CommunityPageData = {
   title: "For the love of contributing back to the community ❤️",
-  description:
-    "My talks, presentations, and contributions to the developer community. Sharing knowledge and learning from others.",
+  descriptionLine1: "My talks, presentations, and contributions to the developer community.",
+  descriptionLine2: "Sharing knowledge and learning from others.",
 };
 
 EOL

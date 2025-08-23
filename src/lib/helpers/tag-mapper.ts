@@ -1,4 +1,4 @@
-export enum EnumTechnology {
+export enum EnumTag {
   // Programming Languages
   JAVASCRIPT = "javascript",
   TYPESCRIPT = "typescript",
@@ -111,7 +111,7 @@ export enum EnumTechnology {
   VSCODE = "vscode",
   WEBSTORM = "webstorm",
   INTELLIJ = "intellij",
-  ANDROID_STUDIO = "android-studio",
+  ANDROID = "android",
   XCODE = "xcode",
   VIM = "vim",
   EMACS = "emacs",
@@ -164,803 +164,712 @@ export enum EnumTechnology {
   JSON = "json",
   XML = "xml",
   YAML = "yaml",
+
+  // Conceptual Topics
+  WEB_DEVELOPMENT = "web-development",
+  BACKEND = "backend",
+  API = "api", 
+  REST = "rest", 
+  DEVELOPMENT = "development", 
+  BEST_PRACTICES = "best-practices",
+  ARCHITECTURE = "architecture",
+  SCALABILITY = "scalability",
+  PERFORMANCE = "performance",
+  OPTIMIZATION = "optimization",
+  DESIGN_PATTERNS = "design-patterns",
+  TESTING = "testing", 
+  DEVOPS = "devops", 
+  SECURITY = "security",
+  DATABASE = "database", 
+  SQL = "sql", 
+  NOSQL = "nosql", 
+  MOBILE = "mobile", 
+  IOS = "ios", 
+  CLOUD = "cloud", 
 }
 
-export type Technology = {
-  key: string;
-  iconPath: string;
-  label: string;
-};
-
-// Technology mapping data - more maintainable than a huge switch statement
-const TECHNOLOGY_DATA: Record<
-  EnumTechnology,
-  { iconPath: string; label: string }
-> = {
+const TAG_DATA: Record<EnumTag, { iconPath: string; label: string }> = {
   // Programming Languages
-  [EnumTechnology.JAVASCRIPT]: {
+  [EnumTag.JAVASCRIPT]: {
     iconPath: "/images/tech-icons/JavaScript.png",
     label: "JavaScript",
   },
-  [EnumTechnology.TYPESCRIPT]: {
+  [EnumTag.TYPESCRIPT]: {
     iconPath: "/images/tech-icons/TypeScript.png",
     label: "TypeScript",
   },
-  [EnumTechnology.PYTHON]: {
+  [EnumTag.PYTHON]: {
     iconPath: "/images/tech-icons/Python.png",
     label: "Python",
   },
-  [EnumTechnology.JAVA]: {
+  [EnumTag.JAVA]: {
     iconPath: "/images/tech-icons/Java.png",
     label: "Java",
   },
-  [EnumTechnology.CSHARP]: {
+  [EnumTag.CSHARP]: {
     iconPath: "/images/tech-icons/C#-(CSharp).png",
     label: "C#",
   },
-  [EnumTechnology.CPP]: {
+  [EnumTag.CPP]: {
     iconPath: "/images/tech-icons/C++-(CPlusPlus).png",
     label: "C++",
   },
-  [EnumTechnology.C]: { iconPath: "/images/tech-icons/C.png", label: "C" },
-  [EnumTechnology.GO]: { iconPath: "/images/tech-icons/Go.png", label: "Go" },
-  [EnumTechnology.RUST]: {
+  [EnumTag.C]: { iconPath: "/images/tech-icons/C.png", label: "C" },
+  [EnumTag.GO]: { iconPath: "/images/tech-icons/Go.png", label: "Go" },
+  [EnumTag.RUST]: {
     iconPath: "/images/tech-icons/Rust.png",
     label: "Rust",
   },
-  [EnumTechnology.PHP]: {
+  [EnumTag.PHP]: {
     iconPath: "/images/tech-icons/PHP.png",
     label: "PHP",
   },
-  [EnumTechnology.RUBY]: {
+  [EnumTag.RUBY]: {
     iconPath: "/images/tech-icons/Ruby.png",
     label: "Ruby",
   },
-  [EnumTechnology.SWIFT]: {
+  [EnumTag.SWIFT]: {
     iconPath: "/images/tech-icons/Swift.png",
     label: "Swift",
   },
-  [EnumTechnology.KOTLIN]: {
+  [EnumTag.KOTLIN]: {
     iconPath: "/images/tech-icons/Kotlin.png",
     label: "Kotlin",
   },
-  [EnumTechnology.DART]: {
+  [EnumTag.DART]: {
     iconPath: "/images/tech-icons/Dart.png",
     label: "Dart",
   },
-  [EnumTechnology.SCALA]: {
+  [EnumTag.SCALA]: {
     iconPath: "/images/tech-icons/Scala.png",
     label: "Scala",
   },
-  [EnumTechnology.CLOJURE]: {
+  [EnumTag.CLOJURE]: {
     iconPath: "/images/tech-icons/Clojure.png",
     label: "Clojure",
   },
-  [EnumTechnology.HASKELL]: {
+  [EnumTag.HASKELL]: {
     iconPath: "/images/tech-icons/Haskell.png",
     label: "Haskell",
   },
-  [EnumTechnology.LUA]: {
+  [EnumTag.LUA]: {
     iconPath: "/images/tech-icons/Lua.png",
     label: "Lua",
   },
-  [EnumTechnology.R]: { iconPath: "/images/tech-icons/R-.png", label: "R" },
-  [EnumTechnology.MATLAB]: {
+  [EnumTag.R]: { iconPath: "/images/tech-icons/R-.png", label: "R" },
+  [EnumTag.MATLAB]: {
     iconPath: "/images/tech-icons/MATLAB.png",
     label: "MATLAB",
   },
-  [EnumTechnology.PERL]: {
+  [EnumTag.PERL]: {
     iconPath: "/images/tech-icons/Perl.png",
     label: "Perl",
   },
-  [EnumTechnology.OBJECTIVE_C]: {
+  [EnumTag.OBJECTIVE_C]: {
     iconPath: "/images/tech-icons/Objective-C.png",
     label: "Objective-C",
   },
-  [EnumTechnology.FSHARP]: {
+  [EnumTag.FSHARP]: {
     iconPath: "/images/tech-icons/FSharp-(F#).png",
     label: "F#",
   },
-  [EnumTechnology.ELIXIR]: {
+  [EnumTag.ELIXIR]: {
     iconPath: "/images/tech-icons/Elixir.png",
     label: "Elixir",
   },
-  [EnumTechnology.ERLANG]: {
+  [EnumTag.ERLANG]: {
     iconPath: "/images/tech-icons/Erlang.png",
     label: "Erlang",
   },
-  [EnumTechnology.JULIA]: {
+  [EnumTag.JULIA]: {
     iconPath: "/images/tech-icons/Julia.png",
     label: "Julia",
   },
-  [EnumTechnology.NIM]: {
+  [EnumTag.NIM]: {
     iconPath: "/images/tech-icons/Nim.png",
     label: "Nim",
   },
-  [EnumTechnology.CRYSTAL]: {
+  [EnumTag.CRYSTAL]: {
     iconPath: "/images/tech-icons/Crystal.png",
     label: "Crystal",
   },
-  [EnumTechnology.ZIG]: {
+  [EnumTag.ZIG]: {
     iconPath: "/images/tech-icons/Zig.png",
     label: "Zig",
   },
-  [EnumTechnology.SOLIDITY]: {
+  [EnumTag.SOLIDITY]: {
     iconPath: "/images/tech-icons/Solidity.png",
     label: "Solidity",
   },
 
   // Frontend Frameworks & Libraries
-  [EnumTechnology.REACT]: {
+  [EnumTag.REACT]: {
     iconPath: "/images/tech-icons/React.png",
     label: "React",
   },
-  [EnumTechnology.VUE]: {
+  [EnumTag.VUE]: {
     iconPath: "/images/tech-icons/Vue.js.png",
     label: "Vue.js",
   },
-  [EnumTechnology.ANGULAR]: {
+  [EnumTag.ANGULAR]: {
     iconPath: "/images/tech-icons/Angular.png",
     label: "Angular",
   },
-  [EnumTechnology.SVELTE]: {
+  [EnumTag.SVELTE]: {
     iconPath: "/images/tech-icons/Svelte.png",
     label: "Svelte",
   },
-  [EnumTechnology.EMBER]: {
+  [EnumTag.EMBER]: {
     iconPath: "/images/tech-icons/Ember.js.png",
     label: "Ember.js",
   },
-  [EnumTechnology.BACKBONE]: {
+  [EnumTag.BACKBONE]: {
     iconPath: "/images/tech-icons/Backbone.js.png",
     label: "Backbone.js",
   },
-  [EnumTechnology.ALPINEJS]: {
+  [EnumTag.ALPINEJS]: {
     iconPath: "/images/tech-icons/Alpine.js.png",
     label: "Alpine.js",
   },
-  [EnumTechnology.SOLID]: {
+  [EnumTag.SOLID]: {
     iconPath: "/images/tech-icons/Solid.js.png",
     label: "Solid.js",
   },
-  [EnumTechnology.JQUERY]: {
+  [EnumTag.JQUERY]: {
     iconPath: "/images/tech-icons/jQuery.png",
     label: "jQuery",
   },
 
   // Meta Frameworks
-  [EnumTechnology.NEXT_JS]: {
+  [EnumTag.NEXT_JS]: {
     iconPath: "/images/tech-icons/Next.js.png",
     label: "Next.js",
   },
-  [EnumTechnology.NUXT]: {
+  [EnumTag.NUXT]: {
     iconPath: "/images/tech-icons/Nuxt-JS.png",
     label: "Nuxt.js",
   },
-  [EnumTechnology.GATSBY]: {
+  [EnumTag.GATSBY]: {
     iconPath: "/images/tech-icons/Gatsby.png",
     label: "Gatsby",
   },
-  [EnumTechnology.ASTRO]: {
+  [EnumTag.ASTRO]: {
     iconPath: "/images/tech-icons/Astro.png",
     label: "Astro",
   },
-  [EnumTechnology.REMIX]: {
+  [EnumTag.REMIX]: {
     iconPath: "/images/tech-icons/Reach.png",
     label: "Remix",
   }, // Using Reach as closest match
-  [EnumTechnology.SVELTEKIT]: {
+  [EnumTag.SVELTEKIT]: {
     iconPath: "/images/tech-icons/Svelte.png",
     label: "SvelteKit",
   }, // Using Svelte icon
 
   // CSS & Styling
-  [EnumTechnology.CSS3]: {
+  [EnumTag.CSS3]: {
     iconPath: "/images/tech-icons/CSS3.png",
     label: "CSS3",
   },
-  [EnumTechnology.SASS]: {
+  [EnumTag.SASS]: {
     iconPath: "/images/tech-icons/Sass.png",
     label: "Sass",
   },
-  [EnumTechnology.LESS]: {
+  [EnumTag.LESS]: {
     iconPath: "/images/tech-icons/Less.js.png",
     label: "Less",
   },
-  [EnumTechnology.STYLUS]: {
+  [EnumTag.STYLUS]: {
     iconPath: "/images/tech-icons/Stylus.png",
     label: "Stylus",
   },
-  [EnumTechnology.TAILWIND]: {
+  [EnumTag.TAILWIND]: {
     iconPath: "/images/tech-icons/Tailwind-CSS.png",
     label: "Tailwind CSS",
   },
-  [EnumTechnology.BOOTSTRAP]: {
+  [EnumTag.BOOTSTRAP]: {
     iconPath: "/images/tech-icons/Bootstrap.png",
     label: "Bootstrap",
   },
-  [EnumTechnology.BULMA]: {
+  [EnumTag.BULMA]: {
     iconPath: "/images/tech-icons/Bulma.png",
     label: "Bulma",
   },
-  [EnumTechnology.MATERIALIZE]: {
+  [EnumTag.MATERIALIZE]: {
     iconPath: "/images/tech-icons/Materialize.png",
     label: "Materialize",
   },
-  [EnumTechnology.MATERIAL_UI]: {
+  [EnumTag.MATERIAL_UI]: {
     iconPath: "/images/tech-icons/Material-UI.png",
     label: "Material-UI",
   },
-  [EnumTechnology.ANT_DESIGN]: {
+  [EnumTag.ANT_DESIGN]: {
     iconPath: "/images/tech-icons/Ant-Design.png",
     label: "Ant Design",
   },
-  [EnumTechnology.CHAKRA_UI]: {
+  [EnumTag.CHAKRA_UI]: {
     iconPath: "/images/tech-icons/React.png",
     label: "Chakra UI",
   }, // Using React as fallback
 
   // Backend Frameworks
-  [EnumTechnology.NODE_JS]: {
+  [EnumTag.NODE_JS]: {
     iconPath: "/images/tech-icons/Node.js.png",
     label: "Node.js",
   },
-  [EnumTechnology.EXPRESS]: {
+  [EnumTag.EXPRESS]: {
     iconPath: "/images/tech-icons/Express.png",
     label: "Express",
   },
-  [EnumTechnology.FASTIFY]: {
+  [EnumTag.FASTIFY]: {
     iconPath: "/images/tech-icons/Fastify.png",
     label: "Fastify",
   },
-  [EnumTechnology.NEST_JS]: {
+  [EnumTag.NEST_JS]: {
     iconPath: "/images/tech-icons/Nest.js.png",
     label: "Nest.js",
   },
-  [EnumTechnology.DJANGO]: {
+  [EnumTag.DJANGO]: {
     iconPath: "/images/tech-icons/Django.png",
     label: "Django",
   },
-  [EnumTechnology.FLASK]: {
+  [EnumTag.FLASK]: {
     iconPath: "/images/tech-icons/Flask.png",
     label: "Flask",
   },
-  [EnumTechnology.FASTAPI]: {
+  [EnumTag.FASTAPI]: {
     iconPath: "/images/tech-icons/FastAPI.png",
     label: "FastAPI",
   },
-  [EnumTechnology.SPRING]: {
+  [EnumTag.SPRING]: {
     iconPath: "/images/tech-icons/Spring.png",
     label: "Spring",
   },
-  [EnumTechnology.LARAVEL]: {
+  [EnumTag.LARAVEL]: {
     iconPath: "/images/tech-icons/Laravel.png",
     label: "Laravel",
   },
-  [EnumTechnology.SYMFONY]: {
+  [EnumTag.SYMFONY]: {
     iconPath: "/images/tech-icons/Symfony.png",
     label: "Symfony",
   },
-  [EnumTechnology.RAILS]: {
+  [EnumTag.RAILS]: {
     iconPath: "/images/tech-icons/Ruby-on-Rails.png",
     label: "Ruby on Rails",
   },
-  [EnumTechnology.PHOENIX]: {
+  [EnumTag.PHOENIX]: {
     iconPath: "/images/tech-icons/Phoenix-Framework.png",
     label: "Phoenix",
   },
-  [EnumTechnology.ADONIS]: {
+  [EnumTag.ADONIS]: {
     iconPath: "/images/tech-icons/AdonisJS.png",
     label: "AdonisJS",
   },
 
   // Databases
-  [EnumTechnology.MONGODB]: {
+  [EnumTag.MONGODB]: {
     iconPath: "/images/tech-icons/MongoDB.png",
     label: "MongoDB",
   },
-  [EnumTechnology.POSTGRESQL]: {
+  [EnumTag.POSTGRESQL]: {
     iconPath: "/images/tech-icons/PostgresSQL.png",
     label: "PostgreSQL",
   },
-  [EnumTechnology.MYSQL]: {
+  [EnumTag.MYSQL]: {
     iconPath: "/images/tech-icons/MySQL.png",
     label: "MySQL",
   },
-  [EnumTechnology.SQLITE]: {
+  [EnumTag.SQLITE]: {
     iconPath: "/images/tech-icons/SQLite.png",
     label: "SQLite",
   },
-  [EnumTechnology.REDIS]: {
+  [EnumTag.REDIS]: {
     iconPath: "/images/tech-icons/Redis.png",
     label: "Redis",
   },
-  [EnumTechnology.ELASTICSEARCH]: {
+  [EnumTag.ELASTICSEARCH]: {
     iconPath: "/images/tech-icons/Elastic-Search.png",
     label: "Elasticsearch",
   },
-  [EnumTechnology.CASSANDRA]: {
+  [EnumTag.CASSANDRA]: {
     iconPath: "/images/tech-icons/Apache-Cassandra.png",
     label: "Apache Cassandra",
   },
-  [EnumTechnology.COUCHDB]: {
+  [EnumTag.COUCHDB]: {
     iconPath: "/images/tech-icons/CouchDB.png",
     label: "CouchDB",
   },
-  [EnumTechnology.FIREBASE]: {
+  [EnumTag.FIREBASE]: {
     iconPath: "/images/tech-icons/Firebase.png",
     label: "Firebase",
   },
-  [EnumTechnology.SUPABASE]: {
+  [EnumTag.SUPABASE]: {
     iconPath: "/images/tech-icons/PostgresSQL.png",
     label: "Supabase",
   }, // Using PostgreSQL as fallback
-  [EnumTechnology.PLANETSCALE]: {
+  [EnumTag.PLANETSCALE]: {
     iconPath: "/images/tech-icons/MySQL.png",
     label: "PlanetScale",
   }, // Using MySQL as fallback
 
   // Cloud & DevOps
-  [EnumTechnology.AWS]: {
+  [EnumTag.AWS]: {
     iconPath: "/images/tech-icons/AWS.png",
     label: "AWS",
   },
-  [EnumTechnology.AZURE]: {
+  [EnumTag.AZURE]: {
     iconPath: "/images/tech-icons/Azure.png",
     label: "Microsoft Azure",
   },
-  [EnumTechnology.GCP]: {
+  [EnumTag.GCP]: {
     iconPath: "/images/tech-icons/Google-Cloud.png",
     label: "Google Cloud Platform",
   },
-  [EnumTechnology.DOCKER]: {
+  [EnumTag.DOCKER]: {
     iconPath: "/images/tech-icons/Docker.png",
     label: "Docker",
   },
-  [EnumTechnology.KUBERNETES]: {
+  [EnumTag.KUBERNETES]: {
     iconPath: "/images/tech-icons/Kubernetes.png",
     label: "Kubernetes",
   },
-  [EnumTechnology.TERRAFORM]: {
+  [EnumTag.TERRAFORM]: {
     iconPath: "/images/tech-icons/HashiCorp-Terraform.png",
     label: "Terraform",
   },
-  [EnumTechnology.ANSIBLE]: {
+  [EnumTag.ANSIBLE]: {
     iconPath: "/images/tech-icons/Ansible.png",
     label: "Ansible",
   },
-  [EnumTechnology.JENKINS]: {
+  [EnumTag.JENKINS]: {
     iconPath: "/images/tech-icons/Jenkins.png",
     label: "Jenkins",
   },
-  [EnumTechnology.GITHUB_ACTIONS]: {
+  [EnumTag.GITHUB_ACTIONS]: {
     iconPath: "/images/tech-icons/GitHub-Actions.png",
     label: "GitHub Actions",
   },
-  [EnumTechnology.GITLAB]: {
+  [EnumTag.GITLAB]: {
     iconPath: "/images/tech-icons/GitLab.png",
     label: "GitLab",
   },
-  [EnumTechnology.CIRCLECI]: {
+  [EnumTag.CIRCLECI]: {
     iconPath: "/images/tech-icons/CircleCI.png",
     label: "CircleCI",
   },
-  [EnumTechnology.TRAVIS_CI]: {
+  [EnumTag.TRAVIS_CI]: {
     iconPath: "/images/tech-icons/Travis-CI.png",
     label: "Travis CI",
   },
 
   // Development Tools
-  [EnumTechnology.GIT]: {
+  [EnumTag.GIT]: {
     iconPath: "/images/tech-icons/Git.png",
     label: "Git",
   },
-  [EnumTechnology.GITHUB]: {
+  [EnumTag.GITHUB]: {
     iconPath: "/images/tech-icons/GitHub.png",
     label: "GitHub",
   },
-  [EnumTechnology.VSCODE]: {
+  [EnumTag.VSCODE]: {
     iconPath: "/images/tech-icons/Visual-Studio-Code-(VS-Code).png",
     label: "VS Code",
   },
-  [EnumTechnology.WEBSTORM]: {
+  [EnumTag.WEBSTORM]: {
     iconPath: "/images/tech-icons/WebStorm.png",
     label: "WebStorm",
   },
-  [EnumTechnology.INTELLIJ]: {
+  [EnumTag.INTELLIJ]: {
     iconPath: "/images/tech-icons/IntelliJ-IDEA.png",
     label: "IntelliJ IDEA",
   },
-  [EnumTechnology.ANDROID_STUDIO]: {
-    iconPath: "/images/tech-icons/Android-Studio.png",
-    label: "Android Studio",
+  [EnumTag.ANDROID]: {
+    iconPath: "/images/tech-icons/Android.png",
+    label: "Android",
   },
-  [EnumTechnology.XCODE]: {
+  [EnumTag.XCODE]: {
     iconPath: "/images/tech-icons/Xcode.png",
     label: "Xcode",
   },
-  [EnumTechnology.VIM]: {
+  [EnumTag.VIM]: {
     iconPath: "/images/tech-icons/Vim.png",
     label: "Vim",
   },
-  [EnumTechnology.EMACS]: {
+  [EnumTag.EMACS]: {
     iconPath: "/images/tech-icons/GNU-Emacs.png",
     label: "GNU Emacs",
   },
 
   // Testing
-  [EnumTechnology.JEST]: {
+  [EnumTag.JEST]: {
     iconPath: "/images/tech-icons/Jest.png",
     label: "Jest",
   },
-  [EnumTechnology.CYPRESS]: {
+  [EnumTag.CYPRESS]: {
     iconPath: "/images/tech-icons/Cypress.png",
     label: "Cypress",
   },
-  [EnumTechnology.SELENIUM]: {
+  [EnumTag.SELENIUM]: {
     iconPath: "/images/tech-icons/Selenium.png",
     label: "Selenium",
   },
-  [EnumTechnology.PLAYWRIGHT]: {
+  [EnumTag.PLAYWRIGHT]: {
     iconPath: "/images/tech-icons/Playwrite.png",
     label: "Playwright",
   },
-  [EnumTechnology.JASMINE]: {
+  [EnumTag.JASMINE]: {
     iconPath: "/images/tech-icons/Jasmine.png",
     label: "Jasmine",
   },
-  [EnumTechnology.MOCHA]: {
+  [EnumTag.MOCHA]: {
     iconPath: "/images/tech-icons/Mocha.png",
     label: "Mocha",
   },
-  [EnumTechnology.JUNIT]: {
+  [EnumTag.JUNIT]: {
     iconPath: "/images/tech-icons/JUnit.png",
     label: "JUnit",
   },
 
   // Build Tools
-  [EnumTechnology.WEBPACK]: {
+  [EnumTag.WEBPACK]: {
     iconPath: "/images/tech-icons/Webpack.png",
     label: "Webpack",
   },
-  [EnumTechnology.VITE]: {
+  [EnumTag.VITE]: {
     iconPath: "/images/tech-icons/Vite.png",
     label: "Vite",
   },
-  [EnumTechnology.ROLLUP]: {
+  [EnumTag.ROLLUP]: {
     iconPath: "/images/tech-icons/Rollup.js.png",
     label: "Rollup",
   },
-  [EnumTechnology.PARCEL]: {
+  [EnumTag.PARCEL]: {
     iconPath: "/images/tech-icons/Webpack.png",
     label: "Parcel",
   }, // Using Webpack as fallback
-  [EnumTechnology.GULP]: {
+  [EnumTag.GULP]: {
     iconPath: "/images/tech-icons/Gulp.js.png",
     label: "Gulp",
   },
-  [EnumTechnology.GRUNT]: {
+  [EnumTag.GRUNT]: {
     iconPath: "/images/tech-icons/Grunt.js.png",
     label: "Grunt",
   },
 
   // Mobile Development
-  [EnumTechnology.REACT_NATIVE]: {
+  [EnumTag.REACT_NATIVE]: {
     iconPath: "/images/tech-icons/React.png",
     label: "React Native",
   },
-  [EnumTechnology.FLUTTER]: {
+  [EnumTag.FLUTTER]: {
     iconPath: "/images/tech-icons/Flutter.png",
     label: "Flutter",
   },
-  [EnumTechnology.IONIC]: {
+  [EnumTag.IONIC]: {
     iconPath: "/images/tech-icons/Ionic.png",
     label: "Ionic",
   },
-  [EnumTechnology.XAMARIN]: {
+  [EnumTag.XAMARIN]: {
     iconPath: "/images/tech-icons/Xamarin.png",
     label: "Xamarin",
   },
-  [EnumTechnology.CORDOVA]: {
+  [EnumTag.CORDOVA]: {
     iconPath: "/images/tech-icons/Capacitor.png",
     label: "Apache Cordova",
   }, // Using Capacitor as similar
 
   // Operating Systems
-  [EnumTechnology.LINUX]: {
+  [EnumTag.LINUX]: {
     iconPath: "/images/tech-icons/Linux.png",
     label: "Linux",
   },
-  [EnumTechnology.UBUNTU]: {
+  [EnumTag.UBUNTU]: {
     iconPath: "/images/tech-icons/Ubuntu.png",
     label: "Ubuntu",
   },
-  [EnumTechnology.DEBIAN]: {
+  [EnumTag.DEBIAN]: {
     iconPath: "/images/tech-icons/Debian.png",
     label: "Debian",
   },
-  [EnumTechnology.CENTOS]: {
+  [EnumTag.CENTOS]: {
     iconPath: "/images/tech-icons/CentOS.png",
     label: "CentOS",
   },
-  [EnumTechnology.FEDORA]: {
+  [EnumTag.FEDORA]: {
     iconPath: "/images/tech-icons/Fedora.png",
     label: "Fedora",
   },
-  [EnumTechnology.ARCH_LINUX]: {
+  [EnumTag.ARCH_LINUX]: {
     iconPath: "/images/tech-icons/Arch-Linux.png",
     label: "Arch Linux",
   },
-  [EnumTechnology.MACOS]: {
+  [EnumTag.MACOS]: {
     iconPath: "/images/tech-icons/Apple.png",
     label: "macOS",
   },
-  [EnumTechnology.WINDOWS]: {
+  [EnumTag.WINDOWS]: {
     iconPath: "/images/tech-icons/Windows-11.png",
     label: "Windows",
   },
 
   // Other Technologies
-  [EnumTechnology.GRAPHQL]: {
+  [EnumTag.GRAPHQL]: {
     iconPath: "/images/tech-icons/GraphQL.png",
     label: "GraphQL",
   },
-  [EnumTechnology.REST_API]: {
+  [EnumTag.REST_API]: {
     iconPath: "/images/tech-icons/Swagger.png",
     label: "REST API",
   }, // Using Swagger as API related
-  [EnumTechnology.WEBSOCKET]: {
+  [EnumTag.WEBSOCKET]: {
     iconPath: "/images/tech-icons/Socket.io.png",
     label: "WebSocket",
   },
-  [EnumTechnology.ELECTRON]: {
+  [EnumTag.ELECTRON]: {
     iconPath: "/images/tech-icons/Electron.png",
     label: "Electron",
   },
-  [EnumTechnology.TAURI]: {
+  [EnumTag.TAURI]: {
     iconPath: "/images/tech-icons/Tauri.png",
     label: "Tauri",
   },
-  [EnumTechnology.WEBASSEMBLY]: {
+  [EnumTag.WEBASSEMBLY]: {
     iconPath: "/images/tech-icons/WebAssembly.png",
     label: "WebAssembly",
   },
 
   // Miscellaneous
-  [EnumTechnology.HTML5]: {
+  [EnumTag.HTML5]: {
     iconPath: "/images/tech-icons/HTML5.png",
     label: "HTML5",
   },
-  [EnumTechnology.MARKDOWN]: {
+  [EnumTag.MARKDOWN]: {
     iconPath: "/images/tech-icons/Markdown.png",
     label: "Markdown",
   },
-  [EnumTechnology.JSON]: {
+  [EnumTag.JSON]: {
     iconPath: "/images/tech-icons/JSON.png",
     label: "JSON",
   },
-  [EnumTechnology.XML]: {
+  [EnumTag.XML]: {
     iconPath: "/images/tech-icons/XML.png",
     label: "XML",
   },
-  [EnumTechnology.YAML]: {
+  [EnumTag.YAML]: {
     iconPath: "/images/tech-icons/YAML.png",
     label: "YAML",
   },
+
+  // Conceptual Tags
+  [EnumTag.WEB_DEVELOPMENT]: {
+    iconPath: "/images/tech-icons/HTML5.png",
+    label: "Web Development",
+  },
+  [EnumTag.BACKEND]: {
+    iconPath: "/images/tech-icons/Node.js.png",
+    label: "Backend",
+  },
+  [EnumTag.API]: {
+    iconPath: "/images/tech-icons/JSON.png",
+    label: "API",
+  },
+  [EnumTag.REST]: {
+    iconPath: "/images/tech-icons/JSON.png",
+    label: "REST",
+  },
+  [EnumTag.DEVELOPMENT]: {
+    iconPath: "/images/tech-icons/Visual-Studio-Code-(VS-Code).png",
+    label: "Development",
+  },
+  [EnumTag.BEST_PRACTICES]: {
+    iconPath: "/images/tech-icons/ESLint.png",
+    label: "Best Practices",
+  },
+  [EnumTag.ARCHITECTURE]: {
+    iconPath: "/images/tech-icons/UML.png",
+    label: "Architecture",
+  },
+  [EnumTag.SCALABILITY]: {
+    iconPath: "/images/tech-icons/Kubernetes.png",
+    label: "Scalability",
+  },
+  [EnumTag.PERFORMANCE]: {
+    iconPath: "/images/tech-icons/Chrome.png",
+    label: "Performance",
+  },
+  [EnumTag.OPTIMIZATION]: {
+    iconPath: "/images/tech-icons/Chrome.png",
+    label: "Optimization",
+  },
+  [EnumTag.DESIGN_PATTERNS]: {
+    iconPath: "/images/tech-icons/UML.png",
+    label: "Design Patterns",
+  },
+  [EnumTag.TESTING]: {
+    iconPath: "/images/tech-icons/Jest.png",
+    label: "Testing",
+  },
+  [EnumTag.DEVOPS]: {
+    iconPath: "/images/tech-icons/Docker.png",
+    label: "DevOps",
+  },
+  [EnumTag.SECURITY]: {
+    iconPath: "/images/tech-icons/HashiCorp-Vault.png",
+    label: "Security",
+  },
+  [EnumTag.DATABASE]: {
+    iconPath: "/images/tech-icons/PostgresSQL.png",
+    label: "Database",
+  },
+  [EnumTag.SQL]: {
+    iconPath: "/images/tech-icons/PostgresSQL.png",
+    label: "SQL",
+  },
+  [EnumTag.NOSQL]: {
+    iconPath: "/images/tech-icons/MongoDB.png",
+    label: "NoSQL",
+  },
+  [EnumTag.MOBILE]: {
+    iconPath: "/images/tech-icons/Flutter.png",
+    label: "Mobile",
+  },
+  [EnumTag.IOS]: {
+    iconPath: "/images/tech-icons/Swift.png",
+    label: "iOS",
+  },
+  [EnumTag.CLOUD]: {
+    iconPath: "/images/tech-icons/AWS.png",
+    label: "Cloud",
+  },
 };
 
-export class TechnologyMapper {
+export type Tag = {
+  key: string;
+  iconPath: string;
+  label: string;
+};
+
+export class TagMapper {
   /**
-   * Get technology details by enum value
+   * Get tag details by enum value
    */
-  getDetails(technology: EnumTechnology): Technology | null {
-    const data = TECHNOLOGY_DATA[technology];
+  getDetails(tag: EnumTag): Tag | null {
+    const data = TAG_DATA[tag];
     if (!data) {
       return null;
     }
 
     return {
-      key: technology,
+      key: tag,
       iconPath: data.iconPath,
       label: data.label,
     };
   }
 
   /**
-   * Get all available technologies
+   * Check if a value is a valid tag
    */
-  getAllTechnologies(): Technology[] {
-    return Object.values(EnumTechnology)
-      .map((tech) => this.getDetails(tech))
-      .filter(Boolean) as Technology[];
+  isValidTag(value: string): value is EnumTag {
+    return Object.values(EnumTag).includes(value as EnumTag);
   }
-
-  /**
-   * Get technologies by category
-   */
-  getTechnologiesByCategory(category: TechnologyCategory): Technology[] {
-    const categoryMap: Record<TechnologyCategory, EnumTechnology[]> = {
-      languages: [
-        EnumTechnology.JAVASCRIPT,
-        EnumTechnology.TYPESCRIPT,
-        EnumTechnology.PYTHON,
-        EnumTechnology.JAVA,
-        EnumTechnology.CSHARP,
-        EnumTechnology.CPP,
-        EnumTechnology.C,
-        EnumTechnology.GO,
-        EnumTechnology.RUST,
-        EnumTechnology.PHP,
-        EnumTechnology.RUBY,
-        EnumTechnology.SWIFT,
-        EnumTechnology.KOTLIN,
-        EnumTechnology.DART,
-        EnumTechnology.SCALA,
-        EnumTechnology.CLOJURE,
-        EnumTechnology.HASKELL,
-        EnumTechnology.LUA,
-        EnumTechnology.R,
-        EnumTechnology.MATLAB,
-        EnumTechnology.PERL,
-        EnumTechnology.OBJECTIVE_C,
-        EnumTechnology.FSHARP,
-        EnumTechnology.ELIXIR,
-        EnumTechnology.ERLANG,
-        EnumTechnology.JULIA,
-        EnumTechnology.NIM,
-        EnumTechnology.CRYSTAL,
-        EnumTechnology.ZIG,
-        EnumTechnology.SOLIDITY,
-      ],
-      frontend: [
-        EnumTechnology.REACT,
-        EnumTechnology.VUE,
-        EnumTechnology.ANGULAR,
-        EnumTechnology.SVELTE,
-        EnumTechnology.EMBER,
-        EnumTechnology.BACKBONE,
-        EnumTechnology.ALPINEJS,
-        EnumTechnology.SOLID,
-        EnumTechnology.JQUERY,
-        EnumTechnology.NEXT_JS,
-        EnumTechnology.NUXT,
-        EnumTechnology.GATSBY,
-        EnumTechnology.ASTRO,
-        EnumTechnology.REMIX,
-        EnumTechnology.SVELTEKIT,
-      ],
-      styling: [
-        EnumTechnology.CSS3,
-        EnumTechnology.SASS,
-        EnumTechnology.LESS,
-        EnumTechnology.STYLUS,
-        EnumTechnology.TAILWIND,
-        EnumTechnology.BOOTSTRAP,
-        EnumTechnology.BULMA,
-        EnumTechnology.MATERIALIZE,
-        EnumTechnology.MATERIAL_UI,
-        EnumTechnology.ANT_DESIGN,
-        EnumTechnology.CHAKRA_UI,
-      ],
-      backend: [
-        EnumTechnology.NODE_JS,
-        EnumTechnology.EXPRESS,
-        EnumTechnology.FASTIFY,
-        EnumTechnology.NEST_JS,
-        EnumTechnology.DJANGO,
-        EnumTechnology.FLASK,
-        EnumTechnology.FASTAPI,
-        EnumTechnology.SPRING,
-        EnumTechnology.LARAVEL,
-        EnumTechnology.SYMFONY,
-        EnumTechnology.RAILS,
-        EnumTechnology.PHOENIX,
-        EnumTechnology.ADONIS,
-      ],
-      database: [
-        EnumTechnology.MONGODB,
-        EnumTechnology.POSTGRESQL,
-        EnumTechnology.MYSQL,
-        EnumTechnology.SQLITE,
-        EnumTechnology.REDIS,
-        EnumTechnology.ELASTICSEARCH,
-        EnumTechnology.CASSANDRA,
-        EnumTechnology.COUCHDB,
-        EnumTechnology.FIREBASE,
-        EnumTechnology.SUPABASE,
-        EnumTechnology.PLANETSCALE,
-      ],
-      cloud: [
-        EnumTechnology.AWS,
-        EnumTechnology.AZURE,
-        EnumTechnology.GCP,
-        EnumTechnology.DOCKER,
-        EnumTechnology.KUBERNETES,
-        EnumTechnology.TERRAFORM,
-        EnumTechnology.ANSIBLE,
-        EnumTechnology.JENKINS,
-        EnumTechnology.GITHUB_ACTIONS,
-        EnumTechnology.GITLAB,
-        EnumTechnology.CIRCLECI,
-        EnumTechnology.TRAVIS_CI,
-      ],
-      tools: [
-        EnumTechnology.GIT,
-        EnumTechnology.GITHUB,
-        EnumTechnology.VSCODE,
-        EnumTechnology.WEBSTORM,
-        EnumTechnology.INTELLIJ,
-        EnumTechnology.ANDROID_STUDIO,
-        EnumTechnology.XCODE,
-        EnumTechnology.VIM,
-        EnumTechnology.EMACS,
-        EnumTechnology.WEBPACK,
-        EnumTechnology.VITE,
-        EnumTechnology.ROLLUP,
-        EnumTechnology.PARCEL,
-        EnumTechnology.GULP,
-        EnumTechnology.GRUNT,
-      ],
-      testing: [
-        EnumTechnology.JEST,
-        EnumTechnology.CYPRESS,
-        EnumTechnology.SELENIUM,
-        EnumTechnology.PLAYWRIGHT,
-        EnumTechnology.JASMINE,
-        EnumTechnology.MOCHA,
-        EnumTechnology.JUNIT,
-      ],
-      mobile: [
-        EnumTechnology.REACT_NATIVE,
-        EnumTechnology.FLUTTER,
-        EnumTechnology.IONIC,
-        EnumTechnology.XAMARIN,
-        EnumTechnology.CORDOVA,
-      ],
-      os: [
-        EnumTechnology.LINUX,
-        EnumTechnology.UBUNTU,
-        EnumTechnology.DEBIAN,
-        EnumTechnology.CENTOS,
-        EnumTechnology.FEDORA,
-        EnumTechnology.ARCH_LINUX,
-        EnumTechnology.MACOS,
-        EnumTechnology.WINDOWS,
-      ],
-    };
-
-    return (
-      (categoryMap[category]
-        ?.map((tech) => this.getDetails(tech))
-        .filter(Boolean) as Technology[]) || []
-    );
-  }
-
-  /**
-   * Search technologies by name or label
-   */
-  searchTechnologies(query: string): Technology[] {
-    const lowerQuery = query.toLowerCase();
-    return this.getAllTechnologies().filter(
-      (tech) =>
-        tech.label.toLowerCase().includes(lowerQuery) ||
-        tech.key.toLowerCase().includes(lowerQuery),
-    );
-  }
-}
-
-export type TechnologyCategory =
-  | "languages"
-  | "frontend"
-  | "styling"
-  | "backend"
-  | "database"
-  | "cloud"
-  | "tools"
-  | "testing"
-  | "mobile"
-  | "os";
-
-export function isValidTechnology(value: string): value is EnumTechnology {
-  return Object.values(EnumTechnology).includes(value as EnumTechnology);
 }

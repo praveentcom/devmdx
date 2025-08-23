@@ -4,7 +4,7 @@ import { Community, CommunityContributionType } from "@/types/community";
 import { Project } from "@/types/project";
 import WorkExperienceItem from "@/models/WorkExperienceItem";
 import EducationItem from "@/models/EducationItem";
-import { TechnologyMapper } from "@/lib/helpers/technology-mapper";
+import { TagMapper } from "@/lib/helpers/tag-mapper";
 import { BASE_URL, URLS } from "@/lib/constants";
 
 // Schema.org structured data generators for SEO rich snippets
@@ -116,8 +116,7 @@ export function generateCommunitySchema(
 
   // Optionally add an additionalType hint based on contribution type
   if (community.type) {
-    eventData["additionalType"] =
-      URLS.COMMUNITY_CONTRIBUTIONS(community.type);
+    eventData["additionalType"] = URLS.COMMUNITY_CONTRIBUTIONS(community.type);
   }
 
   return eventData;
@@ -125,7 +124,7 @@ export function generateCommunitySchema(
 
 export function generateProjectSchema(project: Project) {
   const profile = profileData.profile;
-  const techMapper = new TechnologyMapper();
+  const techMapper = new TagMapper();
   const programmingLanguages = (project.stack || [])
     .map((tech) => techMapper.getDetails(tech)?.label)
     .filter(Boolean) as string[];

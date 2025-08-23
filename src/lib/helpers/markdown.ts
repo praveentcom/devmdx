@@ -1,5 +1,5 @@
 import { Article } from "@/types/article";
-import { EnumTopic } from "@/lib/helpers/topic-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { format } from "date-fns";
 
 // Custom markdown parser with syntax highlighting and copy functionality
@@ -139,17 +139,14 @@ export function getArticlesBySlug(
   return articles.find((article) => article.slug === slug && article.published);
 }
 
-export function getArticlesByTag(
-  articles: Article[],
-  tag: EnumTopic,
-): Article[] {
+export function getArticlesByTag(articles: Article[], tag: EnumTag): Article[] {
   return articles
     .filter((article) => article.published && article.tags.includes(tag))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getAllTags(articles: Article[]): EnumTopic[] {
-  const tagSet = new Set<EnumTopic>();
+export function getAllTags(articles: Article[]): EnumTag[] {
+  const tagSet = new Set<EnumTag>();
   articles
     .filter((article) => article.published)
     .forEach((article) => article.tags.forEach((tag) => tagSet.add(tag)));

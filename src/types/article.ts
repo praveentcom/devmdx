@@ -1,4 +1,4 @@
-import { EnumTopic } from "@/lib/helpers/topic-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 
 export interface Article {
   slug: string;
@@ -7,7 +7,7 @@ export interface Article {
   content: string;
   date: string;
   readTime: number;
-  tags: EnumTopic[];
+  tags: EnumTag[];
   published: boolean;
   image?: string;
 }

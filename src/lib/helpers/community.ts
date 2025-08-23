@@ -247,5 +247,7 @@ export function getAllCommunityIndex(): CommunityIndexItem[] {
     return normalized;
   });
 
-  return items.filter((p) => p.published);
+  return items
+    .filter((p) => p.published)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }

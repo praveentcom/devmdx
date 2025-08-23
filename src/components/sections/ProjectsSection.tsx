@@ -2,7 +2,7 @@
 
 import { Project } from "@/types/project";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { TechnologyBadge } from "@/components/ui/technology-badge";
+import { TagBadge } from "@/components/ui/tag-badge";
 import { Button } from "@/components/ui/button";
 import { Users, GitPullRequestArrow, ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -47,12 +47,8 @@ function ProjectCard({ project }: { project: Project }) {
                 {description}
               </p>
               <div className="flex flex-wrap gap-2">
-                {stack.map((tech, index) => (
-                  <TechnologyBadge
-                    key={index}
-                    technology={tech}
-                    clickable={false}
-                  />
+                {stack.map((tag, index) => (
+                  <TagBadge key={index} tag={tag} clickable={false} source="projects" />
                 ))}
               </div>
             </div>
