@@ -372,48 +372,11 @@ if [[ "$SKIP_INTERACTIVE" == false ]]; then
   printf "\033[1A\033[K"
   gum style --foreground 255 "✔︎ Sample cover letter created"
   echo
-else
-  echo "✔︎ Sample cover letter created"
-fi
-
-# Create data/profile/about.md
-if [[ "$SKIP_INTERACTIVE" == false ]]; then
-  gum spin --spinner points --spinner.foreground 248 --title.foreground 248 --title "Creating about page..." -- sleep 2
-else
-  echo "Creating about page..."
-fi
-cat > data/profile/about.md << EOL
-# About Me
-
-This is a sample about page. You can edit this file to share more about yourself.
-
-## Background
-
-Tell your story here - your journey, experiences, and what makes you unique.
-
-## Interests
-
-Share what you're passionate about outside of work.
-
-## Goals
-
-What are you working towards? What drives you?
-
----
-
-Feel free to customize this content to reflect your personality and professional journey.
-EOL
-
-# Clear the line and show completed version
-if [[ "$SKIP_INTERACTIVE" == false ]]; then
-  printf "\033[1A\033[K"
-  gum style --foreground 255 "✔︎ Sample about page created"
-  echo
   
   gum style --foreground 34 "➤ DevCard initialized successfully."
   gum style --foreground 248 "➤ Run 'npm run dev' to start the development server."
 else
-  echo "✔︎ Sample about page created"
+  echo "✔︎ Sample cover letter created"
   echo
   echo "➤ DevCard initialized successfully."
   echo "➤ Run 'npm run dev' to start the development server."
