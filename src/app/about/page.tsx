@@ -107,8 +107,8 @@ export default function AboutPage() {
               </Card>
             ) : (
               <EmptyPlaceholderCard
-                title="About page not found"
-                subtitle="The about.md file is missing. Create one in the data/profile directory to share more about yourself."
+                title="About page not yet written"
+                subtitle="This section is currently being crafted. Check back soon to learn more about my background and journey."
               >
                 <Button variant="outline" asChild>
                   <Link href="/">Go home</Link>

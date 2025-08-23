@@ -107,8 +107,8 @@ export default function CoverPage() {
               </Card>
             ) : (
               <EmptyPlaceholderCard
-                title="Cover letter not found"
-                subtitle="The cover-letter.md file is missing. Create one in the data/profile directory to share your professional introduction."
+                title="Cover letter not yet written"
+                subtitle="This personalized introduction is currently being crafted. Check back soon for a detailed professional overview."
               >
                 <Button variant="outline" asChild>
                   <Link href="/">Go home</Link>
