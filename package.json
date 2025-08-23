@@ -6,6 +6,15 @@
   "engines": {
     "node": ">=22.0.0"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions", 
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "last 2 Opera versions",
+    "last 2 ChromeAndroid versions",
+    "last 2 iOS versions"
+  ],
   "description": "A modern, customizable developer profile spotlight landing page built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui components.",
   "keywords": [
     "developer",
