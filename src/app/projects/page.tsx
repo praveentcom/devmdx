@@ -2,18 +2,19 @@ import { profileData } from "@/data/profile";
 import { Project } from "@/types/project";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { TagBadge } from "@/components/ui/tag-badge";
-import { Users, GitPullRequestArrow } from "lucide-react";
+import { Users, GitPullRequestArrow, Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import type { Metadata } from "next";
 import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
 import { PageWithStructuredData } from "@/components/ui/common";
+import { formatDateToMonthYear } from "@/lib/helpers/date";
 
 export const metadata: Metadata = METADATA_PATTERNS.projectsList();
 
 function ProjectCard({ project }: { project: Project }) {
-  const { name, stack, description, bulletPoints, imagePath, coAuthors } =
+  const { name, stack, description, bulletPoints, imagePath, coAuthors, date } =
     project;
 
   return (
@@ -39,6 +40,12 @@ function ProjectCard({ project }: { project: Project }) {
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground mb-2">
                     <Users className="icon-xs" />
                     <span>with {coAuthors.join(", ")}</span>
+                  </div>
+                )}
+                {date && (
+                  <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground mb-2">
+                    <Calendar className="icon-xs" />
+                    <span>{formatDateToMonthYear(date)}</span>
                   </div>
                 )}
               </div>

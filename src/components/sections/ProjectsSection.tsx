@@ -4,17 +4,18 @@ import { Project } from "@/types/project";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { TagBadge } from "@/components/ui/tag-badge";
 import { Button } from "@/components/ui/button";
-import { Users, GitPullRequestArrow, ArrowRight } from "lucide-react";
+import { Users, GitPullRequestArrow, ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { formatDateToMonthYear } from "@/lib/helpers/date";
 
 interface ProjectsSectionProps {
   projects: Project[];
 }
 
 function ProjectCard({ project }: { project: Project }) {
-  const { name, stack, description, bulletPoints, imagePath, coAuthors } =
+  const { name, stack, description, bulletPoints, imagePath, coAuthors, date } =
     project;
 
   return (
@@ -40,6 +41,12 @@ function ProjectCard({ project }: { project: Project }) {
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
                     <Users className="size-3" />
                     <span>with {coAuthors.join(", ")}</span>
+                  </div>
+                )}
+                {date && (
+                  <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
+                    <Calendar className="size-3" />
+                    <span>{formatDateToMonthYear(date)}</span>
                   </div>
                 )}
               </div>

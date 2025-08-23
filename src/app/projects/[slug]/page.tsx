@@ -5,6 +5,7 @@ import {
   ArrowLeft,
   GitPullRequestArrow,
   Github,
+  Calendar,
 } from "lucide-react";
 import { notFound } from "next/navigation";
 import { TagBadge } from "@/components/ui/tag-badge";
@@ -21,6 +22,7 @@ import {
   METADATA_PATTERNS,
   createNotFoundMetadata,
 } from "@/lib/helpers/metadata";
+import { formatDateToMonthYear } from "@/lib/helpers/date";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -82,6 +84,17 @@ export default async function ProjectPage({ params }: PageProps) {
             fallbackIcon={GitPullRequestArrow}
             size="large"
           />
+
+          {project.date && (
+            <SectionCard title="Project date">
+              <div className="flex items-center gap-2">
+                <Calendar className="size-4 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">
+                  {formatDateToMonthYear(project.date)}
+                </span>
+              </div>
+            </SectionCard>
+          )}
 
           <SectionCard title="Tech stack">
             <div className="flex flex-wrap gap-1.5">
