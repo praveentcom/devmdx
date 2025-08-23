@@ -1,24 +1,23 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import { getEnvConfig } from "./src/lib/helpers/env-config";
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
 });
+
+// Get environment-based configuration
+const envConfig = getEnvConfig();
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   compress: true,
   poweredByHeader: false,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-      },
-    ],
+    remotePatterns: envConfig.imageRemotePatterns,
     dangerouslyAllowSVG: true,
     contentDispositionType: "inline",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    contentSecurityPolicy: envConfig.contentSecurityPolicy,
     minimumCacheTTL: 31536000,
   },
   async redirects() {
@@ -36,27 +35,37 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
+    const securityHeaders = [
+      {
+        key: "X-Content-Type-Options",
+        value: "nosniff",
+      },
+      {
+        key: "X-Frame-Options",
+        value: "DENY",
+      },
+      {
+        key: "X-XSS-Protection",
+        value: "1; mode=block",
+      },
+      {
+        key: "Referrer-Policy",
+        value: "origin-when-cross-origin",
+      },
+    ];
+
+    // Add development-specific headers
+    if (envConfig.isDevelopment) {
+      securityHeaders.push({
+        key: "X-Development-Mode",
+        value: "true",
+      });
+    }
+
     return [
       {
         source: "/(.*)",
-        headers: [
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
-          },
-          {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "origin-when-cross-origin",
-          },
-        ],
+        headers: securityHeaders,
       },
       {
         source: "/images/:path*",
