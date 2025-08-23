@@ -3,9 +3,9 @@ import { profileData } from "@/data/profile";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
 import { EnumTechnology } from "@/lib/helpers/technology-mapper";
+import { BASE_URL } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   // Static pages
   const staticPages = [
@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/projects",
     "/cover",
   ].map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: `${BASE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: route === "" ? 1 : 0.8,
@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Article pages
   const articles = allArticles.map((article) => ({
-    url: `${baseUrl}/articles/${article.year}/${article.slug}`,
+    url: `${BASE_URL}/articles/${article.year}/${article.slug}`,
     lastModified: new Date(article.date),
     changeFrequency: "monthly" as const,
     priority: 0.7,
@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Article year listing pages
   const articleYears = Array.from(new Set(allArticles.map((a) => a.year))).map(
     (year) => ({
-      url: `${baseUrl}/articles/${year}`,
+      url: `${BASE_URL}/articles/${year}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.6,
@@ -48,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articleTopics = Array.from(
     new Set(allArticles.flatMap((article) => article.tags)),
   ).map((topic) => ({
-    url: `${baseUrl}/articles/topic/${topic}`,
+    url: `${BASE_URL}/articles/topic/${topic}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
@@ -56,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Community contribution pages
   const community = allCommunity.map((contribution) => ({
-    url: `${baseUrl}/community/${contribution.year}/${contribution.slug}`,
+    url: `${BASE_URL}/community/${contribution.year}/${contribution.slug}`,
     lastModified: new Date(contribution.date),
     changeFrequency: "monthly" as const,
     priority: 0.7,
@@ -66,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const communityYears = Array.from(
     new Set(allCommunity.map((c) => c.year)),
   ).map((year) => ({
-    url: `${baseUrl}/community/${year}`,
+    url: `${BASE_URL}/community/${year}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
@@ -76,7 +76,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const communityTypes = Array.from(
     new Set(allCommunity.map((c) => c.type)),
   ).map((type) => ({
-    url: `${baseUrl}/community/contributions/${type}`,
+    url: `${BASE_URL}/community/contributions/${type}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
@@ -84,7 +84,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Project pages
   const projects = profileData.projects.map((project) => ({
-    url: `${baseUrl}/projects/${project.slug}`,
+    url: `${BASE_URL}/projects/${project.slug}`,
     lastModified: project.date || new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
@@ -92,7 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Technology stack pages
   const projectStacks = Object.values(EnumTechnology).map((tech) => ({
-    url: `${baseUrl}/projects/stack/${tech}`,
+    url: `${BASE_URL}/projects/stack/${tech}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
@@ -100,7 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Work experience pages
   const workExperience = profileData.workExperience.map((work) => ({
-    url: `${baseUrl}/work/${work.slug}`,
+    url: `${BASE_URL}/work/${work.slug}`,
     lastModified: new Date(),
     changeFrequency: "yearly" as const,
     priority: 0.5,
@@ -108,7 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Education pages
   const education = profileData.education.map((edu) => ({
-    url: `${baseUrl}/education/${edu.slug}`,
+    url: `${BASE_URL}/education/${edu.slug}`,
     lastModified: new Date(),
     changeFrequency: "yearly" as const,
     priority: 0.5,

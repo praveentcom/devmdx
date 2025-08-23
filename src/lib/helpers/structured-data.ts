@@ -5,11 +5,11 @@ import { Project } from "@/types/project";
 import WorkExperienceItem from "@/models/WorkExperienceItem";
 import EducationItem from "@/models/EducationItem";
 import { TechnologyMapper } from "@/lib/helpers/technology-mapper";
+import { BASE_URL, URLS } from "@/lib/constants";
 
 // Schema.org structured data generators for SEO rich snippets
 export function generatePersonSchema() {
   const profile = profileData.profile;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   return {
     "@context": "https://schema.org",
@@ -17,7 +17,7 @@ export function generatePersonSchema() {
     name: `${profile.firstName} ${profile.lastName}`,
     jobTitle: profile.currentPosition,
     description: profile.description,
-    url: baseUrl,
+    url: BASE_URL,
     image: profile.imageUrl,
     sameAs: [
       profile.socialMedia?.linkedin,
@@ -42,7 +42,6 @@ export function generatePersonSchema() {
 
 export function generateArticleSchema(article: Article & { year?: string }) {
   const profile = profileData.profile;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const year = article.year ?? new Date(article.date).getFullYear().toString();
 
   return {
@@ -56,7 +55,7 @@ export function generateArticleSchema(article: Article & { year?: string }) {
     author: {
       "@type": "Person",
       name: `${profile.firstName} ${profile.lastName}`,
-      url: baseUrl,
+      url: BASE_URL,
     },
     publisher: {
       "@type": "Person",
@@ -66,7 +65,7 @@ export function generateArticleSchema(article: Article & { year?: string }) {
         url: profile.imageUrl,
       },
     },
-    url: `${baseUrl}/articles/${year}/${article.slug}`,
+    url: URLS.ARTICLES(year, article.slug),
     wordCount: article.content?.split(" ").length || 0,
     timeRequired: `PT${Math.max(1, Math.ceil((article.content?.split(" ").length || 0) / 200))}M`,
     keywords: article.tags.join(", "),
@@ -81,7 +80,6 @@ export function generateCommunitySchema(
   },
 ) {
   const profile = profileData.profile;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const year =
     community.year ?? new Date(community.date).getFullYear().toString();
 
@@ -95,14 +93,14 @@ export function generateCommunitySchema(
     performer: {
       "@type": "Person",
       name: `${profile.firstName} ${profile.lastName}`,
-      url: baseUrl,
+      url: BASE_URL,
     },
     organizer: {
       "@type": "Person",
       name: `${profile.firstName} ${profile.lastName}`,
-      url: baseUrl,
+      url: BASE_URL,
     },
-    url: `${baseUrl}/community/${year}/${community.slug}`,
+    url: URLS.COMMUNITY(year, community.slug),
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     about: community.description,
@@ -119,7 +117,7 @@ export function generateCommunitySchema(
   // Optionally add an additionalType hint based on contribution type
   if (community.type) {
     eventData["additionalType"] =
-      `${baseUrl}/community/contributions/${community.type}`;
+      URLS.COMMUNITY_CONTRIBUTIONS(community.type);
   }
 
   return eventData;
@@ -127,7 +125,6 @@ export function generateCommunitySchema(
 
 export function generateProjectSchema(project: Project) {
   const profile = profileData.profile;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const techMapper = new TechnologyMapper();
   const programmingLanguages = (project.stack || [])
     .map((tech) => techMapper.getDetails(tech)?.label)
@@ -138,7 +135,7 @@ export function generateProjectSchema(project: Project) {
     "@type": "SoftwareApplication",
     name: project.name,
     description: project.description,
-    url: project.url || `${baseUrl}/projects/${project.slug}`,
+    url: project.url || URLS.PROJECTS(project.slug),
     image: project.imagePath,
     author: {
       "@type": "Person",
