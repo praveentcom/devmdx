@@ -1,4 +1,4 @@
-import { EnumTechnology } from "@/lib/helpers/technology-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 
 export interface WorkExperience {
   slug: string;
@@ -8,5 +8,5 @@ export interface WorkExperience {
   startDate: Date;
   endDate?: Date;
   bulletPoints: string[];
-  skills?: EnumTechnology[];
+  skills?: EnumTag[];
 }

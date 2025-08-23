@@ -20,10 +20,10 @@ import { EnumCommunityContributionType } from "@/types/community";
 
 export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Community contributions`,
-  description: communityData.description,
+  description: communityData.descriptionLine1,
   openGraph: {
     title: "Community contributions",
-    description: communityData.description,
+    description: communityData.descriptionLine1,
     type: "website",
     images: [
       {
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Community contributions",
-    description: communityData.description,
+    description: communityData.descriptionLine1,
     images: [
       generatePlaceholderImageUrl({
         text: "Community contributions",
@@ -79,7 +79,7 @@ export default function CommunityPage() {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         name: "Community contributions",
-        description: communityData.description,
+        description: communityData.descriptionLine1,
       }}
     >
       <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
@@ -106,14 +106,17 @@ export default function CommunityPage() {
                 {/* Content - 2/3 */}
                 <div className="lg:col-span-2 space-y-4">
                   <div className="grid gap-1">
-                    <div className="flex items-center gap-2">
-                      <h1 className="text-lg font-semibold">
-                        {communityData.title}
-                      </h1>
+                    <h1 className="text-lg font-semibold">
+                      {communityData.title}
+                    </h1>
+                    <div className="grid gap-4">
+                      <p className="text-muted-foreground text-sm">
+                        {communityData.descriptionLine1}
+                      </p>
+                      <p className="text-muted-foreground text-sm">
+                        {communityData.descriptionLine2}
+                      </p>
                     </div>
-                    <p className="text-muted-foreground text-sm">
-                      {communityData.description}
-                    </p>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs">

@@ -1,17 +1,13 @@
 import { profileData } from "@/data/profile";
 import { Project } from "@/types/project";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { TechnologyBadge } from "@/components/ui/technology-badge";
+import { TagBadge } from "@/components/ui/tag-badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Users, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import {
-  EnumTechnology,
-  isValidTechnology,
-  TechnologyMapper,
-} from "@/lib/helpers/technology-mapper";
+import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import type { Metadata } from "next";
 import {
@@ -23,16 +19,18 @@ import { BackButton } from "@/components/ui/common";
 
 interface PageProps {
   params: Promise<{
-    technology: string;
+    tag: string;
   }>;
 }
 
+const tagMapper = new TagMapper();
+
 function ProjectCard({
   project,
-  currentTechnology,
+  currentTag,
 }: {
   project: Project;
-  currentTechnology: EnumTechnology;
+  currentTag: EnumTag;
 }) {
   const { name, stack, description, bulletPoints, url, imagePath, coAuthors } =
     project;
@@ -66,11 +64,12 @@ function ProjectCard({
               {description}
             </p>
             <div className="flex flex-wrap gap-2 mt-2.5">
-              {stack.map((tech, index) => (
-                <TechnologyBadge
+              {stack.map((tag, index) => (
+                <TagBadge
                   key={index}
-                  technology={tech}
-                  clickable={tech !== currentTechnology}
+                  tag={tag}
+                  clickable={tag !== currentTag}
+                  source="projects"
                 />
               ))}
             </div>
@@ -107,45 +106,43 @@ function ProjectCard({
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { technology } = await params;
+  const { tag } = await params;
 
-  if (!isValidTechnology(technology)) {
-    return createNotFoundMetadata("Technology");
+  if (!tagMapper.isValidTag(tag)) {
+    return createNotFoundMetadata("Tag");
   }
 
-  const technologyMapper = new TechnologyMapper();
-  const techDetails = technologyMapper.getDetails(technology);
+  const techDetails = tagMapper.getDetails(tag);
 
   if (!techDetails) {
-    return createNotFoundMetadata("Technology");
+    return createNotFoundMetadata("Tag");
   }
 
   const filteredProjects = profileData.projects.filter((project) =>
-    project.stack.includes(technology),
+    project.stack.includes(tag),
   );
 
-  return METADATA_PATTERNS.technologyProjects(
+  return METADATA_PATTERNS.tagProjects(
     techDetails.label,
     filteredProjects.length,
   );
 }
 
-export default async function TechnologyProjectsPage({ params }: PageProps) {
-  const { technology } = await params;
+export default async function TagProjectsPage({ params }: PageProps) {
+  const { tag } = await params;
 
-  if (!isValidTechnology(technology)) {
+  if (!tagMapper.isValidTag(tag)) {
     redirect("/");
   }
 
-  const technologyMapper = new TechnologyMapper();
-  const techDetails = technologyMapper.getDetails(technology);
+  const techDetails = tagMapper.getDetails(tag);
 
   if (!techDetails) {
     redirect("/");
   }
 
   const filteredProjects = profileData.projects.filter((project) =>
-    project.stack.includes(technology),
+    project.stack.includes(tag),
   );
 
   return (
@@ -184,11 +181,7 @@ export default async function TechnologyProjectsPage({ params }: PageProps) {
         {filteredProjects.length > 0 ? (
           <div className="space-y-4">
             {filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={index}
-                project={project}
-                currentTechnology={technology}
-              />
+              <ProjectCard key={index} project={project} currentTag={tag} />
             ))}
           </div>
         ) : (
@@ -210,7 +203,7 @@ export default async function TechnologyProjectsPage({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  return Object.values(EnumTechnology).map((technology) => ({
-    technology: technology,
+  return Object.values(EnumTag).map((tag) => ({
+    tag: tag,
   }));
 }

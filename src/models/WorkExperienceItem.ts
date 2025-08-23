@@ -1,5 +1,5 @@
 import { WorkExperience } from "@/types/work";
-import { EnumTechnology } from "@/lib/helpers/technology-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 
 export class WorkExperienceItem implements WorkExperience {
   slug: string;
@@ -9,7 +9,7 @@ export class WorkExperienceItem implements WorkExperience {
   startDate: Date;
   endDate?: Date;
   bulletPoints: string[];
-  skills?: EnumTechnology[];
+  skills?: EnumTag[];
 
   constructor(init: WorkExperience) {
     this.slug = init.slug;

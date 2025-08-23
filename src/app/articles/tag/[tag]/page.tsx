@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TopicMapper, EnumTopic } from "@/lib/helpers/topic-mapper";
+import { TagMapper, EnumTag } from "@/lib/helpers/tag-mapper";
 import Image from "next/image";
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
@@ -17,55 +17,55 @@ import { BackButton } from "@/components/ui/common";
 
 interface PageProps {
   params: Promise<{
-    topic: string;
+    tag: string;
   }>;
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { topic } = await params;
-  const topicMapper = new TopicMapper();
+  const { tag } = await params;
+  const tagMapper = new TagMapper();
 
-  if (!topicMapper.isValidTopic(topic)) {
-    return createNotFoundMetadata("Topic");
+  if (!tagMapper.isValidTag(tag)) {
+    return createNotFoundMetadata("Tag");
   }
 
-  const topicEnum = topic as EnumTopic;
-  const topicDetails = topicMapper.getDetails(topicEnum);
+  const tagEnum = tag as EnumTag;
+  const tagDetails = tagMapper.getDetails(tagEnum);
 
-  if (!topicDetails) {
-    return createNotFoundMetadata("Topic");
+  if (!tagDetails) {
+    return createNotFoundMetadata("Tag");
   }
 
   const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(topicEnum),
+    article.tags.includes(tagEnum),
   );
 
-  return METADATA_PATTERNS.topicArticles(
-    topicDetails.label,
+  return METADATA_PATTERNS.tagArticles(
+    tagDetails.label,
     filteredArticles.length,
   );
 }
 
-export default async function TopicArticlePage({ params }: PageProps) {
-  const { topic } = await params;
-  const topicMapper = new TopicMapper();
+export default async function TagArticlePage({ params }: PageProps) {
+  const { tag } = await params;
+  const tagMapper = new TagMapper();
 
-  if (!topicMapper.isValidTopic(topic)) {
+  if (!tagMapper.isValidTag(tag)) {
     notFound();
   }
 
-  const topicEnum = topic as EnumTopic;
-  const topicDetails = topicMapper.getDetails(topicEnum);
+  const tagEnum = tag as EnumTag;
+  const tagDetails = tagMapper.getDetails(tagEnum);
 
-  if (!topicDetails) {
+  if (!tagDetails) {
     notFound();
   }
 
-  // Filter articles by the specified topic
+  // Filter articles by the specified tag
   const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(topicEnum),
+    article.tags.includes(tagEnum),
   );
 
   if (filteredArticles.length === 0) {
@@ -84,25 +84,25 @@ export default async function TopicArticlePage({ params }: PageProps) {
 
             <div className="flex items-center gap-3">
               <Image
-                src={topicDetails.iconPath}
-                alt={`${topicDetails.label} icon`}
+                src={tagDetails.iconPath}
+                alt={`${tagDetails.label} icon`}
                 width={20}
                 height={20}
                 className="flex-shrink-0"
               />
               <h1 className="text-lg font-semibold">
-                {topicDetails.label} articles
+                {tagDetails.label} articles
               </h1>
             </div>
 
             <p className="text-muted-foreground text-sm">
-              No articles found tagged with {topicDetails.label}
+              No articles found tagged with {tagDetails.label}
             </p>
           </div>
 
           <EmptyPlaceholderCard
             title="No articles found"
-            subtitle={`No articles have been published with the topic ${topicDetails.label} yet. Check back later for new content!`}
+            subtitle={`No articles have been published with the tag ${tagDetails.label} yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>
               <Link href="/articles">articles</Link>
@@ -130,21 +130,21 @@ export default async function TopicArticlePage({ params }: PageProps) {
 
           <div className="flex items-center gap-3">
             <Image
-              src={topicDetails.iconPath}
-              alt={`${topicDetails.label} icon`}
+              src={tagDetails.iconPath}
+              alt={`${tagDetails.label} icon`}
               width={20}
               height={20}
               className="flex-shrink-0"
             />
             <h1 className="text-lg font-semibold">
-              {topicDetails.label} articles
+              {tagDetails.label} articles
             </h1>
           </div>
 
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
-              ? `${filteredArticles.length} ${pluralize("article", filteredArticles.length)} tagged with ${topicDetails.label}`
-              : `No articles found tagged with ${topicDetails.label}`}
+              ? `${filteredArticles.length} ${pluralize("article", filteredArticles.length)} tagged with ${tagDetails.label}`
+              : `No articles found tagged with ${tagDetails.label}`}
           </p>
         </div>
 
@@ -161,11 +161,11 @@ export default async function TopicArticlePage({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  const topicsWithArticles = new Set<string>();
+  const tagsWithArticles = new Set<string>();
 
   getAllArticlesIndex().forEach((article) =>
-    article.tags.forEach((tag) => topicsWithArticles.add(tag)),
+    article.tags.forEach((tag) => tagsWithArticles.add(tag)),
   );
 
-  return Array.from(topicsWithArticles).map((topic) => ({ topic }));
+  return Array.from(tagsWithArticles).map((tag) => ({ tag }));
 }

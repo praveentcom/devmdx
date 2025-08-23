@@ -1,34 +1,36 @@
 import { Badge } from "@/components/ui/badge";
-import { TopicMapper, EnumTopic } from "@/lib/helpers/topic-mapper";
+import { TagMapper, EnumTag } from "@/lib/helpers/tag-mapper";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-interface TopicBadgeProps {
-  topic: EnumTopic;
+interface TagBadgeProps {
+  tag: EnumTag;
   className?: string;
   variant?: "default" | "secondary" | "destructive" | "outline";
   showIcon?: boolean;
   iconSize?: number;
   clickable?: boolean;
+  source?: "articles" | "projects" | "work";
 }
 
-const topicMapper = new TopicMapper();
+const tagMapper = new TagMapper();
 
-export function TopicBadge({
-  topic,
+export function TagBadge({
+  tag,
   className,
   variant = "outline",
   showIcon = true,
   iconSize = 16,
   clickable = true,
-}: TopicBadgeProps) {
-  const topicDetails = topicMapper.getDetails(topic);
+  source = "projects",
+}: TagBadgeProps) {
+  const techDetails = tagMapper.getDetails(tag);
 
-  if (!topicDetails) {
+  if (!techDetails) {
     return (
       <Badge variant={variant} className={cn("text-xs", className)}>
-        {topic}
+        {tag}
       </Badge>
     );
   }
@@ -45,20 +47,32 @@ export function TopicBadge({
     >
       {showIcon && (
         <Image
-          src={topicDetails.iconPath}
-          alt={`${topicDetails.label} icon`}
+          src={techDetails.iconPath}
+          alt={`${techDetails.label} icon`}
           width={iconSize}
           height={iconSize}
           className="flex-shrink-0"
         />
       )}
-      <span>{topicDetails.label}</span>
+      <span>{techDetails.label}</span>
     </Badge>
   );
 
   if (clickable) {
+    let href = "";
+    switch (source) {
+      case "articles":
+        href = `/articles/tag/${tag}`;
+        break;
+      case "work":
+      case "projects":
+      default:
+        href = `/projects/stack/${tag}`;
+        break;
+    }
+
     return (
-      <Link href={`/articles/topic/${topic}`} className="inline-block">
+      <Link href={href} className="inline-block">
         {badgeContent}
       </Link>
     );

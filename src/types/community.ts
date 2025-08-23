@@ -26,7 +26,8 @@ export interface Community {
 }
 
 export interface CommunityPageData {
-  title: string;
-  description: string;
   image?: string;
+  title: string;
+  descriptionLine1: string;
+  descriptionLine2: string;
 }

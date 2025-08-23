@@ -1,7 +1,7 @@
 import { profileData } from "@/data/profile";
 import { Project } from "@/types/project";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { TechnologyBadge } from "@/components/ui/technology-badge";
+import { TagBadge } from "@/components/ui/tag-badge";
 import { Users, GitPullRequestArrow } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,12 +46,8 @@ function ProjectCard({ project }: { project: Project }) {
                 {description}
               </p>
               <div className="flex flex-wrap gap-2 mt-2.5">
-                {stack.map((tech, index) => (
-                  <TechnologyBadge
-                    key={index}
-                    technology={tech}
-                    clickable={false}
-                  />
+                {stack.map((tag, index) => (
+                  <TagBadge key={index} tag={tag} clickable={false} />
                 ))}
               </div>
             </div>

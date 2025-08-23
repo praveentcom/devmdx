@@ -4,7 +4,7 @@ import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { Newspaper } from "lucide-react";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getAllArticleSlugs } from "@/lib/helpers/article";
-import { EnumTopic } from "@/lib/helpers/topic-mapper";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 import type { Metadata } from "next";
 import { profileData } from "@/data/profile";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   const publishedArticles = getAllArticleSlugs();
-  const tagSet = new Set<EnumTopic>();
+  const tagSet = new Set<EnumTag>();
   publishedArticles.forEach((p) => p.tags.forEach((t) => tagSet.add(t)));
 
   return (

@@ -161,7 +161,7 @@ export function createListingMetadata(config: {
 }
 
 /**
- * Create metadata for filtered/topic pages
+ * Create metadata for filtered/tagged pages
  */
 export function createFilteredMetadata(config: {
   filterName: string;
@@ -194,7 +194,7 @@ export function createFilteredMetadata(config: {
 }
 
 /**
- * Common patterns for different page types
+ * Common patterns for different page types (articles, projects, work, education)
  */
 export const METADATA_PATTERNS = {
   article: (
@@ -277,17 +277,17 @@ export const METADATA_PATTERNS = {
         "projects, portfolio, development, programming, open source, web applications, software",
     }),
 
-  topicArticles: (topicName: string, articleCount: number) =>
+  tagArticles: (tagName: string, articleCount: number) =>
     createFilteredMetadata({
-      filterName: topicName,
+      filterName: tagName,
       contentType: "Articles",
       count: articleCount,
       colorScheme: COLOR_SCHEMES.ARTICLE,
     }),
 
-  technologyProjects: (techName: string, projectCount: number) =>
+  tagProjects: (tagName: string, projectCount: number) =>
     createFilteredMetadata({
-      filterName: techName,
+      filterName: tagName,
       contentType: "Projects",
       count: projectCount,
       colorScheme: COLOR_SCHEMES.PROJECT,

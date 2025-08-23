@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, TagsIcon, Eye, BookOpenText } from "lucide-react";
-import { TopicBadge } from "@/components/ui/topic-badge";
+import { TagBadge } from "@/components/ui/tag-badge";
 import { formatDate } from "@/lib/helpers/markdown";
 import type { ArticleLike } from "./ArticleSummaryCard";
 
@@ -42,11 +42,12 @@ export function ArticleMetadata({ article }: ArticleMetadataProps) {
             </div>
             <div className="flex flex-wrap gap-1.5">
               {article.tags.map((tag, index) => (
-                <TopicBadge
+                <TagBadge
                   key={index}
-                  topic={tag}
+                  tag={tag}
                   variant="outline"
                   iconSize={12}
+                  source="articles"
                 />
               ))}
             </div>
