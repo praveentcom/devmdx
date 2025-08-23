@@ -1,9 +1,6 @@
 import { profileData } from "@/data/profile";
-import { Project } from "@/types/project";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { TagBadge } from "@/components/ui/tag-badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Users, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -16,6 +13,7 @@ import {
 } from "@/lib/helpers/metadata";
 import pluralize from "pluralize";
 import { BackButton } from "@/components/ui/common";
+import { ProjectCard } from "@/components/projects/ProjectCard";
 
 interface PageProps {
   params: Promise<{
@@ -24,84 +22,6 @@ interface PageProps {
 }
 
 const tagMapper = new TagMapper();
-
-function ProjectCard({
-  project,
-  currentTag,
-}: {
-  project: Project;
-  currentTag: EnumTag;
-}) {
-  const { name, stack, description, bulletPoints, url, imagePath, coAuthors } =
-    project;
-
-  return (
-    <Card className="card-hover-shadow">
-      <CardHeader>
-        <div className="card-header-layout">
-          {imagePath && (
-            <div className="card-image-container">
-              <Image
-                src={imagePath}
-                alt={`${name} preview`}
-                width={80}
-                height={80}
-                className="project-image"
-              />
-            </div>
-          )}
-          <div className="flex-1 grid">
-            <div className="flex-1 grid">
-              <p className="text-lg font-semibold">{name}</p>
-              {coAuthors && coAuthors.length > 0 && (
-                <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground mb-2">
-                  <Users className="icon-xs" />
-                  <span>with {coAuthors.join(", ")}</span>
-                </div>
-              )}
-            </div>
-            <p className="text-muted-foreground leading-relaxed text-sm">
-              {description}
-            </p>
-            <div className="flex flex-wrap gap-2 mt-2.5">
-              {stack.map((tag, index) => (
-                <TagBadge
-                  key={index}
-                  tag={tag}
-                  clickable={tag !== currentTag}
-                  source="projects"
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <ul className="bullet-list mb-4">
-          {bulletPoints.map((point, index) => (
-            <li key={index} className="bullet-item">
-              <div className="bullet-dot" />
-              <span className="bullet-text">{point}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="flex justify-start">
-          <Button variant="outline" size="sm" asChild>
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-xs"
-            >
-              <ExternalLink className="icon-sm" />
-              View project
-            </a>
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
 
 export async function generateMetadata({
   params,
