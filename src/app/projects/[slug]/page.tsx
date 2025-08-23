@@ -22,6 +22,7 @@ import {
   METADATA_PATTERNS,
   createNotFoundMetadata,
 } from "@/lib/helpers/metadata";
+import { format } from "date-fns";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -89,7 +90,7 @@ export default async function ProjectPage({ params }: PageProps) {
               <div className="flex items-center gap-2">
                 <Calendar className="size-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">
-                  {project.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                  {format(project.date, 'MMMM yyyy')}
                 </span>
               </div>
             </SectionCard>

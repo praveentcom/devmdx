@@ -8,6 +8,7 @@ import { Users, GitPullRequestArrow, ArrowRight, Calendar } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { format } from "date-fns";
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -45,7 +46,7 @@ function ProjectCard({ project }: { project: Project }) {
                 {date && (
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
                     <Calendar className="size-3" />
-                    <span>{date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                    <span>{format(date, 'MMMM yyyy')}</span>
                   </div>
                 )}
               </div>

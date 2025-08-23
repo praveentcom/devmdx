@@ -9,6 +9,7 @@ import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import type { Metadata } from "next";
 import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
 import { PageWithStructuredData } from "@/components/ui/common";
+import { format } from "date-fns";
 
 export const metadata: Metadata = METADATA_PATTERNS.projectsList();
 
@@ -44,7 +45,7 @@ function ProjectCard({ project }: { project: Project }) {
                 {date && (
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground mb-2">
                     <Calendar className="icon-xs" />
-                    <span>{date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                    <span>{format(date, 'MMMM yyyy')}</span>
                   </div>
                 )}
               </div>
