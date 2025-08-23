@@ -71,7 +71,7 @@ export default function CommunityPage() {
     (c) => c.type === EnumCommunityContributionType.ONLINE_COURSE,
   );
 
-  const heroImageUrl = generateCommunityPlaceholderImage(communityData.title);
+  const heroImageUrl = communityData.image || generateCommunityPlaceholderImage(communityData.title);
 
   return (
     <PageWithStructuredData
