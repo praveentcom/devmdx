@@ -26,7 +26,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center gap-1">
-              <BookOpenText className="icon-sm text-primary cursor-pointer" />
+              <BookOpenText className="icon-sm text-primary" />
               <h3 className="text-sm font-semibold">Metadata</h3>
             </div>
             <div className="flex flex-col gap-1 text-xs text-muted-foreground font-medium">
@@ -52,7 +52,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-1">
-                <Video className="icon-sm text-primary cursor-pointer" />
+                <Video className="icon-sm text-primary" />
                 <h3 className="text-sm font-semibold">Media Resources</h3>
               </div>
               <Button
@@ -81,7 +81,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-1">
-                <Link2 className="icon-sm text-primary cursor-pointer" />
+                <Link2 className="icon-sm text-primary" />
                 <h3 className="text-sm font-semibold">Content Resources</h3>
               </div>
               <div className="space-y-2">

@@ -76,7 +76,7 @@ export default function CoverPage() {
         <div className="grid gap-5">
           <div className="grid">
             <div className="flex items-center gap-2">
-              <FileText className="size-5 text-primary cursor-pointer" />
+              <FileText className="size-5 text-primary" />
               <h1 className="text-lg font-semibold">Cover letter</h1>
             </div>
             <p className="text-sm text-muted-foreground">

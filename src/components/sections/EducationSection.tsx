@@ -67,9 +67,13 @@ function EducationCard({ education }: { education: Education }) {
 
 export function EducationSection({ education }: EducationSectionProps) {
   return (
-    <div className="w-full grid gap-4 h-min">
+    <section
+      role="region"
+      aria-label="Education"
+      className="w-full grid gap-4 h-min"
+    >
       <div className="flex items-center gap-2">
-        <GraduationCap className="size-5 text-primary cursor-pointer" />
+        <GraduationCap className="size-5 text-primary" />
         <h2 className="text-md font-semibold">Education</h2>
       </div>
       {education.length > 0 ? (
@@ -84,6 +88,6 @@ export function EducationSection({ education }: EducationSectionProps) {
           subtitle="Check back in a while, due for an update."
         />
       )}
-    </div>
+    </section>
   );
 }

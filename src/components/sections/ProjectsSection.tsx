@@ -87,10 +87,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     .slice(0, 3);
 
   return (
-    <div className="w-full grid gap-4 h-min">
+    <section
+      role="region"
+      aria-label="Featured projects"
+      className="w-full grid gap-4 h-min"
+    >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <GitPullRequestArrow className="size-5 text-primary cursor-pointer" />
+          <GitPullRequestArrow className="size-5 text-primary" />
           <h2 className="text-md font-semibold">Featured projects</h2>
         </div>
         <Button variant="outline" size="sm" asChild>
@@ -112,6 +116,6 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           subtitle="Check back in a while, due for an update."
         />
       )}
-    </div>
+    </section>
   );
 }

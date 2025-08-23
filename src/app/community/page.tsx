@@ -71,7 +71,9 @@ export default function CommunityPage() {
     (c) => c.type === EnumCommunityContributionType.ONLINE_COURSE,
   );
 
-  const heroImageUrl = communityData.image || generateCommunityPlaceholderImage(communityData.title);
+  const heroImageUrl =
+    communityData.image ||
+    generateCommunityPlaceholderImage(communityData.title);
 
   return (
     <PageWithStructuredData
@@ -155,7 +157,7 @@ export default function CommunityPage() {
           <div className="grid gap-5">
             <div className="grid">
               <div className="flex items-center gap-2">
-                <Users className="size-5 text-primary cursor-pointer" />
+                <Users className="size-5 text-primary" />
                 <h1 className="text-lg font-semibold">
                   Community contributions
                 </h1>

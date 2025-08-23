@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   compress: true,
   poweredByHeader: false,
+  experimental: {
+    optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
+  },
   images: {
     remotePatterns: envConfig.imageRemotePatterns,
     dangerouslyAllowSVG: true,

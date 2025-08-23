@@ -68,11 +68,13 @@ NEXT_PUBLIC_DEV_IMAGE_HOSTNAMES=localhost,127.0.0.1
 **Hostname Configuration Examples:**
 
 For production deployment:
+
 ```bash
 NEXT_PUBLIC_ALLOWED_IMAGE_HOSTNAMES=cdn.example.com,images.example.com,your-bucket.s3.amazonaws.com
 ```
 
 For development with local images:
+
 ```bash
 NEXT_PUBLIC_DEV_IMAGE_HOSTNAMES=localhost:3001,192.168.1.100
 ```

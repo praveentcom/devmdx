@@ -44,6 +44,18 @@ export function Navigation() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Focus management for mobile menu
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const firstFocusableElement = document.querySelector(
+        '[role="dialog"] button, [role="dialog"] a',
+      );
+      if (firstFocusableElement instanceof HTMLElement) {
+        firstFocusableElement.focus();
+      }
+    }
+  }, [isMobileMenuOpen]);
+
   // Close menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -54,7 +66,23 @@ export function Navigation() {
 
   return (
     <>
+      {/* Skip navigation link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+      >
+        Skip to main content
+      </a>
+
+      {/* Live region for mobile menu state changes */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {isMobileMenuOpen
+          ? "Mobile navigation menu opened"
+          : "Mobile navigation menu closed"}
+      </div>
       <nav
+        role="navigation"
+        aria-label="Main navigation"
         className={cn(
           "sticky top-0 z-40 w-full backdrop-blur-sm transition-[background-color,border-color,backdrop-filter] duration-300 ease-out will-change-[background-color,border-color]",
           // Background with proper opacity
@@ -101,10 +129,15 @@ export function Navigation() {
               </Link>
             </h1>
             <Button
+              type="button"
               variant="ghost"
               size="sm"
               onClick={toggleMobileMenu}
               className="p-2"
+              aria-label={
+                isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
+              }
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
                 <X className="h-5 w-5" />
@@ -123,15 +156,25 @@ export function Navigation() {
           isMobileMenuOpen ? "visible opacity-100" : "invisible opacity-0",
         )}
       >
-        <div
+        <button
+          type="button"
           className={cn(
             "fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity duration-250 ease-out",
             isMobileMenuOpen ? "opacity-100" : "opacity-0",
           )}
           onClick={toggleMobileMenu}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              toggleMobileMenu();
+            }
+          }}
+          aria-label="Close mobile menu"
         />
 
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation menu"
           className={cn(
             "fixed inset-x-0 top-0 z-50 bg-background shadow-lg border-b border-border transition-transform duration-250 ease-out will-change-transform",
             isMobileMenuOpen ? "translate-y-0" : "-translate-y-full",
@@ -145,6 +188,7 @@ export function Navigation() {
                 size="sm"
                 onClick={toggleMobileMenu}
                 className="p-2"
+                aria-label="Close mobile menu"
               >
                 <X className="h-5 w-5" />
               </Button>
