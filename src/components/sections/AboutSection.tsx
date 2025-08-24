@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SimpleIcon, socialIconPaths } from "@/lib/utils/icons";
+import { BlurIn } from "@/components/motion-primitives/blur-in";
 
 interface AboutSectionProps {
   profile: Profile;
@@ -29,9 +30,10 @@ export function AboutSection({ profile }: AboutSectionProps) {
   const nameHref = isHomePage ? "/about" : "/";
 
   return (
-    <Card className="w-full card-shadow py-5">
-      <CardHeader>
-        <div className="flex flex-col sm:flex-row gap-5 items-start">
+    <BlurIn delay={0.1} duration={0.8}>
+      <Card className="w-full card-shadow py-5">
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row gap-5 items-start">
           {imageUrl && (
             <div className="card-image-container">
               <Image
@@ -140,5 +142,6 @@ export function AboutSection({ profile }: AboutSectionProps) {
         </div>
       </CardContent>
     </Card>
+    </BlurIn>
   );
 }
