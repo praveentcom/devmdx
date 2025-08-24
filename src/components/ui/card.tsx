@@ -1,9 +1,15 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { BlurIn } from "@/components/motion-primitives/blur-in";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
-  return (
+interface CardProps extends React.ComponentProps<"div"> {
+  animated?: boolean;
+  animationDelay?: number;
+}
+
+function Card({ className, animated = true, animationDelay = 0, ...props }: CardProps) {
+  const cardContent = (
     <div
       data-slot="card"
       className={cn(
@@ -14,6 +20,16 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
       )}
       {...props}
     />
+  );
+
+  if (!animated) {
+    return cardContent;
+  }
+
+  return (
+    <BlurIn delay={animationDelay + 0.05} duration={0.3}>
+      {cardContent}
+    </BlurIn>
   );
 }
 

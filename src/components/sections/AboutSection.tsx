@@ -30,8 +30,8 @@ export function AboutSection({ profile }: AboutSectionProps) {
 
   return (
     <Card className="w-full card-shadow py-5">
-      <CardHeader>
-        <div className="flex flex-col sm:flex-row gap-5 items-start">
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row gap-5 items-start">
           {imageUrl && (
             <div className="card-image-container">
               <Image
