@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
 import { PageWithStructuredData } from "@/components/ui/common";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { AnimatedHeading } from "@/components/ui/animated-heading";
 
 export const metadata: Metadata = METADATA_PATTERNS.projectsList();
 
@@ -21,15 +22,12 @@ export default function ProjectsPage() {
     >
       <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
         <div className="grid gap-5">
-          <div className="grid">
-            <div className="flex items-center gap-2">
-              <GitPullRequestArrow className="size-5 text-primary" />
-              <h1 className="text-lg font-semibold">Projects</h1>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              A comprehensive showcase of all my projects and contributions
-            </p>
-          </div>
+          <AnimatedHeading
+            icon={GitPullRequestArrow}
+            title="Projects"
+            subtitle="A comprehensive showcase of all my projects and contributions"
+            delay={0.1}
+          />
 
           {profileData.projects.length > 0 ? (
             <div className="space-y-4">

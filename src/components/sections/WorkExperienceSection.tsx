@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { DateRange } from "@/components/ui/common";
+import { AnimatedSectionHeading } from "@/components/ui/animated-section-heading";
 
 interface WorkExperienceSectionProps {
   workExperience: WorkExperience[];
@@ -68,10 +69,11 @@ export function WorkExperienceSection({
       aria-label="Work experience"
       className="w-full grid gap-4 h-min"
     >
-      <div className="flex items-center gap-2">
-        <Briefcase className="size-5 text-primary" />
-        <h2 className="text-md font-semibold">Work</h2>
-      </div>
+      <AnimatedSectionHeading
+        icon={Briefcase}
+        title="Work"
+        delay={0.1}
+      />
       {workExperience.length > 0 ? (
         <div className="space-y-4">
           {workExperience.map((experience, index) => (

@@ -11,6 +11,7 @@ import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import pluralize from "pluralize";
 import { PageWithStructuredData } from "@/components/ui/common";
+import { AnimatedHeading } from "@/components/ui/animated-heading";
 
 export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Articles`,
@@ -72,17 +73,16 @@ export default function ArticlePage() {
     >
       <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
         <div className="grid gap-5">
-          <div className="grid">
-            <div className="flex items-center gap-2">
-              <Newspaper className="size-5 text-primary" />
-              <h1 className="text-lg font-semibold">Articles</h1>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              {publishedArticles.length > 0
+          <AnimatedHeading
+            icon={Newspaper}
+            title="Articles"
+            subtitle={
+              publishedArticles.length > 0
                 ? `${publishedArticles.length} ${pluralize("article", publishedArticles.length)} about development, technology, and more.`
-                : "No articles published yet."}
-            </p>
-          </div>
+                : "No articles published yet."
+            }
+            delay={0.1}
+          />
 
           {publishedArticles.length > 0 ? (
             <div className="flex items-center gap-2 flex-wrap">

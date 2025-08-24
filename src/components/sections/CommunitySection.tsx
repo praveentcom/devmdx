@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
+import { AnimatedSectionHeading } from "@/components/ui/animated-section-heading";
 
 export function CommunitySection() {
   const contributions = getAllCommunityIndex();
@@ -15,18 +16,18 @@ export function CommunitySection() {
       aria-label="Recent community contributions"
       className="space-y-4"
     >
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <Users className="size-5 text-primary" />
-          <h2 className="text-md font-semibold">Recent contributions</h2>
-        </div>
+      <AnimatedSectionHeading
+        icon={Users}
+        title="Recent contributions"
+        delay={0.3}
+      >
         <Button variant="outline" size="sm" asChild>
           <Link href="/community" className="flex items-center gap-2">
             View contributions
             <ArrowRight className="icon-sm" />
           </Link>
         </Button>
-      </div>
+      </AnimatedSectionHeading>
 
       {recent.length > 0 ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

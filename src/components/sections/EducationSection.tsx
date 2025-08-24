@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { DateRange } from "@/components/ui/common";
+import { AnimatedSectionHeading } from "@/components/ui/animated-section-heading";
 
 interface EducationSectionProps {
   education: Education[];
@@ -72,10 +73,11 @@ export function EducationSection({ education }: EducationSectionProps) {
       aria-label="Education"
       className="w-full grid gap-4 h-min"
     >
-      <div className="flex items-center gap-2">
-        <GraduationCap className="size-5 text-primary" />
-        <h2 className="text-md font-semibold">Education</h2>
-      </div>
+      <AnimatedSectionHeading
+        icon={GraduationCap}
+        title="Education"
+        delay={0.3}
+      />
       {education.length > 0 ? (
         <div className="space-y-4">
           {education.map((edu, index) => (
