@@ -60,13 +60,19 @@ export function AboutSection({ profile }: AboutSectionProps) {
             {description && (
               <p className="text-muted-foreground text-sm">{description}</p>
             )}
+            {isHomePage && (
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/bio">View bio</Link>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         {bulletPoints && bulletPoints.length > 0 && (
           <div>
-            <p className="font-semibold text-sm mb-2.5">Highlights</p>
             <ul className="bullet-list">
               {bulletPoints.map((point, index) => (
                 <li key={index} className="bullet-item">
