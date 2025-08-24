@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     description:
       "A collection of articles about development, technology, and more.",
     type: "website",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/articles`,
     images: [
       {
         url: generatePlaceholderImageUrl({

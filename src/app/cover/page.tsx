@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     description:
       "A personalized introduction highlighting my experience and interest in joining your team.",
     type: "article",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/cover`,
     images: [
       {
         url: generatePlaceholderImageUrl({

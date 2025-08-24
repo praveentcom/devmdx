@@ -20,6 +20,8 @@ export const metadata: Metadata = {
     title: "Page not found",
     description: "The page you're looking for doesn't exist or has been moved.",
     type: "website",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}`,
     images: [
       {
         url: generatePlaceholderImageUrl({

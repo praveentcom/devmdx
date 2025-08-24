@@ -2,8 +2,13 @@ import { Metadata } from "next";
 import { profileData } from "@/data/profile";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
+import { BASE_URL } from "@/lib/constants";
 
 export function getAuthorName(): string {
+  return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
+}
+
+export function getSiteName(): string {
   return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
 }
 
@@ -51,6 +56,7 @@ export function createPageMetadata(config: {
   keywords?: string;
   publishedTime?: string;
   authors?: string[];
+  url?: string;
 }): Metadata {
   const {
     title,
@@ -63,6 +69,7 @@ export function createPageMetadata(config: {
     colorScheme,
     keywords,
     authors = [getAuthorName()],
+    url,
   } = config;
 
   const image = createOpenGraphImage(
@@ -80,6 +87,8 @@ export function createPageMetadata(config: {
       description: openGraphDescription,
       type,
       images: [image],
+      siteName: getSiteName(),
+      url: url ? `${BASE_URL}${url}` : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -109,6 +118,7 @@ export function createItemMetadata(config: {
   type?: "website" | "article" | "profile";
   keywords?: string;
   publishedTime?: string;
+  url?: string;
 }): Metadata {
   const {
     itemName,
@@ -119,6 +129,7 @@ export function createItemMetadata(config: {
     type = "website",
     keywords,
     publishedTime,
+    url,
   } = config;
 
   return createPageMetadata({
@@ -133,6 +144,7 @@ export function createItemMetadata(config: {
     keywords,
     publishedTime,
     authors: [authorName],
+    url,
   });
 }
 
@@ -144,8 +156,9 @@ export function createListingMetadata(config: {
   description: string;
   colorScheme: { background: string; text: string };
   keywords?: string;
+  url?: string;
 }): Metadata {
-  const { pageType, description, colorScheme, keywords } = config;
+  const { pageType, description, colorScheme, keywords, url } = config;
   const authorName = getAuthorName();
 
   return createPageMetadata({
@@ -157,6 +170,7 @@ export function createListingMetadata(config: {
     fallbackImageText: pageType,
     colorScheme,
     keywords,
+    url,
   });
 }
 
@@ -169,8 +183,9 @@ export function createFilteredMetadata(config: {
   count: number;
   colorScheme: { background: string; text: string };
   keywords?: string;
+  url?: string;
 }): Metadata {
-  const { filterName, contentType, count, colorScheme, keywords } = config;
+  const { filterName, contentType, count, colorScheme, keywords, url } = config;
   const authorName = getAuthorName();
   const pluralType = contentType.toLowerCase();
 
@@ -190,6 +205,7 @@ export function createFilteredMetadata(config: {
     keywords:
       keywords ||
       `${filterName}, ${pluralType}, development, technology, programming`,
+    url,
   });
 }
 
@@ -202,6 +218,7 @@ export const METADATA_PATTERNS = {
     description: string,
     imageUrl?: string,
     publishedTime?: string,
+    url?: string,
   ) =>
     createItemMetadata({
       itemName: title,
@@ -210,6 +227,7 @@ export const METADATA_PATTERNS = {
       colorScheme: COLOR_SCHEMES.ARTICLE,
       type: "article",
       publishedTime,
+      url,
     }),
 
   project: (
@@ -217,6 +235,7 @@ export const METADATA_PATTERNS = {
     description: string,
     technologies: string[],
     imageUrl?: string,
+    url?: string,
   ) =>
     createItemMetadata({
       itemName: name,
@@ -224,6 +243,7 @@ export const METADATA_PATTERNS = {
       imageUrl,
       colorScheme: COLOR_SCHEMES.PROJECT,
       keywords: `${technologies.join(", ")}, ${name}, project, portfolio`,
+      url,
     }),
 
   work: (
@@ -232,6 +252,7 @@ export const METADATA_PATTERNS = {
     description: string,
     skills: string[],
     imageUrl?: string,
+    url?: string,
   ) =>
     createItemMetadata({
       itemName: `${role} at ${company}`,
@@ -240,6 +261,7 @@ export const METADATA_PATTERNS = {
       colorScheme: COLOR_SCHEMES.WORK,
       type: "profile",
       keywords: `${skills.join(", ")}, ${company}, ${role}, work experience, career`,
+      url,
     }),
 
   education: (
@@ -247,6 +269,7 @@ export const METADATA_PATTERNS = {
     college: string,
     description: string,
     imageUrl?: string,
+    url?: string,
   ) =>
     createItemMetadata({
       itemName: `${degree} from ${college}`,
@@ -255,6 +278,7 @@ export const METADATA_PATTERNS = {
       colorScheme: COLOR_SCHEMES.EDUCATION,
       type: "profile",
       keywords: `${college}, ${degree}, education, academic, qualification`,
+      url,
     }),
 
   articlesList: () =>
@@ -265,6 +289,7 @@ export const METADATA_PATTERNS = {
       colorScheme: COLOR_SCHEMES.ARTICLE,
       keywords:
         "articles, blog, development, technology, programming, tutorials",
+      url: "/articles",
     }),
 
   projectsList: () =>
@@ -275,21 +300,24 @@ export const METADATA_PATTERNS = {
       colorScheme: COLOR_SCHEMES.PROJECT,
       keywords:
         "projects, portfolio, development, programming, open source, web applications, software",
+      url: "/projects",
     }),
 
-  tagArticles: (tagName: string, articleCount: number) =>
+  tagArticles: (tagName: string, articleCount: number, url?: string) =>
     createFilteredMetadata({
       filterName: tagName,
       contentType: "Articles",
       count: articleCount,
       colorScheme: COLOR_SCHEMES.ARTICLE,
+      url,
     }),
 
-  tagProjects: (tagName: string, projectCount: number) =>
+  tagProjects: (tagName: string, projectCount: number, url?: string) =>
     createFilteredMetadata({
       filterName: tagName,
       contentType: "Projects",
       count: projectCount,
       colorScheme: COLOR_SCHEMES.PROJECT,
+      url,
     }),
 } as const;

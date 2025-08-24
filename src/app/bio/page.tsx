@@ -17,6 +17,8 @@ export const metadata: Metadata = {
     title: `Bio - ${profileData.profile.firstName} ${profileData.profile.lastName}`,
     description: `Complete biography and professional background of ${profileData.profile.firstName} ${profileData.profile.lastName}. ${profileData.profile.description}`,
     type: "profile",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/bio`,
     images: [
       {
         url:

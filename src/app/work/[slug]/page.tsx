@@ -106,6 +106,7 @@ export async function generateMetadata({
     description,
     experience.skills || [],
     experience.companyImagePath,
+    `/work/${experience.slug}`,
   );
 }
 

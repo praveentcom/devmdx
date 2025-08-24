@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     description:
       "Learn more about my background, experiences, and what drives me professionally and personally.",
     type: "article",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/about`,
     images: [
       {
         url: generatePlaceholderImageUrl({

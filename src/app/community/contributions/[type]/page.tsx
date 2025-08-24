@@ -7,6 +7,7 @@ import { BackButton } from "@/components/ui/common";
 import { ArrowLeft, Filter } from "lucide-react";
 import Link from "next/link";
 import { EnumCommunityContributionType } from "@/types/community";
+import { profileData } from "@/data/profile";
 
 interface PageProps {
   params: Promise<{
@@ -98,9 +99,17 @@ export async function generateMetadata({
     return {};
   }
   const validatedType = type as EnumCommunityContributionType;
+  const typeLabel = getTypeLabel(validatedType);
   return {
-    title: `${getTypeLabel(validatedType)} | Community contributions`,
-    description: `All community contributions categorized as ${getTypeLabel(validatedType).toLowerCase()}.`,
+    title: `${typeLabel} | Community contributions`,
+    description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
+    openGraph: {
+      title: `${typeLabel} | Community contributions`,
+      description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
+      type: "website",
+      siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/community/contributions/${type}`,
+    },
   };
 }
 

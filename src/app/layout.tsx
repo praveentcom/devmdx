@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
   description: profileData.profile.description,
   openGraph: {
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}`,
     images: [
       profileData.profile.ogCoverImage ||
         generateOpenGraphImage(profileData.profile.firstName),

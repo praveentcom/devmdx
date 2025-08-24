@@ -45,6 +45,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagProjects(
     techDetails.label,
     filteredProjects.length,
+    `/projects/stack/${tag}`,
   );
 }
 

@@ -25,6 +25,8 @@ export const metadata: Metadata = {
     title: "Community contributions",
     description: communityData.descriptionLine1,
     type: "website",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/community`,
     images: [
       {
         url: generatePlaceholderImageUrl({
