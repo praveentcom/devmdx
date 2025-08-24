@@ -7,6 +7,7 @@ import { Footer } from "@/components/ui/footer";
 import { AnimatedLayout } from "@/components/layout/animated-layout";
 import { profileData } from "@/data/profile";
 import { generateOpenGraphImage } from "@/lib/helpers/image";
+import { BASE_URL } from "@/lib/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   description: profileData.profile.description,
   openGraph: {
     siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}`,
+    url: BASE_URL,
     images: [
       profileData.profile.ogCoverImage ||
         generateOpenGraphImage(profileData.profile.firstName),

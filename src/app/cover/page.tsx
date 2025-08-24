@@ -11,6 +11,7 @@ import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Cover letter`,
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
       "A personalized introduction highlighting my experience and interest in joining your team.",
     type: "article",
     siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/cover`,
+    url: `${BASE_URL}/cover`,
     images: [
       {
         url: generatePlaceholderImageUrl({

@@ -8,6 +8,7 @@ import { ArrowLeft, Filter } from "lucide-react";
 import Link from "next/link";
 import { EnumCommunityContributionType } from "@/types/community";
 import { profileData } from "@/data/profile";
+import { BASE_URL } from "@/lib/constants";
 
 interface PageProps {
   params: Promise<{
@@ -108,7 +109,7 @@ export async function generateMetadata({
       description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
       type: "website",
       siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-      url: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/community/contributions/${type}`,
+      url: `${BASE_URL}/community/contributions/${type}`,
     },
   };
 }
