@@ -8,8 +8,7 @@ export function getAuthorName(): string {
   return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
 }
 
-export function getSiteName(): string {
-  return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
+  return getAuthorName();
 }
 
 export function createNotFoundMetadata(type: string): Metadata {
