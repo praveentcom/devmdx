@@ -6,6 +6,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { LucideIcon } from "lucide-react";
+import { BlurIn } from "@/components/motion-primitives/blur-in";
 
 export function PageWithStructuredData({
   structuredData,
@@ -17,7 +18,9 @@ export function PageWithStructuredData({
   return (
     <>
       <StructuredData data={structuredData} />
-      {children}
+      <BlurIn delay={0.1} duration={0.6}>
+        {children}
+      </BlurIn>
     </>
   );
 }

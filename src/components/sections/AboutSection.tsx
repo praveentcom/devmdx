@@ -29,7 +29,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
   const nameHref = isHomePage ? "/about" : "/";
 
   return (
-    <Card className="w-full card-shadow py-5" animationDelay={0.2}>
+    <Card className="w-full card-shadow py-5">
         <CardHeader>
           <div className="flex flex-col sm:flex-row gap-5 items-start">
           {imageUrl && (

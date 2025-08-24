@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ArticleSummaryCard } from "../article/ArticleSummaryCard";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
-import { AnimatedSectionHeading } from "@/components/ui/animated-section-heading";
 
 export function ArticlesSection() {
   const publishedArticles = getAllArticlesIndex();
@@ -12,18 +11,18 @@ export function ArticlesSection() {
 
   return (
     <section role="region" aria-label="Recent articles" className="space-y-4">
-      <AnimatedSectionHeading
-        icon={Newspaper}
-        title="Recent articles"
-        delay={0.1}
-      >
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <Newspaper className="size-5 text-primary" />
+          <h2 className="text-md font-semibold">Recent articles</h2>
+        </div>
         <Button variant="outline" size="sm" asChild>
           <Link href="/articles" className="flex items-center gap-2">
             View articles
             <ArrowRight className="icon-sm" />
           </Link>
         </Button>
-      </AnimatedSectionHeading>
+      </div>
 
       {recentArticles.length > 0 ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
