@@ -7,7 +7,6 @@ import { SimpleIcon, socialIconPaths } from "@/lib/utils/icons";
 
 // Navigation items from the header
 const navigationItems = [
-  { href: "/bio", label: "Bio" },
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
   { href: "/articles", label: "Articles" },

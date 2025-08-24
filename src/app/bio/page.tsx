@@ -1,14 +1,14 @@
 import { profileData } from "@/data/profile";
-import { AboutSection } from "@/components/sections/AboutSection";
 import { WorkExperienceSection } from "@/components/sections/WorkExperienceSection";
 import { EducationSection } from "@/components/sections/EducationSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { ArticlesSection } from "@/components/sections/ArticlesSection";
-import { CommunitySection } from "@/components/sections/CommunitySection";
 import { generateOpenGraphImage } from "@/lib/helpers/image";
 import { Metadata } from "next";
 import { PageWithStructuredData } from "@/components/ui/common";
 import { generatePersonSchema } from "@/lib/helpers/structured-data";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
   title: `Bio - ${profileData.profile.firstName} ${profileData.profile.lastName}`,
@@ -56,8 +56,15 @@ export default function BioPage() {
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
           <div className="space-y-5">
-            <AboutSection profile={profileData.profile} />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 h-min pt-2.5">
+            <div className="flex items-center gap-3">
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/" className="flex items-center gap-2">
+                  <ArrowLeft className="h-4 w-4" />
+                  Back to Home
+                </Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 h-min">
               <WorkExperienceSection
                 workExperience={profileData.workExperience}
               />
@@ -66,8 +73,6 @@ export default function BioPage() {
             <ProjectsSection
               projects={profileData.projects.map((p) => ({ ...p }))}
             />
-            <ArticlesSection />
-            <CommunitySection />
           </div>
         </div>
       </div>

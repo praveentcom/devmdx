@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils";
 import { profileData } from "@/data/profile";
 
 const navigationItems = [
-  { href: "/bio", label: "Bio" },
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
   { href: "/articles", label: "Articles" },
