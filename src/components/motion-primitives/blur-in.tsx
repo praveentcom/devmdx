@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { Transition } from 'motion/react';
 import { InView, InViewProps } from './in-view';
 
 export type BlurInProps = {
@@ -36,17 +37,17 @@ export function BlurIn({
     },
   };
 
-  const transition = {
+  const transition: Transition = {
     duration,
     delay,
-    ease: 'easeOut',
+    ease: [0.25, 0.46, 0.45, 0.94],
   };
 
   return (
     <InView
       variants={variants}
       transition={transition}
-      viewOptions={{ threshold: 0.1, margin: '0px 0px -50px 0px' }}
+      viewOptions={{ amount: 0.1, margin: '0px 0px -50px 0px' }}
       once={once}
       {...props}
     >
