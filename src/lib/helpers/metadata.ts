@@ -8,6 +8,7 @@ export function getAuthorName(): string {
   return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
 }
 
+export function getSiteName(): string {
   return getAuthorName();
 }
 
