@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { DateRange } from "@/components/ui/common";
-import { BlurIn } from "@/components/motion-primitives/blur-in";
 
 interface EducationSectionProps {
   education: Education[];
@@ -68,31 +67,27 @@ function EducationCard({ education }: { education: Education }) {
 
 export function EducationSection({ education }: EducationSectionProps) {
   return (
-    <BlurIn delay={0.3} duration={0.8}>
-      <section
-        role="region"
-        aria-label="Education"
-        className="w-full grid gap-4 h-min"
-      >
-        <div className="flex items-center gap-2">
-          <GraduationCap className="size-5 text-primary" />
-          <h2 className="text-md font-semibold">Education</h2>
+    <section
+      role="region"
+      aria-label="Education"
+      className="w-full grid gap-4 h-min"
+    >
+      <div className="flex items-center gap-2">
+        <GraduationCap className="size-5 text-primary" />
+        <h2 className="text-md font-semibold">Education</h2>
+      </div>
+      {education.length > 0 ? (
+        <div className="space-y-4">
+          {education.map((edu, index) => (
+            <EducationCard key={index} education={edu} />
+          ))}
         </div>
-        {education.length > 0 ? (
-          <div className="space-y-4">
-            {education.map((edu, index) => (
-              <BlurIn key={index} delay={0.4 + index * 0.1} duration={0.6}>
-                <EducationCard education={edu} />
-              </BlurIn>
-            ))}
-          </div>
-        ) : (
-          <EmptyPlaceholderCard
-            title="None added yet"
-            subtitle="Check back in a while, due for an update."
-          />
-        )}
-      </section>
-    </BlurIn>
+      ) : (
+        <EmptyPlaceholderCard
+          title="None added yet"
+          subtitle="Check back in a while, due for an update."
+        />
+      )}
+    </section>
   );
 }

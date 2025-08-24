@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { DateRange } from "@/components/ui/common";
-import { BlurIn } from "@/components/motion-primitives/blur-in";
 
 interface WorkExperienceSectionProps {
   workExperience: WorkExperience[];
@@ -64,31 +63,27 @@ export function WorkExperienceSection({
   workExperience,
 }: WorkExperienceSectionProps) {
   return (
-    <BlurIn delay={0.1} duration={0.8}>
-      <section
-        role="region"
-        aria-label="Work experience"
-        className="w-full grid gap-4 h-min"
-      >
-        <div className="flex items-center gap-2">
-          <Briefcase className="size-5 text-primary" />
-          <h2 className="text-md font-semibold">Work</h2>
+    <section
+      role="region"
+      aria-label="Work experience"
+      className="w-full grid gap-4 h-min"
+    >
+      <div className="flex items-center gap-2">
+        <Briefcase className="size-5 text-primary" />
+        <h2 className="text-md font-semibold">Work</h2>
+      </div>
+      {workExperience.length > 0 ? (
+        <div className="space-y-4">
+          {workExperience.map((experience, index) => (
+            <ExperienceCard key={index} experience={experience} />
+          ))}
         </div>
-        {workExperience.length > 0 ? (
-          <div className="space-y-4">
-            {workExperience.map((experience, index) => (
-              <BlurIn key={index} delay={0.2 + index * 0.1} duration={0.6}>
-                <ExperienceCard experience={experience} />
-              </BlurIn>
-            ))}
-          </div>
-        ) : (
-          <EmptyPlaceholderCard
-            title="None added yet"
-            subtitle="Check back in a while, due for an update."
-          />
-        )}
-      </section>
-    </BlurIn>
+      ) : (
+        <EmptyPlaceholderCard
+          title="None added yet"
+          subtitle="Check back in a while, due for an update."
+        />
+      )}
+    </section>
   );
 }

@@ -17,7 +17,7 @@ export type BlurInProps = {
 export function BlurIn({
   children,
   delay = 0,
-  duration = 0.6,
+  duration = 0.4,
   blur = '6px',
   className,
   yOffset = 20,
