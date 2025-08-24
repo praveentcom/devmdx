@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Transition } from 'motion/react';
 import { InView, InViewProps } from './in-view';
 
@@ -17,13 +17,32 @@ export type BlurInProps = {
 export function BlurIn({
   children,
   delay = 0,
-  duration = 0.4,
+  duration = 0.3,
   blur = '6px',
   className,
   yOffset = 20,
   once = true,
   ...props
 }: BlurInProps) {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (event: MediaQueryListEvent) => {
+      setPrefersReducedMotion(event.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // If user prefers reduced motion, render without animation
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
   const variants = {
     hidden: {
       opacity: 0,

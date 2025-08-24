@@ -18,7 +18,7 @@ export function PageWithStructuredData({
   return (
     <>
       <StructuredData data={structuredData} />
-      <BlurIn delay={0.1} duration={0.6}>
+      <BlurIn delay={0.05} duration={0.4}>
         {children}
       </BlurIn>
     </>

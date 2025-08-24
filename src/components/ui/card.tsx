@@ -27,7 +27,7 @@ function Card({ className, animated = true, animationDelay = 0, ...props }: Card
   }
 
   return (
-    <BlurIn delay={animationDelay + 0.1} duration={0.4}>
+    <BlurIn delay={animationDelay + 0.05} duration={0.3}>
       {cardContent}
     </BlurIn>
   );
