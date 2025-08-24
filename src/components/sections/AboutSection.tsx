@@ -66,7 +66,6 @@ export function AboutSection({ profile }: AboutSectionProps) {
       <CardContent className="space-y-4">
         {bulletPoints && bulletPoints.length > 0 && (
           <div>
-            <p className="font-semibold text-sm mb-2.5">Highlights</p>
             <ul className="bullet-list">
               {bulletPoints.map((point, index) => (
                 <li key={index} className="bullet-item">

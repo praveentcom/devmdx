@@ -1,8 +1,5 @@
 import { profileData } from "@/data/profile";
 import { AboutSection } from "@/components/sections/AboutSection";
-import { WorkExperienceSection } from "@/components/sections/WorkExperienceSection";
-import { EducationSection } from "@/components/sections/EducationSection";
-import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ArticlesSection } from "@/components/sections/ArticlesSection";
 import { CommunitySection } from "@/components/sections/CommunitySection";
 import { generateOpenGraphImage } from "@/lib/helpers/image";
@@ -56,15 +53,6 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
           <div className="space-y-5">
             <AboutSection profile={profileData.profile} />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 h-min pt-2.5">
-              <WorkExperienceSection
-                workExperience={profileData.workExperience}
-              />
-              <EducationSection education={profileData.education} />
-            </div>
-            <ProjectsSection
-              projects={profileData.projects.map((p) => ({ ...p }))}
-            />
             <ArticlesSection />
             <CommunitySection />
           </div>
