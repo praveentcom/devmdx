@@ -9,6 +9,7 @@ import { generatePersonSchema } from "@/lib/helpers/structured-data";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: `Bio - ${profileData.profile.firstName} ${profileData.profile.lastName}`,
@@ -17,6 +18,8 @@ export const metadata: Metadata = {
     title: `Bio - ${profileData.profile.firstName} ${profileData.profile.lastName}`,
     description: `Complete biography and professional background of ${profileData.profile.firstName} ${profileData.profile.lastName}. ${profileData.profile.description}`,
     type: "profile",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${BASE_URL}/bio`,
     images: [
       {
         url:

@@ -45,6 +45,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     tagDetails.label,
     filteredArticles.length,
+    `/articles/tag/${tag}`,
   );
 }
 

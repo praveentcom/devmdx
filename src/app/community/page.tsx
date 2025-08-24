@@ -17,6 +17,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import pluralize from "pluralize";
 import { PageWithStructuredData } from "@/components/ui/common";
 import { EnumCommunityContributionType } from "@/types/community";
+import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Community contributions`,
@@ -25,6 +26,8 @@ export const metadata: Metadata = {
     title: "Community contributions",
     description: communityData.descriptionLine1,
     type: "website",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${BASE_URL}/community`,
     images: [
       {
         url: generatePlaceholderImageUrl({

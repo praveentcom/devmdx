@@ -11,6 +11,7 @@ import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName} | About`,
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
     description:
       "Learn more about my background, experiences, and what drives me professionally and personally.",
     type: "article",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${BASE_URL}/about`,
     images: [
       {
         url: generatePlaceholderImageUrl({

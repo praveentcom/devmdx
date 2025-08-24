@@ -67,6 +67,7 @@ export async function generateMetadata({
     contentType: "Articles",
     count,
     colorScheme: { background: "6366f1", text: "ffffff" },
+    url: `/articles/${year}`,
   });
 }
 

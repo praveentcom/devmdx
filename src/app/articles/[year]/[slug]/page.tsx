@@ -83,11 +83,13 @@ export async function generateMetadata({
   }
 
   const article = rawArticle.meta;
+  const { year } = await params;
   return METADATA_PATTERNS.article(
     article.title,
     article.description,
     article.image,
     new Date(article.date).toISOString(),
+    `/articles/${year}/${article.slug}`,
   );
 }
 

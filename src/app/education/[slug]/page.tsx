@@ -86,6 +86,7 @@ export async function generateMetadata({
     education.college,
     description,
     education.collegeImagePath,
+    `/education/${education.slug}`,
   );
 }
 

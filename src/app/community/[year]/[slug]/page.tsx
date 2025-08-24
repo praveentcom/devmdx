@@ -80,11 +80,13 @@ export async function generateMetadata({
   }
 
   const community = rawCommunity.meta;
+  const { year } = await params;
   return METADATA_PATTERNS.article(
     community.title,
     community.description,
     community.image,
     new Date(community.date).toISOString(),
+    `/community/${year}/${community.slug}`,
   );
 }
 

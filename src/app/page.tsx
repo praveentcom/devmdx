@@ -6,6 +6,7 @@ import { generateOpenGraphImage } from "@/lib/helpers/image";
 import { Metadata } from "next";
 import { PageWithStructuredData } from "@/components/ui/common";
 import { generatePersonSchema } from "@/lib/helpers/structured-data";
+import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
@@ -14,6 +15,8 @@ export const metadata: Metadata = {
     title: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
     description: profileData.profile.description,
     type: "profile",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: BASE_URL,
     images: [
       {
         url:

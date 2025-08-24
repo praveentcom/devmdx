@@ -11,6 +11,7 @@ import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import pluralize from "pluralize";
 import { PageWithStructuredData } from "@/components/ui/common";
+import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Articles`,
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
     description:
       "A collection of articles about development, technology, and more.",
     type: "website",
+    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    url: `${BASE_URL}/articles`,
     images: [
       {
         url: generatePlaceholderImageUrl({

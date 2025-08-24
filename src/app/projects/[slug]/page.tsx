@@ -135,6 +135,7 @@ export async function generateMetadata({
     project.description,
     project.stack,
     project.imagePath,
+    `/projects/${project.slug}`,
   );
 }
 
