@@ -47,7 +47,7 @@ export function BlurIn({
     <InView
       variants={variants}
       transition={transition}
-      viewOptions={{ amount: 0.1, margin: '0px 0px -50px 0px' }}
+      viewOptions={{ amount: 0.3, margin: '0px 0px -100px 0px' }}
       once={once}
       {...props}
     >
