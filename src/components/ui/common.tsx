@@ -19,12 +19,7 @@ export function PageWithStructuredData({
   return (
     <>
       <StructuredData data={structuredData} />
-      <BlurIn
-        duration={0.25}
-        viewOptions={{ amount: 0.01, margin: "0px 0px 0px 0px" }}
-      >
-        {children}
-      </BlurIn>
+      <BlurIn duration={0.25}>{children}</BlurIn>
     </>
   );
 }
@@ -42,7 +37,7 @@ export function BackButton({
     <div className="mb-4">
       <Button variant="outline" size="sm" asChild>
         <Link href={href} className="flex items-center gap-2">
-          <Icon className="icon-sm" />
+          <Icon className="size-4" />
           {label}
         </Link>
       </Button>
@@ -98,7 +93,7 @@ export function EntityHeader({
         </div>
       )}
       <div className="grid gap-1.5">
-        <h1 className="leading-none text-lg font-semibold">{title}</h1>
+        <h1 className="leading-none text-md font-medium">{title}</h1>
         <p className="text-sm text-muted-foreground">{subtitle}</p>
       </div>
     </div>
@@ -135,7 +130,7 @@ export function SectionCard({
     <Card>
       <CardContent>
         <div className="grid gap-1.5">
-          <h2 className="text-sm font-semibold">{title}</h2>
+          <h2 className="text-sm font-medium">{title}</h2>
           {children}
         </div>
       </CardContent>
@@ -159,7 +154,7 @@ export function DateRange({
 }) {
   return (
     <div className="flex items-center gap-1.5">
-      <Icon className="icon-xs text-muted-foreground" />
+      <Icon className="size-3 text-muted-foreground" />
       <span className={`text-muted-foreground ${textSize} font-medium`}>
         {format(startDate, "LLLL yyyy")} -{" "}
         {endDate ? format(endDate, "LLLL yyyy") : "Present"}

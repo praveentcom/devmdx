@@ -92,8 +92,8 @@ export default function CoverPage() {
         <div className="grid gap-5">
           <div className="grid">
             <div className="flex items-center gap-2">
-              <FileText className="size-5 text-primary" />
-              <h1 className="text-lg font-semibold">Cover letter</h1>
+              <FileText className="size-4 text-primary" />
+              <h1 className="text-md font-medium">Cover letter</h1>
             </div>
             <p className="text-sm text-muted-foreground">
               A personalized introduction highlighting my experience and

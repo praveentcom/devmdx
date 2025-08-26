@@ -93,9 +93,7 @@ export default function CommunityPage() {
             <CardContent>
               <div className="grid gap-5">
                 <div className="grid gap-3">
-                  <h1 className="text-lg font-semibold">
-                    {communityData.title}
-                  </h1>
+                  <h1 className="text-md font-medium">{communityData.title}</h1>
                   <p className="text-muted-foreground text-sm">
                     {communityData.descriptionLine1}
                   </p>
@@ -106,7 +104,7 @@ export default function CommunityPage() {
                 <div className="flex items-center gap-2 text-xs">
                   {talks.length > 0 && (
                     <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
-                      <MicVocal className="icon-xs text-primary" />
+                      <MicVocal className="size-3 text-primary" />
                       <span className="font-medium">
                         {talks.length} {pluralize("talk", talks.length)}
                       </span>
@@ -114,7 +112,7 @@ export default function CommunityPage() {
                   )}
                   {workshops.length > 0 && (
                     <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
-                      <Presentation className="icon-xs text-primary" />
+                      <Presentation className="size-3 text-primary" />
                       <span className="font-medium">
                         {workshops.length}{" "}
                         {pluralize("workshop", workshops.length)}
@@ -123,7 +121,7 @@ export default function CommunityPage() {
                   )}
                   {courses.length > 0 && (
                     <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
-                      <MonitorPlay className="icon-xs text-primary" />
+                      <MonitorPlay className="size-3 text-primary" />
                       <span className="font-medium">
                         {courses.length} {pluralize("course", courses.length)}
                       </span>
@@ -138,10 +136,8 @@ export default function CommunityPage() {
           <div className="grid gap-5">
             <div className="grid">
               <div className="flex items-center gap-2">
-                <Users className="size-5 text-primary" />
-                <h1 className="text-lg font-semibold">
-                  Community contributions
-                </h1>
+                <Users className="size-4 text-primary" />
+                <h1 className="text-md font-medium">Community contributions</h1>
               </div>
               <p className="text-sm text-muted-foreground">
                 List of talk sessions, workshops and more.

@@ -91,7 +91,7 @@ export default async function TagArticlePage({ params }: PageProps) {
                 height={20}
                 className="flex-shrink-0"
               />
-              <h1 className="text-lg font-semibold">
+              <h1 className="text-md font-medium">
                 {tagDetails.label} articles
               </h1>
             </div>
@@ -137,9 +137,7 @@ export default async function TagArticlePage({ params }: PageProps) {
               height={20}
               className="flex-shrink-0"
             />
-            <h1 className="text-lg font-semibold">
-              {tagDetails.label} articles
-            </h1>
+            <h1 className="text-md font-medium">{tagDetails.label} articles</h1>
           </div>
 
           <p className="text-muted-foreground text-sm">

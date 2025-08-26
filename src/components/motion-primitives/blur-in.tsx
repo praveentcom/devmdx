@@ -1,8 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect, useState } from "react";
-import { Transition } from "motion/react";
-import { InView, InViewProps } from "./in-view";
+import { motion, Transition } from "motion/react";
 
 export type BlurInProps = {
   children: ReactNode;
@@ -11,8 +10,7 @@ export type BlurInProps = {
   blur?: string;
   className?: string;
   yOffset?: number;
-  once?: boolean;
-} & Omit<InViewProps, "variants" | "transition" | "children">;
+};
 
 export function BlurIn({
   children,
@@ -21,8 +19,6 @@ export function BlurIn({
   blur = "6px",
   className,
   yOffset = 20,
-  once = true,
-  ...props
 }: BlurInProps) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -63,14 +59,14 @@ export function BlurIn({
   };
 
   return (
-    <InView
+    <motion.div
+      className={className}
+      initial="hidden"
+      animate="visible"
       variants={variants}
       transition={transition}
-      viewOptions={{ amount: 0.3, margin: "0px 0px -100px 0px" }}
-      once={once}
-      {...props}
     >
-      <div className={className}>{children}</div>
-    </InView>
+      {children}
+    </motion.div>
   );
 }

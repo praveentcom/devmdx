@@ -70,15 +70,15 @@ export default function ArticlePage() {
         "@type": "CollectionPage",
         name: "Articles",
         description:
-          "A collection of articles about development, technology, and more."
+          "A collection of articles about development, technology, and more.",
       }}
     >
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
             <div className="flex items-center gap-2">
-              <Newspaper className="size-5 text-primary" />
-              <h1 className="text-lg font-semibold">Articles</h1>
+              <Newspaper className="size-4 text-primary" />
+              <h1 className="text-md font-medium">Articles</h1>
             </div>
             <p className="text-sm text-muted-foreground">
               {publishedArticles.length > 0

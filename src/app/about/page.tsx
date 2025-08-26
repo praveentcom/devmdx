@@ -86,8 +86,8 @@ export default function AboutPage() {
         <div className="grid gap-5">
           <div className="grid">
             <div className="flex items-center gap-2">
-              <FileText className="size-5 text-primary" />
-              <h1 className="text-lg font-semibold">About</h1>
+              <FileText className="size-4 text-primary" />
+              <h1 className="text-md font-medium">About</h1>
             </div>
             <p className="text-sm text-muted-foreground">
               Learn more about my background, experiences, and what drives me

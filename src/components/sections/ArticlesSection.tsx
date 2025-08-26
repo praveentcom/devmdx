@@ -17,13 +17,13 @@ export function ArticlesSection() {
     >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Newspaper className="size-5 text-primary" />
-          <h2 className="text-md font-semibold">Recent articles</h2>
+          <Newspaper className="size-4 text-primary" />
+          <h2 className="text-md font-medium">Recent articles</h2>
         </div>
         <Button variant="outline" size="sm" asChild>
           <Link href="/articles" className="flex items-center gap-2">
             View articles
-            <ArrowRight className="icon-sm" />
+            <ArrowRight className="size-4" />
           </Link>
         </Button>
       </div>
