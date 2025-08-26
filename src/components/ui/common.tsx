@@ -19,7 +19,12 @@ export function PageWithStructuredData({
   return (
     <>
       <StructuredData data={structuredData} />
-      <BlurIn duration={0.25}>{children}</BlurIn>
+      <BlurIn
+        duration={0.25}
+        viewOptions={{ amount: 0.01, margin: "0px 0px 0px 0px" }}
+      >
+        {children}
+      </BlurIn>
     </>
   );
 }

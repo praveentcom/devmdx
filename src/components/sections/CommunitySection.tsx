@@ -36,7 +36,7 @@ export function CommunitySection() {
         </div>
       ) : (
         <EmptyPlaceholderCard
-          title="No community contributions yet"
+          title="No community contributions yet."
           subtitle="I haven't shared any talks or presentations yet, but I'm working on some great content to share with the community."
         />
       )}

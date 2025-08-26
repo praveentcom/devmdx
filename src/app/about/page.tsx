@@ -91,7 +91,7 @@ export default function AboutPage() {
             </div>
             <p className="text-sm text-muted-foreground">
               Learn more about my background, experiences, and what drives me
-              professionally and personally
+              professionally and personally.
             </p>
           </div>
 
@@ -104,7 +104,7 @@ export default function AboutPage() {
               </Card>
             ) : (
               <EmptyPlaceholderCard
-                title="About page not yet written"
+                title="About page not yet written."
                 subtitle="This section is currently being crafted. Check back soon to learn more about my background and journey."
               >
                 <Button variant="outline" asChild>

@@ -40,7 +40,7 @@ jobs:
       - name: Check build artifacts
         run: |
           if [ ! -d ".next" ]; then
-            echo "Build failed - .next directory not found"
+            echo "Build failed - .next directory not found."
             exit 1
           fi
           echo "Build successful - .next directory exists"

@@ -100,7 +100,7 @@ jobs:
             if [ -d "data" ]; then
               echo "💾 Preserving existing data directory..."
             else
-              echo "📝 No existing data directory found"
+              echo "📝 No existing data directory found."
             fi
             
             # Create .env from .env.example if not exists
@@ -130,7 +130,7 @@ jobs:
               echo "See .github/DEPLOYMENT.md for setup instructions."
               exit 1
             else
-              echo "✅ NGINX configuration found"
+              echo "✅ NGINX configuration found."
             fi
             
             # Test NGINX configuration

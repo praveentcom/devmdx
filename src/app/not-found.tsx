@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "The page you're looking for doesn't exist or has been moved. Return to the homepage or browse articles to find what you're looking for.",
   openGraph: {
-    title: "Page not found",
+    title: "Page not found.",
     description: "The page you're looking for doesn't exist or has been moved.",
     type: "website",
     siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
@@ -32,13 +32,13 @@ export const metadata: Metadata = {
         }),
         width: 1200,
         height: 630,
-        alt: "Page not found",
+        alt: "Page not found.",
       },
     ],
   },
   twitter: {
     card: "summary",
-    title: "Page not found",
+    title: "Page not found.",
     description: "The page you're looking for doesn't exist or has been moved.",
   },
 };

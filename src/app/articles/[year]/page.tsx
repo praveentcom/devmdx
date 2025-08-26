@@ -48,7 +48,7 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
           </div>
         ) : (
           <EmptyPlaceholderCard
-            title="No articles published"
+            title="No articles published."
             subtitle={`No articles were published in ${year}.`}
           />
         )}

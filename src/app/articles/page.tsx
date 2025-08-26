@@ -70,7 +70,7 @@ export default function ArticlePage() {
         "@type": "CollectionPage",
         name: "Articles",
         description:
-          "A collection of articles about development, technology, and more.",
+          "A collection of articles about development, technology, and more."
       }}
     >
       <div className="page-container">
@@ -111,7 +111,7 @@ export default function ArticlePage() {
             </div>
           ) : (
             <EmptyPlaceholderCard
-              title="No articles yet"
+              title="No articles yet."
               subtitle="I haven't published any articles yet, but I'm working on some great content."
             >
               <Button variant="outline" asChild>

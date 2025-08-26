@@ -110,7 +110,7 @@ export default function CoverPage() {
               </Card>
             ) : (
               <EmptyPlaceholderCard
-                title="Cover letter not yet written"
+                title="Cover letter not yet written."
                 subtitle="This personalized introduction is currently being crafted. Check back soon for a detailed professional overview."
               >
                 <Button variant="outline" asChild>
