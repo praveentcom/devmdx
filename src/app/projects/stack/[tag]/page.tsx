@@ -107,7 +107,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
           </div>
         ) : (
           <EmptyPlaceholderCard
-            title="No projects found"
+            title="No projects found."
             subtitle={`There are currently no projects where I've used ${techDetails.label}.`}
           >
             <Button variant="outline" asChild>

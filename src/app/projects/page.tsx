@@ -16,7 +16,7 @@ export default function ProjectsPage() {
         "@type": "CollectionPage",
         name: "Projects",
         description:
-          "A comprehensive showcase of all my projects and contributions",
+          "A comprehensive showcase of all my projects and contributions.",
       }}
     >
       <div className="page-container">
@@ -27,7 +27,7 @@ export default function ProjectsPage() {
               <h1 className="text-lg font-semibold">Projects</h1>
             </div>
             <p className="text-sm text-muted-foreground">
-              A comprehensive showcase of all my projects and contributions
+              A comprehensive showcase of all my projects and contributions.
             </p>
           </div>
 
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
             </div>
           ) : (
             <EmptyPlaceholderCard
-              title="None added yet"
+              title="None added yet."
               subtitle="Check back in a while, due for an update."
             />
           )}

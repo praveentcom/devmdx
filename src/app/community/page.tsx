@@ -12,7 +12,6 @@ import {
 } from "@/lib/helpers/image";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { communityData } from "@/data/community";
-import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import pluralize from "pluralize";
 import { PageWithStructuredData } from "@/components/ui/common";
@@ -85,6 +84,7 @@ export default function CommunityPage() {
         "@type": "CollectionPage",
         name: "Community contributions",
         description: communityData.descriptionLine1,
+        image: heroImageUrl,
       }}
     >
       <div className="page-container">
@@ -176,7 +176,7 @@ export default function CommunityPage() {
               </div>
             ) : (
               <EmptyPlaceholderCard
-                title="No community contributions yet"
+                title="No community contributions yet."
                 subtitle="I haven't shared any talks or presentations yet, but I'm working on some great content to share with the community."
               >
                 <Button variant="outline" asChild>

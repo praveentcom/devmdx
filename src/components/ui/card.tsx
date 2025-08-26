@@ -24,10 +24,10 @@ function Card({
       className={cn(
         "text-card-foreground rounded-xl relative",
         "border border-border/50 bg-card dark:bg-card/25",
-        "h-min py-5",
+        "h-min py-4",
         "transition-all duration-100",
         className,
-        borderTrail ? "hover:bg-card/75" : "",
+        borderTrail ? "hover:dark:bg-card/50" : "",
       )}
       {...props}
     >
@@ -53,7 +53,7 @@ function Card({
   }
 
   return (
-    <BlurIn delay={animationDelay + 0.05} duration={0.3}>
+    <BlurIn delay={animationDelay + 0.05} duration={0.25}>
       {cardContent}
     </BlurIn>
   );
@@ -64,7 +64,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-header"
       className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-5 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-4 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
         className,
       )}
       {...props}
@@ -109,7 +109,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-content"
-      className={cn("px-5", className)}
+      className={cn("px-4", className)}
       {...props}
     />
   );
@@ -119,7 +119,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-footer"
-      className={cn("flex items-center px-5 [.border-t]:pt-6", className)}
+      className={cn("flex items-center px-4 [.border-t]:pt-5", className)}
       {...props}
     />
   );

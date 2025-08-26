@@ -102,7 +102,7 @@ export default async function TagArticlePage({ params }: PageProps) {
           </div>
 
           <EmptyPlaceholderCard
-            title="No articles found"
+            title="No articles found."
             subtitle={`No articles have been published with the tag ${tagDetails.label} yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>

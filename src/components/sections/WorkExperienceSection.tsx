@@ -80,7 +80,7 @@ export function WorkExperienceSection({
         </div>
       ) : (
         <EmptyPlaceholderCard
-          title="None added yet"
+          title="None added yet."
           subtitle="Check back in a while, due for an update."
         />
       )}
