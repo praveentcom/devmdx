@@ -38,7 +38,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
   return (
     <PageWithStructuredData structuredData={generateProjectSchema(project)}>
-      <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+      <div className="page-container">
         <div className="flex items-center justify-between">
           <BackButton
             href="/projects"
@@ -90,7 +90,7 @@ export default async function ProjectPage({ params }: PageProps) {
               <div className="flex items-center gap-2">
                 <Calendar className="size-4 text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">
-                  {format(project.date, 'MMMM yyyy')}
+                  {format(project.date, "MMMM yyyy")}
                 </span>
               </div>
             </SectionCard>

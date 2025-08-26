@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }: PageProps) {
         year,
       })}
     >
-      <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+      <div className="page-container">
         <BackButton
           href={
             (await headers()).get("x-next-url")?.includes("source=year-range")
@@ -55,15 +55,15 @@ export default async function ArticlePage({ params }: PageProps) {
           Icon={ArrowLeft}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          <div className="lg:col-span-8 xl:col-span-9 grid gap-2">
+        <div className="grid md:grid-cols-12 gap-5">
+          <div className="md:col-span-8 xl:col-span-9 grid gap-2">
             <ArticleHeader article={article} />
             <div className="space-y-4">
               <Markdown content={rawArticle.raw} muted />
             </div>
           </div>
 
-          <div className="lg:col-span-4 xl:col-span-3">
+          <div className="md:col-span-4 xl:col-span-3">
             <ArticleMetadata article={article} />
           </div>
         </div>

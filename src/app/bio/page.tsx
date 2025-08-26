@@ -57,8 +57,8 @@ export default function BioPage() {
   return (
     <PageWithStructuredData structuredData={generatePersonSchema()}>
       <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
-          <div className="space-y-5">
+        <div className="page-container">
+          <div className="space-y-8">
             <div className="flex items-center gap-3">
               <Button variant="outline" size="sm" asChild>
                 <Link href="/" className="flex items-center gap-2">
@@ -67,12 +67,10 @@ export default function BioPage() {
                 </Link>
               </Button>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 h-min">
-              <WorkExperienceSection
-                workExperience={profileData.workExperience}
-              />
-              <EducationSection education={profileData.education} />
-            </div>
+            <WorkExperienceSection
+              workExperience={profileData.workExperience}
+            />
+            <EducationSection education={profileData.education} />
             <ProjectsSection
               projects={profileData.projects.map((p) => ({ ...p }))}
             />

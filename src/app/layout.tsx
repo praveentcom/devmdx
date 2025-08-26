@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Navigation } from "@/components/navigation/Navigation";
+import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { AnimatedLayout } from "@/components/layout/animated-layout";
 import { profileData } from "@/data/profile";
@@ -48,7 +48,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navigation />
+          <Header />
           <main id="main-content" className="flex-1">
             <AnimatedLayout>{children}</AnimatedLayout>
           </main>

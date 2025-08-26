@@ -22,7 +22,7 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+    <div className="page-container">
       <BackButton href="/articles" label="Back to articles" Icon={ArrowLeft} />
       <div className="grid gap-5">
         <div className="grid gap-0.5">
@@ -37,7 +37,7 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
         </div>
 
         {articles.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2">
             {articles.map((article) => (
               <ArticleSummaryCard
                 key={article.slug}

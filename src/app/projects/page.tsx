@@ -19,7 +19,7 @@ export default function ProjectsPage() {
           "A comprehensive showcase of all my projects and contributions",
       }}
     >
-      <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+      <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
             <div className="flex items-center gap-2">

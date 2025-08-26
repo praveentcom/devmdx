@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { LucideIcon } from "lucide-react";
 import { BlurIn } from "@/components/motion-primitives/blur-in";
+import { cn } from "@/lib/utils";
 
 export function PageWithStructuredData({
   structuredData,
@@ -18,9 +19,7 @@ export function PageWithStructuredData({
   return (
     <>
       <StructuredData data={structuredData} />
-      <BlurIn delay={0.05} duration={0.4}>
-        {children}
-      </BlurIn>
+      <BlurIn duration={0.25}>{children}</BlurIn>
     </>
   );
 }
@@ -55,7 +54,7 @@ export function EntityHeader({
   title,
   subtitle,
   fallbackIcon: FallbackIcon,
-  size = "medium",
+  size = "large",
 }: {
   imageSrc?: string;
   imageAlt: string;
@@ -65,15 +64,15 @@ export function EntityHeader({
   size?: "small" | "medium" | "large";
 }) {
   const sizeClasses = {
-    small: "h-12 w-12",
-    medium: "h-14 w-14",
-    large: "h-16 w-16",
+    small: "h-10 w-10",
+    medium: "h-12 w-12",
+    large: "h-14 w-14",
   };
 
   const imageSizes = {
-    small: { width: 48, height: 48 },
-    medium: { width: 56, height: 56 },
-    large: { width: 64, height: 64 },
+    small: { width: 32, height: 32 },
+    medium: { width: 40, height: 40 },
+    large: { width: 48, height: 48 },
   };
 
   return (
@@ -84,20 +83,18 @@ export function EntityHeader({
           alt={imageAlt}
           width={imageSizes[size].width}
           height={imageSizes[size].height}
-          className="rounded-md border object-cover"
+          className={cn("rounded-md border object-cover", sizeClasses[size])}
         />
       ) : (
         <div
           className={`${sizeClasses[size]} rounded-md border flex items-center justify-center bg-muted`}
         >
-          <FallbackIcon className="size-5 text-muted-foreground" />
+          <FallbackIcon className="size-4 text-muted-foreground" />
         </div>
       )}
-      <div className="grid gap-1 h-min">
-        <h1 className="text-xl font-semibold leading-tight">{title}</h1>
-        <p className="text-sm text-muted-foreground leading-tight">
-          {subtitle}
-        </p>
+      <div className="grid gap-1.5">
+        <h1 className="leading-none text-lg font-semibold">{title}</h1>
+        <p className="text-sm text-muted-foreground">{subtitle}</p>
       </div>
     </div>
   );

@@ -66,7 +66,7 @@ export default function CoverPage() {
     "profile",
     "cover-letter.md",
   );
-  
+
   let coverContent: string | null = null;
   let hasCoverFile = false;
 
@@ -88,7 +88,7 @@ export default function CoverPage() {
           "A personalized introduction highlighting my experience and interest in joining your team.",
       }}
     >
-      <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+      <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
             <div className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export default function CoverPage() {
             </div>
             <p className="text-sm text-muted-foreground">
               A personalized introduction highlighting my experience and
-              interest in joining your team
+              interest in joining your team.
             </p>
           </div>
 

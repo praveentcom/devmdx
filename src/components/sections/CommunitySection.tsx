@@ -13,7 +13,7 @@ export function CommunitySection() {
     <section
       role="region"
       aria-label="Recent community contributions"
-      className="space-y-4"
+      className="w-full grid gap-3"
     >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
@@ -29,7 +29,7 @@ export function CommunitySection() {
       </div>
 
       {recent.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {recent.map((community, index) => (
             <CommunitySummaryCard key={index} community={community} />
           ))}

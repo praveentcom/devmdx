@@ -50,8 +50,7 @@ export const metadata: Metadata = {
       }),
     ],
   },
-  keywords:
-    "about, background, experience, professional, personal, biography",
+  keywords: "about, background, experience, professional, personal, biography",
   authors: [
     {
       name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
@@ -60,13 +59,8 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const aboutPath = path.join(
-    process.cwd(),
-    "data",
-    "profile",
-    "about.md",
-  );
-  
+  const aboutPath = path.join(process.cwd(), "data", "profile", "about.md");
+
   let aboutContent: string | null = null;
   let hasAboutFile = false;
 
@@ -88,7 +82,7 @@ export default function AboutPage() {
           "Learn more about my background, experiences, and what drives me professionally and personally.",
       }}
     >
-      <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+      <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
             <div className="flex items-center gap-2">

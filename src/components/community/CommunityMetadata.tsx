@@ -20,7 +20,7 @@ interface CommunityMetadataProps {
 
 export function CommunityMetadata({ community }: CommunityMetadataProps) {
   return (
-    <div className="lg:sticky lg:top-24 space-y-5">
+    <div className="md:sticky md:top-24 space-y-5">
       {/* Metadata Card */}
       <Card className="card-hover-shadow">
         <CardContent>

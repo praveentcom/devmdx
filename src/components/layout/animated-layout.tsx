@@ -15,7 +15,6 @@ export function AnimatedLayout({ children }: AnimatedLayoutProps) {
     false | { opacity: number; y: number }
   >(false);
 
-  // Scroll to top on route change to avoid starting mid-page
   useEffect(() => {
     if (hasMountedRef.current) {
       window.scrollTo({
@@ -23,9 +22,8 @@ export function AnimatedLayout({ children }: AnimatedLayoutProps) {
         left: 0,
         behavior: "auto",
       });
-      setInitialState({ opacity: 0, y: 8 });
+      setInitialState({ opacity: 0, y: 2 });
     } else {
-      // First mount: don't animate to prevent perceived scroll jump
       hasMountedRef.current = true;
       setInitialState(false);
     }
@@ -36,7 +34,7 @@ export function AnimatedLayout({ children }: AnimatedLayoutProps) {
       key={pathname}
       initial={initialState}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>

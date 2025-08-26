@@ -10,7 +10,7 @@ interface ArticleMetadataProps {
 
 export function ArticleMetadata({ article }: ArticleMetadataProps) {
   return (
-    <div className="lg:sticky lg:top-24 space-y-5">
+    <div className="md:sticky md:top-24 space-y-5">
       <Card className="card-hover-shadow">
         <CardContent>
           <div className="space-y-4">
