@@ -22,7 +22,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+    <div className="page-container">
       <BackButton
         href="/community"
         label="Back to contributions"
@@ -43,7 +43,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
         </div>
 
         {contributions.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2">
             {contributions.map((community) => (
               <CommunitySummaryCard
                 key={`${community.year}-${community.slug}`}

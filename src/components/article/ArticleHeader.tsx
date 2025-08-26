@@ -45,7 +45,7 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
       >
         <div className="transition-all duration-300 space-y-1">
           <h1
-            className={`font-bold leading-tight transition-all duration-300 ${
+            className={`font-semibold transition-all duration-300 ${
               isScrolled ? "text-lg" : "text-xl"
             }`}
           >

@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 
-export function SimpleIcon({ 
-  iconPath, 
-  className 
-}: { 
-  iconPath: string; 
-  className?: string; 
+export function SimpleIcon({
+  iconPath,
+  className,
+}: {
+  iconPath: string;
+  className?: string;
 }) {
   return (
     <svg

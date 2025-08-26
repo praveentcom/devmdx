@@ -35,7 +35,7 @@ export default async function WorkExperiencePage({ params }: PageProps) {
 
   return (
     <PageWithStructuredData structuredData={generateWorkSchema(experience)}>
-      <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+      <div className="page-container">
         <BackButton href="/" label="Back to profile" Icon={ArrowLeft} />
 
         <div className="grid gap-4">

@@ -87,70 +87,48 @@ export default function CommunityPage() {
         description: communityData.descriptionLine1,
       }}
     >
-      <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+      <div className="page-container">
         <div className="grid gap-6">
-          {/* Hero Section */}
           <Card className="card-shadow">
             <CardContent>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-                {/* Image - 1/3 */}
-                <div className="lg:col-span-1">
-                  <div className="w-full rounded-lg overflow-hidden">
-                    <Image
-                      src={heroImageUrl}
-                      alt={communityData.title}
-                      width={400}
-                      height={0}
-                      className="w-full h-auto object-contain"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      priority
-                    />
-                  </div>
+              <div className="grid gap-5">
+                <div className="grid gap-3">
+                  <h1 className="text-lg font-semibold">
+                    {communityData.title}
+                  </h1>
+                  <p className="text-muted-foreground text-sm">
+                    {communityData.descriptionLine1}
+                  </p>
+                  <p className="text-muted-foreground text-sm">
+                    {communityData.descriptionLine2}
+                  </p>
                 </div>
-
-                {/* Content - 2/3 */}
-                <div className="lg:col-span-2 space-y-4">
-                  <div className="grid gap-1">
-                    <h1 className="text-lg font-semibold">
-                      {communityData.title}
-                    </h1>
-                    <div className="grid gap-4">
-                      <p className="text-muted-foreground text-sm">
-                        {communityData.descriptionLine1}
-                      </p>
-                      <p className="text-muted-foreground text-sm">
-                        {communityData.descriptionLine2}
-                      </p>
+                <div className="flex items-center gap-2 text-xs">
+                  {talks.length > 0 && (
+                    <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
+                      <MicVocal className="icon-xs text-primary" />
+                      <span className="font-medium">
+                        {talks.length} {pluralize("talk", talks.length)}
+                      </span>
                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 text-xs">
-                    {talks.length > 0 && (
-                      <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
-                        <MicVocal className="icon-xs text-primary" />
-                        <span className="font-medium">
-                          {talks.length} {pluralize("talk", talks.length)}
-                        </span>
-                      </div>
-                    )}
-                    {workshops.length > 0 && (
-                      <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
-                        <Presentation className="icon-xs text-primary" />
-                        <span className="font-medium">
-                          {workshops.length}{" "}
-                          {pluralize("workshop", workshops.length)}
-                        </span>
-                      </div>
-                    )}
-                    {courses.length > 0 && (
-                      <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
-                        <MonitorPlay className="icon-xs text-primary" />
-                        <span className="font-medium">
-                          {courses.length} {pluralize("course", courses.length)}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                  )}
+                  {workshops.length > 0 && (
+                    <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
+                      <Presentation className="icon-xs text-primary" />
+                      <span className="font-medium">
+                        {workshops.length}{" "}
+                        {pluralize("workshop", workshops.length)}
+                      </span>
+                    </div>
+                  )}
+                  {courses.length > 0 && (
+                    <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
+                      <MonitorPlay className="icon-xs text-primary" />
+                      <span className="font-medium">
+                        {courses.length} {pluralize("course", courses.length)}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -188,7 +166,7 @@ export default function CommunityPage() {
             ) : null}
 
             {publishedContributions.length > 0 ? (
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-2">
                 {publishedContributions.map((community) => (
                   <CommunitySummaryCard
                     key={`${community.year}-${community.slug}`}

@@ -71,7 +71,7 @@ export default async function TagArticlePage({ params }: PageProps) {
 
   if (filteredArticles.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+      <div className="page-container">
         <div className="grid gap-5">
           {/* Header with back navigation */}
           <div className="grid gap-0.5">
@@ -118,7 +118,7 @@ export default async function TagArticlePage({ params }: PageProps) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+    <div className="page-container">
       <div className="grid gap-5">
         <div className="grid gap-0.5">
           <div className="flex items-center gap-2 mb-4">
@@ -150,7 +150,7 @@ export default async function TagArticlePage({ params }: PageProps) {
         </div>
 
         {filteredArticles.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2">
             {filteredArticles.map((article, index) => (
               <ArticleSummaryCard key={index} article={article} />
             ))}

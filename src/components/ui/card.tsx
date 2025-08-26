@@ -2,24 +2,50 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { BlurIn } from "@/components/motion-primitives/blur-in";
+import { BorderTrail } from "@/components/motion-primitives/border-trail";
 
 interface CardProps extends React.ComponentProps<"div"> {
   animated?: boolean;
   animationDelay?: number;
+  borderTrail?: boolean;
 }
 
-function Card({ className, animated = true, animationDelay = 0, ...props }: CardProps) {
+function Card({
+  className,
+  animated = true,
+  animationDelay = 0,
+  borderTrail = false,
+  children,
+  ...props
+}: CardProps) {
   const cardContent = (
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-5 rounded-xl",
-        "border border-transparent hover:border-border/75",
-        "h-min py-4",
+        "text-card-foreground rounded-xl relative",
+        "border border-border/50 bg-card dark:bg-card/25",
+        "h-min py-5",
+        "transition-all duration-100",
         className,
+        borderTrail ? "hover:bg-card/75" : "",
       )}
       {...props}
-    />
+    >
+      {borderTrail && (
+        <div className="opacity-0 rounded-xl group-hover:opacity-100 transition-opacity duration-300">
+          <BorderTrail
+            className="bg-gradient-to-r from-primary/0 via-primary/5 to-primary/20"
+            size={80}
+            transition={{
+              repeat: Infinity,
+              duration: 4,
+              ease: "linear",
+            }}
+          />
+        </div>
+      )}
+      <div className="flex flex-col gap-5">{children}</div>
+    </div>
   );
 
   if (!animated) {

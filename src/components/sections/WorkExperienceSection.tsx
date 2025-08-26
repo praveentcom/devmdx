@@ -26,7 +26,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
                   alt={`${company} logo`}
                   width={60}
                   height={60}
-                  className="company-logo"
+                  className="entity-image"
                 />
               </div>
             )}
@@ -66,7 +66,7 @@ export function WorkExperienceSection({
     <section
       role="region"
       aria-label="Work experience"
-      className="w-full grid gap-4 h-min"
+      className="w-full grid gap-3"
     >
       <div className="flex items-center gap-2">
         <Briefcase className="size-5 text-primary" />

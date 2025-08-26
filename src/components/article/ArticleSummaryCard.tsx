@@ -29,16 +29,16 @@ export function ArticleSummaryCard({
 }) {
   return (
     <Link href={href ?? `/articles/${article.year}/${article.slug}`}>
-      <Card className="group card-hover-shadow cursor-pointer">
+      <Card className="group card-hover-shadow cursor-pointer" borderTrail>
         <CardHeader>
-          <div className="relative w-full h-48 overflow-hidden rounded-lg">
+          <div className="relative w-full h-48 overflow-hidden rounded-md">
             <Image
               src={
                 article.image || generateArticlePlaceholderImage(article.title)
               }
               alt={article.title}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-lg"
+              className="object-cover rounded-md"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>

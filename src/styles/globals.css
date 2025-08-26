@@ -119,6 +119,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  .page-container {
+    @apply container mx-auto px-4 py-4 sm:py-2 max-w-3xl;
+  }
 }
 
 @layer utilities {
@@ -175,16 +178,12 @@
   }
 
   /* Image Styles */
-  .project-image {
-    @apply rounded-lg object-cover w-16 h-16 sm:w-20 sm:h-20;
+  .entity-image {
+    @apply rounded-md object-cover w-14 h-14;
   }
 
   .profile-image-lg {
-    @apply rounded-lg object-cover w-32 h-32 sm:w-36 sm:h-36;
-  }
-
-  .company-logo {
-    @apply rounded-lg object-cover w-12 h-12 sm:w-15 sm:h-15;
+    @apply rounded-lg object-cover w-20 h-20;
   }
 
   /* List Styles */

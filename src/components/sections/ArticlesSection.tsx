@@ -10,7 +10,11 @@ export function ArticlesSection() {
   const recentArticles = publishedArticles.slice(0, 3);
 
   return (
-    <section role="region" aria-label="Recent articles" className="space-y-4">
+    <section
+      role="region"
+      aria-label="Recent articles"
+      className="w-full grid gap-3"
+    >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Newspaper className="size-5 text-primary" />
@@ -25,7 +29,7 @@ export function ArticlesSection() {
       </div>
 
       {recentArticles.length > 0 ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {recentArticles.map((article, index) => (
             <ArticleSummaryCard key={index} article={article} />
           ))}

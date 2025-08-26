@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollProgressBar } from "@/components/ui/scroll-progress";
 import { cn } from "@/lib/utils";
 import { profileData } from "@/data/profile";
+import { AnimatedBackground } from "@/components/motion-primitives";
 
 const navigationItems = [
   { href: "/", label: "Home" },
@@ -16,7 +17,7 @@ const navigationItems = [
   { href: "/community", label: "Community" },
 ];
 
-export function Navigation() {
+export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
@@ -25,7 +26,6 @@ export function Navigation() {
   const isHomePage = pathname === "/";
   const nameHref = isHomePage ? "/about" : "/";
 
-  // Scroll detection
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -34,7 +34,6 @@ export function Navigation() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Check scroll position on mount
     handleScroll();
 
     return () => {
@@ -46,7 +45,6 @@ export function Navigation() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Focus management for mobile menu
   useEffect(() => {
     if (isMobileMenuOpen) {
       const firstFocusableElement = document.querySelector(
@@ -58,7 +56,6 @@ export function Navigation() {
     }
   }, [isMobileMenuOpen]);
 
-  // Close menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
@@ -68,7 +65,6 @@ export function Navigation() {
 
   return (
     <>
-      {/* Skip navigation link for accessibility */}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
@@ -76,7 +72,6 @@ export function Navigation() {
         Skip to main content
       </a>
 
-      {/* Live region for mobile menu state changes */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {isMobileMenuOpen
           ? "Mobile navigation menu opened"
@@ -87,46 +82,62 @@ export function Navigation() {
         aria-label="Main navigation"
         className={cn(
           "sticky top-0 z-40 w-full backdrop-blur-sm transition-[background-color,border-color,backdrop-filter] duration-300 ease-out will-change-[background-color,border-color]",
-          // Background with proper opacity
           "bg-background/95 supports-[backdrop-filter]:bg-background/80",
-          // Mobile border always visible, desktop border on scroll only
           "border-b border-border sm:border-transparent",
           isScrolled && "sm:border-border",
         )}
       >
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="page-container py-0">
           <div className="hidden sm:flex items-center justify-start py-4 gap-4">
-            <h1 className="text-md font-semibold hover:scale-105 transition-all duration-200">
-              <Link href={nameHref} aria-label={isHomePage ? "Go to about" : "Go to home"}>
+            <h1 className="text-md font-medium">
+              <Link
+                href={nameHref}
+                aria-label={isHomePage ? "Go to about" : "Go to home"}
+              >
                 {personName}
               </Link>
             </h1>
             <div className="h-6 w-px bg-border hidden sm:block rounded-full" />
-            <div className="flex items-center bg-background rounded-xl p-1 border border-transparent hover:border-border/75 gap-1 transition-all duration-200">
-              {navigationItems.map((item) => {
-                const isActive = pathname === item.href;
+            <div className="flex items-center bg-background rounded-xl p-1 border border-transparent hover:border-border/75 transition-all duration-200">
+              <AnimatedBackground
+                defaultValue={pathname}
+                className="rounded-lg bg-card shadow-sm"
+                transition={{
+                  type: "tween",
+                  ease: "easeOut",
+                  duration: 0.15,
+                }}
+                enableHover={true}
+              >
+                {navigationItems.map((item) => {
+                  const isActive = pathname === item.href;
 
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={cn(
-                      "px-3 py-1 text-sm font-medium transition-[color,background-color,box-shadow] duration-200 ease-out hover:text-foreground rounded-lg will-change-[color,background-color]",
-                      isActive
-                        ? "bg-card text-foreground shadow-sm z-10"
-                        : "text-muted-foreground hover:bg-card hover:shadow-sm",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
+                  return (
+                    <Link
+                      key={item.href}
+                      data-id={item.href}
+                      href={item.href}
+                      className={cn(
+                        "px-3 py-1 rounded-lg text-sm font-medium",
+                        isActive
+                          ? "text-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </AnimatedBackground>
             </div>
           </div>
 
           <div className="flex items-center justify-between py-2.5 sm:hidden">
-            <h1 className="text-md font-semibold hover:scale-105 transition-all duration-200">
-              <Link href={nameHref} aria-label={isHomePage ? "Go to about" : "Go to home"}>
+            <h1 className="text-md font-medium">
+              <Link
+                href={nameHref}
+                aria-label={isHomePage ? "Go to about" : "Go to home"}
+              >
                 {personName}
               </Link>
             </h1>
@@ -182,9 +193,9 @@ export function Navigation() {
             isMobileMenuOpen ? "translate-y-0" : "-translate-y-full",
           )}
         >
-          <div className="container mx-auto px-4 max-w-6xl">
+          <div className="page-container py-0">
             <div className="flex items-center justify-between py-2.5 border-b border-border">
-              <h1 className="text-md font-semibold">Menu</h1>
+              <h1 className="text-md font-medium">Menu</h1>
               <Button
                 variant="ghost"
                 size="sm"
@@ -197,7 +208,7 @@ export function Navigation() {
             </div>
 
             <nav className="py-6">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid gap-4 grid-cols-2">
                 {navigationItems.map((item, index) => {
                   const isActive = pathname === item.href;
 

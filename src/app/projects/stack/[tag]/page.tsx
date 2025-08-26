@@ -67,7 +67,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
   );
 
   return (
-    <div className="container mx-auto px-4 py-4 sm:py-2 max-w-6xl">
+    <div className="page-container">
       <div className="grid gap-5">
         <div className="grid gap-0.5">
           <div className="flex items-center gap-2 mb-4">

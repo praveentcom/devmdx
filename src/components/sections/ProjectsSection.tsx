@@ -27,7 +27,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     <section
       role="region"
       aria-label="Featured projects"
-      className="w-full grid gap-4 h-min"
+      className="w-full grid gap-3"
     >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">

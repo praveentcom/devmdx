@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { ReactNode, useEffect, useState } from 'react';
-import { Transition } from 'motion/react';
-import { InView, InViewProps } from './in-view';
+import { ReactNode, useEffect, useState } from "react";
+import { Transition } from "motion/react";
+import { InView, InViewProps } from "./in-view";
 
 export type BlurInProps = {
   children: ReactNode;
@@ -12,13 +12,13 @@ export type BlurInProps = {
   className?: string;
   yOffset?: number;
   once?: boolean;
-} & Omit<InViewProps, 'variants' | 'transition' | 'children'>;
+} & Omit<InViewProps, "variants" | "transition" | "children">;
 
 export function BlurIn({
   children,
   delay = 0,
   duration = 0.3,
-  blur = '6px',
+  blur = "6px",
   className,
   yOffset = 20,
   once = true,
@@ -27,15 +27,15 @@ export function BlurIn({
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
 
     const handleChange = (event: MediaQueryListEvent) => {
       setPrefersReducedMotion(event.matches);
     };
 
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
   // If user prefers reduced motion, render without animation
@@ -51,7 +51,7 @@ export function BlurIn({
     },
     visible: {
       opacity: 1,
-      filter: 'blur(0px)',
+      filter: "blur(0px)",
       y: 0,
     },
   };
@@ -66,13 +66,11 @@ export function BlurIn({
     <InView
       variants={variants}
       transition={transition}
-      viewOptions={{ amount: 0.3, margin: '0px 0px -100px 0px' }}
+      viewOptions={{ amount: 0.3, margin: "0px 0px -100px 0px" }}
       once={once}
       {...props}
     >
-      <div className={className}>
-        {children}
-      </div>
+      <div className={className}>{children}</div>
     </InView>
   );
 }

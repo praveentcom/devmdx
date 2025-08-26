@@ -32,7 +32,7 @@ function EducationCard({ education }: { education: Education }) {
                   alt={`${college} logo`}
                   width={60}
                   height={60}
-                  className="company-logo"
+                  className="entity-image"
                 />
               </div>
             )}
@@ -67,11 +67,7 @@ function EducationCard({ education }: { education: Education }) {
 
 export function EducationSection({ education }: EducationSectionProps) {
   return (
-    <section
-      role="region"
-      aria-label="Education"
-      className="w-full grid gap-4 h-min"
-    >
+    <section role="region" aria-label="Education" className="w-full grid gap-3">
       <div className="flex items-center gap-2">
         <GraduationCap className="size-5 text-primary" />
         <h2 className="text-md font-semibold">Education</h2>
