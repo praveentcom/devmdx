@@ -37,9 +37,9 @@ function EducationCard({ education }: { education: Education }) {
               </div>
             )}
             <div className="flex-1 grid gap-0.5">
-              <CardTitle className="text-md font-semibold">{degree}</CardTitle>
+              <CardTitle className="text-md font-medium">{degree}</CardTitle>
               <div className="flex-center-gap-1_5">
-                <GraduationCap className="icon-xs text-muted-foreground" />
+                <GraduationCap className="size-3 text-muted-foreground" />
                 <span className="text-meta">{college}</span>
               </div>
               <DateRange
@@ -69,8 +69,8 @@ export function EducationSection({ education }: EducationSectionProps) {
   return (
     <section role="region" aria-label="Education" className="w-full grid gap-3">
       <div className="flex items-center gap-2">
-        <GraduationCap className="size-5 text-primary" />
-        <h2 className="text-md font-semibold">Education</h2>
+        <GraduationCap className="size-4 text-primary" />
+        <h2 className="text-md font-medium">Education</h2>
       </div>
       {education.length > 0 ? (
         <div className="space-y-4">

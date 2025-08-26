@@ -47,17 +47,17 @@ export function ArticleSummaryCard({
           <div className="flex flex-col gap-2">
             <div className="flex-center-gap-4 text-xs font-medium text-muted-foreground">
               <div className="flex items-center gap-1">
-                <Calendar className="icon-xs" />
+                <Calendar className="size-3" />
                 <span>{formatDate(article.date)}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Eye className="icon-xs" />
+                <Eye className="size-3" />
                 <span>{article.readTime} min read</span>
               </div>
             </div>
 
             <div className="grid gap-1 mb-2.5">
-              <h2 className="text-md font-semibold group-hover:text-primary transition-colors">
+              <h2 className="text-md font-medium group-hover:text-primary transition-colors">
                 {article.title}
               </h2>
               <p className="text-muted-foreground text-sm line-clamp-2">

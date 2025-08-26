@@ -51,7 +51,7 @@ export default function NotFound() {
           <CardHeader>
             <div className="flex justify-center">
               <div className="relative">
-                <div className="text-6xl font-bold text-muted-foreground/30 select-none">
+                <div className="text-4xl font-bold text-muted-foreground/30 select-none">
                   404
                 </div>
               </div>
@@ -59,7 +59,7 @@ export default function NotFound() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col">
-              <h1 className="text-md font-semibold">
+              <h1 className="text-md font-medium">
                 You&apos;ve reached the void.
               </h1>
               <p className="text-muted-foreground text-sm">
@@ -76,7 +76,7 @@ export default function NotFound() {
                 className="flex items-center gap-2"
               >
                 <Link href="/">
-                  <Home className="icon-sm" />
+                  <Home className="size-4" />
                   Back to home
                 </Link>
               </Button>
@@ -86,7 +86,7 @@ export default function NotFound() {
                 className="flex items-center gap-2"
               >
                 <Link href="/articles">
-                  <Newspaper className="icon-sm" />
+                  <Newspaper className="size-4" />
                   Browse articles
                 </Link>
               </Button>

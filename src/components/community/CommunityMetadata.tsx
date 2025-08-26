@@ -26,16 +26,16 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center gap-1">
-              <BookOpenText className="icon-sm text-primary" />
-              <h3 className="text-sm font-semibold">Metadata</h3>
+              <BookOpenText className="size-4 text-primary" />
+              <h3 className="text-sm font-medium">Metadata</h3>
             </div>
             <div className="flex flex-col gap-1 text-xs text-muted-foreground font-medium">
               <div className="flex items-center gap-1">
-                <Calendar className="icon-xs" />
+                <Calendar className="size-3" />
                 <span>{formatDate(community.date)}</span>
               </div>
               <div className="flex items-center gap-1">
-                <Eye className="icon-xs" />
+                <Eye className="size-3" />
                 <span>{community.readTime} min read</span>
               </div>
             </div>
@@ -52,8 +52,8 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-1">
-                <Video className="icon-sm text-primary" />
-                <h3 className="text-sm font-semibold">Media Resources</h3>
+                <Video className="size-4 text-primary" />
+                <h3 className="text-sm font-medium">Media Resources</h3>
               </div>
               <Button
                 asChild
@@ -81,8 +81,8 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-1">
-                <Link2 className="icon-sm text-primary" />
-                <h3 className="text-sm font-semibold">Content Resources</h3>
+                <Link2 className="size-4 text-primary" />
+                <h3 className="text-sm font-medium">Content Resources</h3>
               </div>
               <div className="space-y-2">
                 {community.externalLinks.map((link, index) => (

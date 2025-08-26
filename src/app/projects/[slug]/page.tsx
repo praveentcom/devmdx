@@ -54,7 +54,7 @@ export default async function ProjectPage({ params }: PageProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <ExternalLink className="icon-sm" />
+                    <ExternalLink className="size-4" />
                     <span className="ml-2">Website</span>
                   </a>
                 </Button>
@@ -66,7 +66,7 @@ export default async function ProjectPage({ params }: PageProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <Github className="icon-sm" />
+                    <Github className="size-4" />
                     <span className="ml-2">GitHub</span>
                   </a>
                 </Button>

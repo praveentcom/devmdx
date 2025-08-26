@@ -155,26 +155,13 @@
     @apply flex-shrink-0;
   }
 
-  /* Icon Sizes */
-  .icon-xs {
-    @apply size-3;
-  }
-
-  .icon-sm {
-    @apply size-4;
-  }
-
-  .icon-md {
-    @apply size-5;
-  }
-
   /* Text Styles */
   .text-meta {
     @apply text-xs text-muted-foreground font-medium;
   }
 
   .text-section-title {
-    @apply text-sm font-semibold;
+    @apply text-sm font-medium;
   }
 
   /* Image Styles */

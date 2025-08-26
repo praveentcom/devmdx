@@ -31,20 +31,20 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <GitPullRequestArrow className="size-5 text-primary" />
-          <h2 className="text-md font-semibold">Featured projects</h2>
+          <GitPullRequestArrow className="size-4 text-primary" />
+          <h2 className="text-md font-medium">Featured projects</h2>
         </div>
         <Button variant="outline" size="sm" asChild>
           <Link href="/projects" className="flex items-center gap-2">
             View projects
-            <ArrowRight className="icon-sm" />
+            <ArrowRight className="size-4" />
           </Link>
         </Button>
       </div>
       {latestProjects.length > 0 ? (
         <div className="space-y-4">
           {latestProjects.map((project, index) => (
-            <ProjectCard key={index} project={project} size="compact" />
+            <ProjectCard key={index} project={project} />
           ))}
         </div>
       ) : (

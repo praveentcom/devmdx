@@ -11,19 +11,11 @@ interface ProjectCardProps {
   project: Project;
   /** Tag to disable clicking on (for stack/tag pages) */
   currentTag?: EnumTag;
-  /** Size variant for different contexts */
-  size?: "default" | "compact";
 }
 
-export function ProjectCard({
-  project,
-  currentTag,
-  size = "default",
-}: ProjectCardProps) {
+export function ProjectCard({ project, currentTag }: ProjectCardProps) {
   const { name, stack, description, bulletPoints, imagePath, coAuthors, date } =
     project;
-
-  const titleSize = size === "compact" ? "text-md" : "text-lg";
 
   return (
     <Link href={`/projects/${project.slug}`} className="block">
@@ -42,23 +34,17 @@ export function ProjectCard({
               </div>
             )}
             <div className="grid gap-1.5">
-              <p className={`${titleSize} leading-none font-semibold`}>
-                {name}
-              </p>
+              <p className={`text-md leading-none font-medium`}>{name}</p>
               <div className="grid gap-0.5">
                 {date && (
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
-                    <Calendar
-                      className={size === "compact" ? "size-3" : "icon-xs"}
-                    />
+                    <Calendar className="size-3" />
                     <span>{format(date, "MMMM yyyy")}</span>
                   </div>
                 )}
                 {coAuthors && coAuthors.length > 0 && (
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
-                    <Users
-                      className={size === "compact" ? "size-3" : "icon-xs"}
-                    />
+                    <Users className="size-3" />
                     <span>with {coAuthors.join(", ")}</span>
                   </div>
                 )}

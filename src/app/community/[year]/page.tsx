@@ -32,7 +32,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
         <div className="grid gap-0.5">
           <div className="flex items-center gap-2">
             <CalendarRange className="size-4 text-primary" />
-            <h1 className="text-lg font-semibold">
+            <h1 className="text-md font-medium">
               Community contributions from {year}
             </h1>
           </div>

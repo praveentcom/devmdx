@@ -28,7 +28,7 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
         <div className="grid gap-0.5">
           <div className="flex items-center gap-2">
             <CalendarRange className="size-4 text-primary" />
-            <h1 className="text-lg font-semibold">Articles from {year}</h1>
+            <h1 className="text-md font-medium">Articles from {year}</h1>
           </div>
           <p className="text-sm text-muted-foreground">
             {articles.length} article{articles.length === 1 ? "" : "s"}{" "}

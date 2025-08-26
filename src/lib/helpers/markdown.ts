@@ -47,21 +47,21 @@ export function parseMarkdown(content: string): string {
   processedContent = processedContent
     .replace(
       /^### (.*$)/gim,
-      '<h3 class="text-sm font-semibold mb-1.5 mt-3 leading-relaxed">$1</h3>',
+      '<h3 class="text-sm font-medium mb-1.5 mt-3 leading-relaxed">$1</h3>',
     )
     .replace(
       /^## (.*$)/gim,
-      '<h2 class="text-base font-semibold mb-2 mt-4 leading-relaxed">$1</h2>',
+      '<h2 class="text-base font-medium mb-2 mt-4 leading-relaxed">$1</h2>',
     )
     .replace(
       /^# (.*$)/gim,
-      '<h1 class="text-lg font-bold mb-3 mt-4 leading-relaxed">$1</h1>',
+      '<h1 class="text-md font-medium mb-3 mt-4 leading-relaxed">$1</h1>',
     )
     .replace(
       /`([^`]+)`/g,
       '<code class="bg-muted px-1 py-0.5 rounded text-xs font-mono">$1</code>',
     )
-    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-medium">$1</strong>')
     .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
     .replace(/~~(.*?)~~/g, '<del class="line-through opacity-75">$1</del>')
     .replace(

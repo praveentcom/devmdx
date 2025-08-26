@@ -59,7 +59,9 @@ export function ThemeToggle() {
           title={`Current: ${getLabel()}. Click to change theme.`}
         >
           {getIcon()}
-          <span className="text-xs font-medium">{getLabel().replace(' mode', '').replace(' preference', '')}</span>
+          <span className="text-xs font-medium">
+            {getLabel().replace(" mode", "").replace(" preference", "")}
+          </span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

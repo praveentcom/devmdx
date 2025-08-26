@@ -17,13 +17,13 @@ export function CommunitySection() {
     >
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Users className="size-5 text-primary" />
-          <h2 className="text-md font-semibold">Recent contributions</h2>
+          <Users className="size-4 text-primary" />
+          <h2 className="text-md font-medium">Recent contributions</h2>
         </div>
         <Button variant="outline" size="sm" asChild>
           <Link href="/community" className="flex items-center gap-2">
             View contributions
-            <ArrowRight className="icon-sm" />
+            <ArrowRight className="size-4" />
           </Link>
         </Button>
       </div>

@@ -31,9 +31,9 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
               </div>
             )}
             <div className="flex-1 grid gap-0.5">
-              <CardTitle className="text-md font-semibold">{role}</CardTitle>
+              <CardTitle className="text-md font-medium">{role}</CardTitle>
               <div className="flex-center-gap-1_5">
-                <Building2 className="icon-xs text-muted-foreground" />
+                <Building2 className="size-3 text-muted-foreground" />
                 <span className="text-meta">{company}</span>
               </div>
               <DateRange
@@ -69,8 +69,8 @@ export function WorkExperienceSection({
       className="w-full grid gap-3"
     >
       <div className="flex items-center gap-2">
-        <Briefcase className="size-5 text-primary" />
-        <h2 className="text-md font-semibold">Work</h2>
+        <Briefcase className="size-4 text-primary" />
+        <h2 className="text-md font-medium">Work</h2>
       </div>
       {workExperience.length > 0 ? (
         <div className="space-y-4">

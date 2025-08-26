@@ -26,7 +26,7 @@ export default function Error() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col">
-              <h1 className="text-md font-semibold">
+              <h1 className="text-md font-medium">
                 Uh-oh. Something went wrong.
               </h1>
               <p className="text-muted-foreground text-sm">
@@ -42,7 +42,7 @@ export default function Error() {
                 className="flex items-center gap-2"
               >
                 <Link href="/">
-                  <Home className="icon-sm" />
+                  <Home className="size-4" />
                   Back to home
                 </Link>
               </Button>
@@ -52,7 +52,7 @@ export default function Error() {
                 className="flex items-center gap-2"
               >
                 <Link href="/articles">
-                  <Newspaper className="icon-sm" />
+                  <Newspaper className="size-4" />
                   Browse articles
                 </Link>
               </Button>
