@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { AnimatedBackground } from "@/components/motion-primitives";
 import { Button } from "@/components/ui/button";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
-import { ScrollProgressBar } from "@/components/ui/scroll-progress";
-import { URLS } from "@/lib/constants/urls";
+
+
 import { getAuthorName, getNavigationItems } from "@/lib/helpers/config";
 import { cn } from "@/lib/utils";
 
@@ -57,9 +57,7 @@ export function Header() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  const isArticle =
-    pathname?.startsWith(`${URLS.ARTICLES_LIST()}/`) &&
-    pathname?.split("/").length === 4;
+
 
   return (
     <>
@@ -177,7 +175,7 @@ export function Header() {
             </Button>
           </div>
         </div>
-        {isArticle && <ScrollProgressBar />}
+
       </nav>
 
       <div
