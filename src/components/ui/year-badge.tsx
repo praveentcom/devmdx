@@ -19,7 +19,7 @@ export function YearBadge({
   className,
   asLink = false,
 }: YearBadgeProps) {
-  const safeYear = /^\d{4}$/.test(year) ? year : "unknown";
+  const safeYear = /^\d+$/.test(year) ? year : "unknown";
   const badgeContent = (
     <Badge variant={variant} className={cn("badge-container", className)}>
       <span className="text-xs font-medium">{safeYear}</span>
