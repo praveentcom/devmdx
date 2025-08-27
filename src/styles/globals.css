@@ -353,6 +353,10 @@
       ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono",
       Menlo, monospace;
     min-width: 2rem;
+    /* Make line numbers sticky during horizontal scroll */
+    position: sticky;
+    left: 0;
+    z-index: 1;
   }
 
   .article-base .line-content {
@@ -360,6 +364,9 @@
     font-family:
       ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono",
       Menlo, monospace;
+    /* Allow horizontal scrolling for content */
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   /* Dark mode line number adjustments */
@@ -373,6 +380,13 @@
     /* Ensure pre blocks don't cause horizontal page scroll */
     width: 100%;
     box-sizing: border-box;
+  }
+
+  /* Code container with line numbers support */
+  .article-base pre > div {
+    /* Ensure the flex container allows horizontal scrolling */
+    display: flex;
+    min-width: max-content;
   }
 
   /* Ensure code blocks don't break */
