@@ -100,7 +100,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
           {/* Mobile layout: buttons below description in grid */}
           {(project.url || project.githubUrl) && (
-            <div className={`md:hidden grid gap-1.5 grid-cols-2`}>
+            <div className={`md:hidden grid gap-1.5 grid-cols-1`}>
               {project.url && (
                 <Button variant="default" size="sm" asChild>
                   <a
@@ -130,7 +130,7 @@ export default async function ProjectPage({ params }: PageProps) {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {project.date && (
               <SectionCard title="Project date">
                 <div className="flex items-center gap-1.5">
