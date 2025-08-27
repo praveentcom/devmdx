@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
 import { createFilteredMetadata } from "@/lib/helpers/metadata";
 
@@ -25,7 +26,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
   return (
     <div className="page-container">
       <BackButton
-        href="/community"
+        href={URLS.COMMUNITY_LIST()}
         label="Back to contributions"
         Icon={ArrowLeft}
       />
@@ -49,7 +50,6 @@ export default async function CommunityByYearPage({ params }: PageProps) {
               <CommunitySummaryCard
                 key={`${community.year}-${community.slug}`}
                 community={community}
-                href={`/community/${year}/${community.slug}?source=year-range`}
               />
             ))}
           </div>
@@ -74,7 +74,7 @@ export async function generateMetadata({
     contentType: "Community",
     count,
     colorScheme: { background: "0ea5e9", text: "ffffff" },
-    url: `/community/${year}`,
+    url: `${URLS.COMMUNITY_YEAR(year)}`,
   });
 }
 

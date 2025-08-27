@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
 
-import { getArticleSlug } from "@/lib/helpers/config";
+import { URLS } from "@/lib/constants/urls";
 
 interface UsePrefetchOptions {
   delay?: number;
@@ -70,7 +70,12 @@ export function useCriticalPrefetch() {
    * Skipped on slow connections.
    */
   const { prefetchAll } = usePrefetch(
-    ["/projects", `/${getArticleSlug()}`, "/community", "/about"],
+    [
+      URLS.PROJECTS_LIST(),
+      URLS.ARTICLES_LIST(),
+      URLS.COMMUNITY_LIST(),
+      URLS.ABOUT(),
+    ],
     {
       delay: 1000,
       condition: () => {

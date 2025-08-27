@@ -4,7 +4,8 @@ import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
 import { BASE_URL } from "@/lib/constants";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
-import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
+import { URLS } from "@/lib/constants/urls";
+import { getArticleLabel } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
 export function getAuthorName(): string {
@@ -305,7 +306,7 @@ export const METADATA_PATTERNS = {
       colorScheme: COLOR_SCHEMES.ARTICLE,
       keywords:
         "articles, blog, development, technology, programming, tutorials",
-      url: `/${getArticleSlug()}`,
+      url: URLS.ARTICLES_LIST(),
     }),
 
   projectsList: () =>
@@ -316,7 +317,7 @@ export const METADATA_PATTERNS = {
       colorScheme: COLOR_SCHEMES.PROJECT,
       keywords:
         "projects, portfolio, development, programming, open source, web applications, software",
-      url: "/projects",
+      url: URLS.PROJECTS_LIST(),
     }),
 
   tagArticles: (tagName: string, articleCount: number, url?: string) =>

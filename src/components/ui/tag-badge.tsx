@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
-import { getArticleSlug } from "@/lib/helpers/config";
+import { URLS } from "@/lib/constants/urls";
 import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
 import { cn } from "@/lib/utils";
 
@@ -56,12 +56,12 @@ export function TagBadge({
     let href = "";
     switch (source) {
       case "articles":
-        href = `/${getArticleSlug()}/tag/${tag}`;
+        href = URLS.ARTICLES_TAG(tag);
         break;
       case "work":
       case "projects":
       default:
-        href = `/projects/stack/${tag}`;
+        href = URLS.PROJECTS_STACK(tag);
         break;
     }
 

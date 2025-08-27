@@ -2,6 +2,7 @@ import { Calendar, ExternalLink, Eye, Youtube } from "lucide-react";
 import Image from "next/image";
 
 import { PrefetchLink } from "@/components/ui/prefetch-link";
+import { URLS } from "@/lib/constants/urls";
 import { CommunityIndexItem } from "@/lib/helpers/community";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { formatDate } from "@/lib/helpers/markdown";
@@ -13,14 +14,12 @@ import { ContributionTypeBadge } from "../ui/contribution-type-badge";
 
 export function CommunitySummaryCard({
   community,
-  href,
 }: {
   community: CommunityIndexItem;
-  href?: string;
 }) {
   return (
     <PrefetchLink
-      href={href ?? `/community/${community.year}/${community.slug}`}
+      href={URLS.COMMUNITY(community.year, community.slug)}
       prefetchOnVisible={true}
     >
       <Card className="group" borderTrail>

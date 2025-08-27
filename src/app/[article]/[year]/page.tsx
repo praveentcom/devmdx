@@ -5,8 +5,9 @@ import { notFound } from "next/navigation";
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
-import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
+import { getArticleLabel } from "@/lib/helpers/config";
 import { createFilteredMetadata } from "@/lib/helpers/metadata";
 
 interface PageProps {
@@ -26,7 +27,7 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
   return (
     <div className="page-container">
       <BackButton
-        href={`/${getArticleSlug()}`}
+        href={URLS.ARTICLES_LIST()}
         label={`Back to ${getArticleLabel().toLowerCase()}`}
         Icon={ArrowLeft}
       />
@@ -47,17 +48,13 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
         {articles.length > 0 ? (
           <div className="grid gap-4 md:grid-cols-2">
             {articles.map((article) => (
-              <ArticleSummaryCard
-                key={article.slug}
-                article={article}
-                href={`/articles/${year}/${article.slug}?source=year-range`}
-              />
+              <ArticleSummaryCard key={article.slug} article={article} />
             ))}
           </div>
         ) : (
           <EmptyPlaceholderCard
-            title="No articles published."
-            subtitle={`No articles were published in ${year}.`}
+            title={`No ${getArticleLabel().toLowerCase()} published.`}
+            subtitle={`No ${getArticleLabel().toLowerCase()} were published in ${year}.`}
           />
         )}
       </div>
@@ -75,7 +72,7 @@ export async function generateMetadata({
     contentType: "Articles",
     count,
     colorScheme: { background: "6366f1", text: "ffffff" },
-    url: `/articles/${year}`,
+    url: `${URLS.ARTICLES_YEAR(year)}`,
   });
 }
 

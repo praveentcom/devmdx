@@ -4,12 +4,12 @@ import Link from "next/link";
 import pluralize from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
-import { ArticleYearBadge } from "@/components/ui/article-year-badge";
 import { Button } from "@/components/ui/button";
 import { CategoryBadge } from "@/components/ui/category-badge";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { BASE_URL } from "@/lib/constants";
+import { YearBadge } from "@/components/ui/year-badge";
+import { URLS } from "@/lib/constants";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
 import {
@@ -18,7 +18,6 @@ import {
   getAuthorName,
   getSiteName,
 } from "@/lib/helpers/config";
-import { getArticleSlug } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { EnumTag } from "@/lib/helpers/tag-mapper";
 
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
     description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
     type: "website",
     siteName: getSiteName(),
-    url: `${BASE_URL}/${getArticleSlug()}`,
+    url: `${URLS.ARTICLES_LIST()}`,
     images: [
       {
         url: generatePlaceholderImageUrl({
@@ -122,7 +121,12 @@ export default function ArticlePage() {
               <div className="flex items-center gap-1.5 flex-wrap">
                 {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
                   (year) => (
-                    <ArticleYearBadge key={year} year={year} asLink />
+                    <YearBadge
+                      key={`${year}-article`}
+                      year={year}
+                      type="article"
+                      asLink
+                    />
                   ),
                 )}
               </div>
@@ -141,7 +145,7 @@ export default function ArticlePage() {
               subtitle={`I haven't published any ${articleLabel.toLowerCase()} yet, but I'm working on some great content.`}
             >
               <Button variant="outline" asChild>
-                <Link href="/">Go home</Link>
+                <Link href={URLS.HOME()}>Go home</Link>
               </Button>
             </EmptyPlaceholderCard>
           )}

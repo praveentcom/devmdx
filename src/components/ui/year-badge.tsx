@@ -4,32 +4,40 @@ import { Badge } from "@/components/ui/badge";
 import { URLS } from "@/lib/constants/urls";
 import { cn } from "@/lib/utils";
 
-interface CategoryBadgeProps {
-  category: string;
+interface YearBadgeProps {
+  year: string;
+  type: "article" | "community";
   variant?: "default" | "secondary" | "destructive" | "outline";
   className?: string;
   asLink?: boolean;
 }
 
-export function CategoryBadge({
-  category,
+export function YearBadge({
+  year,
+  type,
   variant = "outline",
   className,
   asLink = false,
-}: CategoryBadgeProps) {
+}: YearBadgeProps) {
+  const safeYear = /^\d+$/.test(year) ? year : "unknown";
   const badgeContent = (
     <Badge variant={variant} className={cn("badge-container", className)}>
-      <div className="size-1.5 bg-current/50 rounded-full" />
-      <span className="text-xs font-medium">{category}</span>
+      <span className="text-xs font-medium">{safeYear}</span>
     </Badge>
   );
 
-  if (!asLink) {
+  if (!asLink || safeYear === "unknown") {
     return badgeContent;
   }
 
   return (
-    <Link href={URLS.ARTICLES_CATEGORY(encodeURIComponent(category))}>
+    <Link
+      href={
+        type === "article"
+          ? URLS.ARTICLES_YEAR(safeYear)
+          : URLS.COMMUNITY_YEAR(safeYear)
+      }
+    >
       {badgeContent}
     </Link>
   );

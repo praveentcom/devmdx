@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { BASE_URL } from "@/lib/constants";
+import { URLS } from "@/lib/constants";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
 import { getSiteName } from "@/lib/helpers/config";
 import { EnumCommunityContributionType } from "@/types/community";
@@ -50,7 +50,7 @@ export default async function CommunityByTypePage({ params }: PageProps) {
   return (
     <div className="page-container">
       <BackButton
-        href="/community"
+        href={URLS.COMMUNITY_LIST()}
         label="Back to contributions"
         Icon={ArrowLeft}
       />
@@ -74,7 +74,6 @@ export default async function CommunityByTypePage({ params }: PageProps) {
               <CommunitySummaryCard
                 key={`${community.year}-${community.slug}`}
                 community={community}
-                href={`/community/${community.year}/${community.slug}`}
               />
             ))}
           </div>
@@ -83,7 +82,10 @@ export default async function CommunityByTypePage({ params }: PageProps) {
             title="No contributions"
             subtitle={`No contributions were found for ${getTypeLabel(validatedType)}.`}
           >
-            <Link href="/community" className="text-sm text-primary underline">
+            <Link
+              href={URLS.COMMUNITY_LIST()}
+              className="text-sm text-primary underline"
+            >
               Browse all
             </Link>
           </EmptyPlaceholderCard>
@@ -110,7 +112,7 @@ export async function generateMetadata({
       description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
       type: "website",
       siteName: getSiteName(),
-      url: `${BASE_URL}/community/contributions/${type}`,
+      url: `${URLS.COMMUNITY_TYPE(type)}`,
     },
   };
 }

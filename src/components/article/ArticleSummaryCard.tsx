@@ -2,7 +2,7 @@ import { Calendar, Eye } from "lucide-react";
 import Image from "next/image";
 
 import { PrefetchLink } from "@/components/ui/prefetch-link";
-import { getArticleSlug } from "@/lib/helpers/config";
+import { URLS } from "@/lib/constants/urls";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { formatDate } from "@/lib/helpers/markdown";
 import { truncate } from "@/lib/utils";
@@ -25,16 +25,10 @@ export type ArticleLike = Pick<
   | "image"
 > & { year: string };
 
-export function ArticleSummaryCard({
-  article,
-  href,
-}: {
-  article: ArticleLike;
-  href?: string;
-}) {
+export function ArticleSummaryCard({ article }: { article: ArticleLike }) {
   return (
     <PrefetchLink
-      href={href ?? `/${getArticleSlug()}/${article.year}/${article.slug}`}
+      href={URLS.ARTICLES(article.year, article.slug)}
       prefetchOnVisible={true}
     >
       <Card className="group" borderTrail>

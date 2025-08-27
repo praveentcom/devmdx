@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
 import { Button } from "@/components/ui/button";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
 
 export function CommunitySection() {
@@ -23,7 +24,10 @@ export function CommunitySection() {
         </div>
         {contributions.length > 2 && (
           <Button variant="outline" size="sm" asChild>
-            <Link href="/community" className="flex items-center gap-1.5">
+            <Link
+              href={URLS.COMMUNITY_LIST()}
+              className="flex items-center gap-1.5"
+            >
               View all
               <ArrowRight className="size-4" />
             </Link>

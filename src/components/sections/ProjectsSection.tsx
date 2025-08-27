@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { Button } from "@/components/ui/button";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { Project } from "@/types/project";
 
 interface ProjectsSectionProps {
@@ -36,7 +37,10 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           <h2 className="text-md font-medium">Featured projects</h2>
         </div>
         <Button variant="outline" size="sm" asChild>
-          <Link href="/projects" className="flex items-center gap-1.5">
+          <Link
+            href={URLS.PROJECTS_LIST()}
+            className="flex items-center gap-1.5"
+          >
             View all
             <ArrowRight className="size-4" />
           </Link>

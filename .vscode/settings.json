@@ -13,5 +13,6 @@
   "files.associations": {
     "*.css": "tailwindcss",
     "*.scss": "tailwindcss"
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

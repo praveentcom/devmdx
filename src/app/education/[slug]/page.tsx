@@ -12,6 +12,7 @@ import {
   SectionCard,
 } from "@/components/ui/common";
 import { profileData } from "@/data/profile";
+import { URLS } from "@/lib/constants/urls";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
@@ -34,7 +35,11 @@ export default async function EducationPage({ params }: PageProps) {
   return (
     <PageWithStructuredData structuredData={generateEducationSchema(education)}>
       <div className="page-container">
-        <BackButton href="/" label="Back to profile" Icon={ArrowLeft} />
+        <BackButton
+          href={URLS.HOME()}
+          label="Back to profile"
+          Icon={ArrowLeft}
+        />
 
         <div className="grid gap-4">
           <EntityHeader

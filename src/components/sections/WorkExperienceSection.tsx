@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DateRange } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { WorkExperience } from "@/types/work";
 
 interface WorkExperienceSectionProps {
@@ -16,7 +17,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
     experience;
 
   return (
-    <Link href={`/work/${experience.slug}`} className="block">
+    <Link href={URLS.WORK(experience.slug)} className="block">
       <Card>
         <CardHeader>
           <div className="card-header-layout">

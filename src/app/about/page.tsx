@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { Markdown } from "@/components/ui/markdown";
-import { BASE_URL } from "@/lib/constants";
+import { URLS } from "@/lib/constants";
 import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       "Learn more about my background, experiences, and what drives me professionally and personally.",
     type: "article",
     siteName: getSiteName(),
-    url: `${BASE_URL}/about`,
+    url: `${URLS.ABOUT()}`,
     images: [
       {
         url: generatePlaceholderImageUrl({
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 subtitle="This section is currently being crafted. Check back soon to learn more about my background and journey."
               >
                 <Button variant="outline" size="sm" asChild>
-                  <Link href="/">Go home</Link>
+                  <Link href={URLS.HOME()}>Go home</Link>
                 </Button>
               </EmptyPlaceholderCard>
             )}

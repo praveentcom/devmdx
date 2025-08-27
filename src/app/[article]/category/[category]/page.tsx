@@ -8,12 +8,9 @@ import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { getAllCategories, getArticlesByCategory } from "@/lib/helpers/article";
-import {
-  getArticleLabel,
-  getArticleLabelSingular,
-  getArticleSlug,
-} from "@/lib/helpers/config";
+import { getArticleLabel, getArticleLabelSingular } from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
@@ -42,7 +39,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     decodedCategory,
     filteredArticles.length,
-    `/${getArticleSlug()}/category/${category}`,
+    URLS.ARTICLES_CATEGORY(category),
   );
 }
 
@@ -65,12 +62,12 @@ export default async function CategoryArticlePage({ params }: PageProps) {
           {/* Header with back navigation */}
           <div className="grid gap-0.5">
             <BackButton
-              href={`/${getArticleSlug()}`}
+              href={URLS.ARTICLES_LIST()}
               label={`Back to ${getArticleLabel().toLowerCase()}`}
               Icon={ArrowLeft}
             />
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5">
               <div className="size-5 bg-primary/10 rounded flex items-center justify-center">
                 <span className="text-xs font-medium text-primary">
                   {decodedCategory.charAt(0).toUpperCase()}
@@ -82,19 +79,21 @@ export default async function CategoryArticlePage({ params }: PageProps) {
             </div>
 
             <p className="text-muted-foreground text-sm">
-              No articles found in this category
+              No {getArticleLabel().toLowerCase()} found in this category
             </p>
           </div>
 
           <EmptyPlaceholderCard
-            title="No articles found."
-            subtitle={`No articles have been published this ${decodedCategory} category yet. Check back later for new content!`}
+            title={`No ${getArticleLabel().toLowerCase()} found.`}
+            subtitle={`No ${getArticleLabel().toLowerCase()} have been published this ${decodedCategory} category yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>
-              <Link href="/articles">articles</Link>
+              <Link href={URLS.ARTICLES_LIST()}>
+                {getArticleLabel().toLowerCase()}
+              </Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/">Go home</Link>
+              <Link href={URLS.HOME()}>Go home</Link>
             </Button>
           </EmptyPlaceholderCard>
         </div>
@@ -108,25 +107,27 @@ export default async function CategoryArticlePage({ params }: PageProps) {
         <div className="grid gap-0.5">
           <div className="flex items-center gap-1.5">
             <BackButton
-              href="/articles"
-              label="Back to articles"
+              href={URLS.ARTICLES_LIST()}
+              label={`Back to ${getArticleLabel().toLowerCase()}`}
               Icon={ArrowLeft}
             />
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
             <div className="size-5 bg-primary/10 rounded flex items-center justify-center">
               <span className="text-xs font-medium text-primary">
                 {decodedCategory.charAt(0).toUpperCase()}
               </span>
             </div>
-            <h1 className="text-md font-medium">{decodedCategory} articles</h1>
+            <h1 className="text-md font-medium">
+              {decodedCategory} {getArticleLabel().toLowerCase()}
+            </h1>
           </div>
 
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
               ? `${filteredArticles.length} ${pluralize(getArticleLabelSingular().toLowerCase(), filteredArticles.length)} in this category`
-              : `No articles found in this category`}
+              : `No ${getArticleLabel().toLowerCase()} found in this category`}
           </p>
         </div>
 

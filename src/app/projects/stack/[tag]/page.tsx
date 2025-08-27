@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { profileData } from "@/data/profile";
+import { URLS } from "@/lib/constants/urls";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
@@ -72,7 +73,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
       <div className="grid gap-5">
         <div className="grid gap-0.5">
           <BackButton
-            href="/projects"
+            href={URLS.PROJECTS_LIST()}
             label="Back to projects"
             Icon={ArrowLeft}
           />
@@ -108,10 +109,10 @@ export default async function TagProjectsPage({ params }: PageProps) {
             subtitle={`There are currently no projects where I've used ${techDetails.label}.`}
           >
             <Button variant="outline" asChild>
-              <Link href="/projects">Projects</Link>
+              <Link href={URLS.PROJECTS_LIST()}>Projects</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/">Go home</Link>
+              <Link href={URLS.HOME()}>Go home</Link>
             </Button>
           </EmptyPlaceholderCard>
         )}

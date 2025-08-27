@@ -1,12 +1,12 @@
 import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { CommunityHeader } from "@/components/community/CommunityHeader";
 import { CommunityMetadata } from "@/components/community/CommunityMetadata";
 import { BackButton, PageWithStructuredData } from "@/components/ui/common";
 import { Markdown } from "@/components/ui/markdown";
+import { URLS } from "@/lib/constants/urls";
 import {
   getAllCommunitySlugs,
   getCommunityBySlugRaw,
@@ -44,11 +44,7 @@ export default async function CommunityContributionPage({ params }: PageProps) {
     >
       <div className="page-container">
         <BackButton
-          href={
-            (await headers()).get("x-next-url")?.includes("source=year-range")
-              ? `/community/${year}`
-              : `/community`
-          }
+          href={URLS.COMMUNITY_LIST()}
           label="Back to contributions"
           Icon={ArrowLeft}
         />
