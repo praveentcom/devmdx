@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
+import Script from "next/script";
 
 import { ArticleHeader } from "@/components/article/ArticleHeader";
 import { ArticleMetadata } from "@/components/article/ArticleMetadata";
@@ -61,19 +62,35 @@ export default async function ArticlePage({ params }: PageProps) {
           Icon={ArrowLeft}
         />
 
-        <div className="grid md:grid-cols-12 gap-5">
-          <div className="md:col-span-9 grid gap-1.5">
-            <ArticleHeader article={article} />
-            <div className="space-y-4">
-              <Markdown content={rawArticle.raw} muted />
-            </div>
-          </div>
-
-          <div className="md:col-span-3">
-            <ArticleMetadata article={article} />
+        <div className="grid gap-1.5 min-w-0">
+          <ArticleHeader article={article} />
+          <ArticleMetadata article={article} />
+          <div className="min-w-0 overflow-hidden">
+            <Markdown content={rawArticle.raw} />
           </div>
         </div>
       </div>
+      
+      <Script id="copy-code-script" strategy="afterInteractive">
+        {`
+          window.copyCode = function(button) {
+            const codeBlock = button.parentElement.querySelector('code');
+            const lineContents = codeBlock.querySelectorAll('.line-content');
+            const text = Array.from(lineContents).map(line => line.textContent || line.innerText).join('\\n');
+            
+            navigator.clipboard.writeText(text).then(() => {
+              const originalSvg = button.innerHTML;
+              button.innerHTML = '<svg class="size-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+              
+              setTimeout(() => {
+                button.innerHTML = originalSvg;
+              }, 2000);
+            }).catch(err => {
+              console.error('Failed to copy code: ', err);
+            });
+          };
+        `}
+      </Script>
     </PageWithStructuredData>
   );
 }

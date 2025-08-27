@@ -639,7 +639,7 @@ Smart contracts are self-executing contracts with terms directly written into co
 
 ### Hardhat Configuration
 
-```javascript
+```javascript filename="index.js"
 // hardhat.config.js
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();

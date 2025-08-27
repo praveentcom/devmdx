@@ -28,7 +28,7 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
   return (
     <>
       {/* Static cover image */}
-      <div className="relative w-full aspect-[1200/628] rounded-lg overflow-hidden mb-4">
+      <div className="relative w-full aspect-[1200/628] rounded-lg overflow-hidden mb-4 max-w-full">
         <Image
           src={article.image || generateArticlePlaceholderImage(article.title)}
           alt={article.title}
