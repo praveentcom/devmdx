@@ -260,6 +260,35 @@ export const configData: ConfigData = {
     // simpleAnalytics: {
     //   hostname: "yourdomain.com",
     // },
+
+    // Uncomment and add your domain to enable Plausible Analytics
+    // plausible: {
+    //   domain: "yourdomain.com",
+    //   src: "https://plausible.io/js/script.js", // Optional: custom script URL for self-hosted
+    // },
+
+    // Uncomment and add your website ID to enable Umami Analytics
+    // umami: {
+    //   websiteId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    //   src: "https://analytics.umami.is/script.js", // Optional: custom script URL for self-hosted
+    // },
+
+    // Uncomment and configure to enable Matomo Analytics
+    // matomo: {
+    //   url: "https://your-matomo-instance.com/", // Your Matomo instance URL
+    //   siteId: "1",
+    // },
+
+    // Uncomment and add your project ID to enable Microsoft Clarity
+    // Note: If you get "page can't be found" errors, check your ad blocker or network settings
+    // microsoftClarity: {
+    //   projectId: "xxxxxxxxxx",
+    // },
+
+    // Uncomment and add your token to enable Mixpanel Analytics
+    // mixpanel: {
+    //   token: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    // },
   },
   seo: {
     title: "${FIRST_NAME} ${LAST_NAME}",
