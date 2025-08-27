@@ -1,11 +1,11 @@
-import { Briefcase, Building2, CalendarDays } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Briefcase, Building2, CalendarDays } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { DateRange } from '@/components/ui/common';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { WorkExperience } from '@/types/work';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DateRange } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { WorkExperience } from "@/types/work";
 
 interface WorkExperienceSectionProps {
   workExperience: WorkExperience[];

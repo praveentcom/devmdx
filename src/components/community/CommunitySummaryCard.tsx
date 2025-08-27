@@ -1,15 +1,15 @@
-import { Calendar, ExternalLink, Eye, Youtube } from 'lucide-react';
-import Image from 'next/image';
+import { Calendar, ExternalLink, Eye, Youtube } from "lucide-react";
+import Image from "next/image";
 
-import { PrefetchLink } from '@/components/ui/prefetch-link';
-import { CommunityIndexItem } from '@/lib/helpers/community';
-import { generateArticlePlaceholderImage } from '@/lib/helpers/image';
-import { formatDate } from '@/lib/helpers/markdown';
-import { truncate } from '@/lib/utils';
+import { PrefetchLink } from "@/components/ui/prefetch-link";
+import { CommunityIndexItem } from "@/lib/helpers/community";
+import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
+import { formatDate } from "@/lib/helpers/markdown";
+import { truncate } from "@/lib/utils";
 
-import { Badge } from '../ui/badge';
-import { Card, CardContent, CardHeader } from '../ui/card';
-import { ContributionTypeBadge } from '../ui/contribution-type-badge';
+import { Badge } from "../ui/badge";
+import { Card, CardContent, CardHeader } from "../ui/card";
+import { ContributionTypeBadge } from "../ui/contribution-type-badge";
 
 export function CommunitySummaryCard({
   community,
@@ -51,14 +51,13 @@ export function CommunitySummaryCard({
               </div>
             </div>
 
-            <div className="grid gap-0.5 mb-1.5">
-              <h2 className="text-md font-medium group-hover:text-primary transition-colors">
-                {community.title}
-              </h2>
-              <p className="text-muted-foreground text-sm line-clamp-2">
-                {truncate(community.description, 160)}
-              </p>
-            </div>
+            <h2 className="text-md font-medium group-hover:text-primary transition-colors">
+              {community.title}
+            </h2>
+
+            <p className="text-muted-foreground text-sm line-clamp-2">
+              {truncate(community.description, 160)}
+            </p>
 
             <div className="flex flex-wrap gap-1.5">
               {community.type && (
@@ -75,7 +74,7 @@ export function CommunitySummaryCard({
                   <Badge variant="secondary" className="text-xs">
                     <ExternalLink className="size-3 mr-1" />
                     {community.externalLinks.length} Link
-                    {community.externalLinks.length > 1 ? 's' : ''}
+                    {community.externalLinks.length > 1 ? "s" : ""}
                   </Badge>
                 )}
             </div>

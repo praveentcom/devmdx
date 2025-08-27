@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { ArrowRight, GitPullRequestArrow } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, GitPullRequestArrow } from "lucide-react";
+import Link from "next/link";
 
-import { ProjectCard } from '@/components/projects/ProjectCard';
-import { Button } from '@/components/ui/button';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { Project } from '@/types/project';
+import { ProjectCard } from "@/components/projects/ProjectCard";
+import { Button } from "@/components/ui/button";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { Project } from "@/types/project";
 
 interface ProjectsSectionProps {
   projects: Project[];

@@ -6,14 +6,14 @@ import {
   Link2,
   Video,
   Youtube,
-} from 'lucide-react';
-import Link from 'next/link';
+} from "lucide-react";
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { ContributionTypeBadge } from '@/components/ui/contribution-type-badge';
-import type { CommunityIndexItem } from '@/lib/helpers/community';
-import { formatDate } from '@/lib/helpers/markdown';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ContributionTypeBadge } from "@/components/ui/contribution-type-badge";
+import type { CommunityIndexItem } from "@/lib/helpers/community";
+import { formatDate } from "@/lib/helpers/markdown";
 
 interface CommunityMetadataProps {
   community: CommunityIndexItem;

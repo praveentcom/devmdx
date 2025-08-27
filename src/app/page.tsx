@@ -1,22 +1,22 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
-import { AboutSection } from '@/components/sections/AboutSection';
-import { ArticlesSection } from '@/components/sections/ArticlesSection';
-import { CommunitySection } from '@/components/sections/CommunitySection';
-import { ProjectsSection } from '@/components/sections/ProjectsSection';
-import { PageWithStructuredData } from '@/components/ui/common';
-import { configData } from '@/data/config';
-import { profileData } from '@/data/profile';
-import { BASE_URL } from '@/lib/constants';
+import { AboutSection } from "@/components/sections/AboutSection";
+import { ArticlesSection } from "@/components/sections/ArticlesSection";
+import { CommunitySection } from "@/components/sections/CommunitySection";
+import { ProjectsSection } from "@/components/sections/ProjectsSection";
+import { PageWithStructuredData } from "@/components/ui/common";
+import { configData } from "@/data/config";
+import { profileData } from "@/data/profile";
+import { BASE_URL } from "@/lib/constants";
 import {
   getAuthorName,
   getOgImage,
   getSeoDescription,
   getSeoTitle,
   getSiteName,
-} from '@/lib/helpers/config';
-import { generateOpenGraphImage } from '@/lib/helpers/image';
-import { generatePersonSchema } from '@/lib/helpers/structured-data';
+} from "@/lib/helpers/config";
+import { generateOpenGraphImage } from "@/lib/helpers/image";
+import { generatePersonSchema } from "@/lib/helpers/structured-data";
 
 const authorName = getAuthorName();
 const siteName = getSiteName();
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: configData.seo.ogTitle || authorName,
     description: configData.seo.ogDescription || seoDescription,
-    type: 'profile',
+    type: "profile",
     siteName,
     url: configData.seo.ogUrl || configData.misc.siteUrl || BASE_URL,
     images: [
@@ -37,12 +37,12 @@ export const metadata: Metadata = {
         url: getOgImage() || generateOpenGraphImage(authorName),
         width: 1200,
         height: 630,
-        alt: `${authorName} - ${profileData.profile.currentPosition || 'Professional'}`,
+        alt: `${authorName} - ${profileData.profile.currentPosition || "Professional"}`,
       },
     ],
   },
   twitter: {
-    card: configData.seo.twitterCard || 'summary_large_image',
+    card: configData.seo.twitterCard || "summary_large_image",
     title: configData.seo.ogTitle || authorName,
     description: configData.seo.ogDescription || seoDescription,
     site: configData.seo.twitterSite,
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   keywords:
     configData.seo.keywords ||
-    `${authorName}, ${profileData.profile.currentPosition || 'professional'}, developer, portfolio, ${profileData.profile.bulletPoints?.join(', ')}`,
+    `${authorName}, ${profileData.profile.currentPosition || "professional"}, developer, portfolio, ${profileData.profile.bulletPoints?.join(", ")}`,
   authors: [
     {
       name: authorName,

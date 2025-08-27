@@ -1,7 +1,7 @@
-import { format } from 'date-fns';
-import { ArrowLeft, Briefcase, CalendarDays } from 'lucide-react';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { format } from "date-fns";
+import { ArrowLeft, Briefcase, CalendarDays } from "lucide-react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import {
   BackButton,
@@ -10,15 +10,15 @@ import {
   EntityHeader,
   PageWithStructuredData,
   SectionCard,
-} from '@/components/ui/common';
-import { TagBadge } from '@/components/ui/tag-badge';
-import { profileData } from '@/data/profile';
+} from "@/components/ui/common";
+import { TagBadge } from "@/components/ui/tag-badge";
+import { profileData } from "@/data/profile";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
-} from '@/lib/helpers/metadata';
-import { findBySlug, generateSlugParams } from '@/lib/helpers/page';
-import { generateWorkSchema } from '@/lib/helpers/structured-data';
+} from "@/lib/helpers/metadata";
+import { findBySlug, generateSlugParams } from "@/lib/helpers/page";
+import { generateWorkSchema } from "@/lib/helpers/structured-data";
 
 interface PageProps {
   params: Promise<{
@@ -91,14 +91,14 @@ export async function generateMetadata({
   const experience = findBySlug(profileData.workExperience, slug);
 
   if (!experience) {
-    return createNotFoundMetadata('Work experience');
+    return createNotFoundMetadata("Work experience");
   }
 
-  const duration = `${format(experience.startDate, 'LLLL yyyy')} - ${
-    experience.endDate ? format(experience.endDate, 'LLLL yyyy') : 'Present'
+  const duration = `${format(experience.startDate, "LLLL yyyy")} - ${
+    experience.endDate ? format(experience.endDate, "LLLL yyyy") : "Present"
   }`;
   const description = `${experience.role} position at ${experience.company} (${duration}). ${
-    experience.bulletPoints?.[0] || ''
+    experience.bulletPoints?.[0] || ""
   }`;
 
   return METADATA_PATTERNS.work(
@@ -107,7 +107,7 @@ export async function generateMetadata({
     description,
     experience.skills || [],
     experience.companyImagePath,
-    `/work/${experience.slug}`
+    `/work/${experience.slug}`,
   );
 }
 

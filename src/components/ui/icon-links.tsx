@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Fragment } from 'react';
+import { Fragment } from "react";
 
-import { profileData } from '@/data/profile';
-import { SimpleIcon, socialIconPaths } from '@/lib/utils/icons';
+import { profileData } from "@/data/profile";
+import { SimpleIcon, socialIconPaths } from "@/lib/utils/icons";
 
 export function IconLinks() {
   const { socialMedia, links } = profileData.profile;

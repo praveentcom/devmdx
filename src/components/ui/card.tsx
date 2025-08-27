@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { BlurIn } from '@/components/motion-primitives/blur-in';
-import { BorderTrail } from '@/components/motion-primitives/border-trail';
-import { cn } from '@/lib/utils';
+import { BlurIn } from "@/components/motion-primitives/blur-in";
+import { BorderTrail } from "@/components/motion-primitives/border-trail";
+import { cn } from "@/lib/utils";
 
-interface CardProps extends React.ComponentProps<'div'> {
+interface CardProps extends React.ComponentProps<"div"> {
   animated?: boolean;
   animationDelay?: number;
   borderTrail?: boolean;
@@ -22,12 +22,12 @@ function Card({
     <div
       data-slot="card"
       className={cn(
-        'text-card-foreground rounded-xl relative',
-        'border border-border/75 dark:border-border/50 bg-card dark:bg-card/25',
-        'h-min py-4',
-        'transition-all duration-100',
+        "text-card-foreground rounded-xl relative",
+        "border border-border/75 dark:border-border/50 bg-card dark:bg-card/25",
+        "h-min py-4",
+        "transition-all duration-100",
         className,
-        borderTrail ? 'hover:dark:bg-card/50' : ''
+        borderTrail ? "hover:dark:bg-card/50" : "",
       )}
       {...props}
     >
@@ -39,7 +39,7 @@ function Card({
             transition={{
               repeat: Infinity,
               duration: 4,
-              ease: 'linear',
+              ease: "linear",
             }}
           />
         </div>
@@ -59,67 +59,67 @@ function Card({
   );
 }
 
-function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-header"
       className={cn(
-        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-4 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
-        className
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-4 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        className,
       )}
       {...props}
     />
   );
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<'div'>) {
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-title"
-      className={cn('leading-none font-medium', className)}
+      className={cn("leading-none font-medium", className)}
       {...props}
     />
   );
 }
 
-function CardDescription({ className, ...props }: React.ComponentProps<'div'>) {
+function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-description"
-      className={cn('text-muted-foreground text-sm', className)}
+      className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
   );
 }
 
-function CardAction({ className, ...props }: React.ComponentProps<'div'>) {
+function CardAction({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-action"
       className={cn(
-        'col-start-2 row-span-2 row-start-1 self-start justify-self-end',
-        className
+        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        className,
       )}
       {...props}
     />
   );
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
+function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-content"
-      className={cn('px-4', className)}
+      className={cn("px-4", className)}
       {...props}
     />
   );
 }
 
-function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-footer"
-      className={cn('flex items-center px-4 [.border-t]:pt-5', className)}
+      className={cn("flex items-center px-4 [.border-t]:pt-5", className)}
       {...props}
     />
   );

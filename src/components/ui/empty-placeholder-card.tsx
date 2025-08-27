@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { NewspaperIcon } from 'lucide-react';
-import { ReactNode } from 'react';
+import { NewspaperIcon } from "lucide-react";
+import { ReactNode } from "react";
 
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from "@/components/ui/card";
 
 interface EmptyPlaceholderCardProps {
   title: string;

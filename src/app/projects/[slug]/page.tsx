@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format } from "date-fns";
 import {
   ArrowLeft,
   Calendar,
@@ -6,25 +6,25 @@ import {
   Github,
   GitPullRequestArrow,
   Users,
-} from 'lucide-react';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+} from "lucide-react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   BackButton,
   BulletList,
   EntityHeader,
   PageWithStructuredData,
   SectionCard,
-} from '@/components/ui/common';
-import { TagBadge } from '@/components/ui/tag-badge';
-import { profileData } from '@/data/profile';
+} from "@/components/ui/common";
+import { TagBadge } from "@/components/ui/tag-badge";
+import { profileData } from "@/data/profile";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
-} from '@/lib/helpers/metadata';
-import { generateProjectSchema } from '@/lib/helpers/structured-data';
+} from "@/lib/helpers/metadata";
+import { generateProjectSchema } from "@/lib/helpers/structured-data";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -135,7 +135,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 <div className="flex items-center gap-1.5">
                   <Calendar className="size-4 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">
-                    {format(project.date, 'MMMM yyyy')}
+                    {format(project.date, "MMMM yyyy")}
                   </span>
                 </div>
               </SectionCard>
@@ -145,7 +145,7 @@ export default async function ProjectPage({ params }: PageProps) {
                 <div className="flex items-center gap-1.5">
                   <Users className="size-4 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">
-                    with {project.coAuthors.join(', ')}
+                    with {project.coAuthors.join(", ")}
                   </span>
                 </div>
               </SectionCard>
@@ -183,7 +183,7 @@ export async function generateMetadata({
   const project = profileData.projects.find((p) => p.slug === slug);
 
   if (!project) {
-    return createNotFoundMetadata('Project');
+    return createNotFoundMetadata("Project");
   }
 
   return METADATA_PATTERNS.project(
@@ -191,7 +191,7 @@ export async function generateMetadata({
     project.description,
     project.stack,
     project.imagePath,
-    `/projects/${project.slug}`
+    `/projects/${project.slug}`,
   );
 }
 

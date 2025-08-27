@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { ThemeToggle } from '@/components/theme/theme-toggle';
-import { configData } from '@/data/config';
-import { profileData } from '@/data/profile';
+import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { configData } from "@/data/config";
+import { profileData } from "@/data/profile";
 
 export function Footer() {
   return (
@@ -11,7 +11,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-6">
           <div className="text-center md:text-left grid gap-1 h-min">
             <p className="text-muted-foreground text-xs font-medium">
-              © {new Date().getFullYear()} {profileData.profile.firstName}{' '}
+              © {new Date().getFullYear()} {profileData.profile.firstName}{" "}
               {profileData.profile.lastName}
             </p>
             <p className="text-muted-foreground text-xs">

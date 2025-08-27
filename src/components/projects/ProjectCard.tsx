@@ -1,12 +1,12 @@
-import { format } from 'date-fns';
-import { Calendar, Users } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { format } from "date-fns";
+import { Calendar, Users } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { TagBadge } from '@/components/ui/tag-badge';
-import { EnumTag } from '@/lib/helpers/tag-mapper';
-import { Project } from '@/types/project';
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { TagBadge } from "@/components/ui/tag-badge";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
+import { Project } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
@@ -40,13 +40,13 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
                 {date && (
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
                     <Calendar className="size-3" />
-                    <span>{format(date, 'MMMM yyyy')}</span>
+                    <span>{format(date, "MMMM yyyy")}</span>
                   </div>
                 )}
                 {coAuthors && coAuthors.length > 0 && (
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
                     <Users className="size-3" />
-                    <span>with {coAuthors.join(', ')}</span>
+                    <span>with {coAuthors.join(", ")}</span>
                   </div>
                 )}
               </div>

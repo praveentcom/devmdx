@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
-import { configData } from '@/data/config';
-import { profileData } from '@/data/profile';
-import { BASE_URL } from '@/lib/constants';
-import { COLOR_SCHEMES } from '@/lib/constants/colors';
-import { getArticleLabel, getArticleSlug } from '@/lib/helpers/config';
-import { generatePlaceholderImageUrl } from '@/lib/helpers/image';
+import { configData } from "@/data/config";
+import { profileData } from "@/data/profile";
+import { BASE_URL } from "@/lib/constants";
+import { COLOR_SCHEMES } from "@/lib/constants/colors";
+import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
+import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
 export function getAuthorName(): string {
   return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
@@ -28,7 +28,7 @@ export function createOpenGraphImage(
   colorScheme: { background: string; text: string },
   altText: string,
   width = 1200,
-  height = 630
+  height = 630,
 ) {
   return {
     url:
@@ -52,7 +52,7 @@ export function createPageMetadata(config: {
   description: string;
   openGraphTitle?: string;
   openGraphDescription?: string;
-  type?: 'website' | 'article' | 'profile';
+  type?: "website" | "article" | "profile";
   imageUrl?: string;
   fallbackImageText: string;
   colorScheme: { background: string; text: string };
@@ -66,7 +66,7 @@ export function createPageMetadata(config: {
     description,
     openGraphTitle = title,
     openGraphDescription = description,
-    type = 'website',
+    type = "website",
     imageUrl,
     fallbackImageText,
     colorScheme,
@@ -79,7 +79,7 @@ export function createPageMetadata(config: {
     imageUrl,
     fallbackImageText,
     colorScheme,
-    openGraphTitle
+    openGraphTitle,
   );
 
   const metadata: Metadata = {
@@ -94,7 +94,7 @@ export function createPageMetadata(config: {
       url: url ? `${BASE_URL}${url}` : undefined,
     },
     twitter: {
-      card: configData.seo.twitterCard || 'summary_large_image',
+      card: configData.seo.twitterCard || "summary_large_image",
       title: openGraphTitle,
       description: openGraphDescription,
       images: [image.url],
@@ -120,7 +120,7 @@ export function createItemMetadata(config: {
   authorName?: string;
   imageUrl?: string;
   colorScheme: { background: string; text: string };
-  type?: 'website' | 'article' | 'profile';
+  type?: "website" | "article" | "profile";
   keywords?: string;
   publishedTime?: string;
   url?: string;
@@ -131,7 +131,7 @@ export function createItemMetadata(config: {
     authorName = getAuthorName(),
     imageUrl,
     colorScheme,
-    type = 'website',
+    type = "website",
     keywords,
     publishedTime,
     url,
@@ -196,7 +196,7 @@ export function createFilteredMetadata(config: {
 
   const description =
     count > 0
-      ? `${count} ${pluralType}${count === 1 ? '' : 's'} about ${filterName}. Discover insights and solutions related to ${filterName}.`
+      ? `${count} ${pluralType}${count === 1 ? "" : "s"} about ${filterName}. Discover insights and solutions related to ${filterName}.`
       : `Discover ${pluralType} related to ${filterName}.`;
 
   return createPageMetadata({
@@ -224,14 +224,14 @@ export const METADATA_PATTERNS = {
     imageUrl?: string,
     publishedTime?: string,
     url?: string,
-    isPrivate?: boolean
+    isPrivate?: boolean,
   ) => {
     const metadata = createItemMetadata({
       itemName: title,
       itemDescription: description,
       imageUrl,
       colorScheme: COLOR_SCHEMES.ARTICLE,
-      type: 'article',
+      type: "article",
       publishedTime,
       url,
     });
@@ -251,14 +251,14 @@ export const METADATA_PATTERNS = {
     description: string,
     technologies: string[],
     imageUrl?: string,
-    url?: string
+    url?: string,
   ) =>
     createItemMetadata({
       itemName: name,
       itemDescription: description,
       imageUrl,
       colorScheme: COLOR_SCHEMES.PROJECT,
-      keywords: `${technologies.join(', ')}, ${name}, project, portfolio`,
+      keywords: `${technologies.join(", ")}, ${name}, project, portfolio`,
       url,
     }),
 
@@ -268,15 +268,15 @@ export const METADATA_PATTERNS = {
     description: string,
     skills: string[],
     imageUrl?: string,
-    url?: string
+    url?: string,
   ) =>
     createItemMetadata({
       itemName: `${role} at ${company}`,
       itemDescription: description,
       imageUrl,
       colorScheme: COLOR_SCHEMES.WORK,
-      type: 'profile',
-      keywords: `${skills.join(', ')}, ${company}, ${role}, work experience, career`,
+      type: "profile",
+      keywords: `${skills.join(", ")}, ${company}, ${role}, work experience, career`,
       url,
     }),
 
@@ -285,14 +285,14 @@ export const METADATA_PATTERNS = {
     college: string,
     description: string,
     imageUrl?: string,
-    url?: string
+    url?: string,
   ) =>
     createItemMetadata({
       itemName: `${degree} from ${college}`,
       itemDescription: description,
       imageUrl,
       colorScheme: COLOR_SCHEMES.EDUCATION,
-      type: 'profile',
+      type: "profile",
       keywords: `${college}, ${degree}, education, academic, qualification`,
       url,
     }),
@@ -301,22 +301,22 @@ export const METADATA_PATTERNS = {
     createListingMetadata({
       pageType: getArticleLabel(),
       description:
-        'A collection of articles about development, technology, and more. Sharing insights and knowledge from my journey as a developer.',
+        "A collection of articles about development, technology, and more. Sharing insights and knowledge from my journey as a developer.",
       colorScheme: COLOR_SCHEMES.ARTICLE,
       keywords:
-        'articles, blog, development, technology, programming, tutorials',
+        "articles, blog, development, technology, programming, tutorials",
       url: `/${getArticleSlug()}`,
     }),
 
   projectsList: () =>
     createListingMetadata({
-      pageType: 'Projects',
+      pageType: "Projects",
       description:
         "A comprehensive showcase of all my projects and contributions. Explore the technologies I work with and the solutions I've built.",
       colorScheme: COLOR_SCHEMES.PROJECT,
       keywords:
-        'projects, portfolio, development, programming, open source, web applications, software',
-      url: '/projects',
+        "projects, portfolio, development, programming, open source, web applications, software",
+      url: "/projects",
     }),
 
   tagArticles: (tagName: string, articleCount: number, url?: string) =>
@@ -331,7 +331,7 @@ export const METADATA_PATTERNS = {
   tagProjects: (tagName: string, projectCount: number, url?: string) =>
     createFilteredMetadata({
       filterName: tagName,
-      contentType: 'Projects',
+      contentType: "Projects",
       count: projectCount,
       colorScheme: COLOR_SCHEMES.PROJECT,
       url,

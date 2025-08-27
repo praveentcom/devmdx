@@ -1,17 +1,17 @@
-import fs from 'fs';
-import matter from 'gray-matter';
-import { compileMDX } from 'next-mdx-remote/rsc';
-import path from 'path';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeSlug from 'rehype-slug';
-import remarkGfm from 'remark-gfm';
-import { z } from 'zod';
+import fs from "fs";
+import matter from "gray-matter";
+import { compileMDX } from "next-mdx-remote/rsc";
+import path from "path";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import { z } from "zod";
 
-import { generateCommunityPlaceholderImage } from '@/lib/helpers/image';
-import { calculateReadTime } from '@/lib/helpers/markdown';
-import { EnumCommunityContributionType } from '@/types/community';
+import { generateCommunityPlaceholderImage } from "@/lib/helpers/image";
+import { calculateReadTime } from "@/lib/helpers/markdown";
+import { EnumCommunityContributionType } from "@/types/community";
 
-const COMMUNITY_CONTENT_DIR = path.join(process.cwd(), 'data', 'community');
+const COMMUNITY_CONTENT_DIR = path.join(process.cwd(), "data", "community");
 
 const CommunityLinkSchema = z.object({
   title: z.string(),
@@ -33,12 +33,12 @@ export const CommunityFrontmatterSchema = z.object({
 export type CommunityFrontmatter = Required<
   Pick<
     z.infer<typeof CommunityFrontmatterSchema>,
-    'title' | 'description' | 'date' | 'published'
+    "title" | "description" | "date" | "published"
   >
 > &
   Omit<
     z.infer<typeof CommunityFrontmatterSchema>,
-    'title' | 'description' | 'date' | 'published'
+    "title" | "description" | "date" | "published"
   > & {
     year: string;
     slug: string;
@@ -48,7 +48,7 @@ export type CommunityFrontmatter = Required<
 export type CommunityIndexItem = CommunityFrontmatter;
 
 function isMdxFile(filePath: string): boolean {
-  return filePath.endsWith('.mdx');
+  return filePath.endsWith(".mdx");
 }
 
 function readDirRecursive(dir: string): string[] {
@@ -69,12 +69,12 @@ function extractYearFromPath(fullPath: string): string {
   const rel = path.relative(COMMUNITY_CONTENT_DIR, fullPath);
   const segments = rel.split(path.sep);
   const year = segments[0];
-  return year ?? 'unknown';
+  return year ?? "unknown";
 }
 
 function deriveSlug(
   frontmatterSlug: string | undefined,
-  fullPath: string
+  fullPath: string,
 ): string {
   if (frontmatterSlug && frontmatterSlug.trim().length > 0)
     return frontmatterSlug.trim();
@@ -90,7 +90,7 @@ export function getAllCommunityFiles(): string[] {
 export function getAllCommunitySlugs(): CommunityIndexItem[] {
   const files = getAllCommunityFiles();
   const items: CommunityIndexItem[] = files.map((fullPath) => {
-    const raw = fs.readFileSync(fullPath, 'utf-8');
+    const raw = fs.readFileSync(fullPath, "utf-8");
     const { data, content } = matter(raw);
 
     const parsed = CommunityFrontmatterSchema.parse(data);
@@ -126,19 +126,19 @@ export async function getCommunityBySlugCompiled(slug: string): Promise<{
 } | null> {
   const files = getAllCommunityFiles();
   const match = files.find((full) => {
-    const raw = fs.readFileSync(full, 'utf-8');
+    const raw = fs.readFileSync(full, "utf-8");
     const { data } = matter(raw);
     const parsed = CommunityFrontmatterSchema.safeParse(data);
     const derivedSlug = deriveSlug(
       parsed.success ? parsed.data.slug : undefined,
-      full
+      full,
     );
     return derivedSlug === slug;
   });
 
   if (!match) return null;
 
-  const raw = fs.readFileSync(match, 'utf-8');
+  const raw = fs.readFileSync(match, "utf-8");
 
   const { content, frontmatter } = await compileMDX<{ [key: string]: unknown }>(
     {
@@ -149,19 +149,19 @@ export async function getCommunityBySlugCompiled(slug: string): Promise<{
           remarkPlugins: [remarkGfm],
           rehypePlugins: [
             rehypeSlug,
-            [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+            [rehypeAutolinkHeadings, { behavior: "wrap" }],
           ],
         },
       },
-    }
+    },
   );
 
   const year = extractYearFromPath(match);
   const ensuredSlug = deriveSlug(
-    typeof (frontmatter as Record<string, unknown>)?.slug === 'string'
+    typeof (frontmatter as Record<string, unknown>)?.slug === "string"
       ? ((frontmatter as Record<string, unknown>).slug as string)
       : undefined,
-    match
+    match,
   );
   const readTime = calculateReadTime(raw);
 
@@ -184,23 +184,23 @@ export async function getCommunityBySlugCompiled(slug: string): Promise<{
 }
 
 export function getCommunityBySlugRaw(
-  slug: string
+  slug: string,
 ): { meta: CommunityIndexItem; raw: string } | null {
   const files = getAllCommunityFiles();
   const match = files.find((full) => {
-    const raw = fs.readFileSync(full, 'utf-8');
+    const raw = fs.readFileSync(full, "utf-8");
     const { data } = matter(raw);
     const parsed = CommunityFrontmatterSchema.safeParse(data);
     const derivedSlug = deriveSlug(
       parsed.success ? parsed.data.slug : undefined,
-      full
+      full,
     );
     return derivedSlug === slug;
   });
 
   if (!match) return null;
 
-  const raw = fs.readFileSync(match, 'utf-8');
+  const raw = fs.readFileSync(match, "utf-8");
   const { data, content } = matter(raw);
   const year = extractYearFromPath(match);
   const parsed = CommunityFrontmatterSchema.parse(data);
@@ -226,7 +226,7 @@ export function getCommunityBySlugRaw(
 export function getAllCommunityIndex(): CommunityIndexItem[] {
   const files = getAllCommunityFiles();
   const items: CommunityIndexItem[] = files.map((fullPath) => {
-    const raw = fs.readFileSync(fullPath, 'utf-8');
+    const raw = fs.readFileSync(fullPath, "utf-8");
     const { data, content } = matter(raw);
     const parsed = CommunityFrontmatterSchema.parse(data);
 

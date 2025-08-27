@@ -1,23 +1,23 @@
-import { ArrowLeft } from 'lucide-react';
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import pluralize from 'pluralize';
+import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import pluralize from "pluralize";
 
-import { ArticleSummaryCard } from '@/components/article/ArticleSummaryCard';
-import { Button } from '@/components/ui/button';
-import { BackButton } from '@/components/ui/common';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { getAllCategories, getArticlesByCategory } from '@/lib/helpers/article';
+import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
+import { Button } from "@/components/ui/button";
+import { BackButton } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { getAllCategories, getArticlesByCategory } from "@/lib/helpers/article";
 import {
   getArticleLabel,
   getArticleLabelSingular,
   getArticleSlug,
-} from '@/lib/helpers/config';
+} from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
-} from '@/lib/helpers/metadata';
+} from "@/lib/helpers/metadata";
 
 interface PageProps {
   params: Promise<{
@@ -34,7 +34,7 @@ export async function generateMetadata({
   const allCategories = getAllCategories();
 
   if (!allCategories.includes(decodedCategory)) {
-    return createNotFoundMetadata('Category');
+    return createNotFoundMetadata("Category");
   }
 
   const filteredArticles = getArticlesByCategory(decodedCategory);
@@ -42,7 +42,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     decodedCategory,
     filteredArticles.length,
-    `/${getArticleSlug()}/category/${category}`
+    `/${getArticleSlug()}/category/${category}`,
   );
 }
 

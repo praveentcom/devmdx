@@ -1,12 +1,12 @@
-import { ArrowRight, Newspaper } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, Newspaper } from "lucide-react";
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { getAllArticlesIndex } from '@/lib/helpers/article';
-import { getArticleLabel, getArticleSlug } from '@/lib/helpers/config';
+import { Button } from "@/components/ui/button";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { getAllArticlesIndex } from "@/lib/helpers/article";
+import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
 
-import { ArticleSummaryCard } from '../article/ArticleSummaryCard';
+import { ArticleSummaryCard } from "../article/ArticleSummaryCard";
 
 export function ArticlesSection() {
   const publishedArticles = getAllArticlesIndex();

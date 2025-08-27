@@ -1,12 +1,12 @@
-import { ArrowLeft, CalendarRange } from 'lucide-react';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { ArrowLeft, CalendarRange } from "lucide-react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { CommunitySummaryCard } from '@/components/community/CommunitySummaryCard';
-import { BackButton } from '@/components/ui/common';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { getAllCommunityIndex } from '@/lib/helpers/community';
-import { createFilteredMetadata } from '@/lib/helpers/metadata';
+import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
+import { BackButton } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { getAllCommunityIndex } from "@/lib/helpers/community";
+import { createFilteredMetadata } from "@/lib/helpers/metadata";
 
 interface PageProps {
   params: Promise<{
@@ -39,7 +39,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
           </div>
           <p className="text-sm text-muted-foreground">
             {contributions.length} contribution
-            {contributions.length === 1 ? '' : 's'} in {year}
+            {contributions.length === 1 ? "" : "s"} in {year}
           </p>
         </div>
 
@@ -71,9 +71,9 @@ export async function generateMetadata({
   const count = getAllCommunityIndex().filter((c) => c.year === year).length;
   return createFilteredMetadata({
     filterName: year,
-    contentType: 'Community',
+    contentType: "Community",
     count,
-    colorScheme: { background: '0ea5e9', text: 'ffffff' },
+    colorScheme: { background: "0ea5e9", text: "ffffff" },
     url: `/community/${year}`,
   });
 }

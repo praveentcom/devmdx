@@ -4,14 +4,14 @@ import {
   Eye,
   FolderOpen,
   TagsIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { Card, CardContent } from '@/components/ui/card';
-import { CategoryBadge } from '@/components/ui/category-badge';
-import { TagBadge } from '@/components/ui/tag-badge';
-import { formatDate } from '@/lib/helpers/markdown';
+import { Card, CardContent } from "@/components/ui/card";
+import { CategoryBadge } from "@/components/ui/category-badge";
+import { TagBadge } from "@/components/ui/tag-badge";
+import { formatDate } from "@/lib/helpers/markdown";
 
-import type { ArticleLike } from './ArticleSummaryCard';
+import type { ArticleLike } from "./ArticleSummaryCard";
 
 interface ArticleMetadataProps {
   article: ArticleLike;

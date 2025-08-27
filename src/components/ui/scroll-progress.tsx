@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 interface ScrollProgressBarProps {
   heightClassName?: string;
 }
 
 export function ScrollProgressBar({
-  heightClassName = 'h-0.5',
+  heightClassName = "h-0.5",
 }: ScrollProgressBarProps) {
   const [progressPercent, setProgressPercent] = useState(0);
   const rafRef = useRef<number | null>(null);
@@ -20,7 +20,7 @@ export function ScrollProgressBar({
       const scrollable = Math.max(docHeight - winHeight, 1);
       const percent = Math.min(
         Math.max((scrollTop / scrollable) * 100, 0),
-        100
+        100,
       );
       setProgressPercent(percent);
     };
@@ -30,15 +30,15 @@ export function ScrollProgressBar({
       rafRef.current = requestAnimationFrame(calculateProgress);
     };
 
-    window.addEventListener('scroll', onScrollOrResize, { passive: true });
-    window.addEventListener('resize', onScrollOrResize);
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
 
     calculateProgress();
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      window.removeEventListener('scroll', onScrollOrResize);
-      window.removeEventListener('resize', onScrollOrResize);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
     };
   }, []);
 

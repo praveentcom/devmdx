@@ -1,26 +1,26 @@
-import { Newspaper } from 'lucide-react';
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import pluralize from 'pluralize';
+import { Newspaper } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import pluralize from "pluralize";
 
-import { ArticleSummaryCard } from '@/components/article/ArticleSummaryCard';
-import { ArticleYearBadge } from '@/components/ui/article-year-badge';
-import { Button } from '@/components/ui/button';
-import { CategoryBadge } from '@/components/ui/category-badge';
-import { PageWithStructuredData } from '@/components/ui/common';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { BASE_URL } from '@/lib/constants';
-import { COLOR_SCHEMES } from '@/lib/constants/colors';
-import { getAllArticleSlugs, getAllCategories } from '@/lib/helpers/article';
+import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
+import { ArticleYearBadge } from "@/components/ui/article-year-badge";
+import { Button } from "@/components/ui/button";
+import { CategoryBadge } from "@/components/ui/category-badge";
+import { PageWithStructuredData } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { BASE_URL } from "@/lib/constants";
+import { COLOR_SCHEMES } from "@/lib/constants/colors";
+import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
 import {
   getArticleLabel,
   getArticleLabelSingular,
   getAuthorName,
   getSiteName,
-} from '@/lib/helpers/config';
-import { getArticleSlug } from '@/lib/helpers/config';
-import { generatePlaceholderImageUrl } from '@/lib/helpers/image';
-import { EnumTag } from '@/lib/helpers/tag-mapper';
+} from "@/lib/helpers/config";
+import { getArticleSlug } from "@/lib/helpers/config";
+import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 
 const articleLabel = getArticleLabel();
 const articleLabelSingular = getArticleLabelSingular();
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: articleLabel,
     description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
-    type: 'website',
+    type: "website",
     siteName: getSiteName(),
     url: `${BASE_URL}/${getArticleSlug()}`,
     images: [
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: "summary_large_image",
     title: articleLabel,
     description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
     images: [
@@ -77,8 +77,8 @@ export default function ArticlePage() {
   return (
     <PageWithStructuredData
       structuredData={{
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
         name: articleLabel,
         description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
       }}
@@ -123,7 +123,7 @@ export default function ArticlePage() {
                 {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
                   (year) => (
                     <ArticleYearBadge key={year} year={year} asLink />
-                  )
+                  ),
                 )}
               </div>
             </div>

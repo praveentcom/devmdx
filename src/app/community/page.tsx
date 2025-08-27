@@ -1,60 +1,60 @@
-import { MicVocal, MonitorPlay, Presentation, Users } from 'lucide-react';
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import pluralize from 'pluralize';
+import { MicVocal, MonitorPlay, Presentation, Users } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
+import pluralize from "pluralize";
 
-import { CommunitySummaryCard } from '@/components/community/CommunitySummaryCard';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { PageWithStructuredData } from '@/components/ui/common';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { communityData } from '@/data/community';
-import { BASE_URL } from '@/lib/constants';
-import { COLOR_SCHEMES } from '@/lib/constants/colors';
-import { getAllCommunitySlugs } from '@/lib/helpers/community';
-import { getAuthorName, getSiteName } from '@/lib/helpers/config';
+import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { PageWithStructuredData } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { communityData } from "@/data/community";
+import { BASE_URL } from "@/lib/constants";
+import { COLOR_SCHEMES } from "@/lib/constants/colors";
+import { getAllCommunitySlugs } from "@/lib/helpers/community";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import {
   generateCommunityPlaceholderImage,
   generatePlaceholderImageUrl,
-} from '@/lib/helpers/image';
-import { EnumCommunityContributionType } from '@/types/community';
+} from "@/lib/helpers/image";
+import { EnumCommunityContributionType } from "@/types/community";
 
 export const metadata: Metadata = {
   title: `${getAuthorName()} | Community contributions`,
   description: communityData.descriptionLine1,
   openGraph: {
-    title: 'Community contributions',
+    title: "Community contributions",
     description: communityData.descriptionLine1,
-    type: 'website',
+    type: "website",
     siteName: getSiteName(),
     url: `${BASE_URL}/community`,
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: 'Community',
+          text: "Community",
           backgroundColor: COLOR_SCHEMES.COMMUNITY.background,
           textColor: COLOR_SCHEMES.COMMUNITY.text,
         }),
         width: 1200,
         height: 630,
-        alt: 'Community contributions',
+        alt: "Community contributions",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Community contributions',
+    card: "summary_large_image",
+    title: "Community contributions",
     description: communityData.descriptionLine1,
     images: [
       generatePlaceholderImageUrl({
-        text: 'Community contributions',
+        text: "Community contributions",
         backgroundColor: COLOR_SCHEMES.COMMUNITY.background,
         textColor: COLOR_SCHEMES.COMMUNITY.text,
       }),
     ],
   },
   keywords:
-    'community, talks, presentations, conferences, workshops, speaking, developer community',
+    "community, talks, presentations, conferences, workshops, speaking, developer community",
   authors: [
     {
       name: getAuthorName(),
@@ -65,13 +65,13 @@ export const metadata: Metadata = {
 export default function CommunityPage() {
   const publishedContributions = getAllCommunitySlugs();
   const talks = publishedContributions.filter(
-    (c) => c.type === EnumCommunityContributionType.TALK_SESSION
+    (c) => c.type === EnumCommunityContributionType.TALK_SESSION,
   );
   const workshops = publishedContributions.filter(
-    (c) => c.type === EnumCommunityContributionType.WORKSHOP
+    (c) => c.type === EnumCommunityContributionType.WORKSHOP,
   );
   const courses = publishedContributions.filter(
-    (c) => c.type === EnumCommunityContributionType.ONLINE_COURSE
+    (c) => c.type === EnumCommunityContributionType.ONLINE_COURSE,
   );
 
   const heroImageUrl =
@@ -81,9 +81,9 @@ export default function CommunityPage() {
   return (
     <PageWithStructuredData
       structuredData={{
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: 'Community contributions',
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Community contributions",
         description: communityData.descriptionLine1,
         image: heroImageUrl,
       }}
@@ -107,7 +107,7 @@ export default function CommunityPage() {
                     <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
                       <MicVocal className="size-3 text-primary" />
                       <span className="font-medium">
-                        {talks.length} {pluralize('talk', talks.length)}
+                        {talks.length} {pluralize("talk", talks.length)}
                       </span>
                     </div>
                   )}
@@ -115,8 +115,8 @@ export default function CommunityPage() {
                     <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
                       <Presentation className="size-3 text-primary" />
                       <span className="font-medium">
-                        {workshops.length}{' '}
-                        {pluralize('workshop', workshops.length)}
+                        {workshops.length}{" "}
+                        {pluralize("workshop", workshops.length)}
                       </span>
                     </div>
                   )}
@@ -124,7 +124,7 @@ export default function CommunityPage() {
                     <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
                       <MonitorPlay className="size-3 text-primary" />
                       <span className="font-medium">
-                        {courses.length} {pluralize('course', courses.length)}
+                        {courses.length} {pluralize("course", courses.length)}
                       </span>
                     </div>
                   )}
@@ -151,7 +151,7 @@ export default function CommunityPage() {
               .length > 1 ? (
               <div className="flex items-center gap-1.5 flex-wrap">
                 {Array.from(
-                  new Set(publishedContributions.map((c) => c.year))
+                  new Set(publishedContributions.map((c) => c.year)),
                 ).map((year) => (
                   <Link
                     key={year}

@@ -1,19 +1,19 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import { Badge } from '@/components/ui/badge';
-import { getArticleSlug } from '@/lib/helpers/config';
-import { EnumTag, TagMapper } from '@/lib/helpers/tag-mapper';
-import { cn } from '@/lib/utils';
+import { Badge } from "@/components/ui/badge";
+import { getArticleSlug } from "@/lib/helpers/config";
+import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
+import { cn } from "@/lib/utils";
 
 interface TagBadgeProps {
   tag: EnumTag;
   className?: string;
-  variant?: 'default' | 'secondary' | 'destructive' | 'outline';
+  variant?: "default" | "secondary" | "destructive" | "outline";
   showIcon?: boolean;
   iconSize?: number;
   clickable?: boolean;
-  source?: 'articles' | 'projects' | 'work';
+  source?: "articles" | "projects" | "work";
 }
 
 const tagMapper = new TagMapper();
@@ -21,24 +21,24 @@ const tagMapper = new TagMapper();
 export function TagBadge({
   tag,
   className,
-  variant = 'outline',
+  variant = "outline",
   showIcon = true,
   iconSize = 16,
   clickable = true,
-  source = 'projects',
+  source = "projects",
 }: TagBadgeProps) {
   const techDetails = tagMapper.getDetails(tag);
 
   if (!techDetails) {
     return (
-      <Badge variant={variant} className={cn('text-xs', className)}>
+      <Badge variant={variant} className={cn("text-xs", className)}>
         {tag}
       </Badge>
     );
   }
 
   const badgeContent = (
-    <Badge variant={variant} className={cn('badge-container', className)}>
+    <Badge variant={variant} className={cn("badge-container", className)}>
       {showIcon && (
         <Image
           src={techDetails.iconPath}
@@ -53,13 +53,13 @@ export function TagBadge({
   );
 
   if (clickable) {
-    let href = '';
+    let href = "";
     switch (source) {
-      case 'articles':
+      case "articles":
         href = `/${getArticleSlug()}/tag/${tag}`;
         break;
-      case 'work':
-      case 'projects':
+      case "work":
+      case "projects":
       default:
         href = `/projects/stack/${tag}`;
         break;

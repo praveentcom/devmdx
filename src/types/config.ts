@@ -33,7 +33,7 @@ export interface ConfigSeoData {
   ogDescription?: string;
   ogImage?: string;
   ogUrl?: string;
-  twitterCard?: 'summary' | 'summary_large_image' | 'app' | 'player';
+  twitterCard?: "summary" | "summary_large_image" | "app" | "player";
   twitterSite?: string;
   twitterCreator?: string;
 }

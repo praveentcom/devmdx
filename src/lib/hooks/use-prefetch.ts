@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useRef } from 'react';
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef } from "react";
 
-import { getArticleSlug } from '@/lib/helpers/config';
+import { getArticleSlug } from "@/lib/helpers/config";
 
 interface UsePrefetchOptions {
   delay?: number;
@@ -12,7 +12,7 @@ interface UsePrefetchOptions {
 
 export function usePrefetch(
   routes: string[],
-  options: UsePrefetchOptions = {}
+  options: UsePrefetchOptions = {},
 ) {
   const router = useRouter();
   const { delay = 0, condition } = options;
@@ -24,16 +24,16 @@ export function usePrefetch(
 
       if (condition && !condition()) return;
 
-      if (route.startsWith('/')) {
+      if (route.startsWith("/")) {
         router.prefetch(route);
         prefetchedRoutes.current.add(route);
 
-        if (process.env.NODE_ENV === 'development') {
-          console.log('🚀 Prefetched route:', route);
+        if (process.env.NODE_ENV === "development") {
+          console.log("🚀 Prefetched route:", route);
         }
       }
     },
-    [router, condition]
+    [router, condition],
   );
 
   const prefetchAll = useCallback(() => {
@@ -54,7 +54,7 @@ export function usePrefetch(
         prefetchRoute(route);
       }
     },
-    [delay, prefetchRoute]
+    [delay, prefetchRoute],
   );
 
   return {
@@ -70,19 +70,19 @@ export function useCriticalPrefetch() {
    * Skipped on slow connections.
    */
   const { prefetchAll } = usePrefetch(
-    ['/projects', `/${getArticleSlug()}`, '/community', '/about'],
+    ["/projects", `/${getArticleSlug()}`, "/community", "/about"],
     {
       delay: 1000,
       condition: () => {
-        if (typeof navigator !== 'undefined' && 'connection' in navigator) {
+        if (typeof navigator !== "undefined" && "connection" in navigator) {
           const connection = (
             navigator as { connection?: { effectiveType?: string } }
           ).connection;
-          return !connection || connection.effectiveType !== 'slow-2g';
+          return !connection || connection.effectiveType !== "slow-2g";
         }
         return true;
       },
-    }
+    },
   );
 
   useEffect(() => {

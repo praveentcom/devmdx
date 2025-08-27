@@ -6,14 +6,14 @@
  */
 export function parseHostnames(
   envVar?: string,
-  fallback: string[] = []
+  fallback: string[] = [],
 ): string[] {
-  if (!envVar || envVar.trim() === '') {
+  if (!envVar || envVar.trim() === "") {
     return fallback;
   }
 
   return envVar
-    .split(',')
+    .split(",")
     .map((hostname) => hostname.trim())
     .filter((hostname) => hostname.length > 0);
 }
@@ -26,7 +26,7 @@ export function parseHostnames(
  */
 export function createImageRemotePatterns(
   hostnames: string[],
-  protocol: 'http' | 'https' = 'https'
+  protocol: "http" | "https" = "https",
 ) {
   return hostnames.map((hostname) => ({
     protocol,
@@ -42,7 +42,7 @@ export function createImageRemotePatterns(
  */
 export function generateCSP(
   strictMode: boolean,
-  allowedHostnames: string[] = []
+  allowedHostnames: string[] = [],
 ): string {
   if (strictMode) {
     return "default-src 'self'; script-src 'none'; sandbox;";
@@ -50,8 +50,8 @@ export function generateCSP(
 
   const hostnameList =
     allowedHostnames.length > 0
-      ? ` ${allowedHostnames.map((h) => `https://${h}`).join(' ')}`
-      : '';
+      ? ` ${allowedHostnames.map((h) => `https://${h}`).join(" ")}`
+      : "";
 
   return `default-src 'self' data:${hostnameList}; script-src 'none'; img-src 'self' data: blob:${hostnameList}; sandbox;`;
 }
@@ -60,17 +60,17 @@ export function generateCSP(
  * Get environment-based configuration
  */
 export function getEnvConfig() {
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  const isProduction = process.env.NODE_ENV === 'production';
+  const isDevelopment = process.env.NODE_ENV === "development";
+  const isProduction = process.env.NODE_ENV === "production";
 
   const imageHostnames = parseHostnames(
     process.env.NEXT_PUBLIC_ALLOWED_IMAGE_HOSTNAMES,
-    ['placehold.co']
+    ["placehold.co"],
   );
 
   const allowedHostnames = parseHostnames(
     process.env.NEXT_PUBLIC_ALLOWED_HOSTNAMES,
-    []
+    [],
   );
 
   const imageRemotePatterns = createImageRemotePatterns(imageHostnames);
@@ -78,16 +78,16 @@ export function getEnvConfig() {
   if (isDevelopment) {
     const devImageHostnames = parseHostnames(
       process.env.NEXT_PUBLIC_DEV_IMAGE_HOSTNAMES,
-      ['localhost', '127.0.0.1']
+      ["localhost", "127.0.0.1"],
     );
 
     imageRemotePatterns.push(
-      ...createImageRemotePatterns(devImageHostnames, 'http'),
-      ...createImageRemotePatterns(devImageHostnames, 'https')
+      ...createImageRemotePatterns(devImageHostnames, "http"),
+      ...createImageRemotePatterns(devImageHostnames, "https"),
     );
   }
 
-  const strictCSP = process.env.NEXT_PUBLIC_STRICT_CSP === 'true';
+  const strictCSP = process.env.NEXT_PUBLIC_STRICT_CSP === "true";
   const contentSecurityPolicy = generateCSP(strictCSP, allowedHostnames);
 
   return {
@@ -96,8 +96,8 @@ export function getEnvConfig() {
     imageHostnames,
     allowedHostnames,
     imageRemotePatterns,
-    baseUrl: process.env.NEXT_PUBLIC_BASE_URL || '',
-    allowRobots: process.env.NEXT_PUBLIC_ALLOW_ROBOTS === 'true',
+    baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "",
+    allowRobots: process.env.NEXT_PUBLIC_ALLOW_ROBOTS === "true",
     strictCSP,
     contentSecurityPolicy,
   };
@@ -109,7 +109,7 @@ export function getEnvConfig() {
  * @returns Boolean indicating if hostname is valid
  */
 export function isValidHostname(hostname: string): boolean {
-  if (!hostname || hostname.trim() === '') {
+  if (!hostname || hostname.trim() === "") {
     return false;
   }
 

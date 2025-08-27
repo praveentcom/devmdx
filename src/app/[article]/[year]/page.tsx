@@ -1,13 +1,13 @@
-import { ArrowLeft, CalendarRange } from 'lucide-react';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { ArrowLeft, CalendarRange } from "lucide-react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { ArticleSummaryCard } from '@/components/article/ArticleSummaryCard';
-import { BackButton } from '@/components/ui/common';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { getAllArticlesIndex } from '@/lib/helpers/article';
-import { getArticleLabel, getArticleSlug } from '@/lib/helpers/config';
-import { createFilteredMetadata } from '@/lib/helpers/metadata';
+import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
+import { BackButton } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { getAllArticlesIndex } from "@/lib/helpers/article";
+import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
+import { createFilteredMetadata } from "@/lib/helpers/metadata";
 
 interface PageProps {
   params: Promise<{
@@ -39,7 +39,7 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
             </h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            {articles.length} article{articles.length === 1 ? '' : 's'}{' '}
+            {articles.length} article{articles.length === 1 ? "" : "s"}{" "}
             published in {year}
           </p>
         </div>
@@ -72,9 +72,9 @@ export async function generateMetadata({
   const count = getAllArticlesIndex().filter((a) => a.year === year).length;
   return createFilteredMetadata({
     filterName: year,
-    contentType: 'Articles',
+    contentType: "Articles",
     count,
-    colorScheme: { background: '6366f1', text: 'ffffff' },
+    colorScheme: { background: "6366f1", text: "ffffff" },
     url: `/articles/${year}`,
   });
 }

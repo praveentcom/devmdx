@@ -1,4 +1,4 @@
-import { EnumTag } from '@/lib/helpers/tag-mapper';
+import { EnumTag } from "@/lib/helpers/tag-mapper";
 
 export interface Article {
   slug: string;

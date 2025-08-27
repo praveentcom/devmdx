@@ -1,23 +1,23 @@
-import { ArrowLeft } from 'lucide-react';
-import type { Metadata } from 'next';
-import { headers } from 'next/headers';
-import { notFound, redirect } from 'next/navigation';
+import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
+import { headers } from "next/headers";
+import { notFound, redirect } from "next/navigation";
 
-import { ArticleHeader } from '@/components/article/ArticleHeader';
-import { ArticleMetadata } from '@/components/article/ArticleMetadata';
-import { BackButton, PageWithStructuredData } from '@/components/ui/common';
-import { Markdown } from '@/components/ui/markdown';
-import { getAllArticleSlugs, getArticleBySlugRaw } from '@/lib/helpers/article';
+import { ArticleHeader } from "@/components/article/ArticleHeader";
+import { ArticleMetadata } from "@/components/article/ArticleMetadata";
+import { BackButton, PageWithStructuredData } from "@/components/ui/common";
+import { Markdown } from "@/components/ui/markdown";
+import { getAllArticleSlugs, getArticleBySlugRaw } from "@/lib/helpers/article";
 import {
   getArticleLabel,
   getArticleLabelSingular,
   getArticleSlug,
-} from '@/lib/helpers/config';
+} from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
-} from '@/lib/helpers/metadata';
-import { generateArticleSchema } from '@/lib/helpers/structured-data';
+} from "@/lib/helpers/metadata";
+import { generateArticleSchema } from "@/lib/helpers/structured-data";
 
 interface PageProps {
   params: Promise<{
@@ -53,7 +53,7 @@ export default async function ArticlePage({ params }: PageProps) {
       <div className="page-container">
         <BackButton
           href={
-            (await headers()).get('x-next-url')?.includes('source=year-range')
+            (await headers()).get("x-next-url")?.includes("source=year-range")
               ? `/${getArticleSlug()}/${year}`
               : `/${getArticleSlug()}`
           }
@@ -96,7 +96,7 @@ export async function generateMetadata({
     article.image,
     new Date(article.date).toISOString(),
     `/${getArticleSlug()}/${year}/${article.slug}`,
-    article.private
+    article.private,
   );
 }
 

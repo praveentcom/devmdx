@@ -1,11 +1,11 @@
-import { GitPullRequestArrow } from 'lucide-react';
-import type { Metadata } from 'next';
+import { GitPullRequestArrow } from "lucide-react";
+import type { Metadata } from "next";
 
-import { ProjectCard } from '@/components/projects/ProjectCard';
-import { PageWithStructuredData } from '@/components/ui/common';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { profileData } from '@/data/profile';
-import { METADATA_PATTERNS } from '@/lib/helpers/metadata';
+import { ProjectCard } from "@/components/projects/ProjectCard";
+import { PageWithStructuredData } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { profileData } from "@/data/profile";
+import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
 
 export const metadata: Metadata = METADATA_PATTERNS.projectsList();
 
@@ -13,11 +13,11 @@ export default function ProjectsPage() {
   return (
     <PageWithStructuredData
       structuredData={{
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: 'Projects',
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "Projects",
         description:
-          'A comprehensive showcase of all my projects and contributions.',
+          "A comprehensive showcase of all my projects and contributions.",
       }}
     >
       <div className="page-container">

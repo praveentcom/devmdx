@@ -1,5 +1,5 @@
-import { EnumTag } from '@/lib/helpers/tag-mapper';
-import { WorkExperience } from '@/types/work';
+import { EnumTag } from "@/lib/helpers/tag-mapper";
+import { WorkExperience } from "@/types/work";
 
 export class WorkExperienceItem implements WorkExperience {
   slug: string;

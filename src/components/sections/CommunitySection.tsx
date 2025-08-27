@@ -1,10 +1,10 @@
-import { ArrowRight, Users } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, Users } from "lucide-react";
+import Link from "next/link";
 
-import { CommunitySummaryCard } from '@/components/community/CommunitySummaryCard';
-import { Button } from '@/components/ui/button';
-import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
-import { getAllCommunityIndex } from '@/lib/helpers/community';
+import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
+import { Button } from "@/components/ui/button";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { getAllCommunityIndex } from "@/lib/helpers/community";
 
 export function CommunitySection() {
   const contributions = getAllCommunityIndex();

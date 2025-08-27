@@ -1,6 +1,6 @@
-import type { Education } from '@/types/education';
-import type { Project } from '@/types/project';
-import type { WorkExperience } from '@/types/work';
+import type { Education } from "@/types/education";
+import type { Project } from "@/types/project";
+import type { WorkExperience } from "@/types/work";
 
 export interface SocialMediaLinks {
   linkedin?: string;

@@ -1,5 +1,5 @@
-import { PLACEHOLDER_COLORS } from '@/lib/constants/colors';
-import { getArticleLabelSingular } from '@/lib/helpers/config';
+import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
+import { getArticleLabelSingular } from "@/lib/helpers/config";
 
 export interface PlaceholderImageOptions {
   width?: number;
@@ -24,7 +24,7 @@ const DEFAULT_BLOG_OPTIONS: Required<PlaceholderImageOptions> = {
  * @returns Complete URL for the placeholder image
  */
 export function generatePlaceholderImageUrl(
-  options: PlaceholderImageOptions = {}
+  options: PlaceholderImageOptions = {},
 ): string {
   const {
     width = DEFAULT_BLOG_OPTIONS.width,

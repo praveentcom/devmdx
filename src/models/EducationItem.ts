@@ -1,4 +1,4 @@
-import { Education } from '@/types/education';
+import { Education } from "@/types/education";
 
 export class EducationItem implements Education {
   slug: string;

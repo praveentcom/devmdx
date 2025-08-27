@@ -1,28 +1,28 @@
-import { Calendar, Eye } from 'lucide-react';
-import Image from 'next/image';
+import { Calendar, Eye } from "lucide-react";
+import Image from "next/image";
 
-import { PrefetchLink } from '@/components/ui/prefetch-link';
-import { getArticleSlug } from '@/lib/helpers/config';
-import { generateArticlePlaceholderImage } from '@/lib/helpers/image';
-import { formatDate } from '@/lib/helpers/markdown';
-import { truncate } from '@/lib/utils';
-import { Article } from '@/types/article';
+import { PrefetchLink } from "@/components/ui/prefetch-link";
+import { getArticleSlug } from "@/lib/helpers/config";
+import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
+import { formatDate } from "@/lib/helpers/markdown";
+import { truncate } from "@/lib/utils";
+import { Article } from "@/types/article";
 
-import { Card, CardContent, CardHeader } from '../ui/card';
-import { CategoryBadge } from '../ui/category-badge';
-import { TagBadge } from '../ui/tag-badge';
+import { Card, CardContent, CardHeader } from "../ui/card";
+import { CategoryBadge } from "../ui/category-badge";
+import { TagBadge } from "../ui/tag-badge";
 
 export type ArticleLike = Pick<
   Article,
-  | 'slug'
-  | 'title'
-  | 'description'
-  | 'date'
-  | 'readTime'
-  | 'tags'
-  | 'categories'
-  | 'published'
-  | 'image'
+  | "slug"
+  | "title"
+  | "description"
+  | "date"
+  | "readTime"
+  | "tags"
+  | "categories"
+  | "published"
+  | "image"
 > & { year: string };
 
 export function ArticleSummaryCard({
@@ -64,14 +64,13 @@ export function ArticleSummaryCard({
               </div>
             </div>
 
-            <div className="grid gap-0.5 mb-1.5">
-              <h2 className="text-md font-medium group-hover:text-primary transition-colors">
-                {article.title}
-              </h2>
-              <p className="text-muted-foreground text-sm line-clamp-2">
-                {truncate(article.description, 160)}
-              </p>
-            </div>
+            <h2 className="text-md font-medium group-hover:text-primary transition-colors">
+              {article.title}
+            </h2>
+
+            <p className="text-muted-foreground text-sm line-clamp-2">
+              {truncate(article.description, 160)}
+            </p>
 
             <div className="flex flex-wrap gap-1.5">
               {article.categories.map((category) => (

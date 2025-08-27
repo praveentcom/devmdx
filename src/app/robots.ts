@@ -1,24 +1,24 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
-import { BASE_URL } from '@/lib/constants';
+import { BASE_URL } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
-  const allowRobots = process.env.NEXT_PUBLIC_ALLOW_ROBOTS === 'true';
+  const allowRobots = process.env.NEXT_PUBLIC_ALLOW_ROBOTS === "true";
 
   if (!allowRobots) {
     return {
       rules: {
-        userAgent: '*',
-        disallow: '/',
+        userAgent: "*",
+        disallow: "/",
       },
     };
   }
 
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/api/', '/_next/', '/private/'],
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/_next/", "/private/"],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
   };

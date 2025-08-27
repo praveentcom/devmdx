@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { Home, Newspaper } from 'lucide-react';
-import Link from 'next/link';
+import { Home, Newspaper } from "lucide-react";
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
 export default function Error() {
   return (

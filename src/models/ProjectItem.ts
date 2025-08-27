@@ -1,5 +1,5 @@
-import { EnumTag } from '@/lib/helpers/tag-mapper';
-import { Project } from '@/types/project';
+import { EnumTag } from "@/lib/helpers/tag-mapper";
+import { Project } from "@/types/project";
 
 export class ProjectItem implements Project {
   slug: string;

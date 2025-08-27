@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { usePathname } from 'next/navigation';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 interface AnimatedLayoutProps {
   children: ReactNode;
@@ -20,7 +20,7 @@ export function AnimatedLayout({ children }: AnimatedLayoutProps) {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: 'auto',
+        behavior: "auto",
       });
       setInitialState({ opacity: 0, y: 2 });
     } else {
