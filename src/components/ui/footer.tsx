@@ -18,7 +18,7 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="grid gap-4 md:justify-items-end h-min w-min mx-auto md:mx-0">
+          <div className="grid gap-4 md:justify-items-end h-min w-min mx-auto md:ml-auto md:mr-0">
             <ThemeToggle />
           </div>
         </div>
