@@ -17,15 +17,18 @@ export function ArticleYearBadge({
   className,
   asLink = false,
 }: ArticleYearBadgeProps) {
+  // Allow only 4 digit years, fallback to 'unknown'
+  const safeYear = /^\d{4}$/.test(year) ? year : "unknown";
   const badgeContent = (
     <Badge variant={variant} className={cn("badge-container", className)}>
-      <span className="text-xs font-medium">{year}</span>
+      <span className="text-xs font-medium">{safeYear}</span>
     </Badge>
   );
 
-  if (!asLink) {
+  if (!asLink || safeYear === "unknown") {
     return badgeContent;
   }
 
-  return <Link href={URLS.ARTICLES_YEAR(year)}>{badgeContent}</Link>;
+  // Only link if year is valid
+  return <Link href={URLS.ARTICLES_YEAR(safeYear)}>{badgeContent}</Link>;
 }
