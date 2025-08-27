@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "./tw-animate.css";
+@import 'tailwindcss';
+@import './tw-animate.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -134,10 +134,6 @@
     @apply flex items-center gap-3;
   }
 
-  .flex-center-gap-4 {
-    @apply flex items-center gap-4;
-  }
-
   .card-header-layout {
     @apply flex flex-col md:flex-row gap-4 items-start;
   }
@@ -170,7 +166,7 @@
   }
 
   .bullet-item {
-    @apply flex items-start gap-2;
+    @apply flex items-start gap-1.5;
   }
 
   .bullet-dot {

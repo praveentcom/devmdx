@@ -1,19 +1,20 @@
-import { profileData } from "@/data/profile";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import type { Metadata } from "next";
+import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import pluralize from 'pluralize';
+
+import { ProjectCard } from '@/components/projects/ProjectCard';
+import { Button } from '@/components/ui/button';
+import { BackButton } from '@/components/ui/common';
+import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
+import { profileData } from '@/data/profile';
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
-} from "@/lib/helpers/metadata";
-import pluralize from "pluralize";
-import { BackButton } from "@/components/ui/common";
-import { ProjectCard } from "@/components/projects/ProjectCard";
+} from '@/lib/helpers/metadata';
+import { EnumTag, TagMapper } from '@/lib/helpers/tag-mapper';
 
 interface PageProps {
   params: Promise<{
@@ -29,23 +30,23 @@ export async function generateMetadata({
   const { tag } = await params;
 
   if (!tagMapper.isValidTag(tag)) {
-    return createNotFoundMetadata("Tag");
+    return createNotFoundMetadata('Tag');
   }
 
   const techDetails = tagMapper.getDetails(tag);
 
   if (!techDetails) {
-    return createNotFoundMetadata("Tag");
+    return createNotFoundMetadata('Tag');
   }
 
   const filteredProjects = profileData.projects.filter((project) =>
-    project.stack.includes(tag),
+    project.stack.includes(tag)
   );
 
   return METADATA_PATTERNS.tagProjects(
     techDetails.label,
     filteredProjects.length,
-    `/projects/stack/${tag}`,
+    `/projects/stack/${tag}`
   );
 }
 
@@ -53,17 +54,17 @@ export default async function TagProjectsPage({ params }: PageProps) {
   const { tag } = await params;
 
   if (!tagMapper.isValidTag(tag)) {
-    redirect("/");
+    redirect('/');
   }
 
   const techDetails = tagMapper.getDetails(tag);
 
   if (!techDetails) {
-    redirect("/");
+    redirect('/');
   }
 
   const filteredProjects = profileData.projects.filter((project) =>
-    project.stack.includes(tag),
+    project.stack.includes(tag)
   );
 
   return (
@@ -76,7 +77,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
             Icon={ArrowLeft}
           />
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <Image
               src={techDetails.iconPath}
               alt={`${techDetails.label} icon`}
@@ -90,7 +91,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
           </div>
           <p className="text-sm text-muted-foreground">
             {filteredProjects.length > 0
-              ? `${filteredProjects.length} ${pluralize("project", filteredProjects.length)} using ${techDetails.label}`
+              ? `${filteredProjects.length} ${pluralize('project', filteredProjects.length)} using ${techDetails.label}`
               : `No projects found using ${techDetails.label}`}
           </p>
         </div>

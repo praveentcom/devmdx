@@ -1,25 +1,26 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
-import { Newspaper } from "lucide-react";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
-import { EnumTag } from "@/lib/helpers/tag-mapper";
-import type { Metadata } from "next";
+import { Newspaper } from 'lucide-react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import pluralize from 'pluralize';
+
+import { ArticleSummaryCard } from '@/components/article/ArticleSummaryCard';
+import { ArticleYearBadge } from '@/components/ui/article-year-badge';
+import { Button } from '@/components/ui/button';
+import { CategoryBadge } from '@/components/ui/category-badge';
+import { PageWithStructuredData } from '@/components/ui/common';
+import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
+import { BASE_URL } from '@/lib/constants';
+import { COLOR_SCHEMES } from '@/lib/constants/colors';
+import { getAllArticleSlugs, getAllCategories } from '@/lib/helpers/article';
 import {
-  getAuthorName,
-  getSiteName,
   getArticleLabel,
   getArticleLabelSingular,
-} from "@/lib/helpers/config";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { COLOR_SCHEMES } from "@/lib/constants/colors";
-import pluralize from "pluralize";
-import { PageWithStructuredData } from "@/components/ui/common";
-import { BASE_URL } from "@/lib/constants";
-import { CategoryBadge } from "@/components/ui/category-badge";
-import { ArticleYearBadge } from "@/components/ui/article-year-badge";
-import { getArticleSlug } from "@/lib/helpers/config";
+  getAuthorName,
+  getSiteName,
+} from '@/lib/helpers/config';
+import { getArticleSlug } from '@/lib/helpers/config';
+import { generatePlaceholderImageUrl } from '@/lib/helpers/image';
+import { EnumTag } from '@/lib/helpers/tag-mapper';
 
 const articleLabel = getArticleLabel();
 const articleLabelSingular = getArticleLabelSingular();
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: articleLabel,
     description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
-    type: "website",
+    type: 'website',
     siteName: getSiteName(),
     url: `${BASE_URL}/${getArticleSlug()}`,
     images: [
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: 'summary_large_image',
     title: articleLabel,
     description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
     images: [
@@ -76,8 +77,8 @@ export default function ArticlePage() {
   return (
     <PageWithStructuredData
       structuredData={{
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
         name: articleLabel,
         description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
       }}
@@ -85,7 +86,7 @@ export default function ArticlePage() {
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <Newspaper className="size-4 text-primary" />
               <h1 className="text-md font-medium">{articleLabel}</h1>
             </div>
@@ -102,7 +103,7 @@ export default function ArticlePage() {
               <h3 className="text-sm font-medium text-muted-foreground">
                 Browse by category
               </h3>
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {allCategories.map((category) => (
                   <CategoryBadge key={category} category={category} asLink />
                 ))}
@@ -118,11 +119,11 @@ export default function ArticlePage() {
               <h3 className="text-sm font-medium text-muted-foreground">
                 Browse by year
               </h3>
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
                   (year) => (
                     <ArticleYearBadge key={year} year={year} asLink />
-                  ),
+                  )
                 )}
               </div>
             </div>

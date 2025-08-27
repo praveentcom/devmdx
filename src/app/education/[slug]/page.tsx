@@ -1,22 +1,23 @@
-import { profileData } from "@/data/profile";
-import { CalendarDays, ArrowLeft, GraduationCap } from "lucide-react";
-import { notFound } from "next/navigation";
-import { format } from "date-fns";
-import type { Metadata } from "next";
-import { generateEducationSchema } from "@/lib/helpers/structured-data";
-import { findBySlug, generateSlugParams } from "@/lib/helpers/page";
+import { format } from 'date-fns';
+import { ArrowLeft, CalendarDays, GraduationCap } from 'lucide-react';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+
+import {
+  BackButton,
+  BulletList,
+  DateRange,
+  EntityHeader,
+  PageWithStructuredData,
+  SectionCard,
+} from '@/components/ui/common';
+import { profileData } from '@/data/profile';
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
-} from "@/lib/helpers/metadata";
-import {
-  PageWithStructuredData,
-  BackButton,
-  EntityHeader,
-  SectionCard,
-  BulletList,
-  DateRange,
-} from "@/components/ui/common";
+} from '@/lib/helpers/metadata';
+import { findBySlug, generateSlugParams } from '@/lib/helpers/page';
+import { generateEducationSchema } from '@/lib/helpers/structured-data';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -71,14 +72,14 @@ export async function generateMetadata({
   const education = findBySlug(profileData.education, slug);
 
   if (!education) {
-    return createNotFoundMetadata("Education");
+    return createNotFoundMetadata('Education');
   }
 
-  const duration = `${format(education.startDate, "LLLL yyyy")} - ${
-    education.endDate ? format(education.endDate, "LLLL yyyy") : "Present"
+  const duration = `${format(education.startDate, 'LLLL yyyy')} - ${
+    education.endDate ? format(education.endDate, 'LLLL yyyy') : 'Present'
   }`;
   const description = `${education.degree} from ${education.college} (${duration}). ${
-    education.bulletPoints?.[0] || ""
+    education.bulletPoints?.[0] || ''
   }`;
 
   return METADATA_PATTERNS.education(
@@ -86,7 +87,7 @@ export async function generateMetadata({
     education.college,
     description,
     education.collegeImagePath,
-    `/education/${education.slug}`,
+    `/education/${education.slug}`
   );
 }
 

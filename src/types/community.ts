@@ -4,9 +4,9 @@ export interface CommunityLink {
 }
 
 export enum EnumCommunityContributionType {
-  TALK_SESSION = "talk-session",
-  WORKSHOP = "workshop",
-  ONLINE_COURSE = "online-course",
+  TALK_SESSION = 'talk-session',
+  WORKSHOP = 'workshop',
+  ONLINE_COURSE = 'online-course',
 }
 
 export type CommunityContributionType = `${EnumCommunityContributionType}`;

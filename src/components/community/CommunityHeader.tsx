@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
-import type { CommunityIndexItem } from "@/lib/helpers/community";
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+
+import type { CommunityIndexItem } from '@/lib/helpers/community';
+import { generateArticlePlaceholderImage } from '@/lib/helpers/image';
 
 interface CommunityHeaderProps {
   community: CommunityIndexItem;
@@ -17,10 +18,10 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
       setIsScrolled(window.scrollY > 320);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -42,13 +43,13 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
       {/* Sticky header with text effects only */}
       <div
         className={`sticky top-12 md:top-16 z-20 bg-background transition-all pb-5 duration-200 border-b ${
-          isScrolled ? "pt-6 border-border" : "border-border/50"
+          isScrolled ? 'pt-6 border-border' : 'border-border/50'
         }`}
       >
         <div className="transition-all duration-200 space-y-0.5">
           <h1
             className={`font-medium transition-all duration-200 ${
-              isScrolled ? "text-lg" : "text-xl"
+              isScrolled ? 'text-lg' : 'text-xl'
             }`}
           >
             {community.title}

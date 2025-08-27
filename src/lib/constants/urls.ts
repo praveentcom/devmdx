@@ -1,5 +1,5 @@
-import { getEnvConfig } from "../helpers/env-config";
-import { getArticleSlug } from "../helpers/config";
+import { getArticleSlug } from '../helpers/config';
+import { getEnvConfig } from '../helpers/env-config';
 
 const envConfig = getEnvConfig();
 export const BASE_URL = envConfig.baseUrl;

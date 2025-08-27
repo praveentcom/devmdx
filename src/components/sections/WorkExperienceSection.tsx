@@ -1,10 +1,11 @@
-import { WorkExperience } from "@/types/work";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CalendarDays, Building2, Briefcase } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { DateRange } from "@/components/ui/common";
+import { Briefcase, Building2, CalendarDays } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { DateRange } from '@/components/ui/common';
+import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
+import { WorkExperience } from '@/types/work';
 
 interface WorkExperienceSectionProps {
   workExperience: WorkExperience[];
@@ -68,7 +69,7 @@ export function WorkExperienceSection({
       aria-label="Work experience"
       className="w-full grid gap-3"
     >
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5">
         <Briefcase className="size-4 text-primary" />
         <h2 className="text-md font-medium">Work</h2>
       </div>

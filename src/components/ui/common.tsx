@@ -1,13 +1,14 @@
-import { ReactNode } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
-import Image from "next/image";
-import { format } from "date-fns";
-import { StructuredData } from "@/components/seo/StructuredData";
-import { LucideIcon } from "lucide-react";
-import { BlurIn } from "@/components/motion-primitives/blur-in";
-import { cn } from "@/lib/utils";
+import { format } from 'date-fns';
+import { LucideIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ReactNode } from 'react';
+
+import { BlurIn } from '@/components/motion-primitives/blur-in';
+import { StructuredData } from '@/components/seo/StructuredData';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 export function PageWithStructuredData({
   structuredData,
@@ -36,7 +37,7 @@ export function BackButton({
   return (
     <div className="mb-4">
       <Button variant="outline" size="sm" asChild>
-        <Link href={href} className="flex items-center gap-2">
+        <Link href={href} className="flex items-center gap-1.5">
           <Icon className="size-4" />
           {label}
         </Link>
@@ -54,19 +55,19 @@ export function EntityHeader({
   title,
   subtitle,
   fallbackIcon: FallbackIcon,
-  size = "large",
+  size = 'large',
 }: {
   imageSrc?: string;
   imageAlt: string;
   title: string;
   subtitle: string;
   fallbackIcon: LucideIcon;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
 }) {
   const sizeClasses = {
-    small: "h-10 w-10",
-    medium: "h-12 w-12",
-    large: "h-14 w-14",
+    small: 'h-10 w-10',
+    medium: 'h-12 w-12',
+    large: 'h-14 w-14',
   };
 
   const imageSizes = {
@@ -83,7 +84,7 @@ export function EntityHeader({
           alt={imageAlt}
           width={imageSizes[size].width}
           height={imageSizes[size].height}
-          className={cn("rounded-md border object-cover", sizeClasses[size])}
+          className={cn('rounded-md border object-cover', sizeClasses[size])}
         />
       ) : (
         <div
@@ -145,7 +146,7 @@ export function DateRange({
   startDate,
   endDate,
   Icon,
-  textSize = "text-xs",
+  textSize = 'text-xs',
 }: {
   startDate: Date;
   endDate?: Date;
@@ -156,8 +157,8 @@ export function DateRange({
     <div className="flex items-center gap-1.5">
       <Icon className="size-3 text-muted-foreground" />
       <span className={`text-muted-foreground ${textSize} font-medium`}>
-        {format(startDate, "LLLL yyyy")} -{" "}
-        {endDate ? format(endDate, "LLLL yyyy") : "Present"}
+        {format(startDate, 'LLLL yyyy')} -{' '}
+        {endDate ? format(endDate, 'LLLL yyyy') : 'Present'}
       </span>
     </div>
   );

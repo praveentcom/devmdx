@@ -1,10 +1,11 @@
-import { profileData } from "@/data/profile";
-import { GitPullRequestArrow } from "lucide-react";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import type { Metadata } from "next";
-import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
-import { PageWithStructuredData } from "@/components/ui/common";
-import { ProjectCard } from "@/components/projects/ProjectCard";
+import { GitPullRequestArrow } from 'lucide-react';
+import type { Metadata } from 'next';
+
+import { ProjectCard } from '@/components/projects/ProjectCard';
+import { PageWithStructuredData } from '@/components/ui/common';
+import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
+import { profileData } from '@/data/profile';
+import { METADATA_PATTERNS } from '@/lib/helpers/metadata';
 
 export const metadata: Metadata = METADATA_PATTERNS.projectsList();
 
@@ -12,17 +13,17 @@ export default function ProjectsPage() {
   return (
     <PageWithStructuredData
       structuredData={{
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: "Projects",
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Projects',
         description:
-          "A comprehensive showcase of all my projects and contributions.",
+          'A comprehensive showcase of all my projects and contributions.',
       }}
     >
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <GitPullRequestArrow className="size-4 text-primary" />
               <h1 className="text-md font-medium">Projects</h1>
             </div>

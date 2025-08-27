@@ -1,26 +1,28 @@
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { Article } from "@/types/article";
-import { Calendar, Eye } from "lucide-react";
-import { formatDate } from "@/lib/helpers/markdown";
-import { TagBadge } from "../ui/tag-badge";
-import { CategoryBadge } from "../ui/category-badge";
-import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
-import { truncate } from "@/lib/utils";
-import { PrefetchLink } from "@/components/ui/prefetch-link";
-import { getArticleSlug } from "@/lib/helpers/config";
-import Image from "next/image";
+import { Calendar, Eye } from 'lucide-react';
+import Image from 'next/image';
+
+import { PrefetchLink } from '@/components/ui/prefetch-link';
+import { getArticleSlug } from '@/lib/helpers/config';
+import { generateArticlePlaceholderImage } from '@/lib/helpers/image';
+import { formatDate } from '@/lib/helpers/markdown';
+import { truncate } from '@/lib/utils';
+import { Article } from '@/types/article';
+
+import { Card, CardContent, CardHeader } from '../ui/card';
+import { CategoryBadge } from '../ui/category-badge';
+import { TagBadge } from '../ui/tag-badge';
 
 export type ArticleLike = Pick<
   Article,
-  | "slug"
-  | "title"
-  | "description"
-  | "date"
-  | "readTime"
-  | "tags"
-  | "categories"
-  | "published"
-  | "image"
+  | 'slug'
+  | 'title'
+  | 'description'
+  | 'date'
+  | 'readTime'
+  | 'tags'
+  | 'categories'
+  | 'published'
+  | 'image'
 > & { year: string };
 
 export function ArticleSummaryCard({
@@ -50,8 +52,8 @@ export function ArticleSummaryCard({
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-2">
-            <div className="flex-center-gap-4 text-xs font-medium text-muted-foreground">
+          <div className="flex flex-col gap-3">
+            <div className="flex-center-gap-3 text-xs font-medium text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="size-3" />
                 <span>{formatDate(article.date)}</span>
@@ -62,7 +64,7 @@ export function ArticleSummaryCard({
               </div>
             </div>
 
-            <div className="grid gap-1 mb-2.5">
+            <div className="grid gap-0.5 mb-1.5">
               <h2 className="text-md font-medium group-hover:text-primary transition-colors">
                 {article.title}
               </h2>

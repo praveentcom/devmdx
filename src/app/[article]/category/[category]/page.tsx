@@ -1,22 +1,23 @@
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getArticlesByCategory, getAllCategories } from "@/lib/helpers/article";
+import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import pluralize from 'pluralize';
+
+import { ArticleSummaryCard } from '@/components/article/ArticleSummaryCard';
+import { Button } from '@/components/ui/button';
+import { BackButton } from '@/components/ui/common';
+import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
+import { getAllCategories, getArticlesByCategory } from '@/lib/helpers/article';
 import {
   getArticleLabel,
-  getArticleSlug,
   getArticleLabelSingular,
-} from "@/lib/helpers/config";
-import type { Metadata } from "next";
+  getArticleSlug,
+} from '@/lib/helpers/config';
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
-} from "@/lib/helpers/metadata";
-import pluralize from "pluralize";
-import { BackButton } from "@/components/ui/common";
+} from '@/lib/helpers/metadata';
 
 interface PageProps {
   params: Promise<{
@@ -33,7 +34,7 @@ export async function generateMetadata({
   const allCategories = getAllCategories();
 
   if (!allCategories.includes(decodedCategory)) {
-    return createNotFoundMetadata("Category");
+    return createNotFoundMetadata('Category');
   }
 
   const filteredArticles = getArticlesByCategory(decodedCategory);
@@ -41,7 +42,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     decodedCategory,
     filteredArticles.length,
-    `/${getArticleSlug()}/category/${category}`,
+    `/${getArticleSlug()}/category/${category}`
   );
 }
 
@@ -105,7 +106,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
     <div className="page-container">
       <div className="grid gap-5">
         <div className="grid gap-0.5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <BackButton
               href="/articles"
               label="Back to articles"

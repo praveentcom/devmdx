@@ -1,5 +1,5 @@
-import { configData } from "@/data/config";
-import { profileData } from "@/data/profile";
+import { configData } from '@/data/config';
+import { profileData } from '@/data/profile';
 
 /**
  * Get the site name from config or fallback to profile name
@@ -15,7 +15,7 @@ export function getSiteName(): string {
  * Get the site URL from config
  */
 export function getSiteUrl(): string {
-  return configData.misc.siteUrl || "https://example.com";
+  return configData.misc.siteUrl || 'https://example.com';
 }
 
 /**
@@ -36,33 +36,33 @@ export function getSeoTitle(): string {
  * Get SEO description with fallback
  */
 export function getSeoDescription(): string {
-  return configData.seo.description || profileData.profile.description || "";
+  return configData.seo.description || profileData.profile.description || '';
 }
 
 /**
  * Get OG image with fallback
  */
 export function getOgImage(): string {
-  return configData.seo.ogImage || "https://placehold.co/1024x628.png";
+  return configData.seo.ogImage || 'https://placehold.co/1024x628.png';
 }
 
 /**
  * Get the article label (plural) from config or fallback
  */
 export function getArticleLabel(): string {
-  return configData.misc.content?.articleLabel || "Articles";
+  return configData.misc.content?.articleLabel || 'Articles';
 }
 
 /**
  * Get the article label (singular) from config or fallback
  */
 export function getArticleLabelSingular(): string {
-  return configData.misc.content?.articleLabelSingular || "Article";
+  return configData.misc.content?.articleLabelSingular || 'Article';
 }
 
 /**
  * Get the article URL slug from config or fallback
  */
 export function getArticleSlug(): string {
-  return configData.misc.content?.articleSlug || "articles";
+  return configData.misc.content?.articleSlug || 'articles';
 }

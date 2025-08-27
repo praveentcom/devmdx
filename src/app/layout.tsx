@@ -1,33 +1,34 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "../styles/globals.css";
-import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Header } from "@/components/ui/header";
-import { Footer } from "@/components/ui/footer";
-import { AnimatedLayout } from "@/components/layout/animated-layout";
-import { Analytics } from "@/components/analytics/Analytics";
-import { WebVitals } from "@/components/analytics/WebVitals";
-import { PrefetchProvider } from "@/components/providers/prefetch-provider";
+import '../styles/globals.css';
 
-import { configData } from "@/data/config";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+
+import { Analytics } from '@/components/analytics/Analytics';
+import { WebVitals } from '@/components/analytics/WebVitals';
+import { AnimatedLayout } from '@/components/layout/animated-layout';
+import { PrefetchProvider } from '@/components/providers/prefetch-provider';
+import { ThemeProvider } from '@/components/theme/theme-provider';
+import { Footer } from '@/components/ui/footer';
+import { Header } from '@/components/ui/header';
+import { configData } from '@/data/config';
+import { BASE_URL } from '@/lib/constants';
 import {
-  getSeoTitle,
-  getSeoDescription,
-  getSiteName,
   getAuthorName,
   getOgImage,
-} from "@/lib/helpers/config";
-import { generateOpenGraphImage } from "@/lib/helpers/image";
-import { BASE_URL } from "@/lib/constants";
+  getSeoDescription,
+  getSeoTitle,
+  getSiteName,
+} from '@/lib/helpers/config';
+import { generateOpenGraphImage } from '@/lib/helpers/image';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     images: [getOgImage() || generateOpenGraphImage(getAuthorName())],
   },
   twitter: {
-    card: configData.seo.twitterCard || "summary_large_image",
+    card: configData.seo.twitterCard || 'summary_large_image',
     site: configData.seo.twitterSite,
     creator: configData.seo.twitterCreator,
   },

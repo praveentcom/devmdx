@@ -1,16 +1,16 @@
 export const PLACEHOLDER_COLORS = {
-  ARTICLE: "6366f1",
-  PROJECT: "059669",
-  WORK: "0f172a",
-  EDUCATION: "7c3aed",
-  COMMUNITY: "f59e0b",
-  WHITE: "ffffff",
-  BLACK: "000000",
-  PRIMARY: "6366f1",
-  SUCCESS: "10b981",
-  WARNING: "f59e0b",
-  ERROR: "ef4444",
-  INFO: "3b82f6",
+  ARTICLE: '6366f1',
+  PROJECT: '059669',
+  WORK: '0f172a',
+  EDUCATION: '7c3aed',
+  COMMUNITY: 'f59e0b',
+  WHITE: 'ffffff',
+  BLACK: '000000',
+  PRIMARY: '6366f1',
+  SUCCESS: '10b981',
+  WARNING: 'f59e0b',
+  ERROR: 'ef4444',
+  INFO: '3b82f6',
 } as const;
 
 export const COLOR_SCHEMES = {

@@ -1,20 +1,21 @@
-import { ArrowLeft } from "lucide-react";
-import { notFound } from "next/navigation";
-import { CommunityHeader } from "@/components/community/CommunityHeader";
-import { CommunityMetadata } from "@/components/community/CommunityMetadata";
+import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from 'next';
+import { headers } from 'next/headers';
+import { notFound } from 'next/navigation';
+
+import { CommunityHeader } from '@/components/community/CommunityHeader';
+import { CommunityMetadata } from '@/components/community/CommunityMetadata';
+import { BackButton, PageWithStructuredData } from '@/components/ui/common';
+import { Markdown } from '@/components/ui/markdown';
 import {
   getAllCommunitySlugs,
   getCommunityBySlugRaw,
-} from "@/lib/helpers/community";
-import { Markdown } from "@/components/ui/markdown";
-import type { Metadata } from "next";
-import { PageWithStructuredData, BackButton } from "@/components/ui/common";
-import { headers } from "next/headers";
-import { generateCommunitySchema } from "@/lib/helpers/structured-data";
+} from '@/lib/helpers/community';
 import {
-  METADATA_PATTERNS,
   createNotFoundMetadata,
-} from "@/lib/helpers/metadata";
+  METADATA_PATTERNS,
+} from '@/lib/helpers/metadata';
+import { generateCommunitySchema } from '@/lib/helpers/structured-data';
 
 interface PageProps {
   params: Promise<{
@@ -44,7 +45,7 @@ export default async function CommunityContributionPage({ params }: PageProps) {
       <div className="page-container">
         <BackButton
           href={
-            (await headers()).get("x-next-url")?.includes("source=year-range")
+            (await headers()).get('x-next-url')?.includes('source=year-range')
               ? `/community/${year}`
               : `/community`
           }
@@ -53,7 +54,7 @@ export default async function CommunityContributionPage({ params }: PageProps) {
         />
 
         <div className="grid md:grid-cols-12 gap-5">
-          <div className="md:col-span-9 grid gap-2">
+          <div className="md:col-span-9 grid gap-1.5">
             <CommunityHeader community={community} />
             <div className="space-y-4">
               <Markdown content={rawCommunity.raw} muted />
@@ -76,7 +77,7 @@ export async function generateMetadata({
   const rawCommunity = getCommunityBySlugRaw(slug);
 
   if (!rawCommunity) {
-    return createNotFoundMetadata("Community contributions");
+    return createNotFoundMetadata('Community contributions');
   }
 
   const community = rawCommunity.meta;
@@ -86,7 +87,7 @@ export async function generateMetadata({
     community.description,
     community.image,
     new Date(community.date).toISOString(),
-    `/community/${year}/${community.slug}`,
+    `/community/${year}/${community.slug}`
   );
 }
 

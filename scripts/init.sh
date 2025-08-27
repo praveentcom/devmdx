@@ -367,6 +367,7 @@ date: "2025-01-02"
 tags: ["aws", "javascript"]
 categories: ["Backend"]
 published: true
+private: true
 ---
 
 ## Getting Started

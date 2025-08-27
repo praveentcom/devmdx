@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { ReactNode, useEffect, useState } from "react";
-import { motion, Transition } from "motion/react";
+import { motion,Transition } from 'motion/react';
+import { ReactNode, useEffect, useState } from 'react';
 
 export type BlurInProps = {
   children: ReactNode;
@@ -16,22 +16,22 @@ export function BlurIn({
   children,
   delay = 0,
   duration = 0.3,
-  blur = "6px",
+  blur = '6px',
   className,
   yOffset = 20,
 }: BlurInProps) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
 
     const handleChange = (event: MediaQueryListEvent) => {
       setPrefersReducedMotion(event.matches);
     };
 
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   if (prefersReducedMotion) {
@@ -46,7 +46,7 @@ export function BlurIn({
     },
     visible: {
       opacity: 1,
-      filter: "blur(0px)",
+      filter: 'blur(0px)',
       y: 0,
     },
   };

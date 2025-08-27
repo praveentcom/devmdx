@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import { configData } from "@/data/config";
-import Script from "next/script";
+import Script from 'next/script';
+
+import { configData } from '@/data/config';
 
 export function Analytics() {
   const {
@@ -46,7 +47,7 @@ export function Analytics() {
       {/* Plausible Analytics */}
       {plausible?.domain && (
         <Script
-          src={plausible.src || "https://plausible.io/js/script.js"}
+          src={plausible.src || 'https://plausible.io/js/script.js'}
           strategy="afterInteractive"
           data-domain={plausible.domain}
         />
@@ -55,7 +56,7 @@ export function Analytics() {
       {/* Umami Analytics */}
       {umami?.websiteId && (
         <Script
-          src={umami.src || "https://analytics.umami.is/script.js"}
+          src={umami.src || 'https://analytics.umami.is/script.js'}
           strategy="afterInteractive"
           data-website-id={umami.websiteId}
         />

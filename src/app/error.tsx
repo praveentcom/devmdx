@@ -1,14 +1,15 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Home, Newspaper } from 'lucide-react';
+import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/ui/card";
-import { Home, Newspaper } from "lucide-react";
+} from '@/components/ui/card';
 
 export default function Error() {
   return (
@@ -39,7 +40,7 @@ export default function Error() {
               <Button
                 variant="outline"
                 asChild
-                className="flex items-center gap-2"
+                className="flex items-center gap-1.5"
               >
                 <Link href="/">
                   <Home className="size-4" />
@@ -49,7 +50,7 @@ export default function Error() {
               <Button
                 variant="outline"
                 asChild
-                className="flex items-center gap-2"
+                className="flex items-center gap-1.5"
               >
                 <Link href="/articles">
                   <Newspaper className="size-4" />

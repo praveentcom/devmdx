@@ -1,44 +1,45 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Home, Newspaper } from 'lucide-react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@/components/ui/card";
-import { Home, Newspaper } from "lucide-react";
-import type { Metadata } from "next";
-import { getAuthorName, getSiteName } from "@/lib/helpers/config";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
-import { BASE_URL } from "@/lib/constants";
+} from '@/components/ui/card';
+import { BASE_URL } from '@/lib/constants';
+import { PLACEHOLDER_COLORS } from '@/lib/constants/colors';
+import { getAuthorName, getSiteName } from '@/lib/helpers/config';
+import { generatePlaceholderImageUrl } from '@/lib/helpers/image';
 
 export const metadata: Metadata = {
   title: `${getAuthorName()} | Page not found`,
   description:
     "The page you're looking for doesn't exist or has been moved. Return to the homepage or browse articles to find what you're looking for.",
   openGraph: {
-    title: "Page not found.",
+    title: 'Page not found.',
     description: "The page you're looking for doesn't exist or has been moved.",
-    type: "website",
+    type: 'website',
     siteName: getSiteName(),
     url: BASE_URL,
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: "404",
+          text: '404',
           backgroundColor: PLACEHOLDER_COLORS.ERROR,
           textColor: PLACEHOLDER_COLORS.WHITE,
         }),
         width: 1200,
         height: 630,
-        alt: "Page not found.",
+        alt: 'Page not found.',
       },
     ],
   },
   twitter: {
-    card: "summary",
-    title: "Page not found.",
+    card: 'summary',
+    title: 'Page not found.',
     description: "The page you're looking for doesn't exist or has been moved.",
   },
 };
@@ -73,7 +74,7 @@ export default function NotFound() {
               <Button
                 variant="outline"
                 asChild
-                className="flex items-center gap-2"
+                className="flex items-center gap-1.5"
               >
                 <Link href="/">
                   <Home className="size-4" />
@@ -83,7 +84,7 @@ export default function NotFound() {
               <Button
                 variant="outline"
                 asChild
-                className="flex items-center gap-2"
+                className="flex items-center gap-1.5"
               >
                 <Link href="/articles">
                   <Newspaper className="size-4" />

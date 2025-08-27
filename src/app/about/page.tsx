@@ -1,56 +1,58 @@
-import { FileText } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import fs from "node:fs";
-import path from "node:path";
-import { Markdown } from "@/components/ui/markdown";
-import type { Metadata } from "next";
-import { getAuthorName, getSiteName } from "@/lib/helpers/config";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
-import { PageWithStructuredData } from "@/components/ui/common";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { BASE_URL } from "@/lib/constants";
+import fs from 'node:fs';
+import path from 'node:path';
+
+import { FileText } from 'lucide-react';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { PageWithStructuredData } from '@/components/ui/common';
+import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
+import { Markdown } from '@/components/ui/markdown';
+import { BASE_URL } from '@/lib/constants';
+import { PLACEHOLDER_COLORS } from '@/lib/constants/colors';
+import { getAuthorName, getSiteName } from '@/lib/helpers/config';
+import { generatePlaceholderImageUrl } from '@/lib/helpers/image';
 
 export const metadata: Metadata = {
   title: `${getAuthorName()} | About`,
   description:
-    "Learn more about my background, experiences, and what drives me professionally and personally.",
+    'Learn more about my background, experiences, and what drives me professionally and personally.',
   openGraph: {
-    title: "About",
+    title: 'About',
     description:
-      "Learn more about my background, experiences, and what drives me professionally and personally.",
-    type: "article",
+      'Learn more about my background, experiences, and what drives me professionally and personally.',
+    type: 'article',
     siteName: getSiteName(),
     url: `${BASE_URL}/about`,
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: "About",
+          text: 'About',
           backgroundColor: PLACEHOLDER_COLORS.INFO,
           textColor: PLACEHOLDER_COLORS.WHITE,
         }),
         width: 1200,
         height: 630,
-        alt: "About",
+        alt: 'About',
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "About",
+    card: 'summary_large_image',
+    title: 'About',
     description:
-      "Learn more about my background, experiences, and what drives me professionally and personally.",
+      'Learn more about my background, experiences, and what drives me professionally and personally.',
     images: [
       generatePlaceholderImageUrl({
-        text: "About",
+        text: 'About',
         backgroundColor: PLACEHOLDER_COLORS.INFO,
         textColor: PLACEHOLDER_COLORS.WHITE,
       }),
     ],
   },
-  keywords: "about, background, experience, professional, personal, biography",
+  keywords: 'about, background, experience, professional, personal, biography',
   authors: [
     {
       name: getAuthorName(),
@@ -59,13 +61,13 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const aboutPath = path.join(process.cwd(), "data", "profile", "about.md");
+  const aboutPath = path.join(process.cwd(), 'data', 'profile', 'about.md');
 
   let aboutContent: string | null = null;
   let hasAboutFile = false;
 
   try {
-    aboutContent = fs.readFileSync(aboutPath, "utf-8");
+    aboutContent = fs.readFileSync(aboutPath, 'utf-8');
     hasAboutFile = true;
   } catch {
     hasAboutFile = false;
@@ -74,17 +76,17 @@ export default function AboutPage() {
   return (
     <PageWithStructuredData
       structuredData={{
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        name: "About",
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'About',
         description:
-          "Learn more about my background, experiences, and what drives me professionally and personally.",
+          'Learn more about my background, experiences, and what drives me professionally and personally.',
       }}
     >
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <FileText className="size-4 text-primary" />
               <h1 className="text-md font-medium">About</h1>
             </div>

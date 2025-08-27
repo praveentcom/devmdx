@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+import { cn } from '@/lib/utils';
 
 interface PrefetchLinkProps {
   href: string;
@@ -28,15 +29,15 @@ export function PrefetchLink({
   const linkRef = useRef<HTMLAnchorElement>(null);
   const [isPrefetched, setIsPrefetched] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const prefetchRoute = useCallback(() => {
-    if (!isPrefetched && href.startsWith("/")) {
+    if (!isPrefetched && href.startsWith('/')) {
       router.prefetch(href);
       setIsPrefetched(true);
 
-      if (process.env.NODE_ENV === "development") {
-        console.log("🔗 Prefetched:", href);
+      if (process.env.NODE_ENV === 'development') {
+        console.log('🔗 Prefetched:', href);
       }
     }
   }, [isPrefetched, href, router]);
@@ -73,9 +74,9 @@ export function PrefetchLink({
         }
       },
       {
-        rootMargin: "50px",
+        rootMargin: '50px',
         threshold: 0.1,
-      },
+      }
     );
 
     observer.observe(linkRef.current);

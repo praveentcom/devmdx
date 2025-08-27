@@ -1,17 +1,18 @@
-import { profileData } from "@/data/profile";
-import { configData } from "@/data/config";
-import { WorkExperienceSection } from "@/components/sections/WorkExperienceSection";
-import { EducationSection } from "@/components/sections/EducationSection";
-import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { generateOpenGraphImage } from "@/lib/helpers/image";
-import { getAuthorName, getSiteName, getOgImage } from "@/lib/helpers/config";
-import { Metadata } from "next";
-import { PageWithStructuredData } from "@/components/ui/common";
-import { generatePersonSchema } from "@/lib/helpers/structured-data";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import { BASE_URL } from "@/lib/constants";
+import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
+import Link from 'next/link';
+
+import { EducationSection } from '@/components/sections/EducationSection';
+import { ProjectsSection } from '@/components/sections/ProjectsSection';
+import { WorkExperienceSection } from '@/components/sections/WorkExperienceSection';
+import { Button } from '@/components/ui/button';
+import { PageWithStructuredData } from '@/components/ui/common';
+import { configData } from '@/data/config';
+import { profileData } from '@/data/profile';
+import { BASE_URL } from '@/lib/constants';
+import { getAuthorName, getOgImage, getSiteName } from '@/lib/helpers/config';
+import { generateOpenGraphImage } from '@/lib/helpers/image';
+import { generatePersonSchema } from '@/lib/helpers/structured-data';
 
 const authorName = getAuthorName();
 const siteName = getSiteName();
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Bio - ${authorName}`,
     description: `Complete biography and professional background of ${authorName}. ${profileData.profile.description}`,
-    type: "profile",
+    type: 'profile',
     siteName,
     url: `${BASE_URL}/bio`,
     images: [
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: configData.seo.twitterCard || "summary_large_image",
+    card: configData.seo.twitterCard || 'summary_large_image',
     title: `Bio - ${authorName}`,
     description: `Complete biography and professional background of ${authorName}. ${profileData.profile.description}`,
     site: configData.seo.twitterSite,
@@ -44,9 +45,9 @@ export const metadata: Metadata = {
   },
   keywords: `${authorName}, bio, biography, professional background, work experience, education, projects`,
   alternates: {
-    canonical: "/bio",
+    canonical: '/bio',
     types: {
-      "application/rss+xml": authorName,
+      'application/rss+xml': authorName,
     },
   },
 };
@@ -59,7 +60,7 @@ export default function BioPage() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <Button variant="outline" size="sm" asChild>
-                <Link href="/" className="flex items-center gap-2">
+                <Link href="/" className="flex items-center gap-1.5">
                   <ArrowLeft className="h-4 w-4" />
                   Back to Home
                 </Link>

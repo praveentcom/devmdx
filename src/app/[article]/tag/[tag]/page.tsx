@@ -1,20 +1,21 @@
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { TagMapper, EnumTag } from "@/lib/helpers/tag-mapper";
-import Image from "next/image";
-import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getAllArticlesIndex } from "@/lib/helpers/article";
-import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
-import type { Metadata } from "next";
+import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import pluralize from 'pluralize';
+
+import { ArticleSummaryCard } from '@/components/article/ArticleSummaryCard';
+import { Button } from '@/components/ui/button';
+import { BackButton } from '@/components/ui/common';
+import EmptyPlaceholderCard from '@/components/ui/empty-placeholder-card';
+import { getAllArticlesIndex } from '@/lib/helpers/article';
+import { getArticleLabel, getArticleSlug } from '@/lib/helpers/config';
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
-} from "@/lib/helpers/metadata";
-import pluralize from "pluralize";
-import { BackButton } from "@/components/ui/common";
+} from '@/lib/helpers/metadata';
+import { EnumTag, TagMapper } from '@/lib/helpers/tag-mapper';
 
 interface PageProps {
   params: Promise<{
@@ -29,24 +30,24 @@ export async function generateMetadata({
   const tagMapper = new TagMapper();
 
   if (!tagMapper.isValidTag(tag)) {
-    return createNotFoundMetadata("Tag");
+    return createNotFoundMetadata('Tag');
   }
 
   const tagEnum = tag as EnumTag;
   const tagDetails = tagMapper.getDetails(tagEnum);
 
   if (!tagDetails) {
-    return createNotFoundMetadata("Tag");
+    return createNotFoundMetadata('Tag');
   }
 
   const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(tagEnum),
+    article.tags.includes(tagEnum)
   );
 
   return METADATA_PATTERNS.tagArticles(
     tagDetails.label,
     filteredArticles.length,
-    `/${getArticleSlug()}/tag/${tag}`,
+    `/${getArticleSlug()}/tag/${tag}`
   );
 }
 
@@ -66,7 +67,7 @@ export default async function TagArticlePage({ params }: PageProps) {
   }
 
   const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(tagEnum),
+    article.tags.includes(tagEnum)
   );
 
   if (filteredArticles.length === 0) {
@@ -95,7 +96,7 @@ export default async function TagArticlePage({ params }: PageProps) {
             </div>
 
             <p className="text-muted-foreground text-sm">
-              No {getArticleLabel().toLowerCase()} found tagged with{" "}
+              No {getArticleLabel().toLowerCase()} found tagged with{' '}
               {tagDetails.label}
             </p>
           </div>
@@ -164,7 +165,7 @@ export async function generateStaticParams() {
   const tagsWithArticles = new Set<string>();
 
   getAllArticlesIndex().forEach((article) =>
-    article.tags.forEach((tag) => tagsWithArticles.add(tag)),
+    article.tags.forEach((tag) => tagsWithArticles.add(tag))
   );
 
   return Array.from(tagsWithArticles).map((tag) => ({ tag }));

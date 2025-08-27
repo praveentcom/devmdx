@@ -1,25 +1,26 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { PrefetchLink } from "@/components/ui/prefetch-link";
-import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ScrollProgressBar } from "@/components/ui/scroll-progress";
-import { cn } from "@/lib/utils";
+import { Menu, X } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { AnimatedBackground } from '@/components/motion-primitives';
+import { Button } from '@/components/ui/button';
+import { PrefetchLink } from '@/components/ui/prefetch-link';
+import { ScrollProgressBar } from '@/components/ui/scroll-progress';
 import {
-  getAuthorName,
   getArticleLabel,
   getArticleSlug,
-} from "@/lib/helpers/config";
-import { AnimatedBackground } from "@/components/motion-primitives";
+  getAuthorName,
+} from '@/lib/helpers/config';
+import { cn } from '@/lib/utils';
 
 const navigationItems = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
   { href: `/${getArticleSlug()}`, label: getArticleLabel() },
-  { href: "/community", label: "Community" },
+  { href: '/community', label: 'Community' },
 ];
 
 export function Header() {
@@ -28,8 +29,8 @@ export function Header() {
   const pathname = usePathname();
 
   const personName = getAuthorName();
-  const isHomePage = pathname === "/";
-  const nameHref = isHomePage ? "/about" : "/";
+  const isHomePage = pathname === '/';
+  const nameHref = isHomePage ? '/about' : '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,12 +38,12 @@ export function Header() {
       setIsScrolled(scrollTop > 20);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     handleScroll();
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -53,7 +54,7 @@ export function Header() {
   useEffect(() => {
     if (isMobileMenuOpen) {
       const firstFocusableElement = document.querySelector(
-        '[role="dialog"] button, [role="dialog"] a',
+        '[role="dialog"] button, [role="dialog"] a'
       );
       if (firstFocusableElement instanceof HTMLElement) {
         firstFocusableElement.focus();
@@ -67,7 +68,7 @@ export function Header() {
 
   const isArticle =
     pathname?.startsWith(`/${getArticleSlug()}/`) &&
-    pathname?.split("/").length === 4;
+    pathname?.split('/').length === 4;
 
   return (
     <>
@@ -80,17 +81,17 @@ export function Header() {
 
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {isMobileMenuOpen
-          ? "Mobile navigation menu opened"
-          : "Mobile navigation menu closed"}
+          ? 'Mobile navigation menu opened'
+          : 'Mobile navigation menu closed'}
       </div>
       <nav
         role="navigation"
         aria-label="Main navigation"
         className={cn(
-          "sticky top-0 z-40 w-full backdrop-blur-sm transition-[background-color,border-color,backdrop-filter] duration-200 ease-out will-change-[background-color,border-color]",
-          "bg-background/95 supports-[backdrop-filter]:bg-background/80",
-          "border-b border-border md:border-transparent",
-          isScrolled && "md:border-border",
+          'sticky top-0 z-40 w-full backdrop-blur-sm transition-[background-color,border-color,backdrop-filter] duration-200 ease-out will-change-[background-color,border-color]',
+          'bg-background/95 supports-[backdrop-filter]:bg-background/80',
+          'border-b border-border md:border-transparent',
+          isScrolled && 'md:border-border'
         )}
       >
         <div className="page-container py-0">
@@ -98,7 +99,7 @@ export function Header() {
             <h1 className="text-md font-medium">
               <Link
                 href={nameHref}
-                aria-label={isHomePage ? "Go to about" : "Go to home"}
+                aria-label={isHomePage ? 'Go to about' : 'Go to home'}
               >
                 {personName}
               </Link>
@@ -109,8 +110,8 @@ export function Header() {
                 defaultValue={pathname}
                 className="rounded-lg bg-card shadow-sm"
                 transition={{
-                  type: "tween",
-                  ease: "easeOut",
+                  type: 'tween',
+                  ease: 'easeOut',
                   duration: 0.15,
                 }}
                 enableHover={true}
@@ -124,10 +125,10 @@ export function Header() {
                       data-id={item.href}
                       href={item.href}
                       className={cn(
-                        "px-3 py-1 rounded-lg text-sm font-medium",
+                        'px-3 py-1 rounded-lg text-sm font-medium',
                         isActive
-                          ? "text-foreground"
-                          : "text-muted-foreground hover:text-foreground",
+                          ? 'text-foreground'
+                          : 'text-muted-foreground hover:text-foreground'
                       )}
                     >
                       {item.label}
@@ -142,7 +143,7 @@ export function Header() {
             <h1 className="text-md font-medium">
               <Link
                 href={nameHref}
-                aria-label={isHomePage ? "Go to about" : "Go to home"}
+                aria-label={isHomePage ? 'Go to about' : 'Go to home'}
               >
                 {personName}
               </Link>
@@ -154,7 +155,7 @@ export function Header() {
               onClick={toggleMobileMenu}
               className="p-2"
               aria-label={
-                isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"
+                isMobileMenuOpen ? 'Close mobile menu' : 'Open mobile menu'
               }
               aria-expanded={isMobileMenuOpen}
             >
@@ -171,19 +172,19 @@ export function Header() {
 
       <div
         className={cn(
-          "fixed inset-0 z-50 md:hidden transition-[visibility,opacity] duration-250 ease-out",
-          isMobileMenuOpen ? "visible opacity-100" : "invisible opacity-0",
+          'fixed inset-0 z-50 md:hidden transition-[visibility,opacity] duration-250 ease-out',
+          isMobileMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'
         )}
       >
         <button
           type="button"
           className={cn(
-            "fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity duration-250 ease-out",
-            isMobileMenuOpen ? "opacity-100" : "opacity-0",
+            'fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity duration-250 ease-out',
+            isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
           )}
           onClick={toggleMobileMenu}
           onKeyDown={(e) => {
-            if (e.key === "Escape") {
+            if (e.key === 'Escape') {
               toggleMobileMenu();
             }
           }}
@@ -195,8 +196,8 @@ export function Header() {
           aria-modal="true"
           aria-label="Mobile navigation menu"
           className={cn(
-            "fixed inset-x-0 top-0 z-50 bg-background shadow-lg border-b border-border transition-transform duration-250 ease-out will-change-transform",
-            isMobileMenuOpen ? "translate-y-0" : "-translate-y-full",
+            'fixed inset-x-0 top-0 z-50 bg-background shadow-lg border-b border-border transition-transform duration-250 ease-out will-change-transform',
+            isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
           )}
         >
           <div className="page-container py-0">
@@ -224,10 +225,10 @@ export function Header() {
                       href={item.href}
                       onClick={toggleMobileMenu}
                       className={cn(
-                        "flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-[color,background-color] duration-200 ease-out",
+                        'flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-[color,background-color] duration-200 ease-out',
                         isActive
-                          ? "bg-primary text-primary-foreground shadow-sm"
-                          : "text-foreground bg-muted border border-border",
+                          ? 'bg-primary text-primary-foreground shadow-sm'
+                          : 'text-foreground bg-muted border border-border'
                       )}
                       style={{
                         animationDelay: `${index * 50}ms`,

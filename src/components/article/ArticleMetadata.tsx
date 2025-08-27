@@ -1,15 +1,17 @@
-import { Card, CardContent } from "@/components/ui/card";
 import {
-  Calendar,
-  TagsIcon,
-  Eye,
   BookOpenText,
+  Calendar,
+  Eye,
   FolderOpen,
-} from "lucide-react";
-import { TagBadge } from "@/components/ui/tag-badge";
-import { CategoryBadge } from "@/components/ui/category-badge";
-import { formatDate } from "@/lib/helpers/markdown";
-import type { ArticleLike } from "./ArticleSummaryCard";
+  TagsIcon,
+} from 'lucide-react';
+
+import { Card, CardContent } from '@/components/ui/card';
+import { CategoryBadge } from '@/components/ui/category-badge';
+import { TagBadge } from '@/components/ui/tag-badge';
+import { formatDate } from '@/lib/helpers/markdown';
+
+import type { ArticleLike } from './ArticleSummaryCard';
 
 interface ArticleMetadataProps {
   article: ArticleLike;
