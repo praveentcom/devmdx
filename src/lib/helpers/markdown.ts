@@ -251,11 +251,11 @@ export function parseMarkdown(content: string): string {
   processedContent = processedContent
     .replace(
       /^### (.*$)/gim,
-      '<h3 class="text-sm font-medium mb-1.5 mt-4 leading-relaxed">$1</h3>',
+      '<h3 class="text-sm font-medium mb-2 mt-4 leading-relaxed">$1</h3>',
     )
     .replace(
       /^## (.*$)/gim,
-      '<h2 class="text-base font-medium mb-1.5 mt-5 leading-relaxed">$1</h2>',
+      '<h2 class="text-base font-medium mb-2 mt-5 leading-relaxed">$1</h2>',
     )
     .replace(
       /^# (.*$)/gim,
@@ -283,15 +283,15 @@ export function parseMarkdown(content: string): string {
     );
 
   processedContent = processedContent
-    .replace(/\n\n/g, '</p><p class="mb-1.5 text-sm leading-relaxed">')
+    .replace(/\n\n/g, '</p><p class="mb-2 text-sm leading-relaxed">')
     .replace(
       /^(?!<[h|l|p|c|b|i|d|_])/gm,
-      '<p class="mb-1.5 text-sm leading-relaxed">',
+      '<p class="mb-2 text-sm leading-relaxed">',
     )
     .replace(/(?<!>)$/gm, "</p>")
-    .replace(/<p class="mb-1.5 text-sm leading-relaxed"><\/p>/g, "")
+    .replace(/<p class="mb-2 text-sm leading-relaxed"><\/p>/g, "")
     .replace(
-      /<p class="mb-1.5 text-sm leading-relaxed">(<[h|l|p|c|b|i|d])/g,
+      /<p class="mb-2 text-sm leading-relaxed">(<[h|l|p|c|b|i|d])/g,
       "$1",
     );
 
