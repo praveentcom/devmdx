@@ -1,0 +1,64 @@
+---
+title: "Testing Horizontal Code Scrolling with Line Numbers"
+description: "A test article to demonstrate sticky line numbers during horizontal scrolling of code blocks."
+date: "2025-01-15"
+tags: ["testing", "ui", "code-blocks"]
+categories: ["Testing"]
+published: true
+---
+
+## Code Block Horizontal Scrolling Test
+
+This article contains code blocks with long lines to test the sticky line number functionality.
+
+### Example 1: Long JavaScript Line
+
+```javascript filename="longLine.js"
+// This is a very long line of JavaScript code that should cause horizontal scrolling in the code block container to test if line numbers stay visible
+const veryLongVariableName = someFunction(parameter1, parameter2, parameter3, parameter4, parameter5, parameter6, parameter7, parameter8, parameter9, parameter10);
+const anotherLongLine = processData({ option1: true, option2: false, option3: 'some value', option4: 'another value', option5: { nested: 'object' } });
+console.log('This is a very long console log statement that extends far beyond the normal viewport width to test horizontal scrolling behavior');
+```
+
+### Example 2: Long CSS Rules
+
+```css filename="styles.css"
+/* Very long CSS selector and property declarations */
+.very-long-class-name-that-extends-beyond-normal-viewport-width .nested-element .another-nested-element .deeply-nested-element {
+  background: linear-gradient(45deg, rgba(255,0,150,1) 0%, rgba(255,204,0,1) 25%, rgba(0,255,255,1) 50%, rgba(255,0,255,1) 75%, rgba(255,255,0,1) 100%);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 6px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.1);
+  transform: translateX(-50%) translateY(-50%) rotate(45deg) scale(1.2) skewX(10deg) skewY(5deg) perspective(1000px) rotateX(15deg) rotateY(25deg);
+}
+```
+
+### Example 3: Long Command Line
+
+```bash filename="commands.sh"
+# Very long command line examples
+docker run -d --name my-container --restart=unless-stopped -p 8080:8080 -p 9090:9090 -v /host/path/to/data:/container/data -v /host/path/to/config:/container/config --env-file .env --network my-network my-image:latest
+curl -X POST "https://api.example.com/v1/users" -H "Content-Type: application/json" -H "Authorization: Bearer very-long-jwt-token-that-goes-on-and-on-and-contains-lots-of-encoded-information" -d '{"name":"John Doe","email":"john@example.com","preferences":{"theme":"dark","notifications":true}}'
+```
+
+### Example 4: Long SQL Query
+
+```sql filename="query.sql"
+-- Complex SQL query with long table names and column references
+SELECT users.id, users.first_name, users.last_name, users.email, user_profiles.bio, user_profiles.avatar_url, user_settings.theme_preference, user_settings.notification_settings
+FROM users 
+LEFT JOIN user_profiles ON users.id = user_profiles.user_id 
+LEFT JOIN user_settings ON users.id = user_settings.user_id 
+WHERE users.created_at BETWEEN '2024-01-01 00:00:00' AND '2024-12-31 23:59:59' 
+AND user_profiles.is_public = true 
+AND user_settings.account_status = 'active'
+ORDER BY users.last_login_at DESC, users.created_at ASC;
+```
+
+### Testing Instructions
+
+1. Open this article in a browser
+2. Scroll horizontally in any of the code blocks above
+3. Verify that line numbers remain visible and "stick" to the left side
+4. Test in both light and dark modes
+5. Test on different screen sizes
+
+The line numbers should maintain their position on the left side of the code block while the code content scrolls horizontally.

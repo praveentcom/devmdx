@@ -348,11 +348,15 @@
 
   /* Line numbers styling */
   .article-base .line-number {
-    @apply select-none text-xs text-muted-foreground inline-block text-right pr-3 bg-muted/40 border-r border-border flex-shrink-0;
+    @apply select-none text-xs text-muted-foreground inline-block text-right pr-3 bg-muted/90 border-r border-border flex-shrink-0;
     font-family:
       ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono",
       Menlo, monospace;
     min-width: 2rem;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    backdrop-filter: blur(2px);
   }
 
   .article-base .line-content {
@@ -364,7 +368,11 @@
 
   /* Dark mode line number adjustments */
   .dark .article-base .line-number {
-    @apply text-muted-foreground/70 bg-muted/30 border-border/50;
+    @apply text-muted-foreground/70 bg-muted/80 border-border/50;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    backdrop-filter: blur(2px);
   }
 
   /* Mobile-specific overrides for content */

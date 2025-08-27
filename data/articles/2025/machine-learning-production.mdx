@@ -1,0 +1,119 @@
+---
+title: "MLOps: Deploying Machine Learning Models to Production"
+description: "A comprehensive guide to deploying ML models in production environments, covering model versioning, monitoring, and automated retraining pipelines."
+date: "2025-01-22"
+tags: ["machine-learning", "mlops", "python", "kubernetes", "monitoring"]
+categories: ["Data Science", "DevOps"]
+published: true
+---
+
+## The MLOps Challenge
+
+Deploying machine learning models to production is vastly different from traditional software deployment. Models degrade over time, data distributions shift, and monitoring becomes critical for maintaining performance.
+
+## Model Versioning and Registry
+
+### Setting Up MLflow
+
+```python
+import mlflow
+import mlflow.sklearn
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Start MLflow tracking
+mlflow.set_tracking_uri("http://localhost:5000")
+mlflow.set_experiment("customer-churn-prediction")
+
+with mlflow.start_run():
+    # Train your model
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+    
+    # Log parameters and metrics
+    mlflow.log_param("n_estimators", 100)
+    mlflow.log_param("random_state", 42)
+    
+    predictions = model.predict(X_test)
+    accuracy = accuracy_score(y_test, predictions)
+    mlflow.log_metric("accuracy", accuracy)
+    
+    # Log the model
+    mlflow.sklearn.log_model(model, "model")
+```
+
+## Containerized Deployment
+
+### FastAPI Model Serving
+
+```python
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import joblib
+import numpy as np
+from typing import List
+
+app = FastAPI(title="ML Model API", version="1.0.0")
+
+# Load model at startup
+model = joblib.load("models/customer_churn_model.pkl")
+
+class PredictionRequest(BaseModel):
+    features: List[float]
+
+class PredictionResponse(BaseModel):
+    prediction: int
+    probability: float
+    model_version: str
+
+@app.post("/predict", response_model=PredictionResponse)
+async def predict(request: PredictionRequest):
+    try:
+        features = np.array(request.features).reshape(1, -1)
+        prediction = model.predict(features)[0]
+        probability = model.predict_proba(features)[0].max()
+        
+        return PredictionResponse(
+            prediction=int(prediction),
+            probability=float(probability),
+            model_version="1.0.0"
+        )
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "model_loaded": model is not None}
+```
+
+## Monitoring and Data Drift Detection
+
+```python
+from evidently import ColumnMapping
+from evidently.report import Report
+from evidently.metric_preset import DataDriftPreset
+
+def detect_data_drift(reference_data, current_data):
+    column_mapping = ColumnMapping()
+    
+    data_drift_report = Report(metrics=[
+        DataDriftPreset(),
+    ])
+    
+    data_drift_report.run(
+        reference_data=reference_data,
+        current_data=current_data,
+        column_mapping=column_mapping
+    )
+    
+    return data_drift_report
+```
+
+## Key Takeaways
+
+1. **Version Everything**: Models, data, and code should be versioned together
+2. **Monitor Continuously**: Track both technical metrics and business KPIs
+3. **Automate Safely**: Implement gradual rollouts and automatic rollbacks
+4. **Plan for Failure**: Models will degrade - have a response plan ready
+
+The journey from notebook to production is complex, but with the right tools and practices, you can build reliable ML systems that deliver consistent value.
