@@ -364,9 +364,9 @@
     font-family:
       ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono",
       Menlo, monospace;
-    /* Allow horizontal scrolling for content */
-    overflow-x: auto;
+    /* Prevent line wrapping but don't scroll individual lines */
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
   /* Dark mode line number adjustments */
@@ -387,6 +387,8 @@
     /* Ensure the flex container allows horizontal scrolling */
     display: flex;
     min-width: max-content;
+    /* Prevent individual line containers from shrinking */
+    flex-shrink: 0;
   }
 
   /* Ensure code blocks don't break */
