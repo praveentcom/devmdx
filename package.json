@@ -64,6 +64,7 @@
     "framer-motion": "^12.23.12",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.11.1",
+    "isomorphic-dompurify": "^2.26.0",
     "lucide-react": "^0.540.0",
     "motion": "^12.23.12",
     "next": "15.4.7",
@@ -83,7 +84,6 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",

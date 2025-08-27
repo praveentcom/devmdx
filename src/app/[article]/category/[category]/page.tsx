@@ -67,7 +67,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
               Icon={ArrowLeft}
             />
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5">
               <div className="size-5 bg-primary/10 rounded flex items-center justify-center">
                 <span className="text-xs font-medium text-primary">
                   {decodedCategory.charAt(0).toUpperCase()}
@@ -113,7 +113,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
             />
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5">
             <div className="size-5 bg-primary/10 rounded flex items-center justify-center">
               <span className="text-xs font-medium text-primary">
                 {decodedCategory.charAt(0).toUpperCase()}
