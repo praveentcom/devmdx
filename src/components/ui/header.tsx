@@ -9,7 +9,6 @@ import { AnimatedBackground } from "@/components/motion-primitives";
 import { Button } from "@/components/ui/button";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
 
-
 import { getAuthorName, getNavigationItems } from "@/lib/helpers/config";
 import { cn } from "@/lib/utils";
 
