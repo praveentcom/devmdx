@@ -67,7 +67,7 @@ export default function RootLayout({
         >
           <PrefetchProvider>
             <Header />
-            <main id="main-content" className="flex-1">
+            <main id="main-content" className="flex-1 no-horizontal-scroll">
               <AnimatedLayout>{children}</AnimatedLayout>
             </main>
             <Footer />
