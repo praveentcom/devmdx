@@ -73,14 +73,27 @@ function extractYearFromPath(fullPath: string): string {
   return year ?? "unknown";
 }
 
+/**
+ * Derive a slug for an article.
+ * Only allows alphanumeric, dash, and underscore. Unsafe characters are removed.
+ */
 function deriveSlug(
   frontmatterSlug: string | undefined,
   fullPath: string,
 ): string {
+  // Helper to sanitize slug: only [a-zA-Z0-9-_], convert spaces to dashes, remove other chars
+  const sanitize = (slug: string) =>
+    slug
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9\-_]/g, "")
+      .replace(/-+/g, "-")
+      .replace(/^[-_]+|[-_]+$/g, ""); // Remove leading/trailing dashes/underscores
+
   if (frontmatterSlug && frontmatterSlug.trim().length > 0)
-    return frontmatterSlug.trim();
+    return sanitize(frontmatterSlug.trim());
   const base = path.basename(fullPath, path.extname(fullPath));
-  return base;
+  return sanitize(base);
 }
 
 export function getAllArticleFiles(): string[] {
