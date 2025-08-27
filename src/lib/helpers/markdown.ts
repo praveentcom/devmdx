@@ -63,7 +63,7 @@ function getFileIcon(filename: string): string {
     'package': EnumTag.NPM,
     'lock': EnumTag.NPM,
     'toml': EnumTag.RUST,
-    'env': EnumTag.NODEJS,
+    'env': EnumTag.NODE_JS,
   };
   
   const tag = extToTagMap[ext || ''];
