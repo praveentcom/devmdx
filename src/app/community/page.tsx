@@ -145,7 +145,9 @@ export default function CommunityPage() {
             </div>
 
             {/* Browse by year */}
-            {publishedContributions.length > 0 ? (
+            {publishedContributions.length > 0 &&
+            Array.from(new Set(publishedContributions.map((c) => c.year)))
+              .length > 1 ? (
               <div className="flex items-center gap-2 flex-wrap">
                 {Array.from(
                   new Set(publishedContributions.map((c) => c.year)),

@@ -66,7 +66,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Youtube className="w-4 h-4 mr-2" />
+                  <Youtube className="size-4 mr-2" />
                   YouTube Video
                 </Link>
               </Button>
@@ -98,7 +98,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <ExternalLink className="w-4 h-4 mr-2" />
+                      <ExternalLink className="size-4 mr-2" />
                       {link.title}
                     </Link>
                   </Button>

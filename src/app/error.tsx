@@ -14,7 +14,7 @@ export default function Error() {
   return (
     <div className="my-16 mx-4 bg-background flex items-center justify-center">
       <div className="container mx-auto max-w-2xl">
-        <Card className="text-center py-8">
+        <Card className="text-center py-6">
           <CardHeader>
             <div className="flex justify-center">
               <div className="relative">

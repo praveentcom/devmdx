@@ -1,6 +1,7 @@
 import { Badge } from "./badge";
 import { EnumCommunityContributionType } from "@/types/community";
 import { MicVocal, Presentation, MonitorPlay } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ContributionTypeBadgeProps {
   type: EnumCommunityContributionType;
@@ -11,7 +12,7 @@ interface ContributionTypeBadgeProps {
 export function ContributionTypeBadge({
   type,
   variant = "outline",
-  className = "text-xs",
+  className,
 }: ContributionTypeBadgeProps) {
   const getTypeLabel = (value: EnumCommunityContributionType) => {
     switch (value) {
@@ -27,16 +28,16 @@ export function ContributionTypeBadge({
   const getTypeIcon = (value: EnumCommunityContributionType) => {
     switch (value) {
       case EnumCommunityContributionType.TALK_SESSION:
-        return <MicVocal className="w-3 h-3 mr-1" />;
+        return <MicVocal className="size-3 mr-1" />;
       case EnumCommunityContributionType.WORKSHOP:
-        return <Presentation className="w-3 h-3 mr-1" />;
+        return <Presentation className="size-3 mr-1" />;
       case EnumCommunityContributionType.ONLINE_COURSE:
-        return <MonitorPlay className="w-3 h-3 mr-1" />;
+        return <MonitorPlay className="size-3 mr-1" />;
     }
   };
 
   return (
-    <Badge variant={variant} className={className}>
+    <Badge variant={variant} className={cn("badge-container", className)}>
       {getTypeIcon(type)}
       {getTypeLabel(type)}
     </Badge>

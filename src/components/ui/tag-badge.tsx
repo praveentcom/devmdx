@@ -36,15 +36,7 @@ export function TagBadge({
   }
 
   const badgeContent = (
-    <Badge
-      variant={variant}
-      className={cn(
-        "text-xs flex items-center gap-1.5",
-        clickable &&
-          "cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors",
-        className,
-      )}
-    >
+    <Badge variant={variant} className={cn("badge-container", className)}>
       {showIcon && (
         <Image
           src={techDetails.iconPath}

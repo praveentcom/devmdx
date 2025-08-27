@@ -81,7 +81,7 @@ export function Header() {
         role="navigation"
         aria-label="Main navigation"
         className={cn(
-          "sticky top-0 z-40 w-full backdrop-blur-sm transition-[background-color,border-color,backdrop-filter] duration-300 ease-out will-change-[background-color,border-color]",
+          "sticky top-0 z-40 w-full backdrop-blur-sm transition-[background-color,border-color,backdrop-filter] duration-200 ease-out will-change-[background-color,border-color]",
           "bg-background/95 supports-[backdrop-filter]:bg-background/80",
           "border-b border-border md:border-transparent",
           isScrolled && "md:border-border",

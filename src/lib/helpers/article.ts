@@ -25,6 +25,7 @@ export const ArticleFrontmatterSchema = z.object({
   description: z.string(),
   date: z.string(),
   tags: safeTagsSchema,
+  categories: z.array(z.string()).default([]),
   published: z.boolean().default(true),
   image: z.string().optional(),
   slug: z.string().optional(),
@@ -33,12 +34,12 @@ export const ArticleFrontmatterSchema = z.object({
 export type ArticleFrontmatter = Required<
   Pick<
     z.infer<typeof ArticleFrontmatterSchema>,
-    "title" | "description" | "date" | "tags" | "published"
+    "title" | "description" | "date" | "tags" | "categories" | "published"
   >
 > &
   Omit<
     z.infer<typeof ArticleFrontmatterSchema>,
-    "title" | "description" | "date" | "tags" | "published"
+    "title" | "description" | "date" | "tags" | "categories" | "published"
   > & {
     year: string;
     slug: string;
@@ -103,6 +104,7 @@ export function getAllArticleSlugs(): ArticleIndexItem[] {
       description: parsed.description,
       date: parsed.date,
       tags: parsed.tags,
+      categories: parsed.categories,
       published: parsed.published ?? true,
 
       image: parsed.image || generateArticlePlaceholderImage(parsed.title),
@@ -171,6 +173,7 @@ export async function getArticleBySlugCompiled(slug: string): Promise<{
     description: parsed.description,
     date: parsed.date,
     tags: parsed.tags,
+    categories: parsed.categories,
     published: parsed.published ?? true,
     image: parsed.image || generateArticlePlaceholderImage(parsed.title),
     slug: ensuredSlug,
@@ -209,6 +212,7 @@ export function getArticleBySlugRaw(
     description: parsed.description,
     date: parsed.date,
     tags: parsed.tags,
+    categories: parsed.categories,
     published: parsed.published ?? true,
     image: parsed.image || generateArticlePlaceholderImage(parsed.title),
     slug: ensuredSlug,
@@ -231,6 +235,7 @@ export function getAllArticlesIndex(): ArticleIndexItem[] {
       description: parsed.description,
       date: parsed.date,
       tags: parsed.tags,
+      categories: parsed.categories,
       published: parsed.published ?? true,
       image: parsed.image || generateArticlePlaceholderImage(parsed.title),
       readTime: calculateReadTime(content),
@@ -244,4 +249,22 @@ export function getAllArticlesIndex(): ArticleIndexItem[] {
   return items
     .filter((p) => p.published)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export function getAllCategories(): string[] {
+  const allCategories = new Set<string>();
+
+  getAllArticlesIndex().forEach((article) => {
+    article.categories.forEach((category) => {
+      allCategories.add(category);
+    });
+  });
+
+  return Array.from(allCategories).sort();
+}
+
+export function getArticlesByCategory(category: string): ArticleIndexItem[] {
+  return getAllArticlesIndex().filter((article) =>
+    article.categories.includes(category),
+  );
 }

@@ -23,7 +23,7 @@ function Card({
       data-slot="card"
       className={cn(
         "text-card-foreground rounded-xl relative",
-        "border border-border/75 bg-card dark:bg-card/25",
+        "border border-border/75 dark:border-border/50 bg-card dark:bg-card/25",
         "h-min py-4",
         "transition-all duration-100",
         className,
@@ -32,7 +32,7 @@ function Card({
       {...props}
     >
       {borderTrail && (
-        <div className="opacity-0 rounded-xl group-hover:opacity-100 transition-opacity duration-300">
+        <div className="opacity-0 rounded-xl group-hover:opacity-100 transition-opacity duration-200">
           <BorderTrail
             className="bg-gradient-to-r from-primary/0 via-primary/5 to-primary/20"
             size={80}

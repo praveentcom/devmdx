@@ -70,27 +70,23 @@ export default async function TagProjectsPage({ params }: PageProps) {
     <div className="page-container">
       <div className="grid gap-5">
         <div className="grid gap-0.5">
-          <div className="flex items-center gap-2 mb-4">
-            <BackButton
-              href="/projects"
-              label="Back to projects"
-              Icon={ArrowLeft}
-            />
-          </div>
+          <BackButton
+            href="/projects"
+            label="Back to projects"
+            Icon={ArrowLeft}
+          />
 
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2">
-              <Image
-                src={techDetails.iconPath}
-                alt={`${techDetails.label} icon`}
-                width={20}
-                height={20}
-                className="flex-shrink-0"
-              />
-              <h1 className="text-md font-medium">
-                {techDetails.label} projects
-              </h1>
-            </div>
+          <div className="flex items-center gap-2">
+            <Image
+              src={techDetails.iconPath}
+              alt={`${techDetails.label} icon`}
+              width={20}
+              height={20}
+              className="flex-shrink-0"
+            />
+            <h1 className="text-md font-medium">
+              {techDetails.label} projects
+            </h1>
           </div>
           <p className="text-sm text-muted-foreground">
             {filteredProjects.length > 0

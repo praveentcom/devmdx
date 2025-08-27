@@ -120,7 +120,7 @@
     @apply bg-background text-foreground;
   }
   .page-container {
-    @apply container mx-auto px-4 py-4 md:py-2 max-w-3xl;
+    @apply container mx-auto px-4 max-w-3xl;
   }
 }
 
@@ -215,5 +215,10 @@
   .article-muted h2,
   .article-muted h3 {
     @apply text-foreground;
+  }
+
+  /* Badges */
+  .badge-container {
+    @apply text-xs cursor-pointer flex items-center gap-1.5 hover:bg-accent hover:text-accent-foreground transition-colors;
   }
 }

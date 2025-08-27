@@ -3,6 +3,7 @@ import { Article } from "@/types/article";
 import { Calendar, Eye } from "lucide-react";
 import { formatDate } from "@/lib/helpers/markdown";
 import { TagBadge } from "../ui/tag-badge";
+import { CategoryBadge } from "../ui/category-badge";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { truncate } from "@/lib/utils";
 import Link from "next/link";
@@ -16,6 +17,7 @@ export type ArticleLike = Pick<
   | "date"
   | "readTime"
   | "tags"
+  | "categories"
   | "published"
   | "image"
 > & { year: string };
@@ -66,6 +68,12 @@ export function ArticleSummaryCard({
             </div>
 
             <div className="flex flex-wrap gap-1.5">
+              {article.categories.map((category) => (
+                <CategoryBadge
+                  key={`${article.slug}-category-${category}`}
+                  category={category}
+                />
+              ))}
               {article.tags.map((tag) => (
                 <TagBadge
                   key={`${article.slug}-${tag}`}

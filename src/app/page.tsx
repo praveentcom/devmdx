@@ -54,7 +54,7 @@ export default function HomePage() {
     <PageWithStructuredData structuredData={generatePersonSchema()}>
       <div className="min-h-screen bg-background">
         <div className="page-container">
-          <div className="space-y-8">
+          <div className="space-y-6">
             <AboutSection profile={profileData.profile} />
             <ArticlesSection />
             <CommunitySection />

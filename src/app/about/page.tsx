@@ -107,7 +107,7 @@ export default function AboutPage() {
                 title="About page not yet written."
                 subtitle="This section is currently being crafted. Check back soon to learn more about my background and journey."
               >
-                <Button variant="outline" asChild>
+                <Button variant="outline" size="sm" asChild>
                   <Link href="/">Go home</Link>
                 </Button>
               </EmptyPlaceholderCard>

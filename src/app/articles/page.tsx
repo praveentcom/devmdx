@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { Newspaper } from "lucide-react";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getAllArticleSlugs } from "@/lib/helpers/article";
+import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
 import { EnumTag } from "@/lib/helpers/tag-mapper";
 import type { Metadata } from "next";
 import { profileData } from "@/data/profile";
@@ -12,6 +12,8 @@ import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import pluralize from "pluralize";
 import { PageWithStructuredData } from "@/components/ui/common";
 import { BASE_URL } from "@/lib/constants";
+import { CategoryBadge } from "@/components/ui/category-badge";
+import { ArticleYearBadge } from "@/components/ui/article-year-badge";
 
 export const metadata: Metadata = {
   title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Articles`,
@@ -62,6 +64,7 @@ export default function ArticlePage() {
   const publishedArticles = getAllArticleSlugs();
   const tagSet = new Set<EnumTag>();
   publishedArticles.forEach((p) => p.tags.forEach((t) => tagSet.add(t)));
+  const allCategories = getAllCategories();
 
   return (
     <PageWithStructuredData
@@ -87,19 +90,35 @@ export default function ArticlePage() {
             </p>
           </div>
 
-          {publishedArticles.length > 0 ? (
-            <div className="flex items-center gap-2 flex-wrap">
-              {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
-                (year) => (
-                  <Link
-                    key={year}
-                    href={`/articles/${year}`}
-                    className="text-xs px-2 py-1 rounded-md border hover:bg-accent transition-colors"
-                  >
-                    {year}
-                  </Link>
-                ),
-              )}
+          {/* Categories Filter */}
+          {allCategories.length > 0 && (
+            <div className="space-y-2">
+              <h3 className="text-sm font-medium text-muted-foreground">
+                Browse by category
+              </h3>
+              <div className="flex items-center gap-2 flex-wrap">
+                {allCategories.map((category) => (
+                  <CategoryBadge key={category} category={category} asLink />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Year Filter */}
+          {publishedArticles.length > 0 &&
+          Array.from(new Set(publishedArticles.map((a) => a.year))).length >
+            1 ? (
+            <div className="space-y-2">
+              <h3 className="text-sm font-medium text-muted-foreground">
+                Browse by year
+              </h3>
+              <div className="flex items-center gap-2 flex-wrap">
+                {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
+                  (year) => (
+                    <ArticleYearBadge key={year} year={year} asLink />
+                  ),
+                )}
+              </div>
             </div>
           ) : null}
 
