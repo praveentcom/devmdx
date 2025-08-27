@@ -9,7 +9,7 @@ import { CategoryBadge } from "@/components/ui/category-badge";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { YearBadge } from "@/components/ui/year-badge";
-import { BASE_URL, URLS } from "@/lib/constants";
+import { URLS } from "@/lib/constants";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
 import {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
     type: "website",
     siteName: getSiteName(),
-    url: `${BASE_URL}${URLS.ARTICLES_LIST()}`,
+    url: `${URLS.ARTICLES_LIST()}`,
     images: [
       {
         url: generatePlaceholderImageUrl({
@@ -121,7 +121,12 @@ export default function ArticlePage() {
               <div className="flex items-center gap-1.5 flex-wrap">
                 {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
                   (year) => (
-                    <YearBadge key={`${year}-article`} year={year} type="article" asLink />
+                    <YearBadge
+                      key={`${year}-article`}
+                      year={year}
+                      type="article"
+                      asLink
+                    />
                   ),
                 )}
               </div>

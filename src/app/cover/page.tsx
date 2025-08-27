@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { Markdown } from "@/components/ui/markdown";
-import { BASE_URL, URLS } from "@/lib/constants";
+import { URLS } from "@/lib/constants";
 import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       "A personalized introduction highlighting my experience and interest in joining your team.",
     type: "article",
     siteName: getSiteName(),
-    url: `${BASE_URL}/cover`,
+    url: `${URLS.COVER()}`,
     images: [
       {
         url: generatePlaceholderImageUrl({

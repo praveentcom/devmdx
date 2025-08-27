@@ -317,7 +317,7 @@ export const METADATA_PATTERNS = {
       colorScheme: COLOR_SCHEMES.PROJECT,
       keywords:
         "projects, portfolio, development, programming, open source, web applications, software",
-      url: "/projects",
+      url: URLS.PROJECTS_LIST(),
     }),
 
   tagArticles: (tagName: string, articleCount: number, url?: string) =>

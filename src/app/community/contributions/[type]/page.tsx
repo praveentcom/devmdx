@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { BASE_URL, URLS } from "@/lib/constants";
+import { URLS } from "@/lib/constants";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
 import { getSiteName } from "@/lib/helpers/config";
 import { EnumCommunityContributionType } from "@/types/community";
@@ -112,7 +112,7 @@ export async function generateMetadata({
       description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
       type: "website",
       siteName: getSiteName(),
-      url: `${BASE_URL}/community/contributions/${type}`,
+      url: `${URLS.COMMUNITY_TYPE(type)}`,
     },
   };
 }

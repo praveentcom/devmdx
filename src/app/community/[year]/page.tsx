@@ -74,7 +74,7 @@ export async function generateMetadata({
     contentType: "Community",
     count,
     colorScheme: { background: "0ea5e9", text: "ffffff" },
-    url: `/community/${year}`,
+    url: `${URLS.COMMUNITY_YEAR(year)}`,
   });
 }
 

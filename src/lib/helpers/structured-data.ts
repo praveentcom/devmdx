@@ -114,7 +114,7 @@ export function generateCommunitySchema(
   };
 
   if (community.type) {
-    eventData["additionalType"] = URLS.COMMUNITY_CONTRIBUTIONS(community.type);
+    eventData["additionalType"] = URLS.COMMUNITY_TYPE(community.type);
   }
 
   return eventData;

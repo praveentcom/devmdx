@@ -10,7 +10,7 @@ import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { YearBadge } from "@/components/ui/year-badge";
 import { communityData } from "@/data/community";
-import { BASE_URL, URLS } from "@/lib/constants";
+import { URLS } from "@/lib/constants";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { getAllCommunitySlugs } from "@/lib/helpers/community";
 import { getAuthorName, getSiteName } from "@/lib/helpers/config";
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: communityData.descriptionLine1,
     type: "website",
     siteName: getSiteName(),
-    url: `${BASE_URL}/community`,
+    url: `${URLS.COMMUNITY_LIST()}`,
     images: [
       {
         url: generatePlaceholderImageUrl({
@@ -154,7 +154,12 @@ export default function CommunityPage() {
                 {Array.from(
                   new Set(publishedContributions.map((c) => c.year)),
                 ).map((year) => (
-                  <YearBadge key={`${year}-community`} year={year} type="community" asLink />
+                  <YearBadge
+                    key={`${year}-community`}
+                    year={year}
+                    type="community"
+                    asLink
+                  />
                 ))}
               </div>
             ) : null}

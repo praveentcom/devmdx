@@ -95,7 +95,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const communityContributionTypes = Array.from(
     new Set(allCommunity.map((c) => c.type)),
   ).map((type) => ({
-    url: `${BASE_URL}${URLS.COMMUNITY_CONTRIBUTIONS(type)}`,
+    url: `${BASE_URL}${URLS.COMMUNITY_TYPE(type)}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,

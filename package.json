@@ -41,9 +41,7 @@
     "build": "next build",
     "start": "./scripts/start.sh",
     "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "pretty": "prettier --write .",
-    "format": "npm run lint:fix && npm run pretty",
+    "format": "next lint --fix && prettier --write .",
     "init": "./scripts/init.sh"
   },
   "dependencies": {

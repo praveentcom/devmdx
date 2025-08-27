@@ -29,7 +29,7 @@ export const URLS = {
   COMMUNITY_LIST: () => "/community",
   COMMUNITY: (year: string, slug: string) => `/community/${year}/${slug}`,
   COMMUNITY_YEAR: (year: string) => `/community/${year}`,
-  COMMUNITY_CONTRIBUTIONS: (type: string) => `/community/contributions/${type}`,
+  COMMUNITY_TYPE: (type: string) => `/community/contributions/${type}`,
 
   // Work & Education
   WORK: (slug: string) => `/work/${slug}`,

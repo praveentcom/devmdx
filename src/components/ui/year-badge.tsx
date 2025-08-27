@@ -30,5 +30,15 @@ export function YearBadge({
     return badgeContent;
   }
 
-  return <Link href={type === "article" ? URLS.ARTICLES_YEAR(safeYear) : URLS.COMMUNITY_YEAR(safeYear)}>{badgeContent}</Link>;
+  return (
+    <Link
+      href={
+        type === "article"
+          ? URLS.ARTICLES_YEAR(safeYear)
+          : URLS.COMMUNITY_YEAR(safeYear)
+      }
+    >
+      {badgeContent}
+    </Link>
+  );
 }

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { PageWithStructuredData } from "@/components/ui/common";
 import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
-import { BASE_URL, URLS } from "@/lib/constants";
+import { URLS } from "@/lib/constants";
 import { getAuthorName, getOgImage, getSiteName } from "@/lib/helpers/config";
 import { generateOpenGraphImage } from "@/lib/helpers/image";
 import { generatePersonSchema } from "@/lib/helpers/structured-data";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: `Complete biography and professional background of ${authorName}. ${profileData.profile.description}`,
     type: "profile",
     siteName,
-    url: `${BASE_URL}/bio`,
+    url: `${URLS.BIO()}`,
     images: [
       {
         url: getOgImage() || generateOpenGraphImage(`Bio - ${authorName}`),
