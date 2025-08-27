@@ -39,7 +39,8 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <PageWithStructuredData structuredData={generateProjectSchema(project)}>
       <div className="page-container">
-        <div className="flex items-center justify-between">
+        {/* Desktop layout: buttons aligned in header */}
+        <div className="hidden md:flex items-center justify-between">
           <BackButton
             href="/projects"
             label="Back to projects"
@@ -75,6 +76,15 @@ export default async function ProjectPage({ params }: PageProps) {
           )}
         </div>
 
+        {/* Mobile layout: only back button in header */}
+        <div className="md:hidden">
+          <BackButton
+            href="/projects"
+            label="Back to projects"
+            Icon={ArrowLeft}
+          />
+        </div>
+
         <div className="grid gap-4">
           <EntityHeader
             imageSrc={project.imagePath}
@@ -84,6 +94,38 @@ export default async function ProjectPage({ params }: PageProps) {
             fallbackIcon={GitPullRequestArrow}
             size="large"
           />
+
+          {/* Mobile layout: buttons below description in grid */}
+          {(project.url || project.githubUrl) && (
+            <div className={`md:hidden grid gap-2 grid-cols-2`}>
+              {project.url && (
+                <Button variant="default" size="sm" asChild>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <ExternalLink className="size-4" />
+                    <span>Website</span>
+                  </a>
+                </Button>
+              )}
+              {project.githubUrl && (
+                <Button variant="default" size="sm" asChild>
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <Github className="size-4" />
+                    <span>GitHub</span>
+                  </a>
+                </Button>
+              )}
+            </div>
+          )}
 
           {project.date && (
             <SectionCard title="Project date">
