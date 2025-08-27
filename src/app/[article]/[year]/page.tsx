@@ -48,16 +48,13 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
         {articles.length > 0 ? (
           <div className="grid gap-4 md:grid-cols-2">
             {articles.map((article) => (
-              <ArticleSummaryCard
-                key={article.slug}
-                article={article}
-              />
+              <ArticleSummaryCard key={article.slug} article={article} />
             ))}
           </div>
         ) : (
           <EmptyPlaceholderCard
-            title="No articles published."
-            subtitle={`No articles were published in ${year}.`}
+            title={`No ${getArticleLabel().toLowerCase()} published.`}
+            subtitle={`No ${getArticleLabel().toLowerCase()} were published in ${year}.`}
           />
         )}
       </div>

@@ -70,7 +70,12 @@ export function useCriticalPrefetch() {
    * Skipped on slow connections.
    */
   const { prefetchAll } = usePrefetch(
-    [URLS.PROJECTS_LIST(), URLS.ARTICLES_LIST(), URLS.COMMUNITY_LIST(), URLS.ABOUT()],
+    [
+      URLS.PROJECTS_LIST(),
+      URLS.ARTICLES_LIST(),
+      URLS.COMMUNITY_LIST(),
+      URLS.ABOUT(),
+    ],
     {
       delay: 1000,
       condition: () => {

@@ -9,10 +9,7 @@ import { BackButton, PageWithStructuredData } from "@/components/ui/common";
 import { Markdown } from "@/components/ui/markdown";
 import { URLS } from "@/lib/constants/urls";
 import { getAllArticleSlugs, getArticleBySlugRaw } from "@/lib/helpers/article";
-import {
-  getArticleLabel,
-  getArticleLabelSingular,
-} from "@/lib/helpers/config";
+import { getArticleLabel, getArticleLabelSingular } from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
@@ -65,7 +62,7 @@ export default async function ArticlePage({ params }: PageProps) {
           </div>
         </div>
       </div>
-      
+
       <Script id="copy-code-script" strategy="afterInteractive">
         {`
           window.copyCode = function(button) {

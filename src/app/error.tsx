@@ -11,6 +11,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { URLS } from "@/lib/constants/urls";
+import { getArticleLabel } from "@/lib/helpers/config";
 
 export default function Error() {
   return (
@@ -55,7 +56,7 @@ export default function Error() {
               >
                 <Link href={URLS.ARTICLES_LIST()}>
                   <Newspaper className="size-4" />
-                  Browse articles
+                  Browse {getArticleLabel().toLowerCase()}
                 </Link>
               </Button>
             </div>

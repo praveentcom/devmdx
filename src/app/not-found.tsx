@@ -11,13 +11,16 @@ import {
 } from "@/components/ui/card";
 import { BASE_URL, URLS } from "@/lib/constants";
 import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
-import { getAuthorName, getSiteName } from "@/lib/helpers/config";
+import {
+  getArticleLabel,
+  getAuthorName,
+  getSiteName,
+} from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
 export const metadata: Metadata = {
   title: `${getAuthorName()} | Page not found`,
-  description:
-    "The page you're looking for doesn't exist or has been moved. Return to the homepage or browse articles to find what you're looking for.",
+  description: `The page you're looking for doesn't exist or has been moved. Return to the homepage or browse ${getArticleLabel().toLowerCase()} to find what you're looking for.`,
   openGraph: {
     title: "Page not found.",
     description: "The page you're looking for doesn't exist or has been moved.",
@@ -88,7 +91,7 @@ export default function NotFound() {
               >
                 <Link href={URLS.ARTICLES_LIST()}>
                   <Newspaper className="size-4" />
-                  Browse articles
+                  Browse {getArticleLabel().toLowerCase()}
                 </Link>
               </Button>
             </div>

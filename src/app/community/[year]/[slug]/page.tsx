@@ -1,12 +1,12 @@
 import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { CommunityHeader } from "@/components/community/CommunityHeader";
 import { CommunityMetadata } from "@/components/community/CommunityMetadata";
 import { BackButton, PageWithStructuredData } from "@/components/ui/common";
 import { Markdown } from "@/components/ui/markdown";
+import { URLS } from "@/lib/constants/urls";
 import {
   getAllCommunitySlugs,
   getCommunityBySlugRaw,
@@ -16,7 +16,6 @@ import {
   METADATA_PATTERNS,
 } from "@/lib/helpers/metadata";
 import { generateCommunitySchema } from "@/lib/helpers/structured-data";
-import { URLS } from "@/lib/constants/urls";
 
 interface PageProps {
   params: Promise<{

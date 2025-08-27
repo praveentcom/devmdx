@@ -10,7 +10,7 @@ export const URLS = {
   BIO: () => "/bio",
   ABOUT: () => "/about",
   COVER: () => "/cover",
-  
+
   // Articles
   ARTICLES: (year: string, slug: string) =>
     `/${getArticleSlug()}/${year}/${slug}`,
@@ -19,18 +19,18 @@ export const URLS = {
   ARTICLES_TAG: (tag: string) => `/${getArticleSlug()}/tag/${tag}`,
   ARTICLES_CATEGORY: (category: string) =>
     `/${getArticleSlug()}/category/${category}`,
-  
+
   // Projects
   PROJECTS_LIST: () => "/projects",
   PROJECTS: (slug: string) => `/projects/${slug}`,
   PROJECTS_STACK: (tag: string) => `/projects/stack/${tag}`,
-  
+
   // Community
   COMMUNITY_LIST: () => "/community",
   COMMUNITY: (year: string, slug: string) => `/community/${year}/${slug}`,
   COMMUNITY_YEAR: (year: string) => `/community/${year}`,
   COMMUNITY_CONTRIBUTIONS: (type: string) => `/community/contributions/${type}`,
-  
+
   // Work & Education
   WORK: (slug: string) => `/work/${slug}`,
   EDUCATION: (slug: string) => `/education/${slug}`,

@@ -10,10 +10,7 @@ import { Button } from "@/components/ui/button";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
 import { ScrollProgressBar } from "@/components/ui/scroll-progress";
 import { URLS } from "@/lib/constants/urls";
-import {
-  getAuthorName,
-  getNavigationItems,
-} from "@/lib/helpers/config";
+import { getAuthorName, getNavigationItems } from "@/lib/helpers/config";
 import { cn } from "@/lib/utils";
 
 export function Header() {

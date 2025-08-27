@@ -82,7 +82,10 @@ export default async function CommunityByTypePage({ params }: PageProps) {
             title="No contributions"
             subtitle={`No contributions were found for ${getTypeLabel(validatedType)}.`}
           >
-            <Link href={URLS.COMMUNITY_LIST()} className="text-sm text-primary underline">
+            <Link
+              href={URLS.COMMUNITY_LIST()}
+              className="text-sm text-primary underline"
+            >
               Browse all
             </Link>
           </EmptyPlaceholderCard>

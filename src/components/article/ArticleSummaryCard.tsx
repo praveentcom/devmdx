@@ -25,11 +25,7 @@ export type ArticleLike = Pick<
   | "image"
 > & { year: string };
 
-export function ArticleSummaryCard({
-  article,
-}: {
-  article: ArticleLike;
-}) {
+export function ArticleSummaryCard({ article }: { article: ArticleLike }) {
   return (
     <PrefetchLink
       href={URLS.ARTICLES(article.year, article.slug)}

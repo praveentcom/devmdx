@@ -334,13 +334,17 @@
   /* Line numbers styling */
   .article-base .line-number {
     @apply select-none text-xs text-muted-foreground inline-block text-right pr-3 bg-muted/40 border-r border-border flex-shrink-0;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family:
+      ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono",
+      Menlo, monospace;
     min-width: 2rem;
   }
 
   .article-base .line-content {
     @apply flex-1 pl-3 text-xs leading-relaxed;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family:
+      ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono",
+      Menlo, monospace;
   }
 
   /* Dark mode line number adjustments */
@@ -366,8 +370,6 @@
   .article-base table {
     @apply w-full overflow-x-auto block whitespace-nowrap md:whitespace-normal md:table;
   }
-
-
 
   /* Badges */
   .badge-container {

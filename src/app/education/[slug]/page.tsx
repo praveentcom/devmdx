@@ -35,7 +35,11 @@ export default async function EducationPage({ params }: PageProps) {
   return (
     <PageWithStructuredData structuredData={generateEducationSchema(education)}>
       <div className="page-container">
-        <BackButton href={URLS.HOME()} label="Back to profile" Icon={ArrowLeft} />
+        <BackButton
+          href={URLS.HOME()}
+          label="Back to profile"
+          Icon={ArrowLeft}
+        />
 
         <div className="grid gap-4">
           <EntityHeader

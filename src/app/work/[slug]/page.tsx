@@ -38,7 +38,11 @@ export default async function WorkExperiencePage({ params }: PageProps) {
   return (
     <PageWithStructuredData structuredData={generateWorkSchema(experience)}>
       <div className="page-container">
-        <BackButton href={URLS.HOME()} label="Back to profile" Icon={ArrowLeft} />
+        <BackButton
+          href={URLS.HOME()}
+          label="Back to profile"
+          Icon={ArrowLeft}
+        />
 
         <div className="grid gap-4">
           <EntityHeader

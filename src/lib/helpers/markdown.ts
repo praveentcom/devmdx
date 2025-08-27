@@ -8,84 +8,88 @@ import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
 import { Article } from "@/types/article";
 
 function getFileIcon(filename: string): string {
-  if (!filename) return `<img src="${DEFAULT_FILE_ICON_PATH}" alt="File" class="w-4 h-4" />`;
-  
-  const ext = filename.split('.').pop()?.toLowerCase();
+  if (!filename)
+    return `<img src="${DEFAULT_FILE_ICON_PATH}" alt="File" class="w-4 h-4" />`;
+
+  const ext = filename.split(".").pop()?.toLowerCase();
   const tagMapper = new TagMapper();
-  
+
   const extToTagMap: Record<string, EnumTag> = {
-    'js': EnumTag.JAVASCRIPT,
-    'mjs': EnumTag.JAVASCRIPT,
-    'jsx': EnumTag.REACT,
-    'ts': EnumTag.TYPESCRIPT,
-    'tsx': EnumTag.REACT,
-    'html': EnumTag.HTML5,
-    'css': EnumTag.CSS3,
-    'scss': EnumTag.SASS,
-    'sass': EnumTag.SASS,
-    'less': EnumTag.LESS,
-    'json': EnumTag.JSON,
-    'yaml': EnumTag.YAML,
-    'yml': EnumTag.YAML,
-    'xml': EnumTag.XML,
-    'md': EnumTag.MARKDOWN,
-    'sh': EnumTag.BASH,
-    'bash': EnumTag.BASH,
-    'zsh': EnumTag.BASH,
-    'fish': EnumTag.BASH,
-    'ps1': EnumTag.POWERSHELL,
-    'py': EnumTag.PYTHON,
-    'java': EnumTag.JAVA,
-    'cpp': EnumTag.CPP,
-    'cxx': EnumTag.CPP,
-    'cc': EnumTag.CPP,
-    'c': EnumTag.C,
-    'h': EnumTag.C,
-    'hpp': EnumTag.CPP,
-    'go': EnumTag.GO,
-    'rs': EnumTag.RUST,
-    'php': EnumTag.PHP,
-    'rb': EnumTag.RUBY,
-    'swift': EnumTag.SWIFT,
-    'kt': EnumTag.KOTLIN,
-    'scala': EnumTag.SCALA,
-    'cs': EnumTag.CSHARP,
-    'fs': EnumTag.FSHARP,
-    'dart': EnumTag.DART,
-    'lua': EnumTag.LUA,
-    'r': EnumTag.R,
-    'pl': EnumTag.PERL,
-    'sol': EnumTag.SOLIDITY,
-    'dockerfile': EnumTag.DOCKER,
-    'makefile': EnumTag.CMAKE,
-    'gradle': EnumTag.GRADLE,
-    'pom': EnumTag.APACHE_MAVEN,
-    'package': EnumTag.NPM,
-    'lock': EnumTag.NPM,
-    'toml': EnumTag.RUST,
-    'env': EnumTag.NODE_JS,
+    js: EnumTag.JAVASCRIPT,
+    mjs: EnumTag.JAVASCRIPT,
+    jsx: EnumTag.REACT,
+    ts: EnumTag.TYPESCRIPT,
+    tsx: EnumTag.REACT,
+    html: EnumTag.HTML5,
+    css: EnumTag.CSS3,
+    scss: EnumTag.SASS,
+    sass: EnumTag.SASS,
+    less: EnumTag.LESS,
+    json: EnumTag.JSON,
+    yaml: EnumTag.YAML,
+    yml: EnumTag.YAML,
+    xml: EnumTag.XML,
+    md: EnumTag.MARKDOWN,
+    sh: EnumTag.BASH,
+    bash: EnumTag.BASH,
+    zsh: EnumTag.BASH,
+    fish: EnumTag.BASH,
+    ps1: EnumTag.POWERSHELL,
+    py: EnumTag.PYTHON,
+    java: EnumTag.JAVA,
+    cpp: EnumTag.CPP,
+    cxx: EnumTag.CPP,
+    cc: EnumTag.CPP,
+    c: EnumTag.C,
+    h: EnumTag.C,
+    hpp: EnumTag.CPP,
+    go: EnumTag.GO,
+    rs: EnumTag.RUST,
+    php: EnumTag.PHP,
+    rb: EnumTag.RUBY,
+    swift: EnumTag.SWIFT,
+    kt: EnumTag.KOTLIN,
+    scala: EnumTag.SCALA,
+    cs: EnumTag.CSHARP,
+    fs: EnumTag.FSHARP,
+    dart: EnumTag.DART,
+    lua: EnumTag.LUA,
+    r: EnumTag.R,
+    pl: EnumTag.PERL,
+    sol: EnumTag.SOLIDITY,
+    dockerfile: EnumTag.DOCKER,
+    makefile: EnumTag.CMAKE,
+    gradle: EnumTag.GRADLE,
+    pom: EnumTag.APACHE_MAVEN,
+    package: EnumTag.NPM,
+    lock: EnumTag.NPM,
+    toml: EnumTag.RUST,
+    env: EnumTag.NODE_JS,
   };
-  
-  const tag = extToTagMap[ext || ''];
+
+  const tag = extToTagMap[ext || ""];
   if (tag) {
     const tagDetails = tagMapper.getDetails(tag);
     if (tagDetails) {
       return `<img src="${tagDetails.iconPath}" alt="${tagDetails.label}" class="w-4 h-4" />`;
     }
   }
-  
+
   return '<img src="/images/tech-icons/Docs.png" alt="File" class="w-4 h-4" />';
 }
 
 function processLists(html: string): string {
-  const lines = html.split('\n');
+  const lines = html.split("\n");
   const result: string[] = [];
-  let currentListType: 'ul' | 'ol' | null = null;
+  let currentListType: "ul" | "ol" | null = null;
   let listItems: string[] = [];
 
   const flushList = () => {
     if (currentListType && listItems.length > 0) {
-      const listClass = currentListType === 'ol' ? 'list-decimal pl-6 ml-4' : 'list-none pl-0 ml-0';
+      const listClass =
+        currentListType === "ol"
+          ? "list-decimal pl-6 ml-4"
+          : "list-none pl-0 ml-0";
       result.push(`<${currentListType} class="${listClass}">`);
       result.push(...listItems);
       result.push(`</${currentListType}>`);
@@ -104,29 +108,37 @@ function processLists(html: string): string {
     const taskCheckedMatch = line.match(/^[\s]*[-*+]\s+\[x\]\s+(.*)$/);
 
     if (taskUncheckedMatch) {
-      if (currentListType !== 'ul') {
+      if (currentListType !== "ul") {
         flushList();
-        currentListType = 'ul';
+        currentListType = "ul";
       }
-      listItems.push(`<li class="ml-2 mb-0 text-sm leading-relaxed flex items-center gap-1.5"><input type="checkbox" disabled class="rounded border-border/75 text-primary focus:ring-primary/50" /> ${taskUncheckedMatch[1]}</li>`);
+      listItems.push(
+        `<li class="ml-2 mb-0 text-sm leading-relaxed flex items-center gap-1.5"><input type="checkbox" disabled class="rounded border-border/75 text-primary focus:ring-primary/50" /> ${taskUncheckedMatch[1]}</li>`,
+      );
     } else if (taskCheckedMatch) {
-      if (currentListType !== 'ul') {
+      if (currentListType !== "ul") {
         flushList();
-        currentListType = 'ul';
+        currentListType = "ul";
       }
-      listItems.push(`<li class="ml-2 mb-0 text-sm leading-relaxed flex items-center gap-1.5"><input type="checkbox" checked disabled class="rounded border-border/75 text-primary focus:ring-primary/50" /> ${taskCheckedMatch[1]}</li>`);
+      listItems.push(
+        `<li class="ml-2 mb-0 text-sm leading-relaxed flex items-center gap-1.5"><input type="checkbox" checked disabled class="rounded border-border/75 text-primary focus:ring-primary/50" /> ${taskCheckedMatch[1]}</li>`,
+      );
     } else if (unorderedMatch) {
-      if (currentListType !== 'ul') {
+      if (currentListType !== "ul") {
         flushList();
-        currentListType = 'ul';
+        currentListType = "ul";
       }
-      listItems.push(`<li class="ml-2 mb-0 text-sm leading-relaxed">• ${unorderedMatch[1]}</li>`);
+      listItems.push(
+        `<li class="ml-2 mb-0 text-sm leading-relaxed">• ${unorderedMatch[1]}</li>`,
+      );
     } else if (orderedMatch) {
-      if (currentListType !== 'ol') {
+      if (currentListType !== "ol") {
         flushList();
-        currentListType = 'ol';
+        currentListType = "ol";
       }
-      listItems.push(`<li class="ml-2 mb-0 text-sm leading-relaxed">${orderedMatch[1]}</li>`);
+      listItems.push(
+        `<li class="ml-2 mb-0 text-sm leading-relaxed">${orderedMatch[1]}</li>`,
+      );
     } else {
       flushList();
       if (line.trim()) {
@@ -136,7 +148,7 @@ function processLists(html: string): string {
   }
 
   flushList(); // Flush any remaining list
-  return result.join('\n');
+  return result.join("\n");
 }
 
 export function parseMarkdown(content: string): string {
@@ -145,63 +157,81 @@ export function parseMarkdown(content: string): string {
     /```(\w+)?(?:\s+filename="([^"]+)")?\n([\s\S]*?)```/g,
     (match, lang, filename, code) => {
       const trimmedCode = code.trim();
-      const originalLines = trimmedCode.split('\n');
+      const originalLines = trimmedCode.split("\n");
       const totalLines = originalLines.length;
-      
+
       const getLineNumberWidth = (total: number) => {
-        if (total < 10) return 'w-8';
-        if (total < 100) return 'w-10';
-        if (total < 1000) return 'w-12';
-        return 'w-14';
+        if (total < 10) return "w-8";
+        if (total < 100) return "w-10";
+        if (total < 1000) return "w-12";
+        return "w-14";
       };
 
       const lineNumberWidth = getLineNumberWidth(totalLines);
-      
-      const numberedLines = originalLines.map((line: string, index: number) => {
-        const lineNumber = index + 1;
-        const isFirstLine = index === 0;
-        const isLastLine = index === originalLines.length - 1;
-        const lineNumberPadding = isFirstLine ? ' pt-2' : isLastLine ? ' pb-2' : '';
-        const contentPadding = isFirstLine ? ' pt-2' : isLastLine ? ' pb-2' : '';
-        
-        let highlightedLine = line || ' ';
-        if (line.trim()) {
-          if (lang && hljs.getLanguage(lang)) {
-            try {
-              highlightedLine = hljs.highlight(line, { language: lang }).value;
-            } catch {
+
+      const numberedLines = originalLines
+        .map((line: string, index: number) => {
+          const lineNumber = index + 1;
+          const isFirstLine = index === 0;
+          const isLastLine = index === originalLines.length - 1;
+          const lineNumberPadding = isFirstLine
+            ? " pt-2"
+            : isLastLine
+              ? " pb-2"
+              : "";
+          const contentPadding = isFirstLine
+            ? " pt-2"
+            : isLastLine
+              ? " pb-2"
+              : "";
+
+          let highlightedLine = line || " ";
+          if (line.trim()) {
+            if (lang && hljs.getLanguage(lang)) {
+              try {
+                highlightedLine = hljs.highlight(line, {
+                  language: lang,
+                }).value;
+              } catch {
+                try {
+                  highlightedLine = hljs.highlightAuto(line).value;
+                } catch {
+                  highlightedLine = line
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+                }
+              }
+            } else {
               try {
                 highlightedLine = hljs.highlightAuto(line).value;
               } catch {
-                highlightedLine = line.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                highlightedLine = line
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;");
               }
             }
-          } else {
-            try {
-              highlightedLine = hljs.highlightAuto(line).value;
-            } catch {
-              highlightedLine = line.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            }
           }
-        }
-        
-        return `<div class="flex">
+
+          return `<div class="flex">
           <span class="line-number ${lineNumberWidth}${lineNumberPadding}">${lineNumber}</span>
           <span class="line-content${contentPadding}">${highlightedLine}</span>
         </div>`;
-      }).join('');
+        })
+        .join("");
 
-      const filenameHeader = filename ? `
+      const filenameHeader = filename
+        ? `
         <div class="flex items-center gap-2 px-3 py-2 bg-muted/50 border-b border-border/75 text-xs font-medium text-muted-foreground">
           ${getFileIcon(filename)}
           <span>${filename}</span>
         </div>
-      ` : '';
+      `
+        : "";
 
       const codeBlock = `<div class="relative bg-card border border-border rounded-sm overflow-hidden mb-3 group w-full break-inside-avoid">
         ${filenameHeader}
         <button 
-          class="absolute ${filename ? 'top-14' : 'top-3'} right-3 p-1.5 rounded bg-card border border-transparent hover:border-border cursor-pointer hover:bg-accent transition-colors duration-200 z-10" 
+          class="absolute ${filename ? "top-14" : "top-3"} right-3 p-1.5 rounded bg-card border border-transparent hover:border-border cursor-pointer hover:bg-accent transition-colors duration-200 z-10" 
           onclick="copyCode(this)"
           type="button"
           aria-label="Copy code"
@@ -252,7 +282,8 @@ export function parseMarkdown(content: string): string {
       '<blockquote class="relative pl-4 py-2 mb-3 bg-muted/30 rounded-sm italic text-sm leading-relaxed text-muted-foreground"><div class="absolute left-1 top-1 bottom-1 w-1 bg-primary/30 rounded-full"></div>$1</blockquote>',
     );
 
-  processedContent = processedContent.replace(/\n\n/g, '</p><p class="mb-1.5 text-sm leading-relaxed">')
+  processedContent = processedContent
+    .replace(/\n\n/g, '</p><p class="mb-1.5 text-sm leading-relaxed">')
     .replace(
       /^(?!<[h|l|p|c|b|i|d|_])/gm,
       '<p class="mb-1.5 text-sm leading-relaxed">',

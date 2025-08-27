@@ -10,10 +10,7 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants/urls";
 import { getAllCategories, getArticlesByCategory } from "@/lib/helpers/article";
-import {
-  getArticleLabel,
-  getArticleLabelSingular,
-} from "@/lib/helpers/config";
+import { getArticleLabel, getArticleLabelSingular } from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
@@ -82,16 +79,18 @@ export default async function CategoryArticlePage({ params }: PageProps) {
             </div>
 
             <p className="text-muted-foreground text-sm">
-              No articles found in this category
+              No {getArticleLabel().toLowerCase()} found in this category
             </p>
           </div>
 
           <EmptyPlaceholderCard
-            title="No articles found."
-            subtitle={`No articles have been published this ${decodedCategory} category yet. Check back later for new content!`}
+            title={`No ${getArticleLabel().toLowerCase()} found.`}
+            subtitle={`No ${getArticleLabel().toLowerCase()} have been published this ${decodedCategory} category yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>
-              <Link href={URLS.ARTICLES_LIST()}>articles</Link>
+              <Link href={URLS.ARTICLES_LIST()}>
+                {getArticleLabel().toLowerCase()}
+              </Link>
             </Button>
             <Button variant="outline" asChild>
               <Link href={URLS.HOME()}>Go home</Link>
@@ -109,7 +108,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
           <div className="flex items-center gap-1.5">
             <BackButton
               href={URLS.ARTICLES_LIST()}
-              label="Back to articles"
+              label={`Back to ${getArticleLabel().toLowerCase()}`}
               Icon={ArrowLeft}
             />
           </div>
@@ -120,13 +119,15 @@ export default async function CategoryArticlePage({ params }: PageProps) {
                 {decodedCategory.charAt(0).toUpperCase()}
               </span>
             </div>
-            <h1 className="text-md font-medium">{decodedCategory} articles</h1>
+            <h1 className="text-md font-medium">
+              {decodedCategory} {getArticleLabel().toLowerCase()}
+            </h1>
           </div>
 
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
               ? `${filteredArticles.length} ${pluralize(getArticleLabelSingular().toLowerCase(), filteredArticles.length)} in this category`
-              : `No articles found in this category`}
+              : `No ${getArticleLabel().toLowerCase()} found in this category`}
           </p>
         </div>
 

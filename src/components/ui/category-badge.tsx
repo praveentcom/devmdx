@@ -29,9 +29,7 @@ export function CategoryBadge({
   }
 
   return (
-    <Link
-      href={URLS.ARTICLES_CATEGORY(encodeURIComponent(category))}
-    >
+    <Link href={URLS.ARTICLES_CATEGORY(encodeURIComponent(category))}>
       {badgeContent}
     </Link>
   );
