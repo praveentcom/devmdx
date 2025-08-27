@@ -55,7 +55,7 @@ export function AnimatedBackground({
     const interactionProps = enableHover
       ? {
           onMouseEnter: () => handleSetActiveId(id),
-          onMouseLeave: () => handleSetActiveId(null),
+          onMouseLeave: () => handleSetActiveId(defaultValue || null),
         }
       : {
           onClick: () => handleSetActiveId(id),

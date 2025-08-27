@@ -309,6 +309,16 @@ export const configData: ConfigData = {
     twitterSite: "@johndoe",
     twitterCreator: "@johndoe",
   },
+  navigation: {
+    showHomeInNav: true,
+    showProjectsInNav: true,
+    showArticlesInNav: true,
+    showCommunityInNav: true,
+    // customMenuItems: [
+    //   { href: '/resume', label: 'Resume', external: false },
+    //   { href: 'https://example.com', label: 'Portfolio', external: true },
+    // ],
+  },
   misc: {
     footerSubtitle: "Life is beautiful, isn't it?",
     siteName: "${FIRST_NAME} ${LAST_NAME}",

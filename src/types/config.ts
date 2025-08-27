@@ -38,6 +38,18 @@ export interface ConfigSeoData {
   twitterCreator?: string;
 }
 
+export interface ConfigNavigationData {
+  showHomeInNav?: boolean;
+  showProjectsInNav?: boolean;
+  showArticlesInNav?: boolean;
+  showCommunityInNav?: boolean;
+  customMenuItems?: Array<{
+    href: string;
+    label: string;
+    external?: boolean;
+  }>;
+}
+
 export interface ConfigMiscData {
   footerSubtitle?: string;
   siteName?: string;
@@ -58,5 +70,6 @@ export interface ConfigMiscData {
 export interface ConfigData {
   analytics: ConfigAnalyticsData;
   seo: ConfigSeoData;
+  navigation?: ConfigNavigationData;
   misc: ConfigMiscData;
 }

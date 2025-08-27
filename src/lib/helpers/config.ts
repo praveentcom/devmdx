@@ -66,3 +66,16 @@ export function getArticleLabelSingular(): string {
 export function getArticleSlug(): string {
   return configData.misc.content?.articleSlug || 'articles';
 }
+
+export function getNavigationItems() {
+  const baseItems = [
+    ...(configData.navigation?.showHomeInNav !== false ? [{ href: '/', label: 'Home' }] : []),
+    ...(configData.navigation?.showProjectsInNav !== false ? [{ href: '/projects', label: 'Projects' }] : []),
+    ...(configData.navigation?.showArticlesInNav !== false ? [{ href: `/${getArticleSlug()}`, label: getArticleLabel() }] : []),
+    ...(configData.navigation?.showCommunityInNav !== false ? [{ href: '/community', label: 'Community' }] : []),
+  ];
+
+  const customItems = configData.navigation?.customMenuItems || [];
+  
+  return [...baseItems, ...customItems];
+}
