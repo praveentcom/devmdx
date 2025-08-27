@@ -49,16 +49,11 @@ export default async function CommunityContributionPage({ params }: PageProps) {
           Icon={ArrowLeft}
         />
 
-        <div className="grid md:grid-cols-12 gap-5">
-          <div className="md:col-span-9 grid gap-1.5">
-            <CommunityHeader community={community} />
-            <div className="space-y-4">
-              <Markdown content={rawCommunity.raw} muted />
-            </div>
-          </div>
-
-          <div className="md:col-span-3">
-            <CommunityMetadata community={community} />
+        <div className="grid gap-1.5 min-w-0">
+          <CommunityHeader community={community} />
+          <CommunityMetadata community={community} />
+          <div className="min-w-0 overflow-hidden">
+            <Markdown content={rawCommunity.raw} />
           </div>
         </div>
       </div>
