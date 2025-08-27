@@ -52,7 +52,7 @@ export function ArticleMetadata({ article }: ArticleMetadataProps) {
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {article.categories.map((category, index) => (
-                  <CategoryBadge key={index} category={category} />
+                  <CategoryBadge key={index} category={category} asLink />
                 ))}
               </div>
             </div>
