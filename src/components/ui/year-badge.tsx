@@ -4,20 +4,21 @@ import { Badge } from "@/components/ui/badge";
 import { URLS } from "@/lib/constants/urls";
 import { cn } from "@/lib/utils";
 
-interface ArticleYearBadgeProps {
+interface YearBadgeProps {
   year: string;
+  type: "article" | "community";
   variant?: "default" | "secondary" | "destructive" | "outline";
   className?: string;
   asLink?: boolean;
 }
 
-export function ArticleYearBadge({
+export function YearBadge({
   year,
+  type,
   variant = "outline",
   className,
   asLink = false,
-}: ArticleYearBadgeProps) {
-  // Allow only 4 digit years, fallback to 'unknown'
+}: YearBadgeProps) {
   const safeYear = /^\d{4}$/.test(year) ? year : "unknown";
   const badgeContent = (
     <Badge variant={variant} className={cn("badge-container", className)}>
@@ -29,6 +30,5 @@ export function ArticleYearBadge({
     return badgeContent;
   }
 
-  // Only link if year is valid
-  return <Link href={URLS.ARTICLES_YEAR(safeYear)}>{badgeContent}</Link>;
+  return <Link href={type === "article" ? URLS.ARTICLES_YEAR(safeYear) : URLS.COMMUNITY_YEAR(safeYear)}>{badgeContent}</Link>;
 }

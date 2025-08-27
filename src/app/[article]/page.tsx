@@ -4,11 +4,11 @@ import Link from "next/link";
 import pluralize from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
-import { ArticleYearBadge } from "@/components/ui/article-year-badge";
 import { Button } from "@/components/ui/button";
 import { CategoryBadge } from "@/components/ui/category-badge";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { YearBadge } from "@/components/ui/year-badge";
 import { BASE_URL, URLS } from "@/lib/constants";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
@@ -121,7 +121,7 @@ export default function ArticlePage() {
               <div className="flex items-center gap-1.5 flex-wrap">
                 {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
                   (year) => (
-                    <ArticleYearBadge key={year} year={year} asLink />
+                    <YearBadge key={`${year}-article`} year={year} type="article" asLink />
                   ),
                 )}
               </div>

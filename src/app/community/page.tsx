@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { YearBadge } from "@/components/ui/year-badge";
 import { communityData } from "@/data/community";
 import { BASE_URL, URLS } from "@/lib/constants";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
@@ -153,13 +154,7 @@ export default function CommunityPage() {
                 {Array.from(
                   new Set(publishedContributions.map((c) => c.year)),
                 ).map((year) => (
-                  <Link
-                    key={year}
-                    href={URLS.COMMUNITY_YEAR(year)}
-                    className="text-xs px-2 py-1 rounded-md border hover:bg-accent transition-colors"
-                  >
-                    {year}
-                  </Link>
+                  <YearBadge key={`${year}-community`} year={year} type="community" asLink />
                 ))}
               </div>
             ) : null}
