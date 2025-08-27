@@ -5,8 +5,9 @@ import { notFound } from "next/navigation";
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
-import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
+import { getArticleLabel } from "@/lib/helpers/config";
 import { createFilteredMetadata } from "@/lib/helpers/metadata";
 
 interface PageProps {
@@ -26,7 +27,7 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
   return (
     <div className="page-container">
       <BackButton
-        href={`/${getArticleSlug()}`}
+        href={URLS.ARTICLES_LIST()}
         label={`Back to ${getArticleLabel().toLowerCase()}`}
         Icon={ArrowLeft}
       />
@@ -50,7 +51,6 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
               <ArticleSummaryCard
                 key={article.slug}
                 article={article}
-                href={`/articles/${year}/${article.slug}?source=year-range`}
               />
             ))}
           </div>

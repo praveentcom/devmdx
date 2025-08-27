@@ -16,6 +16,7 @@ import {
   METADATA_PATTERNS,
 } from "@/lib/helpers/metadata";
 import { generateCommunitySchema } from "@/lib/helpers/structured-data";
+import { URLS } from "@/lib/constants/urls";
 
 interface PageProps {
   params: Promise<{
@@ -44,11 +45,7 @@ export default async function CommunityContributionPage({ params }: PageProps) {
     >
       <div className="page-container">
         <BackButton
-          href={
-            (await headers()).get("x-next-url")?.includes("source=year-range")
-              ? `/community/${year}`
-              : `/community`
-          }
+          href={URLS.COMMUNITY_LIST()}
           label="Back to contributions"
           Icon={ArrowLeft}
         />

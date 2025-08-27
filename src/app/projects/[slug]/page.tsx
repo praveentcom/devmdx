@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/common";
 import { TagBadge } from "@/components/ui/tag-badge";
 import { profileData } from "@/data/profile";
+import { URLS } from "@/lib/constants/urls";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
@@ -44,7 +45,7 @@ export default async function ProjectPage({ params }: PageProps) {
         {/* Desktop layout: buttons aligned in header */}
         <div className="hidden md:flex items-center justify-between">
           <BackButton
-            href="/projects"
+            href={URLS.PROJECTS_LIST()}
             label="Back to projects"
             Icon={ArrowLeft}
           />
@@ -81,7 +82,7 @@ export default async function ProjectPage({ params }: PageProps) {
         {/* Mobile layout: only back button in header */}
         <div className="md:hidden">
           <BackButton
-            href="/projects"
+            href={URLS.PROJECTS_LIST()}
             label="Back to projects"
             Icon={ArrowLeft}
           />

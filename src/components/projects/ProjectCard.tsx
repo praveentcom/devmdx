@@ -5,12 +5,12 @@ import Link from "next/link";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { TagBadge } from "@/components/ui/tag-badge";
+import { URLS } from "@/lib/constants/urls";
 import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { Project } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
-  /** Tag to disable clicking on (for stack/tag pages) */
   currentTag?: EnumTag;
 }
 
@@ -19,7 +19,7 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
     project;
 
   return (
-    <Link href={`/projects/${project.slug}`} className="block">
+    <Link href={URLS.PROJECTS(project.slug)} className="block">
       <Card>
         <CardHeader>
           <div className="card-header-layout">

@@ -10,6 +10,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { URLS } from "@/lib/constants/urls";
 
 export default function Error() {
   return (
@@ -42,7 +43,7 @@ export default function Error() {
                 asChild
                 className="flex items-center gap-1.5"
               >
-                <Link href="/">
+                <Link href={URLS.HOME()}>
                   <Home className="size-4" />
                   Back to home
                 </Link>
@@ -52,7 +53,7 @@ export default function Error() {
                 asChild
                 className="flex items-center gap-1.5"
               >
-                <Link href="/articles">
+                <Link href={URLS.ARTICLES_LIST()}>
                   <Newspaper className="size-4" />
                   Browse articles
                 </Link>

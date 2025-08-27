@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { communityData } from "@/data/community";
-import { BASE_URL } from "@/lib/constants";
+import { BASE_URL, URLS } from "@/lib/constants";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { getAllCommunitySlugs } from "@/lib/helpers/community";
 import { getAuthorName, getSiteName } from "@/lib/helpers/config";
@@ -155,7 +155,7 @@ export default function CommunityPage() {
                 ).map((year) => (
                   <Link
                     key={year}
-                    href={`/community/${year}`}
+                    href={URLS.COMMUNITY_YEAR(year)}
                     className="text-xs px-2 py-1 rounded-md border hover:bg-accent transition-colors"
                   >
                     {year}
@@ -179,7 +179,7 @@ export default function CommunityPage() {
                 subtitle="I haven't shared any talks or presentations yet, but I'm working on some great content to share with the community."
               >
                 <Button variant="outline" asChild>
-                  <Link href="/">Go home</Link>
+                  <Link href={URLS.HOME()}>Go home</Link>
                 </Button>
               </EmptyPlaceholderCard>
             )}

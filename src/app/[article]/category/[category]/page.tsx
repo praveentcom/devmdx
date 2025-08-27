@@ -8,11 +8,11 @@ import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { getAllCategories, getArticlesByCategory } from "@/lib/helpers/article";
 import {
   getArticleLabel,
   getArticleLabelSingular,
-  getArticleSlug,
 } from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
@@ -42,7 +42,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     decodedCategory,
     filteredArticles.length,
-    `/${getArticleSlug()}/category/${category}`,
+    URLS.ARTICLES_CATEGORY(category),
   );
 }
 
@@ -65,7 +65,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
           {/* Header with back navigation */}
           <div className="grid gap-0.5">
             <BackButton
-              href={`/${getArticleSlug()}`}
+              href={URLS.ARTICLES_LIST()}
               label={`Back to ${getArticleLabel().toLowerCase()}`}
               Icon={ArrowLeft}
             />
@@ -91,10 +91,10 @@ export default async function CategoryArticlePage({ params }: PageProps) {
             subtitle={`No articles have been published this ${decodedCategory} category yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>
-              <Link href="/articles">articles</Link>
+              <Link href={URLS.ARTICLES_LIST()}>articles</Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/">Go home</Link>
+              <Link href={URLS.HOME()}>Go home</Link>
             </Button>
           </EmptyPlaceholderCard>
         </div>
@@ -108,7 +108,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
         <div className="grid gap-0.5">
           <div className="flex items-center gap-1.5">
             <BackButton
-              href="/articles"
+              href={URLS.ARTICLES_LIST()}
               label="Back to articles"
               Icon={ArrowLeft}
             />

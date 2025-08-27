@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/common";
 import { TagBadge } from "@/components/ui/tag-badge";
 import { profileData } from "@/data/profile";
+import { URLS } from "@/lib/constants/urls";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
@@ -37,7 +38,7 @@ export default async function WorkExperiencePage({ params }: PageProps) {
   return (
     <PageWithStructuredData structuredData={generateWorkSchema(experience)}>
       <div className="page-container">
-        <BackButton href="/" label="Back to profile" Icon={ArrowLeft} />
+        <BackButton href={URLS.HOME()} label="Back to profile" Icon={ArrowLeft} />
 
         <div className="grid gap-4">
           <EntityHeader

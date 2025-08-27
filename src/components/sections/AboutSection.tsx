@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { IconLinks } from "@/components/ui/icon-links";
+import { URLS } from "@/lib/constants/urls";
 import { Profile } from "@/types/user-profile";
 
 interface AboutSectionProps {
@@ -79,7 +80,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
         )}
 
         <Button variant="outline" size="sm" asChild>
-          <Link href="/bio">View bio &rarr;</Link>
+          <Link href={URLS.BIO()}>View bio &rarr;</Link>
         </Button>
       </CardContent>
     </Card>

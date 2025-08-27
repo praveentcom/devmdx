@@ -9,8 +9,9 @@ import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
-import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
+import { getArticleLabel } from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
@@ -47,7 +48,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     tagDetails.label,
     filteredArticles.length,
-    `/${getArticleSlug()}/tag/${tag}`,
+    URLS.ARTICLES_TAG(tag),
   );
 }
 
@@ -77,7 +78,7 @@ export default async function TagArticlePage({ params }: PageProps) {
           {/* Header with back navigation */}
           <div className="grid gap-0.5">
             <BackButton
-              href={`/${getArticleSlug()}`}
+              href={URLS.ARTICLES_LIST()}
               label={`Back to ${getArticleLabel().toLowerCase()}`}
               Icon={ArrowLeft}
             />
@@ -106,12 +107,12 @@ export default async function TagArticlePage({ params }: PageProps) {
             subtitle={`No ${getArticleLabel().toLowerCase()} have been published with the tag ${tagDetails.label} yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>
-              <Link href={`/${getArticleSlug()}`}>
+              <Link href={URLS.ARTICLES_LIST()}>
                 {getArticleLabel().toLowerCase()}
               </Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/">Go home</Link>
+              <Link href={URLS.HOME()}>Go home</Link>
             </Button>
           </EmptyPlaceholderCard>
         </div>
@@ -124,7 +125,7 @@ export default async function TagArticlePage({ params }: PageProps) {
       <div className="grid gap-5">
         <div className="grid gap-0.5">
           <BackButton
-            href={`/${getArticleSlug()}`}
+            href={URLS.ARTICLES_LIST()}
             label={`Back to ${getArticleLabel().toLowerCase()}`}
             Icon={ArrowLeft}
           />

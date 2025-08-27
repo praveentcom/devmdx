@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { PageWithStructuredData } from "@/components/ui/common";
 import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
-import { BASE_URL } from "@/lib/constants";
+import { BASE_URL, URLS } from "@/lib/constants";
 import { getAuthorName, getOgImage, getSiteName } from "@/lib/helpers/config";
 import { generateOpenGraphImage } from "@/lib/helpers/image";
 import { generatePersonSchema } from "@/lib/helpers/structured-data";
@@ -60,7 +60,7 @@ export default function BioPage() {
           <div className="space-y-6">
             <div className="flex items-center gap-3">
               <Button variant="outline" size="sm" asChild>
-                <Link href="/" className="flex items-center gap-1.5">
+                <Link href={URLS.HOME()} className="flex items-center gap-1.5">
                   <ArrowLeft className="h-4 w-4" />
                   Back to Home
                 </Link>

@@ -1,6 +1,5 @@
 import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import Script from "next/script";
 
@@ -8,11 +7,11 @@ import { ArticleHeader } from "@/components/article/ArticleHeader";
 import { ArticleMetadata } from "@/components/article/ArticleMetadata";
 import { BackButton, PageWithStructuredData } from "@/components/ui/common";
 import { Markdown } from "@/components/ui/markdown";
+import { URLS } from "@/lib/constants/urls";
 import { getAllArticleSlugs, getArticleBySlugRaw } from "@/lib/helpers/article";
 import {
   getArticleLabel,
   getArticleLabelSingular,
-  getArticleSlug,
 } from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
@@ -53,11 +52,7 @@ export default async function ArticlePage({ params }: PageProps) {
     >
       <div className="page-container">
         <BackButton
-          href={
-            (await headers()).get("x-next-url")?.includes("source=year-range")
-              ? `/${getArticleSlug()}/${year}`
-              : `/${getArticleSlug()}`
-          }
+          href={URLS.ARTICLES_LIST()}
           label={`Back to ${getArticleLabel().toLowerCase()}`}
           Icon={ArrowLeft}
         />
@@ -112,7 +107,7 @@ export async function generateMetadata({
     article.description,
     article.image,
     new Date(article.date).toISOString(),
-    `/${getArticleSlug()}/${year}/${article.slug}`,
+    URLS.ARTICLES(year, article.slug),
     article.private,
   );
 }

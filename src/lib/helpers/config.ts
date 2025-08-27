@@ -1,5 +1,6 @@
 import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
+import { URLS } from "@/lib/constants/urls";
 
 /**
  * Get the site name from config or fallback to profile name
@@ -70,16 +71,16 @@ export function getArticleSlug(): string {
 export function getNavigationItems() {
   const baseItems = [
     ...(configData.navigation?.showHomeInNav !== false
-      ? [{ href: "/", label: "Home" }]
+      ? [{ href: URLS.HOME(), label: "Home" }]
       : []),
     ...(configData.navigation?.showProjectsInNav !== false
-      ? [{ href: "/projects", label: "Projects" }]
+      ? [{ href: URLS.PROJECTS_LIST(), label: "Projects" }]
       : []),
     ...(configData.navigation?.showArticlesInNav !== false
-      ? [{ href: `/${getArticleSlug()}`, label: getArticleLabel() }]
+      ? [{ href: URLS.ARTICLES_LIST(), label: getArticleLabel() }]
       : []),
     ...(configData.navigation?.showCommunityInNav !== false
-      ? [{ href: "/community", label: "Community" }]
+      ? [{ href: URLS.COMMUNITY_LIST(), label: "Community" }]
       : []),
   ];
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DateRange } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { Education } from "@/types/education";
 
 interface EducationSectionProps {
@@ -22,7 +23,7 @@ function EducationCard({ education }: { education: Education }) {
   } = education;
 
   return (
-    <Link href={`/education/${education.slug}`} className="block">
+    <Link href={URLS.EDUCATION(education.slug)} className="block">
       <Card>
         <CardHeader>
           <div className="card-header-layout">

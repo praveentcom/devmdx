@@ -3,8 +3,9 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { URLS } from "@/lib/constants/urls";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
-import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
+import { getArticleLabel } from "@/lib/helpers/config";
 
 import { ArticleSummaryCard } from "../article/ArticleSummaryCard";
 
@@ -29,7 +30,7 @@ export function ArticlesSection() {
         {publishedArticles.length > 2 && (
           <Button variant="outline" size="sm" asChild>
             <Link
-              href={`/${getArticleSlug()}`}
+              href={URLS.ARTICLES_LIST()}
               className="flex items-center gap-1.5"
             >
               View all
