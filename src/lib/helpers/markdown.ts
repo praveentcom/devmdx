@@ -1,11 +1,14 @@
 import { format } from "date-fns";
 import hljs from "highlight.js";
 
+// Default file icon path constant
+const DEFAULT_FILE_ICON_PATH = "/images/tech-icons/Docs.png";
+
 import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
 import { Article } from "@/types/article";
 
 function getFileIcon(filename: string): string {
-  if (!filename) return '<img src="/images/tech-icons/Docs.png" alt="File" class="w-4 h-4" />';
+  if (!filename) return `<img src="${DEFAULT_FILE_ICON_PATH}" alt="File" class="w-4 h-4" />`;
   
   const ext = filename.split('.').pop()?.toLowerCase();
   const tagMapper = new TagMapper();
