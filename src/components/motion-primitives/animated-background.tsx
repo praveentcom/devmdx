@@ -17,7 +17,7 @@ export type AnimatedBackgroundProps = {
     | ReactElement<{ "data-id": string }>[]
     | ReactElement<{ "data-id": string }>;
   defaultValue?: string;
-  onValueChange?: (newActiveId: string | null) => void;
+  onValueChangeAction?: (newActiveId: string | null) => void;
   className?: string;
   transition?: Transition;
   enableHover?: boolean;
@@ -26,7 +26,7 @@ export type AnimatedBackgroundProps = {
 export function AnimatedBackground({
   children,
   defaultValue,
-  onValueChange,
+  onValueChangeAction,
   className,
   transition,
   enableHover = false,
@@ -37,8 +37,8 @@ export function AnimatedBackground({
   const handleSetActiveId = (id: string | null) => {
     setActiveId(id);
 
-    if (onValueChange) {
-      onValueChange(id);
+    if (onValueChangeAction) {
+      onValueChangeAction(id);
     }
   };
 
@@ -55,7 +55,7 @@ export function AnimatedBackground({
     const interactionProps = enableHover
       ? {
           onMouseEnter: () => handleSetActiveId(id),
-          onMouseLeave: () => handleSetActiveId(defaultValue || null),
+          onMouseLeave: () => handleSetActiveId(null),
         }
       : {
           onClick: () => handleSetActiveId(id),
