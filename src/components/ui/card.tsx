@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { BlurIn } from "@/components/motion-primitives/blur-in";
 import { BorderTrail } from "@/components/motion-primitives/border-trail";
+import { cn } from "@/lib/utils";
 
 interface CardProps extends React.ComponentProps<"div"> {
   animated?: boolean;
@@ -127,10 +127,10 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
 
 export {
   Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
   CardAction,
-  CardDescription,
   CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 };

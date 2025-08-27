@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { parseMarkdown } from "@/lib/helpers/markdown";
+import { cn } from "@/lib/utils";
 
 interface MarkdownProps {
   content: string;

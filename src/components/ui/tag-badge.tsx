@@ -1,7 +1,9 @@
-import { Badge } from "@/components/ui/badge";
-import { TagMapper, EnumTag } from "@/lib/helpers/tag-mapper";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Badge } from "@/components/ui/badge";
+import { getArticleSlug } from "@/lib/helpers/config";
+import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
 import { cn } from "@/lib/utils";
 
 interface TagBadgeProps {
@@ -54,7 +56,7 @@ export function TagBadge({
     let href = "";
     switch (source) {
       case "articles":
-        href = `/articles/tag/${tag}`;
+        href = `/${getArticleSlug()}/tag/${tag}`;
         break;
       case "work":
       case "projects":

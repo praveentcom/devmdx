@@ -1,12 +1,13 @@
 import type { NextConfig } from "next";
+
 import createMDX from "@next/mdx";
+
 import { getEnvConfig } from "./src/lib/helpers/env-config";
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
 });
 
-// Get environment-based configuration
 const envConfig = getEnvConfig();
 
 const nextConfig: NextConfig = {
@@ -60,7 +61,6 @@ const nextConfig: NextConfig = {
       },
     ];
 
-    // Add development-specific headers
     if (envConfig.isDevelopment) {
       securityHeaders.push({
         key: "X-Development-Mode",

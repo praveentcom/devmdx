@@ -1,31 +1,32 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
-import { Users, Presentation, MicVocal, MonitorPlay } from "lucide-react";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getAllCommunitySlugs } from "@/lib/helpers/community";
+import { MicVocal, MonitorPlay, Presentation, Users } from "lucide-react";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
+import Link from "next/link";
+import pluralize from "pluralize";
+
+import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { PageWithStructuredData } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { communityData } from "@/data/community";
+import { BASE_URL } from "@/lib/constants";
+import { COLOR_SCHEMES } from "@/lib/constants/colors";
+import { getAllCommunitySlugs } from "@/lib/helpers/community";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import {
   generateCommunityPlaceholderImage,
   generatePlaceholderImageUrl,
 } from "@/lib/helpers/image";
-import { COLOR_SCHEMES } from "@/lib/constants/colors";
-import { communityData } from "@/data/community";
-import { Card, CardContent } from "@/components/ui/card";
-import pluralize from "pluralize";
-import { PageWithStructuredData } from "@/components/ui/common";
 import { EnumCommunityContributionType } from "@/types/community";
-import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Community contributions`,
+  title: `${getAuthorName()} | Community contributions`,
   description: communityData.descriptionLine1,
   openGraph: {
     title: "Community contributions",
     description: communityData.descriptionLine1,
     type: "website",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: `${BASE_URL}/community`,
     images: [
       {
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
     "community, talks, presentations, conferences, workshops, speaking, developer community",
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: getAuthorName(),
     },
   ],
 };
@@ -101,7 +102,7 @@ export default function CommunityPage() {
                     {communityData.descriptionLine2}
                   </p>
                 </div>
-                <div className="flex items-center gap-2 text-xs">
+                <div className="flex items-center gap-1.5 text-xs">
                   {talks.length > 0 && (
                     <div className="flex items-center gap-1 bg-primary/10 px-2.5 py-1 rounded-md">
                       <MicVocal className="size-3 text-primary" />
@@ -135,7 +136,7 @@ export default function CommunityPage() {
           {/* Contributions Grid */}
           <div className="grid gap-5">
             <div className="grid">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
                 <Users className="size-4 text-primary" />
                 <h1 className="text-md font-medium">Community contributions</h1>
               </div>
@@ -148,7 +149,7 @@ export default function CommunityPage() {
             {publishedContributions.length > 0 &&
             Array.from(new Set(publishedContributions.map((c) => c.year)))
               .length > 1 ? (
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {Array.from(
                   new Set(publishedContributions.map((c) => c.year)),
                 ).map((year) => (

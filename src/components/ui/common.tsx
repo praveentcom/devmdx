@@ -1,12 +1,13 @@
+import { format } from "date-fns";
+import { LucideIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { ReactNode } from "react";
+
+import { BlurIn } from "@/components/motion-primitives/blur-in";
+import { StructuredData } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
-import Image from "next/image";
-import { format } from "date-fns";
-import { StructuredData } from "@/components/seo/StructuredData";
-import { LucideIcon } from "lucide-react";
-import { BlurIn } from "@/components/motion-primitives/blur-in";
 import { cn } from "@/lib/utils";
 
 export function PageWithStructuredData({
@@ -36,7 +37,7 @@ export function BackButton({
   return (
     <div className="mb-4">
       <Button variant="outline" size="sm" asChild>
-        <Link href={href} className="flex items-center gap-2">
+        <Link href={href} className="flex items-center gap-1.5">
           <Icon className="size-4" />
           {label}
         </Link>

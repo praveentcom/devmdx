@@ -1,15 +1,19 @@
 import { MetadataRoute } from "next";
+
 import { profileData } from "@/data/profile";
+import { BASE_URL } from "@/lib/constants";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
-import { BASE_URL } from "@/lib/constants";
+import { getArticleSlug } from "@/lib/helpers/config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Static pages
+  /**
+   * Static Pages
+   */
   const staticPages = [
     "",
     "/bio",
-    "/articles",
+    `/${getArticleSlug()}`,
     "/community",
     "/projects",
     "/cover",
@@ -20,21 +24,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1 : 0.8,
   }));
 
-  // Get articles without client-side image generation
+  /**
+   * Article Pages
+   *
+   * 1. Articles
+   * 2. Article year listing
+   * 3. Article tag listing
+   * 4. Article category listing
+   */
   const allArticles = getAllArticlesIndex();
 
-  // Article pages
   const articles = allArticles.map((article) => ({
-    url: `${BASE_URL}/articles/${article.year}/${article.slug}`,
+    url: `${BASE_URL}/${getArticleSlug()}/${article.year}/${article.slug}`,
     lastModified: new Date(article.date),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  // Article year listing pages
   const articleYears = Array.from(new Set(allArticles.map((a) => a.year))).map(
     (year) => ({
-      url: `${BASE_URL}/articles/${year}`,
+      url: `${BASE_URL}/${getArticleSlug()}/${year}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.6,
@@ -44,16 +53,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articleTags = Array.from(
     new Set(allArticles.flatMap((article) => article.tags)),
   ).map((tag) => ({
-    url: `${BASE_URL}/articles/tag/${tag}`,
+    url: `${BASE_URL}/${getArticleSlug()}/tag/${tag}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
-  // Get community contributions
+  const articleCategories = Array.from(
+    new Set(allArticles.flatMap((article) => article.categories)),
+  ).map((category) => ({
+    url: `${BASE_URL}/${getArticleSlug()}/category/${category}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  /**
+   * Community Pages
+   *
+   * 1. Community contributions
+   * 2. Community year listing
+   * 3. Community contribution type listing
+   */
   const allCommunity = getAllCommunityIndex();
 
-  // Community contribution pages
   const communityContributions = allCommunity.map((contribution) => ({
     url: `${BASE_URL}/community/${contribution.year}/${contribution.slug}`,
     lastModified: new Date(contribution.date),
@@ -61,7 +84,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Community year listing pages
   const communityYears = Array.from(
     new Set(allCommunity.map((c) => c.year)),
   ).map((year) => ({
@@ -71,7 +93,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // Community type listing pages
   const communityContributionTypes = Array.from(
     new Set(allCommunity.map((c) => c.type)),
   ).map((type) => ({
@@ -81,7 +102,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // Project pages
+  /**
+   * Project Pages
+   *
+   * 1. Project pages
+   * 2. Project stack listing
+   */
   const projects = profileData.projects.map((project) => ({
     url: `${BASE_URL}/projects/${project.slug}`,
     lastModified: project.date || new Date(),
@@ -89,7 +115,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  // Project stack pages
   const usedProjectTags = Array.from(
     new Set(profileData.projects.flatMap((project) => project.stack || [])),
   );
@@ -100,7 +125,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // Work experience pages
+  /**
+   * Work Experience & Education Pages
+   *
+   * 1. Work experience pages
+   * 2. Education pages
+   */
   const workExperience = profileData.workExperience.map((work) => ({
     url: `${BASE_URL}/work/${work.slug}`,
     lastModified: new Date(),
@@ -108,7 +138,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  // Education pages
   const education = profileData.education.map((edu) => ({
     url: `${BASE_URL}/education/${edu.slug}`,
     lastModified: new Date(),
@@ -121,6 +150,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articles,
     ...articleYears,
     ...articleTags,
+    ...articleCategories,
     ...communityContributions,
     ...communityYears,
     ...communityContributionTypes,

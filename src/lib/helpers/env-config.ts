@@ -1,8 +1,4 @@
 /**
- * Environment configuration helper functions
- */
-
-/**
  * Parse comma-separated hostnames from environment variable
  * @param envVar - Environment variable string (comma-separated)
  * @param fallback - Fallback hostnames array
@@ -49,11 +45,9 @@ export function generateCSP(
   allowedHostnames: string[] = [],
 ): string {
   if (strictMode) {
-    // Strict mode: only allow self and no external resources
     return "default-src 'self'; script-src 'none'; sandbox;";
   }
 
-  // Non-strict mode: allow data URIs, blobs, and specified hostnames
   const hostnameList =
     allowedHostnames.length > 0
       ? ` ${allowedHostnames.map((h) => `https://${h}`).join(" ")}`
@@ -69,22 +63,18 @@ export function getEnvConfig() {
   const isDevelopment = process.env.NODE_ENV === "development";
   const isProduction = process.env.NODE_ENV === "production";
 
-  // Parse image hostnames
   const imageHostnames = parseHostnames(
     process.env.NEXT_PUBLIC_ALLOWED_IMAGE_HOSTNAMES,
-    ["placehold.co"], // Default fallback
+    ["placehold.co"],
   );
 
-  // Parse general hostnames
   const allowedHostnames = parseHostnames(
     process.env.NEXT_PUBLIC_ALLOWED_HOSTNAMES,
     [],
   );
 
-  // Create image remote patterns
   const imageRemotePatterns = createImageRemotePatterns(imageHostnames);
 
-  // Add development-specific hostnames if in development mode
   if (isDevelopment) {
     const devImageHostnames = parseHostnames(
       process.env.NEXT_PUBLIC_DEV_IMAGE_HOSTNAMES,
@@ -123,7 +113,6 @@ export function isValidHostname(hostname: string): boolean {
     return false;
   }
 
-  // Basic hostname validation regex
   const hostnameRegex =
     /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 

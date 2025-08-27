@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
 
 export function Footer() {
@@ -14,7 +15,7 @@ export function Footer() {
               {profileData.profile.lastName}
             </p>
             <p className="text-muted-foreground text-xs">
-              {profileData.profile.footerSubtitle}
+              {configData.misc.footerSubtitle}
             </p>
           </div>
 

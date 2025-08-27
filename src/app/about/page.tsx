@@ -1,20 +1,22 @@
-import { FileText } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import fs from "node:fs";
 import path from "node:path";
-import { Markdown } from "@/components/ui/markdown";
+
+import { FileText } from "lucide-react";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Markdown } from "@/components/ui/markdown";
 import { BASE_URL } from "@/lib/constants";
+import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
+import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | About`,
+  title: `${getAuthorName()} | About`,
   description:
     "Learn more about my background, experiences, and what drives me professionally and personally.",
   openGraph: {
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "Learn more about my background, experiences, and what drives me professionally and personally.",
     type: "article",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: `${BASE_URL}/about`,
     images: [
       {
@@ -53,7 +55,7 @@ export const metadata: Metadata = {
   keywords: "about, background, experience, professional, personal, biography",
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: getAuthorName(),
     },
   ],
 };
@@ -68,7 +70,6 @@ export default function AboutPage() {
     aboutContent = fs.readFileSync(aboutPath, "utf-8");
     hasAboutFile = true;
   } catch {
-    // File doesn't exist, will show placeholder
     hasAboutFile = false;
   }
 
@@ -85,7 +86,7 @@ export default function AboutPage() {
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <FileText className="size-4 text-primary" />
               <h1 className="text-md font-medium">About</h1>
             </div>

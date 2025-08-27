@@ -1,11 +1,12 @@
-import { Project } from "@/types/project";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { TagBadge } from "@/components/ui/tag-badge";
-import { Users, Calendar } from "lucide-react";
+import { format } from "date-fns";
+import { Calendar, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { format } from "date-fns";
+
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { TagBadge } from "@/components/ui/tag-badge";
 import { EnumTag } from "@/lib/helpers/tag-mapper";
+import { Project } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
@@ -58,7 +59,7 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
               <p className="text-muted-foreground leading-relaxed text-sm">
                 {description}
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {stack.map((tag, index) => (
                   <TagBadge
                     key={index}

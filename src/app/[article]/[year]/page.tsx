@@ -1,10 +1,12 @@
-import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarRange } from "lucide-react";
-import { BackButton } from "@/components/ui/common";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
+import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
+import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
 import { createFilteredMetadata } from "@/lib/helpers/metadata";
 
 interface PageProps {
@@ -23,12 +25,18 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
 
   return (
     <div className="page-container">
-      <BackButton href="/articles" label="Back to articles" Icon={ArrowLeft} />
+      <BackButton
+        href={`/${getArticleSlug()}`}
+        label={`Back to ${getArticleLabel().toLowerCase()}`}
+        Icon={ArrowLeft}
+      />
       <div className="grid gap-5">
         <div className="grid gap-0.5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <CalendarRange className="size-4 text-primary" />
-            <h1 className="text-md font-medium">Articles from {year}</h1>
+            <h1 className="text-md font-medium">
+              {getArticleLabel()} from {year}
+            </h1>
           </div>
           <p className="text-sm text-muted-foreground">
             {articles.length} article{articles.length === 1 ? "" : "s"}{" "}

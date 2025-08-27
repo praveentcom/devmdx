@@ -1,14 +1,15 @@
 import fs from "fs";
-import path from "path";
 import matter from "gray-matter";
-import { z } from "zod";
-import { EnumCommunityContributionType } from "@/types/community";
-import { calculateReadTime } from "@/lib/helpers/markdown";
-import { generateCommunityPlaceholderImage } from "@/lib/helpers/image";
 import { compileMDX } from "next-mdx-remote/rsc";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
+import path from "path";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import { z } from "zod";
+
+import { generateCommunityPlaceholderImage } from "@/lib/helpers/image";
+import { calculateReadTime } from "@/lib/helpers/markdown";
+import { EnumCommunityContributionType } from "@/types/community";
 
 const COMMUNITY_CONTENT_DIR = path.join(process.cwd(), "data", "community");
 
@@ -139,7 +140,6 @@ export async function getCommunityBySlugCompiled(slug: string): Promise<{
 
   const raw = fs.readFileSync(match, "utf-8");
 
-  // compileMDX can parse frontmatter directly
   const { content, frontmatter } = await compileMDX<{ [key: string]: unknown }>(
     {
       source: raw,

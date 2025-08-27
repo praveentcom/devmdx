@@ -1,12 +1,13 @@
 "use client";
-import { ReactNode, useRef, useState } from "react";
+
 import {
   motion,
-  useInView,
-  Variant,
   Transition,
+  useInView,
   UseInViewOptions,
+  Variant,
 } from "motion/react";
+import { ReactNode, useRef, useState } from "react";
 
 export type InViewProps = {
   children: ReactNode;

@@ -1,5 +1,7 @@
 import Link from "next/link";
+
 import { Badge } from "@/components/ui/badge";
+import { getArticleSlug } from "@/lib/helpers/config";
 import { cn } from "@/lib/utils";
 
 interface ArticleYearBadgeProps {
@@ -25,5 +27,5 @@ export function ArticleYearBadge({
     return badgeContent;
   }
 
-  return <Link href={`/articles/${year}`}>{badgeContent}</Link>;
+  return <Link href={`/${getArticleSlug()}/${year}`}>{badgeContent}</Link>;
 }

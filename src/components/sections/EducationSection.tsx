@@ -1,10 +1,11 @@
-import { Education } from "@/types/education";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CalendarDays, GraduationCap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DateRange } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { Education } from "@/types/education";
 
 interface EducationSectionProps {
   education: Education[];
@@ -68,7 +69,7 @@ function EducationCard({ education }: { education: Education }) {
 export function EducationSection({ education }: EducationSectionProps) {
   return (
     <section role="region" aria-label="Education" className="w-full grid gap-3">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5">
         <GraduationCap className="size-4 text-primary" />
         <h2 className="text-md font-medium">Education</h2>
       </div>

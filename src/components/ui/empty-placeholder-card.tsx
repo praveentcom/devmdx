@@ -1,8 +1,9 @@
 "use client";
 
-import { ReactNode } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { NewspaperIcon } from "lucide-react";
+import { ReactNode } from "react";
+
+import { Card, CardContent } from "@/components/ui/card";
 
 interface EmptyPlaceholderCardProps {
   title: string;
@@ -19,7 +20,7 @@ export function EmptyPlaceholderCard({
     <Card>
       <CardContent className="text-center py-6">
         <div className="grid items-center gap-5">
-          <div className="grid text-center items-center justify-center gap-2">
+          <div className="grid text-center items-center justify-center gap-1.5">
             <NewspaperIcon className="size-4 text-muted-foreground mx-auto" />
             <div className="grid gap-1">
               <h3 className="text-foreground text-sm font-medium">{title}</h3>
@@ -29,7 +30,7 @@ export function EmptyPlaceholderCard({
             </div>
           </div>
           {children ? (
-            <div className="flex gap-2 mx-auto">{children}</div>
+            <div className="flex gap-1.5 mx-auto">{children}</div>
           ) : null}
         </div>
       </CardContent>

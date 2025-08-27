@@ -1,61 +1,69 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { Newspaper } from "lucide-react";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
-import { EnumTag } from "@/lib/helpers/tag-mapper";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { COLOR_SCHEMES } from "@/lib/constants/colors";
+import Link from "next/link";
 import pluralize from "pluralize";
-import { PageWithStructuredData } from "@/components/ui/common";
-import { BASE_URL } from "@/lib/constants";
-import { CategoryBadge } from "@/components/ui/category-badge";
+
+import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { ArticleYearBadge } from "@/components/ui/article-year-badge";
+import { Button } from "@/components/ui/button";
+import { CategoryBadge } from "@/components/ui/category-badge";
+import { PageWithStructuredData } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
+import { BASE_URL } from "@/lib/constants";
+import { COLOR_SCHEMES } from "@/lib/constants/colors";
+import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
+import {
+  getArticleLabel,
+  getArticleLabelSingular,
+  getAuthorName,
+  getSiteName,
+} from "@/lib/helpers/config";
+import { getArticleSlug } from "@/lib/helpers/config";
+import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
+import { EnumTag } from "@/lib/helpers/tag-mapper";
+
+const articleLabel = getArticleLabel();
+const articleLabelSingular = getArticleLabelSingular();
+const authorName = getAuthorName();
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Articles`,
-  description:
-    "A collection of articles about development, technology, and more. Sharing insights and knowledge from my journey as a developer.",
+  title: `${authorName} | ${articleLabel}`,
+  description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more. Sharing insights and knowledge from my journey as a developer.`,
   openGraph: {
-    title: "Articles",
-    description:
-      "A collection of articles about development, technology, and more.",
+    title: articleLabel,
+    description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
     type: "website",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-    url: `${BASE_URL}/articles`,
+    siteName: getSiteName(),
+    url: `${BASE_URL}/${getArticleSlug()}`,
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: "Articles",
+          text: articleLabel,
           backgroundColor: COLOR_SCHEMES.ARTICLE.background,
           textColor: COLOR_SCHEMES.ARTICLE.text,
         }),
         width: 1200,
         height: 630,
-        alt: "Articles",
+        alt: articleLabel,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Articles",
-    description:
-      "A collection of articles about development, technology, and more.",
+    title: articleLabel,
+    description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
     images: [
       generatePlaceholderImageUrl({
-        text: "Articles",
+        text: articleLabel,
         backgroundColor: COLOR_SCHEMES.ARTICLE.background,
         textColor: COLOR_SCHEMES.ARTICLE.text,
       }),
     ],
   },
-  keywords: "articles, blog, development, technology, programming, tutorials",
+  keywords: `${articleLabel.toLowerCase()}, blog, development, technology, programming, tutorials`,
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: getAuthorName(),
     },
   ],
 };
@@ -71,22 +79,21 @@ export default function ArticlePage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "Articles",
-        description:
-          "A collection of articles about development, technology, and more.",
+        name: articleLabel,
+        description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
       }}
     >
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <Newspaper className="size-4 text-primary" />
-              <h1 className="text-md font-medium">Articles</h1>
+              <h1 className="text-md font-medium">{articleLabel}</h1>
             </div>
             <p className="text-sm text-muted-foreground">
               {publishedArticles.length > 0
-                ? `${publishedArticles.length} ${pluralize("article", publishedArticles.length)} about development, technology, and more.`
-                : "No articles published yet."}
+                ? `${publishedArticles.length} ${pluralize(articleLabelSingular.toLowerCase(), publishedArticles.length)} about development, technology, and more.`
+                : `No ${articleLabel.toLowerCase()} published yet.`}
             </p>
           </div>
 
@@ -96,7 +103,7 @@ export default function ArticlePage() {
               <h3 className="text-sm font-medium text-muted-foreground">
                 Browse by category
               </h3>
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {allCategories.map((category) => (
                   <CategoryBadge key={category} category={category} asLink />
                 ))}
@@ -112,7 +119,7 @@ export default function ArticlePage() {
               <h3 className="text-sm font-medium text-muted-foreground">
                 Browse by year
               </h3>
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
                   (year) => (
                     <ArticleYearBadge key={year} year={year} asLink />
@@ -130,8 +137,8 @@ export default function ArticlePage() {
             </div>
           ) : (
             <EmptyPlaceholderCard
-              title="No articles yet."
-              subtitle="I haven't published any articles yet, but I'm working on some great content."
+              title={`No ${articleLabel.toLowerCase()} yet.`}
+              subtitle={`I haven't published any ${articleLabel.toLowerCase()} yet, but I'm working on some great content.`}
             >
               <Button variant="outline" asChild>
                 <Link href="/">Go home</Link>

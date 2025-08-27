@@ -1,12 +1,14 @@
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { Calendar, Eye, Youtube, ExternalLink } from "lucide-react";
-import { formatDate } from "@/lib/helpers/markdown";
-import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
-import { truncate } from "@/lib/utils";
-import Link from "next/link";
+import { Calendar, ExternalLink, Eye, Youtube } from "lucide-react";
 import Image from "next/image";
+
+import { PrefetchLink } from "@/components/ui/prefetch-link";
 import { CommunityIndexItem } from "@/lib/helpers/community";
+import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
+import { formatDate } from "@/lib/helpers/markdown";
+import { truncate } from "@/lib/utils";
+
 import { Badge } from "../ui/badge";
+import { Card, CardContent, CardHeader } from "../ui/card";
 import { ContributionTypeBadge } from "../ui/contribution-type-badge";
 
 export function CommunitySummaryCard({
@@ -17,7 +19,10 @@ export function CommunitySummaryCard({
   href?: string;
 }) {
   return (
-    <Link href={href ?? `/community/${community.year}/${community.slug}`}>
+    <PrefetchLink
+      href={href ?? `/community/${community.year}/${community.slug}`}
+      prefetchOnVisible={true}
+    >
       <Card className="group" borderTrail>
         <CardHeader>
           <div className="relative w-full h-48 overflow-hidden rounded-md">
@@ -34,8 +39,8 @@ export function CommunitySummaryCard({
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-2">
-            <div className="flex-center-gap-4 text-xs font-medium text-muted-foreground">
+          <div className="flex flex-col gap-3">
+            <div className="flex-center-gap-3 text-xs font-medium text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="size-3" />
                 <span>{formatDate(community.date)}</span>
@@ -46,14 +51,13 @@ export function CommunitySummaryCard({
               </div>
             </div>
 
-            <div className="grid gap-1 mb-2.5">
-              <h2 className="text-md font-medium group-hover:text-primary transition-colors">
-                {community.title}
-              </h2>
-              <p className="text-muted-foreground text-sm line-clamp-2">
-                {truncate(community.description, 160)}
-              </p>
-            </div>
+            <h2 className="text-md font-medium group-hover:text-primary transition-colors">
+              {community.title}
+            </h2>
+
+            <p className="text-muted-foreground text-sm line-clamp-2">
+              {truncate(community.description, 160)}
+            </p>
 
             <div className="flex flex-wrap gap-1.5">
               {community.type && (
@@ -77,6 +81,6 @@ export function CommunitySummaryCard({
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </PrefetchLink>
   );
 }

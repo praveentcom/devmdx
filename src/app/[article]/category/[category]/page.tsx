@@ -1,17 +1,23 @@
-import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import pluralize from "pluralize";
+
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
+import { Button } from "@/components/ui/button";
+import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getArticlesByCategory, getAllCategories } from "@/lib/helpers/article";
-import type { Metadata } from "next";
+import { getAllCategories, getArticlesByCategory } from "@/lib/helpers/article";
+import {
+  getArticleLabel,
+  getArticleLabelSingular,
+  getArticleSlug,
+} from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
 } from "@/lib/helpers/metadata";
-import pluralize from "pluralize";
-import { BackButton } from "@/components/ui/common";
 
 interface PageProps {
   params: Promise<{
@@ -36,7 +42,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     decodedCategory,
     filteredArticles.length,
-    `/articles/category/${category}`,
+    `/${getArticleSlug()}/category/${category}`,
   );
 }
 
@@ -50,7 +56,6 @@ export default async function CategoryArticlePage({ params }: PageProps) {
     notFound();
   }
 
-  // Filter articles by the specified category
   const filteredArticles = getArticlesByCategory(decodedCategory);
 
   if (filteredArticles.length === 0) {
@@ -60,8 +65,8 @@ export default async function CategoryArticlePage({ params }: PageProps) {
           {/* Header with back navigation */}
           <div className="grid gap-0.5">
             <BackButton
-              href="/articles"
-              label="Back to articles"
+              href={`/${getArticleSlug()}`}
+              label={`Back to ${getArticleLabel().toLowerCase()}`}
               Icon={ArrowLeft}
             />
 
@@ -72,7 +77,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
                 </span>
               </div>
               <h1 className="text-md font-medium">
-                {decodedCategory} articles
+                {decodedCategory} {getArticleLabel().toLowerCase()}
               </h1>
             </div>
 
@@ -101,7 +106,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
     <div className="page-container">
       <div className="grid gap-5">
         <div className="grid gap-0.5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <BackButton
               href="/articles"
               label="Back to articles"
@@ -120,7 +125,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
 
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
-              ? `${filteredArticles.length} ${pluralize("article", filteredArticles.length)} in this category`
+              ? `${filteredArticles.length} ${pluralize(getArticleLabelSingular().toLowerCase(), filteredArticles.length)} in this category`
               : `No articles found in this category`}
           </p>
         </div>

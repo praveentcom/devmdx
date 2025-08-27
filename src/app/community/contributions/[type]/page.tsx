@@ -1,14 +1,15 @@
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
-import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getAllCommunityIndex } from "@/lib/helpers/community";
-import { BackButton } from "@/components/ui/common";
 import { ArrowLeft, Filter } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { EnumCommunityContributionType } from "@/types/community";
-import { profileData } from "@/data/profile";
+import { notFound } from "next/navigation";
+
+import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
+import { BackButton } from "@/components/ui/common";
+import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { BASE_URL } from "@/lib/constants";
+import { getAllCommunityIndex } from "@/lib/helpers/community";
+import { getSiteName } from "@/lib/helpers/config";
+import { EnumCommunityContributionType } from "@/types/community";
 
 interface PageProps {
   params: Promise<{
@@ -55,7 +56,7 @@ export default async function CommunityByTypePage({ params }: PageProps) {
       />
       <div className="grid gap-5">
         <div className="grid gap-0.5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <Filter className="size-4 text-primary" />
             <h1 className="text-md font-medium">
               {getTypeLabel(validatedType)}
@@ -108,7 +109,7 @@ export async function generateMetadata({
       title: `${typeLabel} | Community contributions`,
       description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
       type: "website",
-      siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      siteName: getSiteName(),
       url: `${BASE_URL}/community/contributions/${type}`,
     },
   };

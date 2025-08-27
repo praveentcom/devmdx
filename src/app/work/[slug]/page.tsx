@@ -1,23 +1,24 @@
-import { profileData } from "@/data/profile";
-import { CalendarDays, ArrowLeft, Briefcase } from "lucide-react";
-import { notFound } from "next/navigation";
 import { format } from "date-fns";
-import { TagBadge } from "@/components/ui/tag-badge";
+import { ArrowLeft, Briefcase, CalendarDays } from "lucide-react";
 import type { Metadata } from "next";
-import { generateWorkSchema } from "@/lib/helpers/structured-data";
-import { findBySlug, generateSlugParams } from "@/lib/helpers/page";
+import { notFound } from "next/navigation";
+
+import {
+  BackButton,
+  BulletList,
+  DateRange,
+  EntityHeader,
+  PageWithStructuredData,
+  SectionCard,
+} from "@/components/ui/common";
+import { TagBadge } from "@/components/ui/tag-badge";
+import { profileData } from "@/data/profile";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
 } from "@/lib/helpers/metadata";
-import {
-  PageWithStructuredData,
-  BackButton,
-  EntityHeader,
-  SectionCard,
-  BulletList,
-  DateRange,
-} from "@/components/ui/common";
+import { findBySlug, generateSlugParams } from "@/lib/helpers/page";
+import { generateWorkSchema } from "@/lib/helpers/structured-data";
 
 interface PageProps {
   params: Promise<{

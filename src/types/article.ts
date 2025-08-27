@@ -10,5 +10,6 @@ export interface Article {
   tags: EnumTag[];
   categories: string[];
   published: boolean;
+  private?: boolean;
   image?: string;
 }

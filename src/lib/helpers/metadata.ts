@@ -1,15 +1,18 @@
 import { Metadata } from "next";
+
+import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { BASE_URL } from "@/lib/constants";
+import { COLOR_SCHEMES } from "@/lib/constants/colors";
+import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
+import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
 export function getAuthorName(): string {
   return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
 }
 
 export function getSiteName(): string {
-  return getAuthorName();
+  return configData.misc.siteName || getAuthorName();
 }
 
 export function createNotFoundMetadata(type: string): Metadata {
@@ -91,10 +94,12 @@ export function createPageMetadata(config: {
       url: url ? `${BASE_URL}${url}` : undefined,
     },
     twitter: {
-      card: "summary_large_image",
+      card: configData.seo.twitterCard || "summary_large_image",
       title: openGraphTitle,
       description: openGraphDescription,
       images: [image.url],
+      site: configData.seo.twitterSite,
+      creator: configData.seo.twitterCreator,
     },
     authors: authors.map((name) => ({ name })),
   };
@@ -219,8 +224,9 @@ export const METADATA_PATTERNS = {
     imageUrl?: string,
     publishedTime?: string,
     url?: string,
-  ) =>
-    createItemMetadata({
+    isPrivate?: boolean,
+  ) => {
+    const metadata = createItemMetadata({
       itemName: title,
       itemDescription: description,
       imageUrl,
@@ -228,7 +234,17 @@ export const METADATA_PATTERNS = {
       type: "article",
       publishedTime,
       url,
-    }),
+    });
+
+    if (isPrivate) {
+      metadata.robots = {
+        index: false,
+        follow: false,
+      };
+    }
+
+    return metadata;
+  },
 
   project: (
     name: string,
@@ -283,13 +299,13 @@ export const METADATA_PATTERNS = {
 
   articlesList: () =>
     createListingMetadata({
-      pageType: "Articles",
+      pageType: getArticleLabel(),
       description:
         "A collection of articles about development, technology, and more. Sharing insights and knowledge from my journey as a developer.",
       colorScheme: COLOR_SCHEMES.ARTICLE,
       keywords:
         "articles, blog, development, technology, programming, tutorials",
-      url: "/articles",
+      url: `/${getArticleSlug()}`,
     }),
 
   projectsList: () =>
@@ -306,7 +322,7 @@ export const METADATA_PATTERNS = {
   tagArticles: (tagName: string, articleCount: number, url?: string) =>
     createFilteredMetadata({
       filterName: tagName,
-      contentType: "Articles",
+      contentType: getArticleLabel(),
       count: articleCount,
       colorScheme: COLOR_SCHEMES.ARTICLE,
       url,

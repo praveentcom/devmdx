@@ -32,7 +32,7 @@ export function ScrollProgressBar({
 
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize);
-    // Initial calculation
+
     calculateProgress();
 
     return () => {

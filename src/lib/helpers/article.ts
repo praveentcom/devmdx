@@ -1,22 +1,21 @@
 import fs from "fs";
-import path from "path";
 import matter from "gray-matter";
-import { z } from "zod";
-import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
-import { calculateReadTime } from "@/lib/helpers/markdown";
-import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { compileMDX } from "next-mdx-remote/rsc";
-import remarkGfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
+import path from "path";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import { z } from "zod";
+
+import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
+import { calculateReadTime } from "@/lib/helpers/markdown";
+import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
 
 const ARTICLE_CONTENT_DIR = path.join(process.cwd(), "data", "articles");
 
 const tagMapper = new TagMapper();
 
-// Custom schema that filters out invalid tags instead of throwing errors
 const safeTagsSchema = z.array(z.string()).transform((tags) => {
-  // Filter out invalid tags and only keep valid ones
   return tags.filter((tag) => tagMapper.isValidTag(tag)) as EnumTag[];
 });
 
@@ -27,6 +26,7 @@ export const ArticleFrontmatterSchema = z.object({
   tags: safeTagsSchema,
   categories: z.array(z.string()).default([]),
   published: z.boolean().default(true),
+  private: z.boolean().optional(),
   image: z.string().optional(),
   slug: z.string().optional(),
 });
@@ -106,6 +106,7 @@ export function getAllArticleSlugs(): ArticleIndexItem[] {
       tags: parsed.tags,
       categories: parsed.categories,
       published: parsed.published ?? true,
+      private: parsed.private,
 
       image: parsed.image || generateArticlePlaceholderImage(parsed.title),
       slug,
@@ -117,7 +118,7 @@ export function getAllArticleSlugs(): ArticleIndexItem[] {
   });
 
   return items
-    .filter((p) => p.published)
+    .filter((p) => p.published && !p.private)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
@@ -141,7 +142,6 @@ export async function getArticleBySlugCompiled(slug: string): Promise<{
 
   const raw = fs.readFileSync(match, "utf-8");
 
-  // compileMDX can parse frontmatter directly
   const { content, frontmatter } = await compileMDX<{ [key: string]: unknown }>(
     {
       source: raw,
@@ -175,6 +175,7 @@ export async function getArticleBySlugCompiled(slug: string): Promise<{
     tags: parsed.tags,
     categories: parsed.categories,
     published: parsed.published ?? true,
+    private: parsed.private,
     image: parsed.image || generateArticlePlaceholderImage(parsed.title),
     slug: ensuredSlug,
     year,
@@ -214,6 +215,7 @@ export function getArticleBySlugRaw(
     tags: parsed.tags,
     categories: parsed.categories,
     published: parsed.published ?? true,
+    private: parsed.private,
     image: parsed.image || generateArticlePlaceholderImage(parsed.title),
     slug: ensuredSlug,
     year,
@@ -237,6 +239,7 @@ export function getAllArticlesIndex(): ArticleIndexItem[] {
       tags: parsed.tags,
       categories: parsed.categories,
       published: parsed.published ?? true,
+      private: parsed.private,
       image: parsed.image || generateArticlePlaceholderImage(parsed.title),
       readTime: calculateReadTime(content),
       year: extractYearFromPath(fullPath),
@@ -247,7 +250,7 @@ export function getAllArticlesIndex(): ArticleIndexItem[] {
   });
 
   return items
-    .filter((p) => p.published)
+    .filter((p) => p.published && !p.private)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 

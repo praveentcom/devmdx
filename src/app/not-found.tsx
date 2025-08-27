@@ -1,4 +1,7 @@
+import { Home, Newspaper } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,22 +9,20 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Home, Newspaper } from "lucide-react";
-import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { BASE_URL } from "@/lib/constants";
+import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
+import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Page not found`,
+  title: `${getAuthorName()} | Page not found`,
   description:
     "The page you're looking for doesn't exist or has been moved. Return to the homepage or browse articles to find what you're looking for.",
   openGraph: {
     title: "Page not found.",
     description: "The page you're looking for doesn't exist or has been moved.",
     type: "website",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: BASE_URL,
     images: [
       {
@@ -73,7 +74,7 @@ export default function NotFound() {
               <Button
                 variant="outline"
                 asChild
-                className="flex items-center gap-2"
+                className="flex items-center gap-1.5"
               >
                 <Link href="/">
                   <Home className="size-4" />
@@ -83,7 +84,7 @@ export default function NotFound() {
               <Button
                 variant="outline"
                 asChild
-                className="flex items-center gap-2"
+                className="flex items-center gap-1.5"
               >
                 <Link href="/articles">
                   <Newspaper className="size-4" />

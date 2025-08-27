@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
+
 import type { ArticleLike } from "./ArticleSummaryCard";
 
 interface ArticleHeaderProps {
@@ -26,7 +28,7 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
   return (
     <>
       {/* Static cover image */}
-      <div className="relative w-full aspect-[1200/628] rounded-lg overflow-hidden mb-4">
+      <div className="relative w-full aspect-[1200/628] rounded-lg overflow-hidden mb-4 max-w-full">
         <Image
           src={article.image || generateArticlePlaceholderImage(article.title)}
           alt={article.title}

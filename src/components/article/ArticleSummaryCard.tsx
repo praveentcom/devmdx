@@ -1,13 +1,16 @@
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { Article } from "@/types/article";
 import { Calendar, Eye } from "lucide-react";
-import { formatDate } from "@/lib/helpers/markdown";
-import { TagBadge } from "../ui/tag-badge";
-import { CategoryBadge } from "../ui/category-badge";
-import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
-import { truncate } from "@/lib/utils";
-import Link from "next/link";
 import Image from "next/image";
+
+import { PrefetchLink } from "@/components/ui/prefetch-link";
+import { getArticleSlug } from "@/lib/helpers/config";
+import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
+import { formatDate } from "@/lib/helpers/markdown";
+import { truncate } from "@/lib/utils";
+import { Article } from "@/types/article";
+
+import { Card, CardContent, CardHeader } from "../ui/card";
+import { CategoryBadge } from "../ui/category-badge";
+import { TagBadge } from "../ui/tag-badge";
 
 export type ArticleLike = Pick<
   Article,
@@ -30,7 +33,10 @@ export function ArticleSummaryCard({
   href?: string;
 }) {
   return (
-    <Link href={href ?? `/articles/${article.year}/${article.slug}`}>
+    <PrefetchLink
+      href={href ?? `/${getArticleSlug()}/${article.year}/${article.slug}`}
+      prefetchOnVisible={true}
+    >
       <Card className="group" borderTrail>
         <CardHeader>
           <div className="relative w-full h-48 overflow-hidden rounded-md">
@@ -46,8 +52,8 @@ export function ArticleSummaryCard({
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-2">
-            <div className="flex-center-gap-4 text-xs font-medium text-muted-foreground">
+          <div className="flex flex-col gap-3">
+            <div className="flex-center-gap-3 text-xs font-medium text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="size-3" />
                 <span>{formatDate(article.date)}</span>
@@ -58,14 +64,13 @@ export function ArticleSummaryCard({
               </div>
             </div>
 
-            <div className="grid gap-1 mb-2.5">
-              <h2 className="text-md font-medium group-hover:text-primary transition-colors">
-                {article.title}
-              </h2>
-              <p className="text-muted-foreground text-sm line-clamp-2">
-                {truncate(article.description, 160)}
-              </p>
-            </div>
+            <h2 className="text-md font-medium group-hover:text-primary transition-colors">
+              {article.title}
+            </h2>
+
+            <p className="text-muted-foreground text-sm line-clamp-2">
+              {truncate(article.description, 160)}
+            </p>
 
             <div className="flex flex-wrap gap-1.5">
               {article.categories.map((category) => (
@@ -88,6 +93,6 @@ export function ArticleSummaryCard({
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </PrefetchLink>
   );
 }

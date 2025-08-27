@@ -1,33 +1,207 @@
-import { Article } from "@/types/article";
-import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { format } from "date-fns";
+import hljs from "highlight.js";
 
-// Custom markdown parser with syntax highlighting and copy functionality
+// Default file icon path constant
+const DEFAULT_FILE_ICON_PATH = "/images/tech-icons/Docs.png";
+
+import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
+import { Article } from "@/types/article";
+
+function getFileIcon(filename: string): string {
+  if (!filename) return `<img src="${DEFAULT_FILE_ICON_PATH}" alt="File" class="w-4 h-4" />`;
+  
+  const ext = filename.split('.').pop()?.toLowerCase();
+  const tagMapper = new TagMapper();
+  
+  const extToTagMap: Record<string, EnumTag> = {
+    'js': EnumTag.JAVASCRIPT,
+    'mjs': EnumTag.JAVASCRIPT,
+    'jsx': EnumTag.REACT,
+    'ts': EnumTag.TYPESCRIPT,
+    'tsx': EnumTag.REACT,
+    'html': EnumTag.HTML5,
+    'css': EnumTag.CSS3,
+    'scss': EnumTag.SASS,
+    'sass': EnumTag.SASS,
+    'less': EnumTag.LESS,
+    'json': EnumTag.JSON,
+    'yaml': EnumTag.YAML,
+    'yml': EnumTag.YAML,
+    'xml': EnumTag.XML,
+    'md': EnumTag.MARKDOWN,
+    'sh': EnumTag.BASH,
+    'bash': EnumTag.BASH,
+    'zsh': EnumTag.BASH,
+    'fish': EnumTag.BASH,
+    'ps1': EnumTag.POWERSHELL,
+    'py': EnumTag.PYTHON,
+    'java': EnumTag.JAVA,
+    'cpp': EnumTag.CPP,
+    'cxx': EnumTag.CPP,
+    'cc': EnumTag.CPP,
+    'c': EnumTag.C,
+    'h': EnumTag.C,
+    'hpp': EnumTag.CPP,
+    'go': EnumTag.GO,
+    'rs': EnumTag.RUST,
+    'php': EnumTag.PHP,
+    'rb': EnumTag.RUBY,
+    'swift': EnumTag.SWIFT,
+    'kt': EnumTag.KOTLIN,
+    'scala': EnumTag.SCALA,
+    'cs': EnumTag.CSHARP,
+    'fs': EnumTag.FSHARP,
+    'dart': EnumTag.DART,
+    'lua': EnumTag.LUA,
+    'r': EnumTag.R,
+    'pl': EnumTag.PERL,
+    'sol': EnumTag.SOLIDITY,
+    'dockerfile': EnumTag.DOCKER,
+    'makefile': EnumTag.CMAKE,
+    'gradle': EnumTag.GRADLE,
+    'pom': EnumTag.APACHE_MAVEN,
+    'package': EnumTag.NPM,
+    'lock': EnumTag.NPM,
+    'toml': EnumTag.RUST,
+    'env': EnumTag.NODE_JS,
+  };
+  
+  const tag = extToTagMap[ext || ''];
+  if (tag) {
+    const tagDetails = tagMapper.getDetails(tag);
+    if (tagDetails) {
+      return `<img src="${tagDetails.iconPath}" alt="${tagDetails.label}" class="w-4 h-4" />`;
+    }
+  }
+  
+  return '<img src="/images/tech-icons/Docs.png" alt="File" class="w-4 h-4" />';
+}
+
+function processLists(html: string): string {
+  const lines = html.split('\n');
+  const result: string[] = [];
+  let currentListType: 'ul' | 'ol' | null = null;
+  let listItems: string[] = [];
+
+  const flushList = () => {
+    if (currentListType && listItems.length > 0) {
+      const listClass = currentListType === 'ol' ? 'list-decimal pl-6 ml-4' : 'list-none pl-0 ml-0';
+      result.push(`<${currentListType} class="${listClass}">`);
+      result.push(...listItems);
+      result.push(`</${currentListType}>`);
+      listItems = [];
+      currentListType = null;
+    }
+  };
+
+  for (const line of lines) {
+    // Check for unordered list items (-, *, +)
+    const unorderedMatch = line.match(/^[\s]*[-*+]\s+(.*)$/);
+    // Check for ordered list items (1., 2., etc.)
+    const orderedMatch = line.match(/^[\s]*\d+\.\s+(.*)$/);
+    // Check for task list items
+    const taskUncheckedMatch = line.match(/^[\s]*[-*+]\s+\[\s*\]\s+(.*)$/);
+    const taskCheckedMatch = line.match(/^[\s]*[-*+]\s+\[x\]\s+(.*)$/);
+
+    if (taskUncheckedMatch) {
+      if (currentListType !== 'ul') {
+        flushList();
+        currentListType = 'ul';
+      }
+      listItems.push(`<li class="ml-2 mb-0 text-sm leading-relaxed flex items-center gap-1.5"><input type="checkbox" disabled class="rounded border-border/75 text-primary focus:ring-primary/50" /> ${taskUncheckedMatch[1]}</li>`);
+    } else if (taskCheckedMatch) {
+      if (currentListType !== 'ul') {
+        flushList();
+        currentListType = 'ul';
+      }
+      listItems.push(`<li class="ml-2 mb-0 text-sm leading-relaxed flex items-center gap-1.5"><input type="checkbox" checked disabled class="rounded border-border/75 text-primary focus:ring-primary/50" /> ${taskCheckedMatch[1]}</li>`);
+    } else if (unorderedMatch) {
+      if (currentListType !== 'ul') {
+        flushList();
+        currentListType = 'ul';
+      }
+      listItems.push(`<li class="ml-2 mb-0 text-sm leading-relaxed">• ${unorderedMatch[1]}</li>`);
+    } else if (orderedMatch) {
+      if (currentListType !== 'ol') {
+        flushList();
+        currentListType = 'ol';
+      }
+      listItems.push(`<li class="ml-2 mb-0 text-sm leading-relaxed">${orderedMatch[1]}</li>`);
+    } else {
+      flushList();
+      if (line.trim()) {
+        result.push(line);
+      }
+    }
+  }
+
+  flushList(); // Flush any remaining list
+  return result.join('\n');
+}
+
 export function parseMarkdown(content: string): string {
   const codeBlocks: string[] = [];
   let processedContent = content.replace(
-    /```(\w+)?\n([\s\S]*?)```/g,
-    (match, lang, code) => {
-      const lines = code.trim().split("\n");
-      const codeRows = lines
-        .map((line: string, index: number) => {
-          const isFirstLine = index === 0;
-          const isLastLine = index === lines.length - 1;
-          const paddingClass = isFirstLine
-            ? " pt-3"
-            : isLastLine
-              ? " pb-3"
-              : "";
+    /```(\w+)?(?:\s+filename="([^"]+)")?\n([\s\S]*?)```/g,
+    (match, lang, filename, code) => {
+      const trimmedCode = code.trim();
+      const originalLines = trimmedCode.split('\n');
+      const totalLines = originalLines.length;
+      
+      const getLineNumberWidth = (total: number) => {
+        if (total < 10) return 'w-8';
+        if (total < 100) return 'w-10';
+        if (total < 1000) return 'w-12';
+        return 'w-14';
+      };
 
-          const lineNumber = `<span class="select-none text-xs text-muted-foreground/60 inline-block w-10 text-right pr-3 bg-muted/30 border-r border-border/75${paddingClass}">${index + 1}</span>`;
-          const codeLine = `<span class="inline-block w-full${paddingClass}">${line || " "}</span>`;
-          return `<div class="flex gap-3">${lineNumber}${codeLine}</div>`;
-        })
-        .join("");
+      const lineNumberWidth = getLineNumberWidth(totalLines);
+      
+      const numberedLines = originalLines.map((line: string, index: number) => {
+        const lineNumber = index + 1;
+        const isFirstLine = index === 0;
+        const isLastLine = index === originalLines.length - 1;
+        const lineNumberPadding = isFirstLine ? ' pt-2' : isLastLine ? ' pb-2' : '';
+        const contentPadding = isFirstLine ? ' pt-2' : isLastLine ? ' pb-2' : '';
+        
+        let highlightedLine = line || ' ';
+        if (line.trim()) {
+          if (lang && hljs.getLanguage(lang)) {
+            try {
+              highlightedLine = hljs.highlight(line, { language: lang }).value;
+            } catch {
+              try {
+                highlightedLine = hljs.highlightAuto(line).value;
+              } catch {
+                highlightedLine = line.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+              }
+            }
+          } else {
+            try {
+              highlightedLine = hljs.highlightAuto(line).value;
+            } catch {
+              highlightedLine = line.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+          }
+        }
+        
+        return `<div class="flex">
+          <span class="line-number ${lineNumberWidth}${lineNumberPadding}">${lineNumber}</span>
+          <span class="line-content${contentPadding}">${highlightedLine}</span>
+        </div>`;
+      }).join('');
 
-      const codeBlock = `<div class="relative bg-card border border-border rounded-md overflow-hidden mb-3 group">
+      const filenameHeader = filename ? `
+        <div class="flex items-center gap-2 px-3 py-2 bg-muted/50 border-b border-border/75 text-xs font-medium text-muted-foreground">
+          ${getFileIcon(filename)}
+          <span>${filename}</span>
+        </div>
+      ` : '';
+
+      const codeBlock = `<div class="relative bg-card border border-border rounded-sm overflow-hidden mb-3 group w-full break-inside-avoid">
+        ${filenameHeader}
         <button 
-          class="absolute top-3 right-3 p-1.5 rounded bg-card border border-transparent hover:border-border cursor-pointer hover:bg-accent transition-colors duration-200 z-10" 
+          class="absolute ${filename ? 'top-14' : 'top-3'} right-3 p-1.5 rounded bg-card border border-transparent hover:border-border cursor-pointer hover:bg-accent transition-colors duration-200 z-10" 
           onclick="copyCode(this)"
           type="button"
           aria-label="Copy code"
@@ -36,7 +210,7 @@ export function parseMarkdown(content: string): string {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
           </svg>
         </button>
-        <pre class="overflow-x-auto p-0 m-0 bg-transparent"><code class="text-xs leading-tight block p-0 m-0">${codeRows}</code></pre>
+        <pre class="overflow-x-auto p-0 m-0 bg-transparent w-full"><code class="hljs block">${numberedLines}</code></pre>
       </div>`;
 
       codeBlocks.push(codeBlock);
@@ -47,15 +221,15 @@ export function parseMarkdown(content: string): string {
   processedContent = processedContent
     .replace(
       /^### (.*$)/gim,
-      '<h3 class="text-sm font-medium mb-1.5 mt-3 leading-relaxed">$1</h3>',
+      '<h3 class="text-sm font-medium mb-1.5 mt-4 leading-relaxed">$1</h3>',
     )
     .replace(
       /^## (.*$)/gim,
-      '<h2 class="text-base font-medium mb-2 mt-4 leading-relaxed">$1</h2>',
+      '<h2 class="text-base font-medium mb-1.5 mt-5 leading-relaxed">$1</h2>',
     )
     .replace(
       /^# (.*$)/gim,
-      '<h1 class="text-md font-medium mb-3 mt-4 leading-relaxed">$1</h1>',
+      '<h1 class="text-md font-medium mb-3 mt-6 leading-relaxed">$1</h1>',
     )
     .replace(
       /`([^`]+)`/g,
@@ -66,7 +240,7 @@ export function parseMarkdown(content: string): string {
     .replace(/~~(.*?)~~/g, '<del class="line-through opacity-75">$1</del>')
     .replace(
       /!\[([^\]]*)\]\(([^)]+)\)/g,
-      '<img src="$2" alt="$1" class="rounded-md max-w-full h-auto my-3 border border-border/75" />',
+      '<img src="$2" alt="$1" class="rounded-sm max-w-full h-auto my-3 border border-border/75 block" />',
     )
     .replace(
       /\[([^\]]+)\]\(([^)]+)\)/g,
@@ -75,42 +249,31 @@ export function parseMarkdown(content: string): string {
     .replace(/^---$/gm, '<hr class="my-4 border-t border-border/75" />')
     .replace(
       /^> (.*$)/gim,
-      '<blockquote class="relative pl-4 py-2 mb-3 bg-muted/30 rounded-md italic text-sm leading-relaxed text-muted-foreground"><div class="absolute left-1 top-1 bottom-1 w-1 bg-primary/30 rounded-full"></div>$1</blockquote>',
-    )
-    .replace(
-      /^\- \[ \] (.*$)/gim,
-      '<li class="ml-2 mb-0 text-sm leading-relaxed flex items-center gap-2"><input type="checkbox" disabled class="rounded border-border/75 text-primary focus:ring-primary/50" /> $1</li>',
-    )
-    .replace(
-      /^\- \[x\] (.*$)/gim,
-      '<li class="ml-2 mb-0 text-sm leading-relaxed flex items-center gap-2"><input type="checkbox" checked disabled class="rounded border-border/75 text-primary focus:ring-primary/50" /> $1</li>',
-    )
-    .replace(
-      /^\- (.*$)/gim,
-      '<li class="ml-2 mb-0 text-sm leading-relaxed">• $1</li>',
-    )
-    .replace(
-      /^\d+\. (.*$)/gim,
-      '<li class="ml-2 mb-0 text-sm leading-relaxed">$1</li>',
-    )
-    .replace(/\n\n/g, '</p><p class="mb-2 text-sm leading-relaxed">')
+      '<blockquote class="relative pl-4 py-2 mb-3 bg-muted/30 rounded-sm italic text-sm leading-relaxed text-muted-foreground"><div class="absolute left-1 top-1 bottom-1 w-1 bg-primary/30 rounded-full"></div>$1</blockquote>',
+    );
+
+  processedContent = processedContent.replace(/\n\n/g, '</p><p class="mb-1.5 text-sm leading-relaxed">')
     .replace(
       /^(?!<[h|l|p|c|b|i|d|_])/gm,
-      '<p class="mb-2 text-sm leading-relaxed">',
+      '<p class="mb-1.5 text-sm leading-relaxed">',
     )
     .replace(/(?<!>)$/gm, "</p>")
-    .replace(/<p class="mb-2 text-sm leading-relaxed"><\/p>/g, "")
+    .replace(/<p class="mb-1.5 text-sm leading-relaxed"><\/p>/g, "")
     .replace(
-      /<p class="mb-2 text-sm leading-relaxed">(<[h|l|p|c|b|i|d])/g,
+      /<p class="mb-1.5 text-sm leading-relaxed">(<[h|l|p|c|b|i|d])/g,
       "$1",
     );
 
+  // Restore code blocks first
   codeBlocks.forEach((codeBlock, index) => {
     processedContent = processedContent.replace(
       `__CODE_BLOCK_${index}__`,
       codeBlock,
     );
   });
+
+  // Process lists with proper <ul> and <ol> wrappers AFTER code blocks are restored
+  processedContent = processLists(processedContent);
 
   return processedContent;
 }

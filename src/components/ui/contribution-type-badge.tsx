@@ -1,7 +1,9 @@
-import { Badge } from "./badge";
-import { EnumCommunityContributionType } from "@/types/community";
-import { MicVocal, Presentation, MonitorPlay } from "lucide-react";
+import { MicVocal, MonitorPlay, Presentation } from "lucide-react";
+
 import { cn } from "@/lib/utils";
+import { EnumCommunityContributionType } from "@/types/community";
+
+import { Badge } from "./badge";
 
 interface ContributionTypeBadgeProps {
   type: EnumCommunityContributionType;

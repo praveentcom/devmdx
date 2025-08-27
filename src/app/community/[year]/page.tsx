@@ -1,8 +1,9 @@
-import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarRange } from "lucide-react";
-import { BackButton } from "@/components/ui/common";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
 import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
+import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
 import { createFilteredMetadata } from "@/lib/helpers/metadata";
@@ -30,7 +31,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
       />
       <div className="grid gap-5">
         <div className="grid gap-0.5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <CalendarRange className="size-4 text-primary" />
             <h1 className="text-md font-medium">
               Community contributions from {year}

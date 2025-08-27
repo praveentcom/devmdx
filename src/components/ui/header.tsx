@@ -1,28 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ScrollProgressBar } from "@/components/ui/scroll-progress";
-import { cn } from "@/lib/utils";
-import { profileData } from "@/data/profile";
-import { AnimatedBackground } from "@/components/motion-primitives";
+import { useEffect, useState } from "react";
 
-const navigationItems = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/articles", label: "Articles" },
-  { href: "/community", label: "Community" },
-];
+import { AnimatedBackground } from "@/components/motion-primitives";
+import { Button } from "@/components/ui/button";
+import { PrefetchLink } from "@/components/ui/prefetch-link";
+import { ScrollProgressBar } from "@/components/ui/scroll-progress";
+import {
+  getArticleSlug,
+  getAuthorName,
+  getNavigationItems,
+} from "@/lib/helpers/config";
+import { cn } from "@/lib/utils";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
-  const personName = `${profileData.profile.firstName} ${profileData.profile.lastName}`;
+  const navigationItems = getNavigationItems();
+  const personName = getAuthorName();
   const isHomePage = pathname === "/";
   const nameHref = isHomePage ? "/about" : "/";
 
@@ -61,7 +61,8 @@ export function Header() {
   }, [pathname]);
 
   const isArticle =
-    pathname?.startsWith("/articles/") && pathname?.split("/").length === 3;
+    pathname?.startsWith(`/${getArticleSlug()}/`) &&
+    pathname?.split("/").length === 4;
 
   return (
     <>
@@ -111,9 +112,28 @@ export function Header() {
               >
                 {navigationItems.map((item) => {
                   const isActive = pathname === item.href;
+                  const isExternal = "external" in item && item.external;
+
+                  if (isExternal) {
+                    return (
+                      <a
+                        key={item.href}
+                        data-id={item.href}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          "px-3 py-1 rounded-lg text-sm font-medium",
+                          "text-muted-foreground hover:text-foreground",
+                        )}
+                      >
+                        {item.label}
+                      </a>
+                    );
+                  }
 
                   return (
-                    <Link
+                    <PrefetchLink
                       key={item.href}
                       data-id={item.href}
                       href={item.href}
@@ -125,7 +145,7 @@ export function Header() {
                       )}
                     >
                       {item.label}
-                    </Link>
+                    </PrefetchLink>
                   );
                 })}
               </AnimatedBackground>
@@ -211,9 +231,31 @@ export function Header() {
               <div className="grid gap-4 grid-cols-2">
                 {navigationItems.map((item, index) => {
                   const isActive = pathname === item.href;
+                  const isExternal = "external" in item && item.external;
+
+                  if (isExternal) {
+                    return (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={toggleMobileMenu}
+                        className={cn(
+                          "flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-[color,background-color] duration-200 ease-out",
+                          "text-foreground bg-muted border border-border",
+                        )}
+                        style={{
+                          animationDelay: `${index * 50}ms`,
+                        }}
+                      >
+                        {item.label}
+                      </a>
+                    );
+                  }
 
                   return (
-                    <Link
+                    <PrefetchLink
                       key={item.href}
                       href={item.href}
                       onClick={toggleMobileMenu}
@@ -228,7 +270,7 @@ export function Header() {
                       }}
                     >
                       {item.label}
-                    </Link>
+                    </PrefetchLink>
                   );
                 })}
               </div>

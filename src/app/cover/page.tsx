@@ -1,20 +1,22 @@
-import { FileText } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import fs from "node:fs";
 import path from "node:path";
-import { Markdown } from "@/components/ui/markdown";
+
+import { FileText } from "lucide-react";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Markdown } from "@/components/ui/markdown";
 import { BASE_URL } from "@/lib/constants";
+import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
+import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Cover letter`,
+  title: `${getAuthorName()} | Cover letter`,
   description:
     "A personalized introduction highlighting my experience and interest in joining your team. Learn about my background, skills, and what I can bring to your organization.",
   openGraph: {
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "A personalized introduction highlighting my experience and interest in joining your team.",
     type: "article",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: `${BASE_URL}/cover`,
     images: [
       {
@@ -54,7 +56,7 @@ export const metadata: Metadata = {
     "cover letter, introduction, experience, skills, professional, career",
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: getAuthorName(),
     },
   ],
 };
@@ -74,7 +76,6 @@ export default function CoverPage() {
     coverContent = fs.readFileSync(coverPath, "utf-8");
     hasCoverFile = true;
   } catch {
-    // File doesn't exist, will show placeholder
     hasCoverFile = false;
   }
 
@@ -91,7 +92,7 @@ export default function CoverPage() {
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <FileText className="size-4 text-primary" />
               <h1 className="text-md font-medium">Cover letter</h1>
             </div>

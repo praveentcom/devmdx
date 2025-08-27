@@ -1,20 +1,21 @@
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+
 import { CommunityHeader } from "@/components/community/CommunityHeader";
 import { CommunityMetadata } from "@/components/community/CommunityMetadata";
+import { BackButton, PageWithStructuredData } from "@/components/ui/common";
+import { Markdown } from "@/components/ui/markdown";
 import {
   getAllCommunitySlugs,
   getCommunityBySlugRaw,
 } from "@/lib/helpers/community";
-import { Markdown } from "@/components/ui/markdown";
-import type { Metadata } from "next";
-import { PageWithStructuredData, BackButton } from "@/components/ui/common";
-import { headers } from "next/headers";
-import { generateCommunitySchema } from "@/lib/helpers/structured-data";
 import {
-  METADATA_PATTERNS,
   createNotFoundMetadata,
+  METADATA_PATTERNS,
 } from "@/lib/helpers/metadata";
+import { generateCommunitySchema } from "@/lib/helpers/structured-data";
 
 interface PageProps {
   params: Promise<{
@@ -53,7 +54,7 @@ export default async function CommunityContributionPage({ params }: PageProps) {
         />
 
         <div className="grid md:grid-cols-12 gap-5">
-          <div className="md:col-span-9 grid gap-2">
+          <div className="md:col-span-9 grid gap-1.5">
             <CommunityHeader community={community} />
             <div className="space-y-4">
               <Markdown content={rawCommunity.raw} muted />

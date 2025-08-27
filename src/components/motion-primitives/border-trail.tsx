@@ -1,6 +1,8 @@
 "use client";
-import { cn } from "@/lib/utils";
+
 import { motion, Transition } from "motion/react";
+
+import { cn } from "@/lib/utils";
 
 export type BorderTrailProps = {
   className?: string;

@@ -1,14 +1,16 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { AnimatePresence, Transition, motion } from "motion/react";
+
+import { AnimatePresence, motion, Transition } from "motion/react";
 import {
   Children,
   cloneElement,
   ReactElement,
   useEffect,
-  useState,
   useId,
+  useState,
 } from "react";
+
+import { cn } from "@/lib/utils";
 
 export type AnimatedBackgroundProps = {
   children:
@@ -53,7 +55,7 @@ export function AnimatedBackground({
     const interactionProps = enableHover
       ? {
           onMouseEnter: () => handleSetActiveId(id),
-          onMouseLeave: () => handleSetActiveId(null),
+          onMouseLeave: () => handleSetActiveId(defaultValue || null),
         }
       : {
           onClick: () => handleSetActiveId(id),

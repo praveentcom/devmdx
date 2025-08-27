@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
-import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
+import { useEffect, useState } from "react";
+
 import type { CommunityIndexItem } from "@/lib/helpers/community";
+import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 
 interface CommunityHeaderProps {
   community: CommunityIndexItem;

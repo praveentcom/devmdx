@@ -1,28 +1,30 @@
-import { profileData } from "@/data/profile";
+import { format } from "date-fns";
+import {
+  ArrowLeft,
+  Calendar,
+  ExternalLink,
+  Github,
+  GitPullRequestArrow,
+  Users,
+} from "lucide-react";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import {
-  ExternalLink,
-  ArrowLeft,
-  GitPullRequestArrow,
-  Github,
-  Calendar,
-} from "lucide-react";
-import { notFound } from "next/navigation";
-import { TagBadge } from "@/components/ui/tag-badge";
-import type { Metadata } from "next";
-import {
-  PageWithStructuredData,
   BackButton,
-  EntityHeader,
-  SectionCard,
   BulletList,
+  EntityHeader,
+  PageWithStructuredData,
+  SectionCard,
 } from "@/components/ui/common";
-import { generateProjectSchema } from "@/lib/helpers/structured-data";
+import { TagBadge } from "@/components/ui/tag-badge";
+import { profileData } from "@/data/profile";
 import {
-  METADATA_PATTERNS,
   createNotFoundMetadata,
+  METADATA_PATTERNS,
 } from "@/lib/helpers/metadata";
-import { format } from "date-fns";
+import { generateProjectSchema } from "@/lib/helpers/structured-data";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -39,14 +41,15 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <PageWithStructuredData structuredData={generateProjectSchema(project)}>
       <div className="page-container">
-        <div className="flex items-center justify-between">
+        {/* Desktop layout: buttons aligned in header */}
+        <div className="hidden md:flex items-center justify-between">
           <BackButton
             href="/projects"
             label="Back to projects"
             Icon={ArrowLeft}
           />
           {(project.url || project.githubUrl) && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               {project.url && (
                 <Button variant="outline" size="sm" asChild>
                   <a
@@ -75,6 +78,15 @@ export default async function ProjectPage({ params }: PageProps) {
           )}
         </div>
 
+        {/* Mobile layout: only back button in header */}
+        <div className="md:hidden">
+          <BackButton
+            href="/projects"
+            label="Back to projects"
+            Icon={ArrowLeft}
+          />
+        </div>
+
         <div className="grid gap-4">
           <EntityHeader
             imageSrc={project.imagePath}
@@ -85,16 +97,60 @@ export default async function ProjectPage({ params }: PageProps) {
             size="large"
           />
 
-          {project.date && (
-            <SectionCard title="Project date">
-              <div className="flex items-center gap-2">
-                <Calendar className="size-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">
-                  {format(project.date, "MMMM yyyy")}
-                </span>
-              </div>
-            </SectionCard>
+          {/* Mobile layout: buttons below description in grid */}
+          {(project.url || project.githubUrl) && (
+            <div className={`md:hidden grid gap-1.5 grid-cols-2`}>
+              {project.url && (
+                <Button variant="default" size="sm" asChild>
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5"
+                  >
+                    <ExternalLink className="size-4" />
+                    <span>Website</span>
+                  </a>
+                </Button>
+              )}
+              {project.githubUrl && (
+                <Button variant="default" size="sm" asChild>
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5"
+                  >
+                    <Github className="size-4" />
+                    <span>GitHub</span>
+                  </a>
+                </Button>
+              )}
+            </div>
           )}
+
+          <div className="grid grid-cols-2 gap-4">
+            {project.date && (
+              <SectionCard title="Project date">
+                <div className="flex items-center gap-1.5">
+                  <Calendar className="size-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">
+                    {format(project.date, "MMMM yyyy")}
+                  </span>
+                </div>
+              </SectionCard>
+            )}
+            {project.coAuthors && project.coAuthors.length > 0 && (
+              <SectionCard title="Project authors">
+                <div className="flex items-center gap-1.5">
+                  <Users className="size-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">
+                    with {project.coAuthors.join(", ")}
+                  </span>
+                </div>
+              </SectionCard>
+            )}
+          </div>
 
           <SectionCard title="Tech stack">
             <div className="flex flex-wrap gap-1.5">

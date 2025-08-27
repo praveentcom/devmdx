@@ -1,5 +1,7 @@
 import Link from "next/link";
+
 import { Badge } from "@/components/ui/badge";
+import { getArticleSlug } from "@/lib/helpers/config";
 import { cn } from "@/lib/utils";
 
 interface CategoryBadgeProps {
@@ -27,7 +29,9 @@ export function CategoryBadge({
   }
 
   return (
-    <Link href={`/articles/category/${encodeURIComponent(category)}`}>
+    <Link
+      href={`/${getArticleSlug()}/category/${encodeURIComponent(category)}`}
+    >
       {badgeContent}
     </Link>
   );

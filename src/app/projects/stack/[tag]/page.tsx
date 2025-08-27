@@ -1,19 +1,20 @@
-import { profileData } from "@/data/profile";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
+import pluralize from "pluralize";
+
+import { ProjectCard } from "@/components/projects/ProjectCard";
+import { Button } from "@/components/ui/button";
+import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import type { Metadata } from "next";
+import { profileData } from "@/data/profile";
 import {
   createNotFoundMetadata,
   METADATA_PATTERNS,
 } from "@/lib/helpers/metadata";
-import pluralize from "pluralize";
-import { BackButton } from "@/components/ui/common";
-import { ProjectCard } from "@/components/projects/ProjectCard";
+import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
 
 interface PageProps {
   params: Promise<{
@@ -76,7 +77,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
             Icon={ArrowLeft}
           />
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <Image
               src={techDetails.iconPath}
               alt={`${techDetails.label} icon`}
