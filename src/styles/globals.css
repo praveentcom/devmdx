@@ -120,20 +120,11 @@
     @apply bg-background text-foreground;
   }
   .page-container {
-    @apply container mx-auto px-4 py-4 sm:py-2 max-w-3xl;
+    @apply container mx-auto px-4 max-w-3xl;
   }
 }
 
 @layer utilities {
-  /* Shadow Effects */
-  .card-shadow {
-    @apply shadow-lg shadow-muted-foreground/5 dark:shadow-none border border-border/75;
-  }
-
-  .card-hover-shadow {
-    @apply hover:shadow-lg hover:shadow-muted-foreground/5 dark:hover:shadow-none transition-all duration-200;
-  }
-
   /* Common Layout Patterns */
   .flex-center-gap-1_5 {
     @apply flex items-center gap-1.5;
@@ -148,7 +139,7 @@
   }
 
   .card-header-layout {
-    @apply flex flex-col sm:flex-row gap-4 items-start;
+    @apply flex flex-col md:flex-row gap-4 items-start;
   }
 
   .card-image-container {
@@ -224,5 +215,10 @@
   .article-muted h2,
   .article-muted h3 {
     @apply text-foreground;
+  }
+
+  /* Badges */
+  .badge-container {
+    @apply text-xs cursor-pointer flex items-center gap-1.5 hover:bg-accent hover:text-accent-foreground transition-colors;
   }
 }

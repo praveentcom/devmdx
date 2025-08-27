@@ -39,20 +39,20 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
 
       {/* Sticky header with text effects only */}
       <div
-        className={`sticky top-12 sm:top-16 z-20 bg-background transition-all pb-5 duration-300 border-b ${
-          isScrolled ? "pt-6 border-border" : "border-border/25"
+        className={`sticky top-12 md:top-16 z-20 bg-background transition-all pb-5 duration-200 border-b ${
+          isScrolled ? "pt-6 border-border" : "border-border/50"
         }`}
       >
-        <div className="transition-all duration-300 space-y-1">
+        <div className="transition-all duration-200 space-y-0.5">
           <h1
-            className={`font-medium transition-all duration-300 ${
+            className={`font-medium transition-all duration-200 ${
               isScrolled ? "text-lg" : "text-xl"
             }`}
           >
             {article.title}
           </h1>
           <p
-            className={`text-muted-foreground transition-all duration-300 text-sm`}
+            className={`text-muted-foreground transition-all duration-200 text-sm`}
           >
             {article.description}
           </p>

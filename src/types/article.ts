@@ -8,6 +8,7 @@ export interface Article {
   date: string;
   readTime: number;
   tags: EnumTag[];
+  categories: string[];
   published: boolean;
   image?: string;
 }

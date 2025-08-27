@@ -58,7 +58,7 @@ export default function BioPage() {
     <PageWithStructuredData structuredData={generatePersonSchema()}>
       <div className="min-h-screen bg-background">
         <div className="page-container">
-          <div className="space-y-8">
+          <div className="space-y-6">
             <div className="flex items-center gap-3">
               <Button variant="outline" size="sm" asChild>
                 <Link href="/" className="flex items-center gap-2">

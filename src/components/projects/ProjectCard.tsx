@@ -19,7 +19,7 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
 
   return (
     <Link href={`/projects/${project.slug}`} className="block">
-      <Card className="card-hover-shadow cursor-pointer transition-shadow">
+      <Card>
         <CardHeader>
           <div className="card-header-layout">
             {imagePath && (

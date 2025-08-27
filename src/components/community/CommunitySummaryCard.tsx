@@ -18,7 +18,7 @@ export function CommunitySummaryCard({
 }) {
   return (
     <Link href={href ?? `/community/${community.year}/${community.slug}`}>
-      <Card className="group card-hover-shadow cursor-pointer" borderTrail>
+      <Card className="group" borderTrail>
         <CardHeader>
           <div className="relative w-full h-48 overflow-hidden rounded-md">
             <Image
@@ -61,14 +61,14 @@ export function CommunitySummaryCard({
               )}
               {community.youtubeUrl && (
                 <Badge variant="secondary" className="text-xs">
-                  <Youtube className="w-3 h-3 mr-1" />
+                  <Youtube className="size-3 mr-1" />
                   Video
                 </Badge>
               )}
               {community.externalLinks &&
                 community.externalLinks.length > 0 && (
                   <Badge variant="secondary" className="text-xs">
-                    <ExternalLink className="w-3 h-3 mr-1" />
+                    <ExternalLink className="size-3 mr-1" />
                     {community.externalLinks.length} Link
                     {community.externalLinks.length > 1 ? "s" : ""}
                   </Badge>

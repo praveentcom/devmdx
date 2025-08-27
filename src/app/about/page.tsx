@@ -97,7 +97,7 @@ export default function AboutPage() {
 
           <div className="space-y-4">
             {hasAboutFile && aboutContent ? (
-              <Card className="card-hover-shadow">
+              <Card>
                 <CardContent>
                   <Markdown content={aboutContent} muted />
                 </CardContent>
@@ -107,7 +107,7 @@ export default function AboutPage() {
                 title="About page not yet written."
                 subtitle="This section is currently being crafted. Check back soon to learn more about my background and journey."
               >
-                <Button variant="outline" asChild>
+                <Button variant="outline" size="sm" asChild>
                   <Link href="/">Go home</Link>
                 </Button>
               </EmptyPlaceholderCard>

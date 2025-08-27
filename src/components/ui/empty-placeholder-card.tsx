@@ -16,13 +16,13 @@ export function EmptyPlaceholderCard({
   children,
 }: EmptyPlaceholderCardProps) {
   return (
-    <Card className="text-center py-8 card-hover-shadow rounded-lg">
-      <CardContent>
+    <Card>
+      <CardContent className="text-center py-6">
         <div className="grid items-center gap-5">
           <div className="grid text-center items-center justify-center gap-2">
             <NewspaperIcon className="size-4 text-muted-foreground mx-auto" />
             <div className="grid gap-1">
-              <h3 className="text-foreground text-sm">{title}</h3>
+              <h3 className="text-foreground text-sm font-medium">{title}</h3>
               <p className="text-muted-foreground max-w-md text-xs">
                 {subtitle}
               </p>

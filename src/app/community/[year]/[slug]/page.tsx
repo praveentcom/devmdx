@@ -53,14 +53,14 @@ export default async function CommunityContributionPage({ params }: PageProps) {
         />
 
         <div className="grid md:grid-cols-12 gap-5">
-          <div className="md:col-span-8 xl:col-span-9 grid gap-2">
+          <div className="md:col-span-9 grid gap-2">
             <CommunityHeader community={community} />
             <div className="space-y-4">
               <Markdown content={rawCommunity.raw} muted />
             </div>
           </div>
 
-          <div className="md:col-span-4 xl:col-span-3">
+          <div className="md:col-span-3">
             <CommunityMetadata community={community} />
           </div>
         </div>

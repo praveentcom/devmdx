@@ -22,7 +22,7 @@ function EducationCard({ education }: { education: Education }) {
 
   return (
     <Link href={`/education/${education.slug}`} className="block">
-      <Card className="mb-4 card-hover-shadow cursor-pointer transition-shadow">
+      <Card>
         <CardHeader>
           <div className="card-header-layout">
             {collegeImagePath && (

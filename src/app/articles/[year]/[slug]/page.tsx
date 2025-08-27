@@ -56,14 +56,14 @@ export default async function ArticlePage({ params }: PageProps) {
         />
 
         <div className="grid md:grid-cols-12 gap-5">
-          <div className="md:col-span-8 xl:col-span-9 grid gap-2">
+          <div className="md:col-span-9 grid gap-2">
             <ArticleHeader article={article} />
             <div className="space-y-4">
               <Markdown content={rawArticle.raw} muted />
             </div>
           </div>
 
-          <div className="md:col-span-4 xl:col-span-3">
+          <div className="md:col-span-3">
             <ArticleMetadata article={article} />
           </div>
         </div>

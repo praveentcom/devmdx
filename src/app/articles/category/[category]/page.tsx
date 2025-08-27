@@ -2,11 +2,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { TagMapper, EnumTag } from "@/lib/helpers/tag-mapper";
-import Image from "next/image";
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
-import { getAllArticlesIndex } from "@/lib/helpers/article";
+import { getArticlesByCategory, getAllCategories } from "@/lib/helpers/article";
 import type { Metadata } from "next";
 import {
   createNotFoundMetadata,
@@ -17,57 +15,43 @@ import { BackButton } from "@/components/ui/common";
 
 interface PageProps {
   params: Promise<{
-    tag: string;
+    category: string;
   }>;
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { tag } = await params;
-  const tagMapper = new TagMapper();
+  const { category } = await params;
+  const decodedCategory = decodeURIComponent(category);
 
-  if (!tagMapper.isValidTag(tag)) {
-    return createNotFoundMetadata("Tag");
+  const allCategories = getAllCategories();
+
+  if (!allCategories.includes(decodedCategory)) {
+    return createNotFoundMetadata("Category");
   }
 
-  const tagEnum = tag as EnumTag;
-  const tagDetails = tagMapper.getDetails(tagEnum);
-
-  if (!tagDetails) {
-    return createNotFoundMetadata("Tag");
-  }
-
-  const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(tagEnum),
-  );
+  const filteredArticles = getArticlesByCategory(decodedCategory);
 
   return METADATA_PATTERNS.tagArticles(
-    tagDetails.label,
+    decodedCategory,
     filteredArticles.length,
-    `/articles/tag/${tag}`,
+    `/articles/category/${category}`,
   );
 }
 
-export default async function TagArticlePage({ params }: PageProps) {
-  const { tag } = await params;
-  const tagMapper = new TagMapper();
+export default async function CategoryArticlePage({ params }: PageProps) {
+  const { category } = await params;
+  const decodedCategory = decodeURIComponent(category);
 
-  if (!tagMapper.isValidTag(tag)) {
+  const allCategories = getAllCategories();
+
+  if (!allCategories.includes(decodedCategory)) {
     notFound();
   }
 
-  const tagEnum = tag as EnumTag;
-  const tagDetails = tagMapper.getDetails(tagEnum);
-
-  if (!tagDetails) {
-    notFound();
-  }
-
-  // Filter articles by the specified tag
-  const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(tagEnum),
-  );
+  // Filter articles by the specified category
+  const filteredArticles = getArticlesByCategory(decodedCategory);
 
   if (filteredArticles.length === 0) {
     return (
@@ -82,26 +66,24 @@ export default async function TagArticlePage({ params }: PageProps) {
             />
 
             <div className="flex items-center gap-3">
-              <Image
-                src={tagDetails.iconPath}
-                alt={`${tagDetails.label} icon`}
-                width={20}
-                height={20}
-                className="flex-shrink-0"
-              />
+              <div className="size-5 bg-primary/10 rounded flex items-center justify-center">
+                <span className="text-xs font-medium text-primary">
+                  {decodedCategory.charAt(0).toUpperCase()}
+                </span>
+              </div>
               <h1 className="text-md font-medium">
-                {tagDetails.label} articles
+                {decodedCategory} articles
               </h1>
             </div>
 
             <p className="text-muted-foreground text-sm">
-              No articles found tagged with {tagDetails.label}
+              No articles found in this category
             </p>
           </div>
 
           <EmptyPlaceholderCard
             title="No articles found."
-            subtitle={`No articles have been published with the tag ${tagDetails.label} yet. Check back later for new content!`}
+            subtitle={`No articles have been published this ${decodedCategory} category yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>
               <Link href="/articles">articles</Link>
@@ -119,27 +101,27 @@ export default async function TagArticlePage({ params }: PageProps) {
     <div className="page-container">
       <div className="grid gap-5">
         <div className="grid gap-0.5">
-          <BackButton
-            href="/articles"
-            label="Back to articles"
-            Icon={ArrowLeft}
-          />
+          <div className="flex items-center gap-2">
+            <BackButton
+              href="/articles"
+              label="Back to articles"
+              Icon={ArrowLeft}
+            />
+          </div>
 
           <div className="flex items-center gap-3">
-            <Image
-              src={tagDetails.iconPath}
-              alt={`${tagDetails.label} icon`}
-              width={20}
-              height={20}
-              className="flex-shrink-0"
-            />
-            <h1 className="text-md font-medium">{tagDetails.label} articles</h1>
+            <div className="size-5 bg-primary/10 rounded flex items-center justify-center">
+              <span className="text-xs font-medium text-primary">
+                {decodedCategory.charAt(0).toUpperCase()}
+              </span>
+            </div>
+            <h1 className="text-md font-medium">{decodedCategory} articles</h1>
           </div>
 
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
-              ? `${filteredArticles.length} ${pluralize("article", filteredArticles.length)} tagged with ${tagDetails.label}`
-              : `No articles found tagged with ${tagDetails.label}`}
+              ? `${filteredArticles.length} ${pluralize("article", filteredArticles.length)} in this category`
+              : `No articles found in this category`}
           </p>
         </div>
 
@@ -156,11 +138,9 @@ export default async function TagArticlePage({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  const tagsWithArticles = new Set<string>();
+  const categoriesWithArticles = getAllCategories();
 
-  getAllArticlesIndex().forEach((article) =>
-    article.tags.forEach((tag) => tagsWithArticles.add(tag)),
-  );
-
-  return Array.from(tagsWithArticles).map((tag) => ({ tag }));
+  return categoriesWithArticles.map((category) => ({
+    category: encodeURIComponent(category),
+  }));
 }

@@ -103,7 +103,7 @@ export default function CoverPage() {
 
           <div className="space-y-4">
             {hasCoverFile && coverContent ? (
-              <Card className="card-hover-shadow">
+              <Card>
                 <CardContent>
                   <Markdown content={coverContent} muted />
                 </CardContent>
