@@ -8,20 +8,20 @@ import {
 } from "@/components/ui/card";
 import { Home, Newspaper } from "lucide-react";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Page not found`,
+  title: `${getAuthorName()} | Page not found`,
   description:
     "The page you're looking for doesn't exist or has been moved. Return to the homepage or browse articles to find what you're looking for.",
   openGraph: {
     title: "Page not found.",
     description: "The page you're looking for doesn't exist or has been moved.",
     type: "website",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: BASE_URL,
     images: [
       {

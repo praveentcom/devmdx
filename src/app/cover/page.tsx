@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { Markdown } from "@/components/ui/markdown";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { PageWithStructuredData } from "@/components/ui/common";
@@ -14,7 +14,7 @@ import Link from "next/link";
 import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Cover letter`,
+  title: `${getAuthorName()} | Cover letter`,
   description:
     "A personalized introduction highlighting my experience and interest in joining your team. Learn about my background, skills, and what I can bring to your organization.",
   openGraph: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     description:
       "A personalized introduction highlighting my experience and interest in joining your team.",
     type: "article",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: `${BASE_URL}/cover`,
     images: [
       {
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     "cover letter, introduction, experience, skills, professional, career",
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: getAuthorName(),
     },
   ],
 };

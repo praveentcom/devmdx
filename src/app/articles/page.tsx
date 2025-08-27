@@ -6,7 +6,7 @@ import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
 import { EnumTag } from "@/lib/helpers/tag-mapper";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import pluralize from "pluralize";
@@ -16,7 +16,7 @@ import { CategoryBadge } from "@/components/ui/category-badge";
 import { ArticleYearBadge } from "@/components/ui/article-year-badge";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Articles`,
+  title: `${getAuthorName()} | Articles`,
   description:
     "A collection of articles about development, technology, and more. Sharing insights and knowledge from my journey as a developer.",
   openGraph: {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "A collection of articles about development, technology, and more.",
     type: "website",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: `${BASE_URL}/articles`,
     images: [
       {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   keywords: "articles, blog, development, technology, programming, tutorials",
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: getAuthorName(),
     },
   ],
 };

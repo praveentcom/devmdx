@@ -5,7 +5,7 @@ import { Users, Presentation, MicVocal, MonitorPlay } from "lucide-react";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getAllCommunitySlugs } from "@/lib/helpers/community";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import {
   generateCommunityPlaceholderImage,
   generatePlaceholderImageUrl,
@@ -19,13 +19,13 @@ import { EnumCommunityContributionType } from "@/types/community";
 import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | Community contributions`,
+  title: `${getAuthorName()} | Community contributions`,
   description: communityData.descriptionLine1,
   openGraph: {
     title: "Community contributions",
     description: communityData.descriptionLine1,
     type: "website",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: `${BASE_URL}/community`,
     images: [
       {
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     "community, talks, presentations, conferences, workshops, speaking, developer community",
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: getAuthorName(),
     },
   ],
 };

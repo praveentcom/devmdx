@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { profileData } from "@/data/profile";
+import { configData } from "@/data/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { BASE_URL } from "@/lib/constants";
@@ -9,7 +10,7 @@ export function getAuthorName(): string {
 }
 
 export function getSiteName(): string {
-  return getAuthorName();
+  return configData.misc.siteName || getAuthorName();
 }
 
 export function createNotFoundMetadata(type: string): Metadata {
@@ -91,10 +92,12 @@ export function createPageMetadata(config: {
       url: url ? `${BASE_URL}${url}` : undefined,
     },
     twitter: {
-      card: "summary_large_image",
+      card: configData.seo.twitterCard || "summary_large_image",
       title: openGraphTitle,
       description: openGraphDescription,
       images: [image.url],
+      site: configData.seo.twitterSite,
+      creator: configData.seo.twitterCreator,
     },
     authors: authors.map((name) => ({ name })),
   };

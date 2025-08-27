@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { Markdown } from "@/components/ui/markdown";
 import type { Metadata } from "next";
-import { profileData } from "@/data/profile";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { PageWithStructuredData } from "@/components/ui/common";
@@ -14,7 +14,7 @@ import Link from "next/link";
 import { BASE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName} | About`,
+  title: `${getAuthorName()} | About`,
   description:
     "Learn more about my background, experiences, and what drives me professionally and personally.",
   openGraph: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     description:
       "Learn more about my background, experiences, and what drives me professionally and personally.",
     type: "article",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+    siteName: getSiteName(),
     url: `${BASE_URL}/about`,
     images: [
       {
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   keywords: "about, background, experience, professional, personal, biography",
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: getAuthorName(),
     },
   ],
 };

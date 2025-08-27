@@ -7,7 +7,7 @@ import { BackButton } from "@/components/ui/common";
 import { ArrowLeft, Filter } from "lucide-react";
 import Link from "next/link";
 import { EnumCommunityContributionType } from "@/types/community";
-import { profileData } from "@/data/profile";
+import { getSiteName } from "@/lib/helpers/config";
 import { BASE_URL } from "@/lib/constants";
 
 interface PageProps {
@@ -108,7 +108,7 @@ export async function generateMetadata({
       title: `${typeLabel} | Community contributions`,
       description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
       type: "website",
-      siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      siteName: getSiteName(),
       url: `${BASE_URL}/community/contributions/${type}`,
     },
   };

@@ -1,4 +1,5 @@
 import { profileData } from "@/data/profile";
+import { getAuthorName, getSiteUrl } from "@/lib/helpers/config";
 import { Article } from "@/types/article";
 import { Community, CommunityContributionType } from "@/types/community";
 import { Project } from "@/types/project";
@@ -9,15 +10,13 @@ import { BASE_URL, URLS } from "@/lib/constants";
 
 // Schema.org structured data generators for SEO rich snippets
 export function generatePersonSchema() {
-  const profile = profileData.profile;
-
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: `${profile.firstName} ${profile.lastName}`,
+    name: getAuthorName(),
     jobTitle: profile.currentPosition,
     description: profile.description,
-    url: BASE_URL,
+    url: getSiteUrl() || BASE_URL,
     image: profile.imageUrl,
     sameAs: [
       profile.socialMedia?.linkedin,
@@ -41,7 +40,6 @@ export function generatePersonSchema() {
 }
 
 export function generateArticleSchema(article: Article & { year?: string }) {
-  const profile = profileData.profile;
   const year = article.year ?? new Date(article.date).getFullYear().toString();
 
   return {
@@ -54,12 +52,12 @@ export function generateArticleSchema(article: Article & { year?: string }) {
     dateModified: new Date(article.date).toISOString(),
     author: {
       "@type": "Person",
-      name: `${profile.firstName} ${profile.lastName}`,
-      url: BASE_URL,
+      name: getAuthorName(),
+      url: getSiteUrl() || BASE_URL,
     },
     publisher: {
       "@type": "Person",
-      name: `${profile.firstName} ${profile.lastName}`,
+      name: getAuthorName(),
       logo: {
         "@type": "ImageObject",
         url: profile.imageUrl,
@@ -79,7 +77,6 @@ export function generateCommunitySchema(
     type?: CommunityContributionType;
   },
 ) {
-  const profile = profileData.profile;
   const year =
     community.year ?? new Date(community.date).getFullYear().toString();
 
@@ -92,13 +89,13 @@ export function generateCommunitySchema(
     startDate: new Date(community.date).toISOString(),
     performer: {
       "@type": "Person",
-      name: `${profile.firstName} ${profile.lastName}`,
-      url: BASE_URL,
+      name: getAuthorName(),
+      url: getSiteUrl() || BASE_URL,
     },
     organizer: {
       "@type": "Person",
-      name: `${profile.firstName} ${profile.lastName}`,
-      url: BASE_URL,
+      name: getAuthorName(),
+      url: getSiteUrl() || BASE_URL,
     },
     url: URLS.COMMUNITY(year, community.slug),
     eventStatus: "https://schema.org/EventScheduled",
@@ -123,7 +120,6 @@ export function generateCommunitySchema(
 }
 
 export function generateProjectSchema(project: Project) {
-  const profile = profileData.profile;
   const techMapper = new TagMapper();
   const programmingLanguages = (project.stack || [])
     .map((tech) => techMapper.getDetails(tech)?.label)
@@ -138,7 +134,7 @@ export function generateProjectSchema(project: Project) {
     image: project.imagePath,
     author: {
       "@type": "Person",
-      name: `${profile.firstName} ${profile.lastName}`,
+      name: getAuthorName(),
     },
     programmingLanguage: programmingLanguages.join(", "),
     dateCreated: project.date?.toISOString(),
@@ -151,8 +147,6 @@ export function generateProjectSchema(project: Project) {
 }
 
 export function generateWorkSchema(work: WorkExperienceItem) {
-  const profile = profileData.profile;
-
   return {
     "@context": "https://schema.org",
     "@type": "WorkExperience",
@@ -167,15 +161,13 @@ export function generateWorkSchema(work: WorkExperienceItem) {
     endDate: work.endDate?.toISOString().split("T")[0],
     employee: {
       "@type": "Person",
-      name: `${profile.firstName} ${profile.lastName}`,
+      name: getAuthorName(),
     },
     skills: work.skills?.join(", "),
   };
 }
 
 export function generateEducationSchema(education: EducationItem) {
-  const profile = profileData.profile;
-
   return {
     "@context": "https://schema.org",
     "@type": "EducationalOccupationalCredential",
@@ -191,7 +183,7 @@ export function generateEducationSchema(education: EducationItem) {
     validUntil: education.endDate?.toISOString().split("T")[0],
     credentialSubject: {
       "@type": "Person",
-      name: `${profile.firstName} ${profile.lastName}`,
+      name: getAuthorName(),
     },
   };
 }

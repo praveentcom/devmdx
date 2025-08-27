@@ -33,6 +33,7 @@ fi
 
 # Create data directory if it doesn't exist
 mkdir -p data/profile
+mkdir -p data/config
 mkdir -p data/articles/2025
 mkdir -p data/community/2025
 
@@ -102,8 +103,7 @@ export const profileData: ProfileData = {
     gender: "${GENDER}",
     email: "${EMAIL}",
     currentPosition: "${CURRENT_POSITION}",
-    footerSubtitle: "Life is beautiful, isn't it?",
-    ogCoverImage: "https://placehold.co/1024x1024.png",
+
     imageUrl: "https://placehold.co/1024x1024.png",
     description: "${DESCRIPTION}",
     bulletPoints: [
@@ -240,6 +240,66 @@ else
   echo "✔︎ Profile data created"
 fi
 
+# Create data/config/index.ts
+if [[ "$SKIP_INTERACTIVE" == false ]]; then
+  gum spin --spinner points --spinner.foreground 248 --title.foreground 248 --title "Creating config data..." -- sleep 2
+else
+  echo "Creating config data..."
+fi
+cat > data/config/index.ts << EOL
+import { ConfigData } from "@/types/config";
+
+export const configData: ConfigData = {
+  analytics: {
+    // Uncomment and add your GA4 Measurement ID to enable Google Analytics
+    // googleAnalytics: {
+    //   measurementId: "G-XXXXXXXXXX",
+    // },
+    
+    // Uncomment and add your hostname to enable Simple Analytics
+    // simpleAnalytics: {
+    //   hostname: "yourdomain.com",
+    // },
+  },
+  seo: {
+    title: "${FIRST_NAME} ${LAST_NAME}",
+    description: "${DESCRIPTION}",
+    keywords: [
+      "full stack developer",
+      "react",
+      "node.js",
+      "typescript",
+      "web development",
+      "software engineer",
+    ],
+    ogTitle: "${FIRST_NAME} ${LAST_NAME}",
+    ogDescription: "${DESCRIPTION}",
+    ogImage: "https://placehold.co/1024x628.png",
+    ogUrl: "https://johndoe.dev",
+    twitterCard: "summary_large_image",
+    twitterSite: "@johndoe",
+    twitterCreator: "@johndoe",
+  },
+  misc: {
+    footerSubtitle: "Life is beautiful, isn't it?",
+    siteName: "${FIRST_NAME} ${LAST_NAME}",
+    siteUrl: "https://johndoe.dev",
+    locale: "en-US",
+    timezone: "America/New_York",
+  },
+};
+
+EOL
+
+# Clear the line and show completed version
+if [[ "$SKIP_INTERACTIVE" == false ]]; then
+  printf "\033[1A\033[K"
+  gum style --foreground 255 "✔︎ Config data created"
+  echo
+else
+  echo "✔︎ Config data created"
+fi
+
 # Create some sample articles
 if [[ "$SKIP_INTERACTIVE" == false ]]; then
   gum spin --spinner points --spinner.foreground 248 --title.foreground 248 --title "Creating sample articles..." -- sleep 2
@@ -252,6 +312,7 @@ title: "Hello World"
 description: "This is my first article."
 date: "2025-01-01"
 tags: ["nextjs", "typescript"]
+categories: ["Frontend"]
 published: true
 ---
 
@@ -266,6 +327,7 @@ title: "Getting Started with devcard"
 description: "How to get started with devcard."
 date: "2025-01-02"
 tags: ["aws", "javascript"]
+categories: ["Backend"]
 published: true
 ---
 

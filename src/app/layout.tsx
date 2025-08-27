@@ -5,7 +5,9 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { AnimatedLayout } from "@/components/layout/animated-layout";
-import { profileData } from "@/data/profile";
+import { Analytics } from "@/components/analytics/Analytics";
+
+import { configData } from "@/data/config";
 import { generateOpenGraphImage } from "@/lib/helpers/image";
 import { BASE_URL } from "@/lib/constants";
 
@@ -20,15 +22,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-  description: profileData.profile.description,
+  title: getSeoTitle(),
+  description: getSeoDescription(),
+  keywords: configData.seo.keywords,
   openGraph: {
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-    url: BASE_URL,
-    images: [
-      profileData.profile.ogCoverImage ||
-        generateOpenGraphImage(profileData.profile.firstName),
-    ],
+    title: configData.seo.ogTitle,
+    description: configData.seo.ogDescription,
+    siteName: getSiteName(),
+    url: configData.seo.ogUrl || configData.misc.siteUrl || BASE_URL,
+    images: [getOgImage() || generateOpenGraphImage(getAuthorName())],
+  },
+  twitter: {
+    card: configData.seo.twitterCard || "summary_large_image",
+    site: configData.seo.twitterSite,
+    creator: configData.seo.twitterCreator,
   },
 };
 
@@ -54,6 +61,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
         <script
           dangerouslySetInnerHTML={{
             __html: `

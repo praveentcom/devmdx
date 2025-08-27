@@ -20,8 +20,6 @@ export interface Profile {
   gender?: string;
   email?: string;
   currentPosition?: string;
-  ogCoverImage?: string;
-  footerSubtitle?: string;
   imageUrl?: string;
   description?: string;
   bulletPoints?: string[];

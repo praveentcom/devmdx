@@ -1,4 +1,12 @@
 import { profileData } from "@/data/profile";
+import { configData } from "@/data/config";
+import {
+  getAuthorName,
+  getSiteName,
+  getOgImage,
+  getSeoTitle,
+  getSeoDescription,
+} from "@/lib/helpers/config";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ArticlesSection } from "@/components/sections/ArticlesSection";
 import { CommunitySection } from "@/components/sections/CommunitySection";
@@ -8,43 +16,43 @@ import { PageWithStructuredData } from "@/components/ui/common";
 import { generatePersonSchema } from "@/lib/helpers/structured-data";
 import { BASE_URL } from "@/lib/constants";
 
+const authorName = getAuthorName();
+const siteName = getSiteName();
+const seoTitle = getSeoTitle();
+const seoDescription = getSeoDescription();
+
 export const metadata: Metadata = {
-  title: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-  description: profileData.profile.description,
+  title: seoTitle,
+  description: seoDescription,
   openGraph: {
-    title: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-    description: profileData.profile.description,
+    title: configData.seo.ogTitle || authorName,
+    description: configData.seo.ogDescription || seoDescription,
     type: "profile",
-    siteName: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-    url: BASE_URL,
+    siteName,
+    url: configData.seo.ogUrl || configData.misc.siteUrl || BASE_URL,
     images: [
       {
-        url:
-          profileData.profile.ogCoverImage ||
-          generateOpenGraphImage(
-            `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-          ),
+        url: getOgImage() || generateOpenGraphImage(authorName),
         width: 1200,
         height: 630,
-        alt: `${profileData.profile.firstName} ${profileData.profile.lastName} - ${profileData.profile.currentPosition || "Professional"}`,
+        alt: `${authorName} - ${profileData.profile.currentPosition || "Professional"}`,
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-    description: profileData.profile.description,
-    images: [
-      profileData.profile.ogCoverImage ||
-        generateOpenGraphImage(
-          `${profileData.profile.firstName} ${profileData.profile.lastName}`,
-        ),
-    ],
+    card: configData.seo.twitterCard || "summary_large_image",
+    title: configData.seo.ogTitle || authorName,
+    description: configData.seo.ogDescription || seoDescription,
+    site: configData.seo.twitterSite,
+    creator: configData.seo.twitterCreator,
+    images: [getOgImage() || generateOpenGraphImage(authorName)],
   },
-  keywords: `${profileData.profile.firstName} ${profileData.profile.lastName}, ${profileData.profile.currentPosition || "professional"}, developer, portfolio, ${profileData.profile.bulletPoints?.join(", ")}`,
+  keywords:
+    configData.seo.keywords ||
+    `${authorName}, ${profileData.profile.currentPosition || "professional"}, developer, portfolio, ${profileData.profile.bulletPoints?.join(", ")}`,
   authors: [
     {
-      name: `${profileData.profile.firstName} ${profileData.profile.lastName}`,
+      name: authorName,
     },
   ],
 };

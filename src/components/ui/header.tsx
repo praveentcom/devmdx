@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollProgressBar } from "@/components/ui/scroll-progress";
 import { cn } from "@/lib/utils";
-import { profileData } from "@/data/profile";
+import { getAuthorName } from "@/lib/helpers/config";
 import { AnimatedBackground } from "@/components/motion-primitives";
 
 const navigationItems = [
@@ -22,7 +22,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
-  const personName = `${profileData.profile.firstName} ${profileData.profile.lastName}`;
+  const personName = getAuthorName();
   const isHomePage = pathname === "/";
   const nameHref = isHomePage ? "/about" : "/";
 
