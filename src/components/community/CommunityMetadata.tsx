@@ -22,7 +22,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
   return (
     <div className="md:sticky md:top-24 space-y-5">
       {/* Metadata Card */}
-      <Card className="card-hover-shadow">
+      <Card>
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center gap-1">
@@ -48,7 +48,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
 
       {/* YouTube Video Card */}
       {community.youtubeUrl && (
-        <Card className="card-hover-shadow">
+        <Card>
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-1">
@@ -77,7 +77,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
 
       {/* External Links Card */}
       {community.externalLinks && community.externalLinks.length > 0 && (
-        <Card className="card-hover-shadow">
+        <Card>
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-1">

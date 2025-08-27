@@ -22,7 +22,7 @@ export function CommunitySection() {
         </div>
         <Button variant="outline" size="sm" asChild>
           <Link href="/community" className="flex items-center gap-2">
-            View contributions
+            View all
             <ArrowRight className="size-4" />
           </Link>
         </Button>

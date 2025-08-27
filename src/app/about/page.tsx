@@ -97,7 +97,7 @@ export default function AboutPage() {
 
           <div className="space-y-4">
             {hasAboutFile && aboutContent ? (
-              <Card className="card-hover-shadow">
+              <Card>
                 <CardContent>
                   <Markdown content={aboutContent} muted />
                 </CardContent>

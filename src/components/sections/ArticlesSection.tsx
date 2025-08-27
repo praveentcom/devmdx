@@ -22,7 +22,7 @@ export function ArticlesSection() {
         </div>
         <Button variant="outline" size="sm" asChild>
           <Link href="/articles" className="flex items-center gap-2">
-            View articles
+            View all
             <ArrowRight className="size-4" />
           </Link>
         </Button>

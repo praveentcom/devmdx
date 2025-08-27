@@ -47,7 +47,7 @@ export default function NotFound() {
   return (
     <div className="my-16 mx-4 bg-background flex items-center justify-center">
       <div className="container mx-auto max-w-2xl">
-        <Card className="text-center py-8 card-hover-shadow">
+        <Card className="text-center py-8">
           <CardHeader>
             <div className="flex justify-center">
               <div className="relative">
@@ -69,7 +69,7 @@ export default function NotFound() {
             </div>
           </CardContent>
           <CardFooter>
-            <div className="flex mx-auto flex-col sm:flex-row gap-3 justify-center w-full">
+            <div className="flex mx-auto flex-col md:flex-row gap-3 justify-center w-full">
               <Button
                 variant="outline"
                 asChild

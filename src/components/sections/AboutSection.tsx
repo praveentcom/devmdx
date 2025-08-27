@@ -29,7 +29,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
   return (
     <Card>
       <CardHeader>
-        <div className="flex flex-col sm:flex-row gap-4 items-start">
+        <div className="flex flex-col md:flex-row gap-4 items-start">
           {imageUrl && (
             <div className="card-image-container">
               <Image

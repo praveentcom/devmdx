@@ -16,8 +16,8 @@ export function EmptyPlaceholderCard({
   children,
 }: EmptyPlaceholderCardProps) {
   return (
-    <Card className="text-center py-8 card-hover-shadow rounded-lg">
-      <CardContent>
+    <Card>
+      <CardContent className="text-center py-8">
         <div className="grid items-center gap-5">
           <div className="grid text-center items-center justify-center gap-2">
             <NewspaperIcon className="size-4 text-muted-foreground mx-auto" />

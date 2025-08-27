@@ -10,7 +10,7 @@ interface ContributionTypeBadgeProps {
 
 export function ContributionTypeBadge({
   type,
-  variant = "default",
+  variant = "outline",
   className = "text-xs",
 }: ContributionTypeBadgeProps) {
   const getTypeLabel = (value: EnumCommunityContributionType) => {

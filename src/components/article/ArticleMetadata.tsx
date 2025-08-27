@@ -11,7 +11,7 @@ interface ArticleMetadataProps {
 export function ArticleMetadata({ article }: ArticleMetadataProps) {
   return (
     <div className="md:sticky md:top-24 space-y-5">
-      <Card className="card-hover-shadow">
+      <Card>
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center gap-1">
@@ -33,7 +33,7 @@ export function ArticleMetadata({ article }: ArticleMetadataProps) {
       </Card>
 
       {/* Article Tags Card */}
-      <Card className="card-hover-shadow">
+      <Card>
         <CardContent>
           <div className="space-y-4">
             <div className="flex items-center gap-1">

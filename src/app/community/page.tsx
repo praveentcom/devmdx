@@ -89,7 +89,7 @@ export default function CommunityPage() {
     >
       <div className="page-container">
         <div className="grid gap-6">
-          <Card className="card-shadow">
+          <Card>
             <CardContent>
               <div className="grid gap-5">
                 <div className="grid gap-3">

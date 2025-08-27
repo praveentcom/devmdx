@@ -83,12 +83,12 @@ export function Header() {
         className={cn(
           "sticky top-0 z-40 w-full backdrop-blur-sm transition-[background-color,border-color,backdrop-filter] duration-300 ease-out will-change-[background-color,border-color]",
           "bg-background/95 supports-[backdrop-filter]:bg-background/80",
-          "border-b border-border sm:border-transparent",
-          isScrolled && "sm:border-border",
+          "border-b border-border md:border-transparent",
+          isScrolled && "md:border-border",
         )}
       >
         <div className="page-container py-0">
-          <div className="hidden sm:flex items-center justify-start py-4 gap-4">
+          <div className="hidden md:flex items-center justify-start py-4 gap-4">
             <h1 className="text-md font-medium">
               <Link
                 href={nameHref}
@@ -97,7 +97,7 @@ export function Header() {
                 {personName}
               </Link>
             </h1>
-            <div className="h-6 w-px bg-border hidden sm:block rounded-full" />
+            <div className="h-6 w-px bg-border hidden md:block rounded-full" />
             <div className="flex items-center bg-background rounded-xl p-1 border border-transparent hover:border-border/75 transition-all duration-200">
               <AnimatedBackground
                 defaultValue={pathname}
@@ -132,7 +132,7 @@ export function Header() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between py-2.5 sm:hidden">
+          <div className="flex items-center justify-between py-2.5 md:hidden">
             <h1 className="text-md font-medium">
               <Link
                 href={nameHref}
@@ -165,7 +165,7 @@ export function Header() {
 
       <div
         className={cn(
-          "fixed inset-0 z-50 sm:hidden transition-[visibility,opacity] duration-250 ease-out",
+          "fixed inset-0 z-50 md:hidden transition-[visibility,opacity] duration-250 ease-out",
           isMobileMenuOpen ? "visible opacity-100" : "invisible opacity-0",
         )}
       >

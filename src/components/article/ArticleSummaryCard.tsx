@@ -29,7 +29,7 @@ export function ArticleSummaryCard({
 }) {
   return (
     <Link href={href ?? `/articles/${article.year}/${article.slug}`}>
-      <Card className="group card-hover-shadow cursor-pointer" borderTrail>
+      <Card className="group" borderTrail>
         <CardHeader>
           <div className="relative w-full h-48 overflow-hidden rounded-md">
             <Image

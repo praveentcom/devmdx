@@ -23,7 +23,7 @@ function Card({
       data-slot="card"
       className={cn(
         "text-card-foreground rounded-xl relative",
-        "border border-border/50 bg-card dark:bg-card/25",
+        "border border-border/75 bg-card dark:bg-card/25",
         "h-min py-4",
         "transition-all duration-100",
         className,

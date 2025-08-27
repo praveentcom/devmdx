@@ -18,7 +18,7 @@ export function CommunitySummaryCard({
 }) {
   return (
     <Link href={href ?? `/community/${community.year}/${community.slug}`}>
-      <Card className="group card-hover-shadow cursor-pointer" borderTrail>
+      <Card className="group" borderTrail>
         <CardHeader>
           <div className="relative w-full h-48 overflow-hidden rounded-md">
             <Image

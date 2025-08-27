@@ -41,8 +41,8 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
 
       {/* Sticky header with text effects only */}
       <div
-        className={`sticky top-12 sm:top-16 z-20 bg-background transition-all pb-5 duration-300 border-b ${
-          isScrolled ? "pt-6 border-border" : "border-border/25"
+        className={`sticky top-12 md:top-16 z-20 bg-background transition-all pb-5 duration-300 border-b ${
+          isScrolled ? "pt-6 border-border" : "border-border/50"
         }`}
       >
         <div className="transition-all duration-300 space-y-1">

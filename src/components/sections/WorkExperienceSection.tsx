@@ -16,7 +16,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
 
   return (
     <Link href={`/work/${experience.slug}`} className="block">
-      <Card className="mb-4 card-hover-shadow cursor-pointer transition-shadow">
+      <Card className="mb-4">
         <CardHeader>
           <div className="card-header-layout">
             {companyImagePath && (

@@ -36,7 +36,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         </div>
         <Button variant="outline" size="sm" asChild>
           <Link href="/projects" className="flex items-center gap-2">
-            View projects
+            View all
             <ArrowRight className="size-4" />
           </Link>
         </Button>
