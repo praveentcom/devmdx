@@ -157,7 +157,7 @@ export function parseMarkdown(content: string): string {
 
       const lineNumberWidth = getLineNumberWidth(totalLines);
       
-      const numberedLines = originalLines.map((line, index) => {
+      const numberedLines = originalLines.map((line: string, index: number) => {
         const lineNumber = index + 1;
         const isFirstLine = index === 0;
         const isLastLine = index === originalLines.length - 1;
