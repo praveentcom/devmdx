@@ -74,7 +74,6 @@ export default function CoverPage() {
     coverContent = fs.readFileSync(coverPath, "utf-8");
     hasCoverFile = true;
   } catch {
-    // File doesn't exist, will show placeholder
     hasCoverFile = false;
   }
 

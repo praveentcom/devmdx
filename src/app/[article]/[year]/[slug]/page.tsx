@@ -9,6 +9,11 @@ import { PageWithStructuredData, BackButton } from "@/components/ui/common";
 import { headers } from "next/headers";
 import { generateArticleSchema } from "@/lib/helpers/structured-data";
 import {
+  getArticleLabel,
+  getArticleLabelSingular,
+  getArticleSlug,
+} from "@/lib/helpers/config";
+import {
   METADATA_PATTERNS,
   createNotFoundMetadata,
 } from "@/lib/helpers/metadata";
@@ -48,10 +53,10 @@ export default async function ArticlePage({ params }: PageProps) {
         <BackButton
           href={
             (await headers()).get("x-next-url")?.includes("source=year-range")
-              ? `/articles/${year}`
-              : `/articles`
+              ? `/${getArticleSlug()}/${year}`
+              : `/${getArticleSlug()}`
           }
-          label="Back to articles"
+          label={`Back to ${getArticleLabel().toLowerCase()}`}
           Icon={ArrowLeft}
         />
 
@@ -79,7 +84,7 @@ export async function generateMetadata({
   const rawArticle = getArticleBySlugRaw(slug);
 
   if (!rawArticle) {
-    return createNotFoundMetadata("Article");
+    return createNotFoundMetadata(getArticleLabelSingular());
   }
 
   const article = rawArticle.meta;
@@ -89,7 +94,7 @@ export async function generateMetadata({
     article.description,
     article.image,
     new Date(article.date).toISOString(),
-    `/articles/${year}/${article.slug}`,
+    `/${getArticleSlug()}/${year}/${article.slug}`,
   );
 }
 

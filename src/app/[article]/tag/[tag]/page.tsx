@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
+import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
 import type { Metadata } from "next";
 import {
   createNotFoundMetadata,
@@ -45,7 +46,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     tagDetails.label,
     filteredArticles.length,
-    `/articles/tag/${tag}`,
+    `/${getArticleSlug()}/tag/${tag}`,
   );
 }
 
@@ -64,7 +65,6 @@ export default async function TagArticlePage({ params }: PageProps) {
     notFound();
   }
 
-  // Filter articles by the specified tag
   const filteredArticles = getAllArticlesIndex().filter((article) =>
     article.tags.includes(tagEnum),
   );
@@ -76,8 +76,8 @@ export default async function TagArticlePage({ params }: PageProps) {
           {/* Header with back navigation */}
           <div className="grid gap-0.5">
             <BackButton
-              href="/articles"
-              label="Back to articles"
+              href={`/${getArticleSlug()}`}
+              label={`Back to ${getArticleLabel().toLowerCase()}`}
               Icon={ArrowLeft}
             />
 
@@ -90,21 +90,24 @@ export default async function TagArticlePage({ params }: PageProps) {
                 className="flex-shrink-0"
               />
               <h1 className="text-md font-medium">
-                {tagDetails.label} articles
+                {tagDetails.label} {getArticleLabel().toLowerCase()}
               </h1>
             </div>
 
             <p className="text-muted-foreground text-sm">
-              No articles found tagged with {tagDetails.label}
+              No {getArticleLabel().toLowerCase()} found tagged with{" "}
+              {tagDetails.label}
             </p>
           </div>
 
           <EmptyPlaceholderCard
-            title="No articles found."
-            subtitle={`No articles have been published with the tag ${tagDetails.label} yet. Check back later for new content!`}
+            title={`No ${getArticleLabel().toLowerCase()} found.`}
+            subtitle={`No ${getArticleLabel().toLowerCase()} have been published with the tag ${tagDetails.label} yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>
-              <Link href="/articles">articles</Link>
+              <Link href={`/${getArticleSlug()}`}>
+                {getArticleLabel().toLowerCase()}
+              </Link>
             </Button>
             <Button variant="outline" asChild>
               <Link href="/">Go home</Link>
@@ -120,8 +123,8 @@ export default async function TagArticlePage({ params }: PageProps) {
       <div className="grid gap-5">
         <div className="grid gap-0.5">
           <BackButton
-            href="/articles"
-            label="Back to articles"
+            href={`/${getArticleSlug()}`}
+            label={`Back to ${getArticleLabel().toLowerCase()}`}
             Icon={ArrowLeft}
           />
 
@@ -133,13 +136,15 @@ export default async function TagArticlePage({ params }: PageProps) {
               height={20}
               className="flex-shrink-0"
             />
-            <h1 className="text-md font-medium">{tagDetails.label} articles</h1>
+            <h1 className="text-md font-medium">
+              {tagDetails.label} {getArticleLabel().toLowerCase()}
+            </h1>
           </div>
 
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
-              ? `${filteredArticles.length} ${pluralize("article", filteredArticles.length)} tagged with ${tagDetails.label}`
-              : `No articles found tagged with ${tagDetails.label}`}
+              ? `${filteredArticles.length} ${pluralize(getArticleLabel().toLowerCase().slice(0, -1), filteredArticles.length)} tagged with ${tagDetails.label}`
+              : `No ${getArticleLabel().toLowerCase()} found tagged with ${tagDetails.label}`}
           </p>
         </div>
 

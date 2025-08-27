@@ -4,6 +4,7 @@ import { configData } from "@/data/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { BASE_URL } from "@/lib/constants";
+import { getArticleLabel, getArticleSlug } from "@/lib/helpers/config";
 
 export function getAuthorName(): string {
   return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
@@ -286,13 +287,13 @@ export const METADATA_PATTERNS = {
 
   articlesList: () =>
     createListingMetadata({
-      pageType: "Articles",
+      pageType: getArticleLabel(),
       description:
         "A collection of articles about development, technology, and more. Sharing insights and knowledge from my journey as a developer.",
       colorScheme: COLOR_SCHEMES.ARTICLE,
       keywords:
         "articles, blog, development, technology, programming, tutorials",
-      url: "/articles",
+      url: `/${getArticleSlug()}`,
     }),
 
   projectsList: () =>
@@ -309,7 +310,7 @@ export const METADATA_PATTERNS = {
   tagArticles: (tagName: string, articleCount: number, url?: string) =>
     createFilteredMetadata({
       filterName: tagName,
-      contentType: "Articles",
+      contentType: getArticleLabel(),
       count: articleCount,
       colorScheme: COLOR_SCHEMES.ARTICLE,
       url,

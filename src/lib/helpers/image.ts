@@ -1,4 +1,5 @@
 import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
+import { getArticleLabelSingular } from "@/lib/helpers/config";
 
 export interface PlaceholderImageOptions {
   width?: number;
@@ -13,7 +14,7 @@ const DEFAULT_BLOG_OPTIONS: Required<PlaceholderImageOptions> = {
   height: 628,
   backgroundColor: PLACEHOLDER_COLORS.ARTICLE,
   textColor: PLACEHOLDER_COLORS.WHITE,
-  text: "Article",
+  text: getArticleLabelSingular(),
 };
 
 /**
@@ -21,22 +22,6 @@ const DEFAULT_BLOG_OPTIONS: Required<PlaceholderImageOptions> = {
  *
  * @param options Configuration options for the placeholder image
  * @returns Complete URL for the placeholder image
- *
- * @example
- * ```typescript
- * // Basic usage with text
- * const url = generatePlaceholderImageUrl({ text: 'My Article' });
- * // Returns: https://placehold.co/1200x628/6366f1/ffffff.png?text=My+Article
- *
- * // Custom dimensions and colors
- * const url = generatePlaceholderImageUrl({
- *   width: 800,
- *   height: 400,
- *   backgroundColor: '10b981',
- *   textColor: '000000',
- *   text: 'Custom Image'
- * });
- * ```
  */
 export function generatePlaceholderImageUrl(
   options: PlaceholderImageOptions = {},

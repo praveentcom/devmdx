@@ -4,14 +4,14 @@ import { configData } from "@/data/config";
 import Script from "next/script";
 
 export function Analytics() {
-  const { 
-    googleAnalytics, 
-    simpleAnalytics, 
-    plausible, 
-    umami, 
-    matomo, 
-    microsoftClarity, 
-    mixpanel 
+  const {
+    googleAnalytics,
+    simpleAnalytics,
+    plausible,
+    umami,
+    matomo,
+    microsoftClarity,
+    mixpanel,
   } = configData.analytics;
 
   return (

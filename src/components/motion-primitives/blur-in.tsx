@@ -34,7 +34,6 @@ export function BlurIn({
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  // If user prefers reduced motion, render without animation
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }

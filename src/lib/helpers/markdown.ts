@@ -2,7 +2,6 @@ import { Article } from "@/types/article";
 import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { format } from "date-fns";
 
-// Custom markdown parser with syntax highlighting and copy functionality
 export function parseMarkdown(content: string): string {
   const codeBlocks: string[] = [];
   let processedContent = content.replace(

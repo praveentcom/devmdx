@@ -8,8 +8,9 @@ import EducationItem from "@/models/EducationItem";
 import { TagMapper } from "@/lib/helpers/tag-mapper";
 import { BASE_URL, URLS } from "@/lib/constants";
 
-// Schema.org structured data generators for SEO rich snippets
 export function generatePersonSchema() {
+  const profile = profileData.profile;
+
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -41,6 +42,7 @@ export function generatePersonSchema() {
 
 export function generateArticleSchema(article: Article & { year?: string }) {
   const year = article.year ?? new Date(article.date).getFullYear().toString();
+  const profile = profileData.profile;
 
   return {
     "@context": "https://schema.org",
@@ -111,7 +113,6 @@ export function generateCommunitySchema(
       : undefined,
   };
 
-  // Optionally add an additionalType hint based on contribution type
   if (community.type) {
     eventData["additionalType"] = URLS.COMMUNITY_CONTRIBUTIONS(community.type);
   }

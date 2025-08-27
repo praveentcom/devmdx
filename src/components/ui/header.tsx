@@ -2,18 +2,23 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { PrefetchLink } from "@/components/ui/prefetch-link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollProgressBar } from "@/components/ui/scroll-progress";
 import { cn } from "@/lib/utils";
-import { getAuthorName } from "@/lib/helpers/config";
+import {
+  getAuthorName,
+  getArticleLabel,
+  getArticleSlug,
+} from "@/lib/helpers/config";
 import { AnimatedBackground } from "@/components/motion-primitives";
 
 const navigationItems = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
-  { href: "/articles", label: "Articles" },
+  { href: `/${getArticleSlug()}`, label: getArticleLabel() },
   { href: "/community", label: "Community" },
 ];
 
@@ -61,7 +66,8 @@ export function Header() {
   }, [pathname]);
 
   const isArticle =
-    pathname?.startsWith("/articles/") && pathname?.split("/").length === 3;
+    pathname?.startsWith(`/${getArticleSlug()}/`) &&
+    pathname?.split("/").length === 4;
 
   return (
     <>
@@ -113,7 +119,7 @@ export function Header() {
                   const isActive = pathname === item.href;
 
                   return (
-                    <Link
+                    <PrefetchLink
                       key={item.href}
                       data-id={item.href}
                       href={item.href}
@@ -125,7 +131,7 @@ export function Header() {
                       )}
                     >
                       {item.label}
-                    </Link>
+                    </PrefetchLink>
                   );
                 })}
               </AnimatedBackground>
@@ -213,7 +219,7 @@ export function Header() {
                   const isActive = pathname === item.href;
 
                   return (
-                    <Link
+                    <PrefetchLink
                       key={item.href}
                       href={item.href}
                       onClick={toggleMobileMenu}
@@ -228,7 +234,7 @@ export function Header() {
                       }}
                     >
                       {item.label}
-                    </Link>
+                    </PrefetchLink>
                   );
                 })}
               </div>

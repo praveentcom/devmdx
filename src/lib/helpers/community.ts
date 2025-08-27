@@ -139,7 +139,6 @@ export async function getCommunityBySlugCompiled(slug: string): Promise<{
 
   const raw = fs.readFileSync(match, "utf-8");
 
-  // compileMDX can parse frontmatter directly
   const { content, frontmatter } = await compileMDX<{ [key: string]: unknown }>(
     {
       source: raw,

@@ -174,7 +174,7 @@
   }
 
   .bullet-dot {
-    @apply size-1.5 bg-primary rounded-full mt-2 flex-shrink-0;
+    @apply size-1 bg-primary/50 rounded-full mt-2 flex-shrink-0;
   }
 
   .bullet-text {

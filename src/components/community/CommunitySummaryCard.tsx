@@ -3,7 +3,7 @@ import { Calendar, Eye, Youtube, ExternalLink } from "lucide-react";
 import { formatDate } from "@/lib/helpers/markdown";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { truncate } from "@/lib/utils";
-import Link from "next/link";
+import { PrefetchLink } from "@/components/ui/prefetch-link";
 import Image from "next/image";
 import { CommunityIndexItem } from "@/lib/helpers/community";
 import { Badge } from "../ui/badge";
@@ -17,7 +17,10 @@ export function CommunitySummaryCard({
   href?: string;
 }) {
   return (
-    <Link href={href ?? `/community/${community.year}/${community.slug}`}>
+    <PrefetchLink
+      href={href ?? `/community/${community.year}/${community.slug}`}
+      prefetchOnVisible={true}
+    >
       <Card className="group" borderTrail>
         <CardHeader>
           <div className="relative w-full h-48 overflow-hidden rounded-md">
@@ -77,6 +80,6 @@ export function CommunitySummaryCard({
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </PrefetchLink>
   );
 }

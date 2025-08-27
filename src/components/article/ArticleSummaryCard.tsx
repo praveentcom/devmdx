@@ -6,7 +6,8 @@ import { TagBadge } from "../ui/tag-badge";
 import { CategoryBadge } from "../ui/category-badge";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { truncate } from "@/lib/utils";
-import Link from "next/link";
+import { PrefetchLink } from "@/components/ui/prefetch-link";
+import { getArticleSlug } from "@/lib/helpers/config";
 import Image from "next/image";
 
 export type ArticleLike = Pick<
@@ -30,7 +31,10 @@ export function ArticleSummaryCard({
   href?: string;
 }) {
   return (
-    <Link href={href ?? `/articles/${article.year}/${article.slug}`}>
+    <PrefetchLink
+      href={href ?? `/${getArticleSlug()}/${article.year}/${article.slug}`}
+      prefetchOnVisible={true}
+    >
       <Card className="group" borderTrail>
         <CardHeader>
           <div className="relative w-full h-48 overflow-hidden rounded-md">
@@ -88,6 +92,6 @@ export function ArticleSummaryCard({
           </div>
         </CardContent>
       </Card>
-    </Link>
+    </PrefetchLink>
   );
 }

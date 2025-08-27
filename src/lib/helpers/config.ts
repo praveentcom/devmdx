@@ -45,3 +45,24 @@ export function getSeoDescription(): string {
 export function getOgImage(): string {
   return configData.seo.ogImage || "https://placehold.co/1024x628.png";
 }
+
+/**
+ * Get the article label (plural) from config or fallback
+ */
+export function getArticleLabel(): string {
+  return configData.misc.content?.articleLabel || "Articles";
+}
+
+/**
+ * Get the article label (singular) from config or fallback
+ */
+export function getArticleLabelSingular(): string {
+  return configData.misc.content?.articleLabelSingular || "Article";
+}
+
+/**
+ * Get the article URL slug from config or fallback
+ */
+export function getArticleSlug(): string {
+  return configData.misc.content?.articleSlug || "articles";
+}

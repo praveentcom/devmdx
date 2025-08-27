@@ -7,14 +7,14 @@ export interface ConfigAnalyticsData {
   };
   plausible?: {
     domain: string;
-    src?: string; // Custom script URL if self-hosted
+    src?: string;
   };
   umami?: {
     websiteId: string;
-    src?: string; // Custom script URL if self-hosted
+    src?: string;
   };
   matomo?: {
-    url: string; // Matomo instance URL
+    url: string;
     siteId: string;
   };
   microsoftClarity?: {
@@ -44,6 +44,15 @@ export interface ConfigMiscData {
   siteUrl?: string;
   locale?: string;
   timezone?: string;
+  webVitals?: {
+    enabled?: boolean;
+    logToConsole?: boolean;
+  };
+  content?: {
+    articleLabel?: string; // e.g., "Articles", "Blog", "Essays", "Writings"
+    articleLabelSingular?: string; // e.g., "Article", "Post", "Essay", "Writing"
+    articleSlug?: string; // e.g., "articles", "blog", "essays", "writings"
+  };
 }
 
 export interface ConfigData {

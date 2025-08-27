@@ -6,8 +6,17 @@ import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { AnimatedLayout } from "@/components/layout/animated-layout";
 import { Analytics } from "@/components/analytics/Analytics";
+import { WebVitals } from "@/components/analytics/WebVitals";
+import { PrefetchProvider } from "@/components/providers/prefetch-provider";
 
 import { configData } from "@/data/config";
+import {
+  getSeoTitle,
+  getSeoDescription,
+  getSiteName,
+  getAuthorName,
+  getOgImage,
+} from "@/lib/helpers/config";
 import { generateOpenGraphImage } from "@/lib/helpers/image";
 import { BASE_URL } from "@/lib/constants";
 
@@ -55,17 +64,19 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main id="main-content" className="flex-1">
-            <AnimatedLayout>{children}</AnimatedLayout>
-          </main>
-          <Footer />
+          <PrefetchProvider>
+            <Header />
+            <main id="main-content" className="flex-1">
+              <AnimatedLayout>{children}</AnimatedLayout>
+            </main>
+            <Footer />
+          </PrefetchProvider>
         </ThemeProvider>
         <Analytics />
+        <WebVitals />
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Global code copy functionality for markdown code blocks
               window.copyCode = function(button) {
                 const codeBlock = button.parentElement;
                 const codeRows = Array.from(codeBlock.querySelectorAll('.flex'));

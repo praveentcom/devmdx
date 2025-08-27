@@ -6,7 +6,6 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
 });
 
-// Get environment-based configuration
 const envConfig = getEnvConfig();
 
 const nextConfig: NextConfig = {
@@ -60,7 +59,6 @@ const nextConfig: NextConfig = {
       },
     ];
 
-    // Add development-specific headers
     if (envConfig.isDevelopment) {
       securityHeaders.push({
         key: "X-Development-Mode",

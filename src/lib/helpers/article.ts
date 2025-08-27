@@ -14,9 +14,7 @@ const ARTICLE_CONTENT_DIR = path.join(process.cwd(), "data", "articles");
 
 const tagMapper = new TagMapper();
 
-// Custom schema that filters out invalid tags instead of throwing errors
 const safeTagsSchema = z.array(z.string()).transform((tags) => {
-  // Filter out invalid tags and only keep valid ones
   return tags.filter((tag) => tagMapper.isValidTag(tag)) as EnumTag[];
 });
 
@@ -141,7 +139,6 @@ export async function getArticleBySlugCompiled(slug: string): Promise<{
 
   const raw = fs.readFileSync(match, "utf-8");
 
-  // compileMDX can parse frontmatter directly
   const { content, frontmatter } = await compileMDX<{ [key: string]: unknown }>(
     {
       source: raw,

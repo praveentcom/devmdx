@@ -5,6 +5,11 @@ import { notFound } from "next/navigation";
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { getArticlesByCategory, getAllCategories } from "@/lib/helpers/article";
+import {
+  getArticleLabel,
+  getArticleSlug,
+  getArticleLabelSingular,
+} from "@/lib/helpers/config";
 import type { Metadata } from "next";
 import {
   createNotFoundMetadata,
@@ -36,7 +41,7 @@ export async function generateMetadata({
   return METADATA_PATTERNS.tagArticles(
     decodedCategory,
     filteredArticles.length,
-    `/articles/category/${category}`,
+    `/${getArticleSlug()}/category/${category}`,
   );
 }
 
@@ -50,7 +55,6 @@ export default async function CategoryArticlePage({ params }: PageProps) {
     notFound();
   }
 
-  // Filter articles by the specified category
   const filteredArticles = getArticlesByCategory(decodedCategory);
 
   if (filteredArticles.length === 0) {
@@ -60,8 +64,8 @@ export default async function CategoryArticlePage({ params }: PageProps) {
           {/* Header with back navigation */}
           <div className="grid gap-0.5">
             <BackButton
-              href="/articles"
-              label="Back to articles"
+              href={`/${getArticleSlug()}`}
+              label={`Back to ${getArticleLabel().toLowerCase()}`}
               Icon={ArrowLeft}
             />
 
@@ -72,7 +76,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
                 </span>
               </div>
               <h1 className="text-md font-medium">
-                {decodedCategory} articles
+                {decodedCategory} {getArticleLabel().toLowerCase()}
               </h1>
             </div>
 
@@ -120,7 +124,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
 
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
-              ? `${filteredArticles.length} ${pluralize("article", filteredArticles.length)} in this category`
+              ? `${filteredArticles.length} ${pluralize(getArticleLabelSingular().toLowerCase(), filteredArticles.length)} in this category`
               : `No articles found in this category`}
           </p>
         </div>

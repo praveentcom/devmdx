@@ -315,6 +315,15 @@ export const configData: ConfigData = {
     siteUrl: "https://johndoe.dev",
     locale: "en-US",
     timezone: "America/New_York",
+    webVitals: {
+      enabled: true,
+      logToConsole: true, // Set to false in production
+    },
+    content: {
+      articleLabel: "Articles", // Change to "Blog", "Essays", "Writings", etc.
+      articleLabelSingular: "Article", // Change to "Post", "Essay", "Writing", etc.
+      articleSlug: "articles", // Change to "blog", "essays", "writings", etc.
+    },
   },
 };
 

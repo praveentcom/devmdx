@@ -68,7 +68,6 @@ export default function AboutPage() {
     aboutContent = fs.readFileSync(aboutPath, "utf-8");
     hasAboutFile = true;
   } catch {
-    // File doesn't exist, will show placeholder
     hasAboutFile = false;
   }
 
