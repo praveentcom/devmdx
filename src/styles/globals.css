@@ -115,12 +115,24 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    /* Prevent any element from causing horizontal scroll */
+    max-width: 100%;
+    box-sizing: border-box;
   }
+  
+  html {
+    @apply overflow-x-hidden;
+  }
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
   }
+  
   .page-container {
     @apply container mx-auto px-4 py-4 md:py-0 max-w-3xl min-w-0;
+    /* Ensure page container never exceeds viewport width */
+    max-width: min(100vw - 2rem, 48rem); /* 48rem = max-w-3xl, 2rem = px-4 * 2 */
+    box-sizing: border-box;
   }
 }
 
@@ -180,6 +192,9 @@
   /* Reusable article content styles */
   .article-base {
     @apply max-w-none min-w-0 overflow-hidden;
+    /* Ensure article content never causes horizontal scroll */
+    width: 100%;
+    max-width: 100%;
   }
 
   .article-base > p:first-child,
@@ -355,6 +370,9 @@
   /* Mobile-specific overrides for content */
   .article-base pre {
     @apply overflow-x-auto max-w-full;
+    /* Ensure pre blocks don't cause horizontal page scroll */
+    width: 100%;
+    box-sizing: border-box;
   }
 
   /* Ensure code blocks don't break */
@@ -369,10 +387,27 @@
 
   .article-base table {
     @apply w-full overflow-x-auto block whitespace-nowrap md:whitespace-normal md:table;
+    /* Ensure tables don't cause horizontal page scroll */
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* Badges */
   .badge-container {
     @apply text-xs cursor-pointer flex items-center gap-1.5 hover:bg-accent hover:text-accent-foreground transition-colors;
+  }
+
+  /* Utility class to prevent horizontal scroll */
+  .no-horizontal-scroll {
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Ensure all main containers respect viewport width */
+  main, section, article, div[class*="container"] {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
