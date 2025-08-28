@@ -9,15 +9,10 @@ import { z } from "zod";
 
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { calculateReadTime } from "@/lib/helpers/markdown";
-import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
 
 const ARTICLE_CONTENT_DIR = path.join(process.cwd(), "data", "articles");
 
-const tagMapper = new TagMapper();
-
-const safeTagsSchema = z.array(z.string()).transform((tags) => {
-  return tags.filter((tag) => tagMapper.isValidTag(tag)) as EnumTag[];
-});
+const safeTagsSchema = z.array(z.string());
 
 export const ArticleFrontmatterSchema = z.object({
   title: z.string(),

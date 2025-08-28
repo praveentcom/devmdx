@@ -1,5 +1,3 @@
-import { EnumTag } from "@/lib/helpers/tag-mapper";
-
 export interface Article {
   slug: string;
   title: string;
@@ -7,7 +5,7 @@ export interface Article {
   content: string;
   date: string;
   readTime: number;
-  tags: EnumTag[];
+  tags: string[];
   categories: string[];
   published: boolean;
   private?: boolean;

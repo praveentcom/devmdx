@@ -31,7 +31,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import xml from "highlight.js/lib/languages/xml";
 import yaml from "highlight.js/lib/languages/yaml";
 
-import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
+import { getTagImagePath } from "@/lib/helpers/tag-mapper";
 import { Article } from "@/types/article";
 
 // Default file icon path constant
@@ -94,70 +94,66 @@ function getFileIcon(filename: string): string {
     return `<img src="${DEFAULT_FILE_ICON_PATH}" alt="File" class="w-4 h-4" />`;
 
   const ext = filename.split(".").pop()?.toLowerCase();
-  const tagMapper = new TagMapper();
 
-  const extToTagMap: Record<string, EnumTag> = {
-    js: EnumTag.JAVASCRIPT,
-    mjs: EnumTag.JAVASCRIPT,
-    jsx: EnumTag.REACT,
-    ts: EnumTag.TYPESCRIPT,
-    tsx: EnumTag.REACT,
-    html: EnumTag.HTML5,
-    css: EnumTag.CSS3,
-    scss: EnumTag.SASS,
-    sass: EnumTag.SASS,
-    less: EnumTag.LESS,
-    json: EnumTag.JSON,
-    yaml: EnumTag.YAML,
-    yml: EnumTag.YAML,
-    xml: EnumTag.XML,
-    md: EnumTag.MARKDOWN,
-    sh: EnumTag.BASH,
-    bash: EnumTag.BASH,
-    zsh: EnumTag.BASH,
-    fish: EnumTag.BASH,
-    ps1: EnumTag.POWERSHELL,
-    py: EnumTag.PYTHON,
-    java: EnumTag.JAVA,
-    cpp: EnumTag.CPP,
-    cxx: EnumTag.CPP,
-    cc: EnumTag.CPP,
-    c: EnumTag.C,
-    h: EnumTag.C,
-    hpp: EnumTag.CPP,
-    go: EnumTag.GO,
-    rs: EnumTag.RUST,
-    php: EnumTag.PHP,
-    rb: EnumTag.RUBY,
-    swift: EnumTag.SWIFT,
-    kt: EnumTag.KOTLIN,
-    scala: EnumTag.SCALA,
-    cs: EnumTag.CSHARP,
-    fs: EnumTag.FSHARP,
-    dart: EnumTag.DART,
-    lua: EnumTag.LUA,
-    r: EnumTag.R,
-    pl: EnumTag.PERL,
-    sol: EnumTag.SOLIDITY,
-    dockerfile: EnumTag.DOCKER,
-    makefile: EnumTag.CMAKE,
-    gradle: EnumTag.GRADLE,
-    pom: EnumTag.APACHE_MAVEN,
-    package: EnumTag.NPM,
-    lock: EnumTag.NPM,
-    toml: EnumTag.RUST,
-    env: EnumTag.NODE_JS,
+  const extToTagMap: Record<string, string> = {
+    js: "JavaScript",
+    mjs: "JavaScript",
+    jsx: "React",
+    ts: "TypeScript",
+    tsx: "React",
+    html: "HTML5",
+    css: "CSS3",
+    scss: "Sass",
+    sass: "Sass",
+    less: "Less",
+    json: "JSON",
+    yaml: "YAML",
+    yml: "YAML",
+    xml: "XML",
+    md: "Markdown",
+    sh: "Bash",
+    bash: "Bash",
+    zsh: "Bash",
+    fish: "Bash",
+    ps1: "PowerShell",
+    py: "Python",
+    java: "Java",
+    cpp: "C++",
+    cxx: "C++",
+    cc: "C++",
+    c: "C",
+    h: "C",
+    hpp: "C++",
+    go: "Go",
+    rs: "Rust",
+    php: "PHP",
+    rb: "Ruby",
+    swift: "Swift",
+    kt: "Kotlin",
+    scala: "Scala",
+    cs: "C#",
+    fs: "F#",
+    dart: "Dart",
+    lua: "Lua",
+    r: "R",
+    pl: "Perl",
+    sol: "Solidity",
+    dockerfile: "Docker",
+    makefile: "Makefile",
+    gradle: "Gradle",
+    pom: "Apache Maven",
+    package: "npm",
+    lock: "npm",
+    toml: "Rust",
+    env: "Node.js",
   };
 
   const tag = extToTagMap[ext || ""];
   if (tag) {
-    const tagDetails = tagMapper.getDetails(tag);
-    if (tagDetails) {
-      return `<img src="${tagDetails.iconPath}" alt="${tagDetails.label}" class="w-4 h-4" />`;
-    }
+    return `<img src="${getTagImagePath(tag)}" alt="${tag}" class="size-4" />`;
   }
 
-  return '<img src="/images/tech-icons/Docs.png" alt="File" class="w-4 h-4" />';
+  return '<img src="/images/tech-icons/Docs.png" alt="File" class="size-4" />';
 }
 
 function processLists(html: string): string {
@@ -415,14 +411,14 @@ export function getArticlesBySlug(
   return articles.find((article) => article.slug === slug && article.published);
 }
 
-export function getArticlesByTag(articles: Article[], tag: EnumTag): Article[] {
+export function getArticlesByTag(articles: Article[], tag: string): Article[] {
   return articles
     .filter((article) => article.published && article.tags.includes(tag))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function getAllTags(articles: Article[]): EnumTag[] {
-  const tagSet = new Set<EnumTag>();
+export function getAllTags(articles: Article[]): string[] {
+  const tagSet = new Set<string>();
   articles
     .filter((article) => article.published)
     .forEach((article) => article.tags.forEach((tag) => tagSet.add(tag)));

@@ -1,7 +1,6 @@
 import { profileData } from "@/data/profile";
 import { BASE_URL, URLS } from "@/lib/constants";
 import { getAuthorName, getSiteUrl } from "@/lib/helpers/config";
-import { TagMapper } from "@/lib/helpers/tag-mapper";
 import EducationItem from "@/models/EducationItem";
 import WorkExperienceItem from "@/models/WorkExperienceItem";
 import { Article } from "@/types/article";
@@ -121,10 +120,9 @@ export function generateCommunitySchema(
 }
 
 export function generateProjectSchema(project: Project) {
-  const techMapper = new TagMapper();
-  const programmingLanguages = (project.stack || [])
-    .map((tech) => techMapper.getDetails(tech)?.label)
-    .filter(Boolean) as string[];
+  const programmingLanguages = (project.stack || []).filter(
+    Boolean,
+  ) as string[];
 
   return {
     "@context": "https://schema.org",

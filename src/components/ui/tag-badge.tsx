@@ -3,11 +3,11 @@ import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { URLS } from "@/lib/constants/urls";
-import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
+import { getTagImagePath } from "@/lib/helpers/tag-mapper";
 import { cn } from "@/lib/utils";
 
 interface TagBadgeProps {
-  tag: EnumTag;
+  tag: string;
   className?: string;
   variant?: "default" | "secondary" | "destructive" | "outline";
   showIcon?: boolean;
@@ -15,8 +15,6 @@ interface TagBadgeProps {
   clickable?: boolean;
   source?: "articles" | "projects" | "work";
 }
-
-const tagMapper = new TagMapper();
 
 export function TagBadge({
   tag,
@@ -27,28 +25,18 @@ export function TagBadge({
   clickable = true,
   source = "projects",
 }: TagBadgeProps) {
-  const techDetails = tagMapper.getDetails(tag);
-
-  if (!techDetails) {
-    return (
-      <Badge variant={variant} className={cn("text-xs", className)}>
-        {tag}
-      </Badge>
-    );
-  }
-
   const badgeContent = (
     <Badge variant={variant} className={cn("badge-container", className)}>
       {showIcon && (
         <Image
-          src={techDetails.iconPath}
-          alt={`${techDetails.label} icon`}
+          src={getTagImagePath(tag)}
+          alt={`${tag} icon`}
           width={iconSize}
           height={iconSize}
           className="flex-shrink-0"
         />
       )}
-      <span>{techDetails.label}</span>
+      <span>{tag}</span>
     </Badge>
   );
 
@@ -69,7 +57,7 @@ export function TagBadge({
       <Link
         href={href}
         className="inline-block"
-        aria-label={`View ${techDetails?.label || tag} ${source}`}
+        aria-label={`View ${tag} ${source}`}
       >
         {badgeContent}
       </Link>

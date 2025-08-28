@@ -2,7 +2,6 @@ import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import pluralize from "pluralize";
 
 import { ProjectCard } from "@/components/projects/ProjectCard";
@@ -11,11 +10,8 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { profileData } from "@/data/profile";
 import { URLS } from "@/lib/constants/urls";
-import {
-  createNotFoundMetadata,
-  METADATA_PATTERNS,
-} from "@/lib/helpers/metadata";
-import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
+import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
+import { getTagImagePath } from "@/lib/helpers/tag-mapper";
 
 interface PageProps {
   params: Promise<{
@@ -23,29 +19,16 @@ interface PageProps {
   }>;
 }
 
-const tagMapper = new TagMapper();
-
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { tag } = await params;
-
-  if (!tagMapper.isValidTag(tag)) {
-    return createNotFoundMetadata("Tag");
-  }
-
-  const techDetails = tagMapper.getDetails(tag);
-
-  if (!techDetails) {
-    return createNotFoundMetadata("Tag");
-  }
-
   const filteredProjects = profileData.projects.filter((project) =>
     project.stack.includes(tag),
   );
 
   return METADATA_PATTERNS.tagProjects(
-    techDetails.label,
+    tag,
     filteredProjects.length,
     `/projects/stack/${tag}`,
   );
@@ -53,16 +36,6 @@ export async function generateMetadata({
 
 export default async function TagProjectsPage({ params }: PageProps) {
   const { tag } = await params;
-
-  if (!tagMapper.isValidTag(tag)) {
-    redirect("/");
-  }
-
-  const techDetails = tagMapper.getDetails(tag);
-
-  if (!techDetails) {
-    redirect("/");
-  }
 
   const filteredProjects = profileData.projects.filter((project) =>
     project.stack.includes(tag),
@@ -80,20 +53,18 @@ export default async function TagProjectsPage({ params }: PageProps) {
 
           <div className="flex items-center gap-1.5">
             <Image
-              src={techDetails.iconPath}
-              alt={`${techDetails.label} icon`}
+              src={getTagImagePath(tag)}
+              alt={`${tag} icon`}
               width={20}
               height={20}
               className="flex-shrink-0"
             />
-            <h1 className="text-md font-medium">
-              {techDetails.label} projects
-            </h1>
+            <h1 className="text-md font-medium">{tag} projects</h1>
           </div>
           <p className="text-sm text-muted-foreground">
             {filteredProjects.length > 0
-              ? `${filteredProjects.length} ${pluralize("project", filteredProjects.length)} using ${techDetails.label}`
-              : `No projects found using ${techDetails.label}`}
+              ? `${filteredProjects.length} ${pluralize("project", filteredProjects.length)} using ${tag}`
+              : `No projects found using ${tag}`}
           </p>
         </div>
 
@@ -106,7 +77,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
         ) : (
           <EmptyPlaceholderCard
             title="No projects found."
-            subtitle={`There are currently no projects where I've used ${techDetails.label}.`}
+            subtitle={`There are currently no projects where I've used ${tag}.`}
           >
             <Button variant="outline" asChild>
               <Link href={URLS.PROJECTS_LIST()}>Projects</Link>
@@ -119,10 +90,4 @@ export default async function TagProjectsPage({ params }: PageProps) {
       </div>
     </div>
   );
-}
-
-export async function generateStaticParams() {
-  return Object.values(EnumTag).map((tag) => ({
-    tag: tag,
-  }));
 }

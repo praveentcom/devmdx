@@ -19,7 +19,6 @@ import {
   getSiteName,
 } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-import { EnumTag } from "@/lib/helpers/tag-mapper";
 
 const articleLabel = getArticleLabel();
 const articleLabelSingular = getArticleLabelSingular();
@@ -69,7 +68,7 @@ export const metadata: Metadata = {
 
 export default function ArticlePage() {
   const publishedArticles = getAllArticleSlugs();
-  const tagSet = new Set<EnumTag>();
+  const tagSet = new Set<string>();
   publishedArticles.forEach((p) => p.tags.forEach((t) => tagSet.add(t)));
   const allCategories = getAllCategories();
 

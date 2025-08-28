@@ -35,7 +35,6 @@ STACKOVERFLOW="https://stackoverflow.com/users/123456/johndoe"
 
 # Create data/profile/index.ts
 cat > data/profile/index.ts << EOL
-import { EnumTag } from "@/lib/helpers/tag-mapper";
 import EducationItem from "@/models/EducationItem";
 import ProjectItem from "@/models/ProjectItem";
 import WorkExperienceItem from "@/models/WorkExperienceItem";
@@ -78,10 +77,10 @@ export const profileData: ProfileData = {
       companyImagePath: "https://placehold.co/320x320.png",
       startDate: new Date(2022, 0),
       skills: [
-        EnumTag.NEXT_JS,
-        EnumTag.NODE_JS,
-        EnumTag.AWS,
-        EnumTag.POSTGRESQL,
+        "Next.js",
+        "Node.js",
+        "AWS",
+        "PostgreSQL",
       ],
       bulletPoints: [
         "Led development of microservices architecture serving 1M+ users",
@@ -98,10 +97,10 @@ export const profileData: ProfileData = {
       startDate: new Date(2020, 2),
       endDate: new Date(2021, 11),
       skills: [
-        EnumTag.REACT,
-        EnumTag.EXPRESS,
-        EnumTag.MONGODB,
-        EnumTag.DOCKER,
+        "React",
+        "Express",
+        "MongoDB",
+        "Docker",
       ],
       bulletPoints: [
         "Built the entire MVP from scratch using React and Node.js",
@@ -132,10 +131,10 @@ export const profileData: ProfileData = {
       slug: "ecotracker-carbon-footprint-app",
       name: "EcoTracker - Carbon Footprint App",
       stack: [
-        EnumTag.REACT_NATIVE,
-        EnumTag.NODE_JS,
-        EnumTag.MONGODB,
-        EnumTag.AWS,
+        "React Native",
+        "Node.js",
+        "MongoDB",
+        "AWS",
       ],
       description:
         "A mobile application that helps users track and reduce their carbon footprint through daily habit tracking and personalized recommendations.",
@@ -155,10 +154,10 @@ export const profileData: ProfileData = {
       slug: "taskmaster-pro-project-management-tool",
       name: "TaskMaster Pro - Project Management Tool",
       stack: [
-        EnumTag.NEXT_JS,
-        EnumTag.TYPESCRIPT,
-        EnumTag.POSTGRESQL,
-        EnumTag.NODE_JS,
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Node.js",
       ],
       description:
         "A comprehensive project management platform with real-time collaboration, time tracking, and advanced analytics for teams.",
@@ -295,7 +294,7 @@ cat > data/articles/2025/microservices-architecture-patterns.mdx << 'EOL'
 title: "Building Resilient Microservices: Architecture Patterns for Scale"
 description: "Explore proven architectural patterns for building scalable and resilient microservices, including circuit breakers, event sourcing, and distributed tracing."
 date: "2025-01-15"
-tags: ["microservices", "architecture", "distributed-systems", "kubernetes", "docker"]
+tags: ["Kubernetes", "Docker"]
 categories: ["Architecture", "Backend"]
 published: true
 ---
@@ -396,7 +395,7 @@ cat > data/articles/2025/machine-learning-production.mdx << 'EOL'
 title: "MLOps: Deploying Machine Learning Models to Production"
 description: "A comprehensive guide to deploying ML models in production environments, covering model versioning, monitoring, and automated retraining pipelines."
 date: "2025-01-22"
-tags: ["machine-learning", "mlops", "python", "kubernetes", "monitoring"]
+tags: ["Python", "Kubernetes"]
 categories: ["Data Science", "DevOps"]
 published: true
 ---
@@ -518,7 +517,7 @@ cat > data/articles/2025/frontend-performance-optimization.mdx << 'EOL'
 title: "Frontend Performance Optimization: From 3s to 300ms Load Times"
 description: "Deep dive into modern frontend performance optimization techniques including code splitting, lazy loading, and advanced bundling strategies."
 date: "2025-02-05"
-tags: ["performance", "react", "webpack", "optimization", "web-vitals"]
+tags: ["React", "webpack"]
 categories: ["Frontend", "Performance"]
 published: true
 ---
@@ -626,7 +625,7 @@ cat > data/articles/2025/blockchain-smart-contracts.mdx << 'EOL'
 title: "Smart Contract Development: Building Secure DeFi Applications"
 description: "Learn how to develop, test, and deploy secure smart contracts for DeFi applications using Solidity, Hardhat, and modern security practices."
 date: "2025-02-18"
-tags: ["blockchain", "solidity", "defi", "smart-contracts", "ethereum"]
+tags: ["Solidity"]
 categories: ["Blockchain", "Security"]
 published: true
 ---

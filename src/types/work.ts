@@ -1,5 +1,3 @@
-import { EnumTag } from "@/lib/helpers/tag-mapper";
-
 export interface WorkExperience {
   slug: string;
   role: string;
@@ -8,5 +6,5 @@ export interface WorkExperience {
   startDate: Date;
   endDate?: Date;
   bulletPoints: string[];
-  skills?: EnumTag[];
+  skills?: string[];
 }

@@ -2,7 +2,6 @@ import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import pluralize from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
@@ -12,11 +11,8 @@ import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants/urls";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
 import { getArticleLabel } from "@/lib/helpers/config";
-import {
-  createNotFoundMetadata,
-  METADATA_PATTERNS,
-} from "@/lib/helpers/metadata";
-import { EnumTag, TagMapper } from "@/lib/helpers/tag-mapper";
+import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
+import { getTagImagePath } from "@/lib/helpers/tag-mapper";
 
 interface PageProps {
   params: Promise<{
@@ -28,25 +24,13 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { tag } = await params;
-  const tagMapper = new TagMapper();
-
-  if (!tagMapper.isValidTag(tag)) {
-    return createNotFoundMetadata("Tag");
-  }
-
-  const tagEnum = tag as EnumTag;
-  const tagDetails = tagMapper.getDetails(tagEnum);
-
-  if (!tagDetails) {
-    return createNotFoundMetadata("Tag");
-  }
 
   const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(tagEnum),
+    article.tags.includes(tag),
   );
 
   return METADATA_PATTERNS.tagArticles(
-    tagDetails.label,
+    tag,
     filteredArticles.length,
     URLS.ARTICLES_TAG(tag),
   );
@@ -54,28 +38,15 @@ export async function generateMetadata({
 
 export default async function TagArticlePage({ params }: PageProps) {
   const { tag } = await params;
-  const tagMapper = new TagMapper();
-
-  if (!tagMapper.isValidTag(tag)) {
-    notFound();
-  }
-
-  const tagEnum = tag as EnumTag;
-  const tagDetails = tagMapper.getDetails(tagEnum);
-
-  if (!tagDetails) {
-    notFound();
-  }
 
   const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(tagEnum),
+    article.tags.includes(tag),
   );
 
   if (filteredArticles.length === 0) {
     return (
       <div className="page-container">
         <div className="grid gap-5">
-          {/* Header with back navigation */}
           <div className="grid gap-0.5">
             <BackButton
               href={URLS.ARTICLES_LIST()}
@@ -85,26 +56,25 @@ export default async function TagArticlePage({ params }: PageProps) {
 
             <div className="flex items-center gap-3">
               <Image
-                src={tagDetails.iconPath}
-                alt={`${tagDetails.label} icon`}
+                src={getTagImagePath(tag)}
+                alt={`${tag} icon`}
                 width={20}
                 height={20}
                 className="flex-shrink-0"
               />
               <h1 className="text-md font-medium">
-                {tagDetails.label} {getArticleLabel().toLowerCase()}
+                {tag} {getArticleLabel().toLowerCase()}
               </h1>
             </div>
 
             <p className="text-muted-foreground text-sm">
-              No {getArticleLabel().toLowerCase()} found tagged with{" "}
-              {tagDetails.label}
+              No {getArticleLabel().toLowerCase()} found tagged with {tag}
             </p>
           </div>
 
           <EmptyPlaceholderCard
             title={`No ${getArticleLabel().toLowerCase()} found.`}
-            subtitle={`No ${getArticleLabel().toLowerCase()} have been published with the tag ${tagDetails.label} yet. Check back later for new content!`}
+            subtitle={`No ${getArticleLabel().toLowerCase()} have been published with the tag ${tag} yet. Check back later for new content!`}
           >
             <Button variant="outline" asChild>
               <Link href={URLS.ARTICLES_LIST()}>
@@ -132,21 +102,21 @@ export default async function TagArticlePage({ params }: PageProps) {
 
           <div className="flex items-center gap-3">
             <Image
-              src={tagDetails.iconPath}
-              alt={`${tagDetails.label} icon`}
+              src={getTagImagePath(tag)}
+              alt={`${tag} icon`}
               width={20}
               height={20}
               className="flex-shrink-0"
             />
             <h1 className="text-md font-medium">
-              {tagDetails.label} {getArticleLabel().toLowerCase()}
+              {tag} {getArticleLabel().toLowerCase()}
             </h1>
           </div>
 
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
-              ? `${filteredArticles.length} ${pluralize(getArticleLabel().toLowerCase().slice(0, -1), filteredArticles.length)} tagged with ${tagDetails.label}`
-              : `No ${getArticleLabel().toLowerCase()} found tagged with ${tagDetails.label}`}
+              ? `${filteredArticles.length} ${pluralize(getArticleLabel().toLowerCase().slice(0, -1), filteredArticles.length)} tagged with ${tag}`
+              : `No ${getArticleLabel().toLowerCase()} found tagged with ${tag}`}
           </p>
         </div>
 

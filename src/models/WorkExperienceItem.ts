@@ -1,4 +1,3 @@
-import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { WorkExperience } from "@/types/work";
 
 export class WorkExperienceItem implements WorkExperience {
@@ -9,7 +8,7 @@ export class WorkExperienceItem implements WorkExperience {
   startDate: Date;
   endDate?: Date;
   bulletPoints: string[];
-  skills?: EnumTag[];
+  skills?: string[];
 
   constructor(init: WorkExperience) {
     this.slug = init.slug;

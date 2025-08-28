@@ -1,9 +1,7 @@
-import { EnumTag } from "@/lib/helpers/tag-mapper";
-
 export interface Project {
   slug: string;
   name: string;
-  stack: EnumTag[];
+  stack: string[];
   description: string;
   bulletPoints: string[];
   url?: string;

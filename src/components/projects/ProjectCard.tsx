@@ -6,12 +6,11 @@ import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { TagBadge } from "@/components/ui/tag-badge";
 import { URLS } from "@/lib/constants/urls";
-import { EnumTag } from "@/lib/helpers/tag-mapper";
 import { Project } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
-  currentTag?: EnumTag;
+  currentTag?: string;
 }
 
 export function ProjectCard({ project, currentTag }: ProjectCardProps) {
