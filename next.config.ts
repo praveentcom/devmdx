@@ -18,6 +18,9 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-icons",
       "lucide-react",
       "highlight.js",
+      "framer-motion",
+      "motion",
+      "date-fns",
     ],
   },
   compiler: {
