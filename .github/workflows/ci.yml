@@ -26,7 +26,7 @@ jobs:
         run: npm ci
 
       - name: Initialize data directory
-        run: npm run init -- --skip
+        run: npm run init
 
       - name: Run linter
         run: npm run lint
