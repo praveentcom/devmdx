@@ -18,11 +18,13 @@ import {
 } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
+const authorName = getAuthorName();
+
 export const metadata: Metadata = {
-  title: `${getAuthorName()} | Page not found`,
+  title: `${authorName} | Page not found`,
   description: `The page you're looking for doesn't exist or has been moved. Return to the homepage or browse ${getArticleLabel().toLowerCase()} to find what you're looking for.`,
   openGraph: {
-    title: "Page not found.",
+    title: `${authorName} | Page not found`,
     description: "The page you're looking for doesn't exist or has been moved.",
     type: "website",
     siteName: getSiteName(),
@@ -30,19 +32,19 @@ export const metadata: Metadata = {
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: "404",
+          text: `${authorName} | Page not found`,
           backgroundColor: PLACEHOLDER_COLORS.ERROR,
           textColor: PLACEHOLDER_COLORS.WHITE,
         }),
         width: 1200,
         height: 630,
-        alt: "Page not found.",
+        alt: `${authorName} | Page not found`,
       },
     ],
   },
   twitter: {
     card: "summary",
-    title: "Page not found.",
+    title: `${authorName} | Page not found`,
     description: "The page you're looking for doesn't exist or has been moved.",
   },
 };

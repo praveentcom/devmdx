@@ -20,11 +20,13 @@ import {
 } from "@/lib/helpers/image";
 import { EnumCommunityContributionType } from "@/types/community";
 
+const authorName = getAuthorName();
+
 export const metadata: Metadata = {
-  title: `${getAuthorName()} | Community contributions`,
+  title: `${authorName} | Community contributions`,
   description: communityData.descriptionLine1,
   openGraph: {
-    title: "Community contributions",
+    title: `${authorName} | Community contributions`,
     description: communityData.descriptionLine1,
     type: "website",
     siteName: getSiteName(),
@@ -32,23 +34,23 @@ export const metadata: Metadata = {
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: "Community",
+          text: `${authorName} | Community contributions`,
           backgroundColor: COLOR_SCHEMES.COMMUNITY.background,
           textColor: COLOR_SCHEMES.COMMUNITY.text,
         }),
         width: 1200,
         height: 630,
-        alt: "Community contributions",
+        alt: `${authorName} | Community contributions`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Community contributions",
+    title: `${authorName} | Community contributions`,
     description: communityData.descriptionLine1,
     images: [
       generatePlaceholderImageUrl({
-        text: "Community contributions",
+        text: `${authorName} | Community contributions`,
         backgroundColor: COLOR_SCHEMES.COMMUNITY.background,
         textColor: COLOR_SCHEMES.COMMUNITY.text,
       }),
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
     "community, talks, presentations, conferences, workshops, speaking, developer community",
   authors: [
     {
-      name: getAuthorName(),
+      name: authorName,
     },
   ],
 };
@@ -84,7 +86,7 @@ export default function CommunityPage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "Community contributions",
+        name: `${authorName} | Community contributions`,
         description: communityData.descriptionLine1,
         image: heroImageUrl,
       }}

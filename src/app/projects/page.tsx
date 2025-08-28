@@ -5,7 +5,9 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { profileData } from "@/data/profile";
-import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
+import { getAuthorName, METADATA_PATTERNS } from "@/lib/helpers/metadata";
+
+const authorName = getAuthorName();
 
 export const metadata: Metadata = METADATA_PATTERNS.projectsList();
 
@@ -15,7 +17,7 @@ export default function ProjectsPage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "Projects",
+        name: `${authorName} | Projects`,
         description:
           "A comprehensive showcase of all my projects and contributions.",
       }}

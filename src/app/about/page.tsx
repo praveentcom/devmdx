@@ -15,12 +15,14 @@ import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
+const authorName = getAuthorName();
+
 export const metadata: Metadata = {
-  title: `${getAuthorName()} | About`,
+  title: `${authorName} | About`,
   description:
     "Learn more about my background, experiences, and what drives me professionally and personally.",
   openGraph: {
-    title: "About",
+    title: `${authorName} | About`,
     description:
       "Learn more about my background, experiences, and what drives me professionally and personally.",
     type: "article",
@@ -29,24 +31,24 @@ export const metadata: Metadata = {
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: "About",
+          text: `${authorName} | About`,
           backgroundColor: PLACEHOLDER_COLORS.INFO,
           textColor: PLACEHOLDER_COLORS.WHITE,
         }),
         width: 1200,
         height: 630,
-        alt: "About",
+        alt: `${authorName} | About`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About",
+    title: `${authorName} | About`,
     description:
       "Learn more about my background, experiences, and what drives me professionally and personally.",
     images: [
       generatePlaceholderImageUrl({
-        text: "About",
+        text: `${authorName} | About`,
         backgroundColor: PLACEHOLDER_COLORS.INFO,
         textColor: PLACEHOLDER_COLORS.WHITE,
       }),
@@ -78,7 +80,7 @@ export default function AboutPage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "About",
+        name: `${authorName} | About`,
         description:
           "Learn more about my background, experiences, and what drives me professionally and personally.",
       }}

@@ -18,30 +18,30 @@ const authorName = getAuthorName();
 const siteName = getSiteName();
 
 export const metadata: Metadata = {
-  title: `Bio - ${authorName}`,
+  title: `${authorName} | Bio`,
   description: `Complete biography and professional background of ${authorName}. ${profileData.profile.description}`,
   openGraph: {
-    title: `Bio - ${authorName}`,
+    title: `${authorName} | Bio`,
     description: `Complete biography and professional background of ${authorName}. ${profileData.profile.description}`,
     type: "profile",
     siteName,
     url: `${URLS.BIO()}`,
     images: [
       {
-        url: getOgImage() || generateOpenGraphImage(`Bio - ${authorName}`),
+        url: getOgImage() || generateOpenGraphImage(`${authorName} | Bio`),
         width: 1200,
         height: 630,
-        alt: `${authorName} - Biography`,
+        alt: `${authorName} | Bio`,
       },
     ],
   },
   twitter: {
     card: configData.seo.twitterCard || "summary_large_image",
-    title: `Bio - ${authorName}`,
+    title: `${authorName} | Bio`,
     description: `Complete biography and professional background of ${authorName}. ${profileData.profile.description}`,
     site: configData.seo.twitterSite,
     creator: configData.seo.twitterCreator,
-    images: [getOgImage() || generateOpenGraphImage(`Bio - ${authorName}`)],
+    images: [getOgImage() || generateOpenGraphImage(`${authorName} | Bio`)],
   },
   keywords: `${authorName}, bio, biography, professional background, work experience, education, projects`,
   alternates: {

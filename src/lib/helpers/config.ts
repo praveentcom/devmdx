@@ -3,20 +3,10 @@ import { profileData } from "@/data/profile";
 import { URLS } from "@/lib/constants/urls";
 
 /**
- * Get the site name from config or fallback to profile name
- */
-export function getSiteName(): string {
-  return (
-    configData.misc.siteName ||
-    `${profileData.profile.firstName} ${profileData.profile.lastName}`
-  );
-}
-
-/**
  * Get the site URL from config
  */
 export function getSiteUrl(): string {
-  return configData.misc.siteUrl || "https://example.com";
+  return configData.misc.siteUrl || "";
 }
 
 /**
@@ -24,6 +14,13 @@ export function getSiteUrl(): string {
  */
 export function getAuthorName(): string {
   return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
+}
+
+/**
+ * Get the site name from config or fallback to profile name
+ */
+export function getSiteName(): string {
+  return configData.misc.siteName || getAuthorName();
 }
 
 /**
@@ -44,7 +41,7 @@ export function getSeoDescription(): string {
  * Get OG image with fallback
  */
 export function getOgImage(): string {
-  return configData.seo.ogImage || "https://placehold.co/1024x628.png";
+  return configData.seo.ogImage || "https://placehold.co/1200x630.png";
 }
 
 /**

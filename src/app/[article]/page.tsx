@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   title: `${authorName} | ${articleLabel}`,
   description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more. Sharing insights and knowledge from my journey as a developer.`,
   openGraph: {
-    title: articleLabel,
+    title: `${authorName} | ${articleLabel}`,
     description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
     type: "website",
     siteName: getSiteName(),
@@ -36,23 +36,23 @@ export const metadata: Metadata = {
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: articleLabel,
+          text: `${authorName} | ${articleLabel}`,
           backgroundColor: COLOR_SCHEMES.ARTICLE.background,
           textColor: COLOR_SCHEMES.ARTICLE.text,
         }),
         width: 1200,
         height: 630,
-        alt: articleLabel,
+        alt: `${authorName} | ${articleLabel}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: articleLabel,
+    title: `${authorName} | ${articleLabel}`,
     description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
     images: [
       generatePlaceholderImageUrl({
-        text: articleLabel,
+        text: `${authorName} | ${articleLabel}`,
         backgroundColor: COLOR_SCHEMES.ARTICLE.background,
         textColor: COLOR_SCHEMES.ARTICLE.text,
       }),
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   keywords: `${articleLabel.toLowerCase()}, blog, development, technology, programming, tutorials`,
   authors: [
     {
-      name: getAuthorName(),
+      name: authorName,
     },
   ],
 };
@@ -77,7 +77,7 @@ export default function ArticlePage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: articleLabel,
+        name: `${authorName} | ${articleLabel}`,
         description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
       }}
     >

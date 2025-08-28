@@ -139,13 +139,13 @@ export function createItemMetadata(config: {
   } = config;
 
   return createPageMetadata({
-    title: `${itemName} | ${authorName}`,
+    title: `${authorName} | ${itemName}`,
     description: itemDescription,
-    openGraphTitle: itemName,
+    openGraphTitle: `${authorName} | ${itemName}`,
     openGraphDescription: itemDescription,
     type,
     imageUrl,
-    fallbackImageText: itemName,
+    fallbackImageText: `${authorName} | ${itemName}`,
     colorScheme,
     keywords,
     publishedTime,
@@ -170,10 +170,10 @@ export function createListingMetadata(config: {
   return createPageMetadata({
     title: `${authorName} | ${pageType}`,
     description,
-    openGraphTitle: pageType,
+    openGraphTitle: `${authorName} | ${pageType}`,
     openGraphDescription: description,
     imageUrl: undefined,
-    fallbackImageText: pageType,
+    fallbackImageText: `${authorName} | ${pageType}`,
     colorScheme,
     keywords,
     url,
@@ -203,10 +203,10 @@ export function createFilteredMetadata(config: {
   return createPageMetadata({
     title: `${authorName} | ${filterName} ${pluralType}`,
     description,
-    openGraphTitle: `${filterName} ${pluralType}`,
+    openGraphTitle: `${authorName} | ${filterName} ${pluralType}`,
     openGraphDescription: `${contentType} about ${filterName}`,
     imageUrl: undefined,
-    fallbackImageText: filterName,
+    fallbackImageText: `${authorName} | ${filterName} ${pluralType}`,
     colorScheme,
     keywords:
       keywords ||

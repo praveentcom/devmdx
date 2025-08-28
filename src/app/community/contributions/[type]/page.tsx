@@ -8,7 +8,7 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
-import { getSiteName } from "@/lib/helpers/config";
+import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { EnumCommunityContributionType } from "@/types/community";
 
 interface PageProps {
@@ -104,11 +104,12 @@ export async function generateMetadata({
   }
   const validatedType = type as EnumCommunityContributionType;
   const typeLabel = getTypeLabel(validatedType);
+  const authorName = getAuthorName();
   return {
-    title: `${typeLabel} | Community contributions`,
+    title: `${authorName} | ${typeLabel}`,
     description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
     openGraph: {
-      title: `${typeLabel} | Community contributions`,
+      title: `${authorName} | ${typeLabel}`,
       description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
       type: "website",
       siteName: getSiteName(),

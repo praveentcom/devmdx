@@ -15,12 +15,14 @@ import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { getAuthorName, getSiteName } from "@/lib/helpers/config";
 import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
 
+const authorName = getAuthorName();
+
 export const metadata: Metadata = {
-  title: `${getAuthorName()} | Cover letter`,
+  title: `${authorName} | Cover letter`,
   description:
     "A personalized introduction highlighting my experience and interest in joining your team. Learn about my background, skills, and what I can bring to your organization.",
   openGraph: {
-    title: "Cover letter",
+    title: `${authorName} | Cover letter`,
     description:
       "A personalized introduction highlighting my experience and interest in joining your team.",
     type: "article",
@@ -29,24 +31,24 @@ export const metadata: Metadata = {
     images: [
       {
         url: generatePlaceholderImageUrl({
-          text: "Cover letter",
+          text: `${authorName} | Cover letter`,
           backgroundColor: PLACEHOLDER_COLORS.INFO,
           textColor: PLACEHOLDER_COLORS.WHITE,
         }),
         width: 1200,
         height: 630,
-        alt: "Cover letter",
+        alt: `${authorName} | Cover letter`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cover letter",
+    title: `${authorName} | Cover letter`,
     description:
       "A personalized introduction highlighting my experience and interest in joining your team.",
     images: [
       generatePlaceholderImageUrl({
-        text: "Cover letter",
+        text: `${authorName} | Cover letter`,
         backgroundColor: PLACEHOLDER_COLORS.INFO,
         textColor: PLACEHOLDER_COLORS.WHITE,
       }),
@@ -56,7 +58,7 @@ export const metadata: Metadata = {
     "cover letter, introduction, experience, skills, professional, career",
   authors: [
     {
-      name: getAuthorName(),
+      name: authorName,
     },
   ],
 };
@@ -84,7 +86,7 @@ export default function CoverPage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "WebPage",
-        name: "Cover letter",
+        name: `${authorName} | Cover letter`,
         description:
           "A personalized introduction highlighting my experience and interest in joining your team.",
       }}
