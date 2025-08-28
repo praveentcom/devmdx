@@ -1,16 +1,15 @@
 import { Calendar, ExternalLink, Eye, Youtube } from "lucide-react";
 import Image from "next/image";
 
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { ContributionTypeBadge } from "@/components/ui/contribution-type-badge";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
 import { URLS } from "@/lib/constants/urls";
 import { CommunityIndexItem } from "@/lib/helpers/community";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { formatDate } from "@/lib/helpers/markdown";
 import { truncate } from "@/lib/utils";
-
-import { Badge } from "../ui/badge";
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { ContributionTypeBadge } from "../ui/contribution-type-badge";
 
 export function CommunitySummaryCard({
   community,

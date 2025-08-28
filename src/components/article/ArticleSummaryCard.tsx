@@ -1,16 +1,15 @@
 import { Calendar, Eye } from "lucide-react";
 import Image from "next/image";
 
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CategoryBadge } from "@/components/ui/category-badge";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
+import { TagBadge } from "@/components/ui/tag-badge";
 import { URLS } from "@/lib/constants/urls";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 import { formatDate } from "@/lib/helpers/markdown";
 import { truncate } from "@/lib/utils";
 import { Article } from "@/types/article";
-
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { CategoryBadge } from "../ui/category-badge";
-import { TagBadge } from "../ui/tag-badge";
 
 export type ArticleLike = Pick<
   Article,
