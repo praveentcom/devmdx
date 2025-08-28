@@ -1,19 +1,14 @@
 import * as React from "react";
 
-import { BlurIn } from "@/components/motion-primitives/blur-in";
 import { BorderTrail } from "@/components/motion-primitives/border-trail";
 import { cn } from "@/lib/utils";
 
 interface CardProps extends React.ComponentProps<"div"> {
-  animated?: boolean;
-  animationDelay?: number;
   borderTrail?: boolean;
 }
 
 function Card({
   className,
-  animated = true,
-  animationDelay = 0,
   borderTrail = false,
   children,
   ...props
@@ -47,16 +42,9 @@ function Card({
       <div className="flex flex-col gap-5">{children}</div>
     </div>
   );
+  
+  return cardContent;
 
-  if (!animated) {
-    return cardContent;
-  }
-
-  return (
-    <BlurIn delay={animationDelay + 0.05} duration={0.25}>
-      {cardContent}
-    </BlurIn>
-  );
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {

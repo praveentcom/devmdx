@@ -230,7 +230,7 @@ export function Header() {
 
             <nav className="py-6">
               <div className="grid gap-4 grid-cols-2">
-                {navigationItems.map((item, index) => {
+                {navigationItems.map((item) => {
                   const isActive = pathname === item.href;
                   const isExternal = "external" in item && item.external;
 
@@ -246,9 +246,6 @@ export function Header() {
                           "flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-[color,background-color] duration-200 ease-out",
                           "text-foreground bg-muted border border-border",
                         )}
-                        style={{
-                          animationDelay: `${index * 50}ms`,
-                        }}
                       >
                         {item.label}
                       </a>
@@ -266,9 +263,6 @@ export function Header() {
                           ? "bg-primary text-primary-foreground shadow-sm"
                           : "text-foreground bg-muted border border-border",
                       )}
-                      style={{
-                        animationDelay: `${index * 50}ms`,
-                      }}
                     >
                       {item.label}
                     </PrefetchLink>

@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { Analytics } from "@/components/analytics/Analytics";
@@ -10,17 +9,6 @@ import { PrefetchProvider } from "@/components/providers/prefetch-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Footer } from "@/components/ui/footer";
 import { Header } from "@/components/ui/header";
-
-const AnimatedLayout = dynamic(
-  () =>
-    import("@/components/layout/animated-layout").then((mod) => ({
-      default: mod.AnimatedLayout,
-    })),
-  {
-    loading: () => <div className="flex-1" />,
-  },
-);
-
 import { configData } from "@/data/config";
 import { BASE_URL } from "@/lib/constants";
 import {
@@ -79,7 +67,7 @@ export default function RootLayout({
           <PrefetchProvider>
             <Header />
             <main id="main-content" className="flex-1">
-              <AnimatedLayout>{children}</AnimatedLayout>
+              {children}
             </main>
             <Footer />
           </PrefetchProvider>

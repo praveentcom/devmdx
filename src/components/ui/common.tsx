@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 
-import { BlurIn } from "@/components/motion-primitives/blur-in";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,7 +19,7 @@ export function PageWithStructuredData({
   return (
     <>
       <StructuredData data={structuredData} />
-      <BlurIn duration={0.25}>{children}</BlurIn>
+      {children}
     </>
   );
 }
