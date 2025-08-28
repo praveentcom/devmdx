@@ -12,13 +12,13 @@ import { formatDate } from "@/lib/helpers/markdown";
 import { truncate } from "@/lib/utils";
 
 export function CommunitySummaryCard({
-  community,
+  contribution,
 }: {
-  community: CommunityIndexItem;
+  contribution: CommunityIndexItem;
 }) {
   return (
     <PrefetchLink
-      href={URLS.COMMUNITY(community.year, community.slug)}
+      href={URLS.COMMUNITY(contribution.year, contribution.slug)}
       prefetchOnVisible={true}
     >
       <Card borderTrail>
@@ -26,10 +26,10 @@ export function CommunitySummaryCard({
           <div className="relative w-full h-48 overflow-hidden rounded-md">
             <Image
               src={
-                community.image ||
-                generateArticlePlaceholderImage(community.title)
+                contribution.image ||
+                generateArticlePlaceholderImage(contribution.title)
               }
-              alt={community.title}
+              alt={contribution.title}
               fill
               className="object-cover rounded-md"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -41,38 +41,38 @@ export function CommunitySummaryCard({
             <div className="flex-center-gap-3 text-xs font-medium text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Calendar className="size-3" />
-                <span>{formatDate(community.date)}</span>
+                <span>{formatDate(contribution.date)}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Eye className="size-3" />
-                <span>{community.readTime} min read</span>
+                <span>{contribution.readTime} min read</span>
               </div>
             </div>
 
             <h2 className="text-md font-medium group-hover:text-primary transition-colors">
-              {community.title}
+              {contribution.title}
             </h2>
 
             <p className="text-muted-foreground text-sm line-clamp-2">
-              {truncate(community.description, 160)}
+              {truncate(contribution.description, 160)}
             </p>
 
             <div className="flex flex-wrap gap-1.5">
-              {community.type && (
-                <ContributionTypeBadge type={community.type} />
+              {contribution.type && (
+                <ContributionTypeBadge type={contribution.type} />
               )}
-              {community.youtubeUrl && (
+              {contribution.youtubeUrl && (
                 <Badge variant="secondary" className="text-xs">
                   <Youtube className="size-3 mr-1" />
                   Video
                 </Badge>
               )}
-              {community.externalLinks &&
-                community.externalLinks.length > 0 && (
+              {contribution.externalLinks &&
+                contribution.externalLinks.length > 0 && (
                   <Badge variant="secondary" className="text-xs">
                     <ExternalLink className="size-3 mr-1" />
-                    {community.externalLinks.length} Link
-                    {community.externalLinks.length > 1 ? "s" : ""}
+                    {contribution.externalLinks.length} Link
+                    {contribution.externalLinks.length > 1 ? "s" : ""}
                   </Badge>
                 )}
             </div>

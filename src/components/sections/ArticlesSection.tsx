@@ -5,12 +5,14 @@ import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
 import { Button } from "@/components/ui/button";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants/urls";
-import { getAllArticlesIndex } from "@/lib/helpers/article";
+import { ArticleFrontmatter } from "@/lib/helpers/article";
 import { getArticleLabel } from "@/lib/helpers/config";
 
-export function ArticlesSection() {
-  const publishedArticles = getAllArticlesIndex();
-  const recentArticles = publishedArticles.slice(0, 3);
+export function ArticlesSection({
+  articles,
+}: {
+  articles: ArticleFrontmatter[];
+}) {
   const articleLabel = getArticleLabel();
 
   return (
@@ -26,7 +28,7 @@ export function ArticlesSection() {
             Recent {articleLabel.toLowerCase()}
           </h2>
         </div>
-        {publishedArticles.length > 2 && (
+        {articles.length > 2 && (
           <Button variant="outline" size="sm" asChild>
             <Link
               href={URLS.ARTICLES_LIST()}
@@ -39,9 +41,9 @@ export function ArticlesSection() {
         )}
       </div>
 
-      {recentArticles.length > 0 ? (
+      {articles.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2">
-          {recentArticles.map((article, index) => (
+          {articles.map((article, index) => (
             <ArticleSummaryCard key={index} article={article} />
           ))}
         </div>

@@ -5,12 +5,13 @@ import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCar
 import { Button } from "@/components/ui/button";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants/urls";
-import { getAllCommunityIndex } from "@/lib/helpers/community";
+import { CommunityFrontmatter } from "@/lib/helpers/community";
 
-export function CommunitySection() {
-  const contributions = getAllCommunityIndex();
-  const recent = contributions.slice(0, 3);
-
+export function CommunitySection({
+  contributions,
+}: {
+  contributions: CommunityFrontmatter[];
+}) {
   return (
     <section
       role="region"
@@ -35,10 +36,10 @@ export function CommunitySection() {
         )}
       </div>
 
-      {recent.length > 0 ? (
+      {contributions.length > 0 ? (
         <div className="grid gap-4 md:grid-cols-2">
-          {recent.map((community, index) => (
-            <CommunitySummaryCard key={index} community={community} />
+          {contributions.map((contribution, index) => (
+            <CommunitySummaryCard key={index} contribution={contribution} />
           ))}
         </div>
       ) : (

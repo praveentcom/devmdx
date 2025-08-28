@@ -2,8 +2,18 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
 import { AboutSection } from "@/components/sections/AboutSection";
-import { ArticlesSection } from "@/components/sections/ArticlesSection";
 import { PageWithStructuredData } from "@/components/ui/common";
+
+const ArticlesSection = dynamic(
+  () =>
+    import("@/components/sections/ArticlesSection").then((mod) => ({
+      default: mod.ArticlesSection,
+    })),
+  {
+    loading: () => <div className="animate-pulse h-32 bg-muted rounded-lg" />,
+    ssr: true,
+  },
+);
 
 const CommunitySection = dynamic(
   () =>
@@ -30,6 +40,8 @@ const ProjectsSection = dynamic(
 import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
 import { BASE_URL } from "@/lib/constants";
+import { getAllArticlesIndex } from "@/lib/helpers/article";
+import { getAllCommunityIndex } from "@/lib/helpers/community";
 import {
   getAuthorName,
   getOgImage,
@@ -44,6 +56,9 @@ const authorName = getAuthorName();
 const siteName = getSiteName();
 const seoTitle = getSeoTitle();
 const seoDescription = getSeoDescription();
+
+const recentArticles = getAllArticlesIndex(2);
+const recentContributions = getAllCommunityIndex(2);
 
 export const metadata: Metadata = {
   title: seoTitle,
@@ -88,11 +103,17 @@ export default function HomePage() {
         <div className="page-container">
           <div className="space-y-6">
             <AboutSection profile={profileData.profile} />
-            <ArticlesSection />
-            <CommunitySection />
-            <ProjectsSection
-              projects={profileData.projects.map((p) => ({ ...p }))}
-            />
+            {recentArticles.length > 0 && (
+              <ArticlesSection articles={recentArticles} />
+            )}
+            {recentContributions.length > 0 && (
+              <CommunitySection contributions={recentContributions} />
+            )}
+            {profileData.projects.length > 0 && (
+              <ProjectsSection
+                projects={profileData.projects.map((p) => ({ ...p }))}
+              />
+            )}
           </div>
         </div>
       </div>

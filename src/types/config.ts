@@ -36,6 +36,11 @@ export interface ConfigSeoData {
   twitterCard?: "summary" | "summary_large_image" | "app" | "player";
   twitterSite?: string;
   twitterCreator?: string;
+  favicon?: {
+    ico?: string;
+    png?: string;
+    apple?: string;
+  };
 }
 
 export interface ConfigNavigationData {

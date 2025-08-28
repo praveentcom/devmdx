@@ -169,7 +169,7 @@ export default function CommunityPage() {
                 {publishedContributions.map((community) => (
                   <CommunitySummaryCard
                     key={`${community.year}-${community.slug}`}
-                    community={community}
+                    contribution={community}
                   />
                 ))}
               </div>

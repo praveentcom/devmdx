@@ -49,7 +49,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
             {contributions.map((community) => (
               <CommunitySummaryCard
                 key={`${community.year}-${community.slug}`}
-                community={community}
+                contribution={community}
               />
             ))}
           </div>

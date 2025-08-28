@@ -48,6 +48,17 @@ export function getOgImage(): string {
 }
 
 /**
+ * Get favicon paths from config with fallbacks to Next.js defaults
+ */
+export function getFaviconPaths() {
+  return {
+    ico: configData.seo.favicon?.ico || "/favicon.ico",
+    png: configData.seo.favicon?.png || "/icon.png",
+    apple: configData.seo.favicon?.apple || "/apple-icon.png",
+  };
+}
+
+/**
  * Get the article label (plural) from config or fallback
  */
 export function getArticleLabel(): string {

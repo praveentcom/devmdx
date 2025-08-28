@@ -255,6 +255,12 @@ export const configData: ConfigData = {
     twitterCard: "summary_large_image",
     twitterSite: "@johndoe",
     twitterCreator: "@johndoe",
+    // Uncomment and customize favicon paths if you want to use custom favicons
+    // favicon: {
+    //   ico: "/favicon.ico", // Path to .ico file (defaults to /favicon.ico)
+    //   png: "/icon.png", // Path to PNG icon file (defaults to /icon.png)
+    //   apple: "/apple-icon.png", // Path to Apple touch icon (defaults to /apple-icon.png)
+    // },
   },
   navigation: {
     showHomeInNav: true,

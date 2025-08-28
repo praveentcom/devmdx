@@ -13,6 +13,7 @@ import { configData } from "@/data/config";
 import { BASE_URL } from "@/lib/constants";
 import {
   getAuthorName,
+  getFaviconPaths,
   getOgImage,
   getSeoDescription,
   getSeoTitle,
@@ -30,10 +31,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const faviconPaths = getFaviconPaths();
+
 export const metadata: Metadata = {
   title: getSeoTitle(),
   description: getSeoDescription(),
   keywords: configData.seo.keywords,
+  icons: {
+    icon: [
+      {
+        url: faviconPaths.ico,
+        type: "image/x-icon",
+      },
+      {
+        url: faviconPaths.png,
+        type: "image/png",
+      },
+    ],
+    apple: {
+      url: faviconPaths.apple,
+      type: "image/png",
+    },
+  },
   openGraph: {
     title: configData.seo.ogTitle,
     description: configData.seo.ogDescription,

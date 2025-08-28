@@ -47,18 +47,18 @@ function isMdxFile(filePath: string): boolean {
   return filePath.endsWith(".mdx");
 }
 
-function readDirRecursive(dir: string): string[] {
+function readDirRecursive(dir: string, limit?: number): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   const files: string[] = [];
   for (const entry of entries) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      files.push(...readDirRecursive(full));
+      files.push(...readDirRecursive(full, limit));
     } else if (isMdxFile(full)) {
       files.push(full);
     }
   }
-  return files;
+  return limit ? files.slice(0, limit) : files;
 }
 
 function extractYearFromPath(fullPath: string): string {
@@ -91,9 +91,10 @@ function deriveSlug(
   return sanitize(base);
 }
 
-export function getAllArticleFiles(): string[] {
+export function getAllArticleFiles(limit?: number): string[] {
   if (!fs.existsSync(ARTICLE_CONTENT_DIR)) return [];
-  return readDirRecursive(ARTICLE_CONTENT_DIR);
+
+  return readDirRecursive(ARTICLE_CONTENT_DIR, limit);
 }
 
 export function getAllArticleSlugs(): ArticleIndexItem[] {
@@ -233,8 +234,8 @@ export function getArticleBySlugRaw(
   return { meta, raw: content };
 }
 
-export function getAllArticlesIndex(): ArticleIndexItem[] {
-  const files = getAllArticleFiles();
+export function getAllArticlesIndex(limit?: number): ArticleIndexItem[] {
+  const files = getAllArticleFiles(limit);
   const items: ArticleIndexItem[] = files.map((fullPath) => {
     const raw = fs.readFileSync(fullPath, "utf-8");
     const { data, content } = matter(raw);
