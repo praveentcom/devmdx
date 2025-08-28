@@ -11,8 +11,7 @@ interface ArticleHeaderProps {
 export function ArticleHeader({ article }: ArticleHeaderProps) {
   return (
     <>
-      {/* Static cover image */}
-      <div className="relative w-full aspect-[1200/628] rounded-lg overflow-hidden mb-4 max-w-full">
+      <div className="relative w-full aspect-[1200/628] rounded-lg overflow-hidden mb-4">
         <Image
           src={article.image || generateArticlePlaceholderImage(article.title)}
           alt={article.title}
@@ -23,7 +22,6 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
         />
       </div>
 
-      {/* Static header */}
       <div className="pb-6 border-b border-border/50">
         <div className="grid gap-2">
           <h1 className="font-medium text-xl">{article.title}</h1>

@@ -42,9 +42,8 @@ function Card({
       <div className="flex flex-col gap-5">{children}</div>
     </div>
   );
-  
-  return cardContent;
 
+  return cardContent;
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
