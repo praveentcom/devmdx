@@ -56,7 +56,9 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
           </h1>
           <p
             className={`text-muted-foreground transition-all duration-200 text-sm ${
-              isScrolled ? "opacity-0 h-0 overflow-hidden hidden" : "opacity-100"
+              isScrolled
+                ? "opacity-0 h-0 overflow-hidden hidden"
+                : "opacity-100"
             }`}
           >
             {community.description}

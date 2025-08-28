@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
 import createMDX from "@next/mdx";
+import type { NextConfig } from "next";
 
 import { getEnvConfig } from "./src/lib/helpers/env-config";
 
@@ -15,7 +14,11 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   experimental: {
-    optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
+    optimizePackageImports: [
+      "@radix-ui/react-icons",
+      "lucide-react",
+      "highlight.js",
+    ],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",

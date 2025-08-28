@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { AnimatedBackground } from "@/components/motion-primitives";
+import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
 import { Button } from "@/components/ui/button";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
 import { getAuthorName, getNavigationItems } from "@/lib/helpers/config";

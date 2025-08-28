@@ -26,12 +26,8 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
       {/* Static header */}
       <div className="pb-6 border-b border-border/50">
         <div className="grid gap-2">
-          <h1 className="font-medium text-xl">
-            {article.title}
-          </h1>
-          <p className="text-muted-foreground text-sm">
-            {article.description}
-          </p>
+          <h1 className="font-medium text-xl">{article.title}</h1>
+          <p className="text-muted-foreground text-sm">{article.description}</p>
         </div>
       </div>
     </>

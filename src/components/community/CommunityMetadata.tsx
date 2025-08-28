@@ -1,9 +1,4 @@
-import {
-  Calendar,
-  ExternalLink,
-  Eye,
-  Youtube,
-} from "lucide-react";
+import { Calendar, ExternalLink, Eye, Youtube } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -33,7 +28,7 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
         {community.type && (
           <ContributionTypeBadge type={community.type} variant="outline" />
         )}
-        
+
         {/* YouTube Video Link */}
         {community.youtubeUrl && (
           <Button
@@ -54,24 +49,21 @@ export function CommunityMetadata({ community }: CommunityMetadataProps) {
         )}
 
         {/* External Links */}
-        {community.externalLinks && community.externalLinks.map((link, index) => (
-          <Button
-            key={index}
-            asChild
-            variant="outline"
-            size="sm"
-            className="h-6 px-2 text-xs"
-          >
-            <Link
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
+        {community.externalLinks &&
+          community.externalLinks.map((link, index) => (
+            <Button
+              key={index}
+              asChild
+              variant="outline"
+              size="sm"
+              className="h-6 px-2 text-xs"
             >
-              <ExternalLink className="size-3 mr-1" />
-              {link.title}
-            </Link>
-          </Button>
-        ))}
+              <Link href={link.url} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="size-3 mr-1" />
+                {link.title}
+              </Link>
+            </Button>
+          ))}
       </div>
     </div>
   );
