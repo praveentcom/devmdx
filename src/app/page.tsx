@@ -1,10 +1,32 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ArticlesSection } from "@/components/sections/ArticlesSection";
-import { CommunitySection } from "@/components/sections/CommunitySection";
-import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { PageWithStructuredData } from "@/components/ui/common";
+
+const CommunitySection = dynamic(
+  () =>
+    import("@/components/sections/CommunitySection").then((mod) => ({
+      default: mod.CommunitySection,
+    })),
+  {
+    loading: () => <div className="animate-pulse h-32 bg-muted rounded-lg" />,
+    ssr: true,
+  },
+);
+
+const ProjectsSection = dynamic(
+  () =>
+    import("@/components/sections/ProjectsSection").then((mod) => ({
+      default: mod.ProjectsSection,
+    })),
+  {
+    loading: () => <div className="animate-pulse h-32 bg-muted rounded-lg" />,
+    ssr: true,
+  },
+);
+
 import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
 import { BASE_URL } from "@/lib/constants";

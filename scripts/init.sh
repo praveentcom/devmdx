@@ -48,7 +48,7 @@ export const profileData: ProfileData = {
     email: "${EMAIL}",
     currentPosition: "${CURRENT_POSITION}",
 
-    imageUrl: "https://placehold.co/1024x1024.png",
+    imageUrl: "https://placehold.co/512x512.png",
     description: "${DESCRIPTION}",
     bulletPoints: [
       "🚀 5+ years of experience building scalable web applications and distributed systems",

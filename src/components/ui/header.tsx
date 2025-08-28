@@ -1,15 +1,26 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { AnimatedBackground } from "@/components/motion-primitives/animated-background";
 import { Button } from "@/components/ui/button";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
 import { getAuthorName, getNavigationItems } from "@/lib/helpers/config";
 import { cn } from "@/lib/utils";
+
+const AnimatedBackground = dynamic(
+  () =>
+    import("@/components/motion-primitives/animated-background").then(
+      (mod) => ({ default: mod.AnimatedBackground }),
+    ),
+  {
+    loading: () => <div className="rounded-lg bg-card shadow-sm" />,
+    ssr: false,
+  },
+);
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

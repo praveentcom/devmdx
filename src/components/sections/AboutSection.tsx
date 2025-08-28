@@ -40,6 +40,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
                 width={120}
                 height={120}
                 className="profile-image-lg"
+                priority
               />
             </div>
           )}
