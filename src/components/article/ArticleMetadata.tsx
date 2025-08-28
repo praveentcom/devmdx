@@ -12,7 +12,7 @@ interface ArticleMetadataProps {
 
 export function ArticleMetadata({ article }: ArticleMetadataProps) {
   return (
-    <div className="grid gap-3.5 mt-2 text-xs text-muted-foreground font-medium min-w-0">
+    <div className="grid gap-3 mt-3 text-xs text-muted-foreground font-medium min-w-0">
       <div className="flex items-center gap-4 min-w-0">
         <div className="flex items-center gap-1 flex-shrink-0">
           <Calendar className="size-3" />

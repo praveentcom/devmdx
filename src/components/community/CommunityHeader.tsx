@@ -46,7 +46,7 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
           isScrolled ? "pt-6 border-border" : "border-border/50"
         }`}
       >
-        <div className="transition-all duration-200 space-y-0.5">
+        <div className="transition-all duration-200 grid gap-2">
           <h1
             className={`font-medium transition-all duration-200 ${
               isScrolled ? "text-lg" : "text-xl"
@@ -55,7 +55,9 @@ export function CommunityHeader({ community }: CommunityHeaderProps) {
             {community.title}
           </h1>
           <p
-            className={`text-muted-foreground transition-all duration-200 text-sm`}
+            className={`text-muted-foreground transition-all duration-200 text-sm ${
+              isScrolled ? "opacity-0 h-0 overflow-hidden hidden" : "opacity-100"
+            }`}
           >
             {community.description}
           </p>

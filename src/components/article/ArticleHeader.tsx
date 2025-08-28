@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
 
@@ -12,19 +9,6 @@ interface ArticleHeaderProps {
 }
 
 export function ArticleHeader({ article }: ArticleHeaderProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 320);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <>
       {/* Static cover image */}
@@ -39,23 +23,13 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
         />
       </div>
 
-      {/* Sticky header with text effects only */}
-      <div
-        className={`sticky top-12 md:top-16 z-20 bg-background transition-all pb-5 duration-200 border-b ${
-          isScrolled ? "pt-6 border-border" : "border-border/50"
-        }`}
-      >
-        <div className="transition-all duration-200 space-y-0.5">
-          <h1
-            className={`font-medium transition-all duration-200 ${
-              isScrolled ? "text-lg" : "text-xl"
-            }`}
-          >
+      {/* Static header */}
+      <div className="pb-6 border-b border-border/50">
+        <div className="grid gap-2">
+          <h1 className="font-medium text-xl">
             {article.title}
           </h1>
-          <p
-            className={`text-muted-foreground transition-all duration-200 text-sm`}
-          >
+          <p className="text-muted-foreground text-sm">
             {article.description}
           </p>
         </div>
