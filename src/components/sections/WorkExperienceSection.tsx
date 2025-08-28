@@ -18,7 +18,7 @@ function ExperienceCard({ experience }: { experience: WorkExperience }) {
 
   return (
     <Link href={URLS.WORK(experience.slug)} className="block">
-      <Card>
+      <Card borderTrail>
         <CardHeader>
           <div className="card-header-layout">
             {companyImagePath && (

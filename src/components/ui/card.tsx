@@ -19,10 +19,10 @@ function Card({
       className={cn(
         "text-card-foreground rounded-xl relative",
         "border border-border/75 dark:border-border/50 bg-card dark:bg-card/25",
-        "h-min py-4",
+        "h-min py-4 group",
         "transition-all duration-100",
         className,
-        borderTrail ? "hover:dark:bg-card/50" : "",
+        borderTrail ? "hover:bg-card/50" : "",
       )}
       {...props}
     >

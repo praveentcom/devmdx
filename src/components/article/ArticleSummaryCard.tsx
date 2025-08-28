@@ -31,7 +31,7 @@ export function ArticleSummaryCard({ article }: { article: ArticleLike }) {
       href={URLS.ARTICLES(article.year, article.slug)}
       prefetchOnVisible={true}
     >
-      <Card className="group" borderTrail>
+      <Card borderTrail>
         <CardHeader>
           <div className="relative w-full h-48 overflow-hidden rounded-md">
             <Image

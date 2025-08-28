@@ -19,7 +19,7 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
 
   return (
     <Link href={URLS.PROJECTS(project.slug)} className="block">
-      <Card>
+      <Card borderTrail>
         <CardHeader>
           <div className="card-header-layout">
             {imagePath && (
