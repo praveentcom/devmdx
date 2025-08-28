@@ -5,7 +5,6 @@ import {
   Children,
   cloneElement,
   ReactElement,
-  useEffect,
   useId,
   useState,
 } from "react";
@@ -16,7 +15,6 @@ export type AnimatedBackgroundProps = {
   children:
     | ReactElement<{ "data-id": string }>[]
     | ReactElement<{ "data-id": string }>;
-  defaultValue?: string;
   onValueChangeAction?: (newActiveId: string | null) => void;
   className?: string;
   transition?: Transition;
@@ -25,7 +23,6 @@ export type AnimatedBackgroundProps = {
 
 export function AnimatedBackground({
   children,
-  defaultValue,
   onValueChangeAction,
   className,
   transition,
@@ -41,12 +38,6 @@ export function AnimatedBackground({
       onValueChangeAction(id);
     }
   };
-
-  useEffect(() => {
-    if (defaultValue !== undefined) {
-      setActiveId(defaultValue);
-    }
-  }, [defaultValue]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return Children.map(children, (child: ReactElement<any>, index) => {
@@ -76,7 +67,7 @@ export function AnimatedBackground({
               layoutId={`background-${uniqueId}`}
               className={cn("absolute inset-0", className)}
               transition={transition}
-              initial={{ opacity: defaultValue ? 1 : 0 }}
+              initial={{ opacity: 0 }}
               animate={{
                 opacity: 1,
               }}

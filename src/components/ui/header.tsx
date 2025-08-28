@@ -91,7 +91,7 @@ export function Header() {
         )}
       >
         <div className="page-container py-0">
-          <div className="hidden md:flex items-center justify-start py-4 gap-4">
+          <div className="hidden md:flex items-center justify-start py-2 gap-8 h-16">
             <h1 className="text-md font-medium">
               <Link
                 href={nameHref}
@@ -100,10 +100,8 @@ export function Header() {
                 {personName}
               </Link>
             </h1>
-            <div className="h-6 w-px bg-border hidden md:block rounded-full" />
-            <div className="flex items-center bg-background rounded-xl p-1 border border-transparent hover:border-border/75 transition-all duration-200">
+            <div className="flex items-center hover:bg-background/75 rounded-xl p-1 border border-transparent hover:border-border transition-all duration-200">
               <AnimatedBackground
-                defaultValue={pathname}
                 className="rounded-lg bg-card shadow-sm"
                 transition={{
                   type: "tween",
