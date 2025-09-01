@@ -91,7 +91,7 @@ export function Header() {
         )}
       >
         <div className="page-container py-0">
-          <div className="hidden md:flex items-center justify-end py-4 gap-6 h-16">
+          <div className="hidden md:flex items-center justify-between py-4 h-16">
             <h1 className="text-md font-medium">
               <Link
                 href={nameHref}
