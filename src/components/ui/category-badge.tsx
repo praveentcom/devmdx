@@ -6,20 +6,17 @@ import { cn } from "@/lib/utils";
 
 interface CategoryBadgeProps {
   category: string;
-  variant?: "default" | "secondary" | "destructive" | "outline";
   className?: string;
   asLink?: boolean;
 }
 
 export function CategoryBadge({
   category,
-  variant = "outline",
   className,
   asLink = false,
 }: CategoryBadgeProps) {
   const badgeContent = (
-    <Badge variant={variant} className={cn("badge-container", className)}>
-      <div className="size-1.5 bg-current/50 rounded-full" />
+    <Badge variant={"outline"} className={cn("badge-container", className)}>
       <span className="text-xs font-medium">{category}</span>
     </Badge>
   );

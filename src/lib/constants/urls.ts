@@ -2,6 +2,7 @@ import { getArticleSlug } from "@/lib/helpers/config";
 import { getEnvConfig } from "@/lib/helpers/env-config";
 
 const envConfig = getEnvConfig();
+
 export const BASE_URL = envConfig.baseUrl;
 
 export const URLS = {
@@ -10,6 +11,7 @@ export const URLS = {
   BIO: () => "/bio",
   ABOUT: () => "/about",
   COVER: () => "/cover",
+  SITEMAP: () => "/sitemap.xml",
 
   // Articles
   ARTICLES: (year: string, slug: string) =>

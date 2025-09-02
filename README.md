@@ -91,7 +91,7 @@ src/
 │   ├── layout.tsx             # Root layout
 │   ├── page.tsx               # Main page component
 │   ├── articles/              # Articles (MDX-backed)
-│   ├── community/             # Community contributions (MDX-backed)
+│   ├── community/             # Community (MDX-backed)
 │   ├── projects/              # Projects and stacks
 │   ├── work/                  # Work experience pages
 │   └── education/             # Education pages

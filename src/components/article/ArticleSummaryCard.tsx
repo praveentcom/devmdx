@@ -32,53 +32,48 @@ export function ArticleSummaryCard({ article }: { article: ArticleLike }) {
     >
       <Card borderTrail>
         <CardHeader>
-          <div className="relative w-full h-48 overflow-hidden rounded-md">
+          <div className="relative w-full h-48 overflow-hidden rounded-sm">
             <Image
               src={
                 article.image || generateArticlePlaceholderImage(article.title)
               }
               alt={article.title}
               fill
-              className="object-cover rounded-md"
+              className="object-cover rounded-sm"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col gap-3">
-            <div className="flex-center-gap-3 text-xs font-medium text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <Calendar className="size-3" />
-                <span>{formatDate(article.date)}</span>
+          <div className="grid gap-5">
+            <div className="grid gap-2">
+              <div className="flex items-center min-w-0 gap-3 text-xs text-muted-foreground font-medium">
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <Calendar className="size-3" />
+                  <span>{formatDate(article.date)}</span>
+                </div>
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <Eye className="size-3" />
+                  <span>{article.readTime} min read</span>
+                </div>
               </div>
-              <div className="flex items-center gap-1">
-                <Eye className="size-3" />
-                <span>{article.readTime} min read</span>
+              <div className="grid gap-1.5">
+                <h1 className="font-medium text-lg">{article.title}</h1>
+                <p className="text-muted-foreground text-sm">
+                  {truncate(article.description, 96)}
+                </p>
               </div>
             </div>
 
-            <h2 className="text-md font-medium group-hover:text-primary transition-colors">
-              {article.title}
-            </h2>
-
-            <p className="text-muted-foreground text-sm line-clamp-2">
-              {truncate(article.description, 160)}
-            </p>
-
             <div className="flex flex-wrap gap-1.5">
-              {article.categories.map((category) => (
-                <CategoryBadge
-                  key={`${article.slug}-category-${category}`}
-                  category={category}
-                />
+              {article.categories.map((category, index) => (
+                <CategoryBadge key={index} category={category} />
               ))}
-              {article.tags.map((tag) => (
+              {article.tags.map((tag, index) => (
                 <TagBadge
-                  key={`${article.slug}-${tag}`}
+                  key={index}
                   tag={tag}
-                  variant="outline"
                   iconSize={12}
-                  clickable={false}
                   source="articles"
                 />
               ))}

@@ -1,4 +1,4 @@
-import { ArrowRight, Newspaper } from "lucide-react";
+import { PencilLine } from "lucide-react";
 import Link from "next/link";
 
 import { ArticleSummaryCard } from "@/components/article/ArticleSummaryCard";
@@ -21,21 +21,18 @@ export function ArticlesSection({
       aria-label={`Recent ${articleLabel.toLowerCase()}`}
       className="w-full grid gap-3"
     >
-      <div className="flex items-center justify-between gap-1.5">
-        <div className="flex items-center gap-1.5">
-          <Newspaper className="size-4 text-primary" />
-          <h2 className="text-md font-medium">
-            Recent {articleLabel.toLowerCase()}
-          </h2>
+      <div className="flex items-center justify-between gap-1.5 text-muted-foreground">
+        <div className="flex items-center gap-1">
+          <PencilLine className="size-3.5" />
+          <h2 className="text-sm font-medium">{articleLabel}</h2>
         </div>
         {articles.length > 2 && (
-          <Button variant="outline" size="sm" asChild>
+          <Button variant="outline" size="xs" asChild>
             <Link
               href={URLS.ARTICLES_LIST()}
-              className="flex items-center gap-1.5"
+              className="flex items-center gap-1"
             >
-              View all
-              <ArrowRight className="size-4" />
+              View all &rarr;
             </Link>
           </Button>
         )}

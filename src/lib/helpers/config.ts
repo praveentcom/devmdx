@@ -1,48 +1,19 @@
 import { configData } from "@/data/config";
 import { profileData } from "@/data/profile";
-import { URLS } from "@/lib/constants/urls";
+import { BASE_URL, URLS } from "@/lib/constants/urls";
+
+export const PROFILE_NAME = `${profileData.profile.firstName} ${profileData.profile.lastName}`;
 
 /**
- * Get the site URL from config
+ * Site SEO data
  */
-export function getSiteUrl(): string {
-  return configData.misc.siteUrl || "";
-}
-
-/**
- * Get the author name from profile
- */
-export function getAuthorName(): string {
-  return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
-}
-
-/**
- * Get the site name from config or fallback to profile name
- */
-export function getSiteName(): string {
-  return configData.misc.siteName || getAuthorName();
-}
-
-/**
- * Get SEO title with fallback
- */
-export function getSeoTitle(): string {
-  return configData.seo.title || getAuthorName();
-}
-
-/**
- * Get SEO description with fallback
- */
-export function getSeoDescription(): string {
-  return configData.seo.description || profileData.profile.description || "";
-}
-
-/**
- * Get OG image with fallback
- */
-export function getOgImage(): string {
-  return configData.seo.ogImage || "https://placehold.co/1200x630.png";
-}
+export const SITE_URL = configData.misc.siteUrl || BASE_URL;
+export const SITE_TITLE = configData.seo.title || PROFILE_NAME;
+export const SITE_DESCRIPTION =
+  configData.seo.description || profileData.profile.description || "";
+export const SITE_KEYWORDS = configData.seo.keywords || [];
+export const SITE_IMAGE =
+  configData.seo.image || "https://placehold.co/1200x630.png";
 
 /**
  * Get favicon paths from config with fallbacks to Next.js defaults
@@ -74,6 +45,10 @@ export function getArticleLabelSingular(): string {
  */
 export function getArticleSlug(): string {
   return configData.misc.content?.articleSlug || "articles";
+}
+
+export function getRouteSeoImage(route: string): string {
+  return configData.seo.routeImages?.[route] || SITE_IMAGE;
 }
 
 export function getNavigationItems() {

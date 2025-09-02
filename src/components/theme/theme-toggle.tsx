@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export function ThemeToggle() {
+export function ThemeToggle({ minimal = false }: { minimal?: boolean }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -27,13 +27,13 @@ export function ThemeToggle() {
   const getIcon = () => {
     switch (theme) {
       case "light":
-        return <Sun className="h-4 w-4" />;
+        return <Sun className="size-4" />;
       case "dark":
-        return <Moon className="h-4 w-4" />;
+        return <Moon className="size-4" />;
       case "system":
-        return <Monitor className="h-4 w-4" />;
+        return <Monitor className="size-4" />;
       default:
-        return <Monitor className="h-4 w-4" />;
+        return <Monitor className="size-4" />;
     }
   };
 
@@ -50,13 +50,51 @@ export function ThemeToggle() {
     }
   };
 
+  if (minimal) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <div className="rounded-xs text-muted-foreground hover:text-foreground p-2 transition-all duration-200 ease-out cursor-pointer hover:bg-card hover:dark:bg-card/50 border border-transparent hover:border-border/75">
+            {getIcon()}
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align="end"
+          className="text-muted-foreground font-medium text-sm"
+        >
+          <DropdownMenuItem
+            className="flex gap-2"
+            onClick={() => setTheme("light")}
+          >
+            <Sun className="size-4" />
+            <span>Light</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="flex gap-2"
+            onClick={() => setTheme("dark")}
+          >
+            <Moon className="size-4" />
+            <span>Dark</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="flex gap-2"
+            onClick={() => setTheme("system")}
+          >
+            <Monitor className="size-4" />
+            <span>System</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
           size="sm"
-          className="h-7 w-auto px-2 gap-1.5"
+          className="h-7 w-auto px-2 gap-1.5 text-muted-foreground hover:text-foreground cursor-pointer"
           title={`Current: ${getLabel()}. Click to change theme.`}
         >
           {getIcon()}
@@ -65,17 +103,29 @@ export function ThemeToggle() {
           </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          <Sun className="mr-2 h-4 w-4" />
+      <DropdownMenuContent
+        align="end"
+        className="text-muted-foreground font-medium text-sm"
+      >
+        <DropdownMenuItem
+          className="flex gap-2"
+          onClick={() => setTheme("light")}
+        >
+          <Sun className="size-4" />
           <span>Light</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          <Moon className="mr-2 h-4 w-4" />
-          <span>Dark</span>
+        <DropdownMenuItem
+          className="flex gap-2"
+          onClick={() => setTheme("dark")}
+        >
+          <Moon className="size-4" />
+          <span className="text-muted-foreground">Dark</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          <Monitor className="mr-2 h-4 w-4" />
+        <DropdownMenuItem
+          className="flex gap-2"
+          onClick={() => setTheme("system")}
+        >
+          <Monitor className="size-4" />
           <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

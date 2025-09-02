@@ -1,4 +1,4 @@
-import { ArrowLeft, CalendarRange } from "lucide-react";
+import { CalendarRange } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -7,8 +7,8 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants/urls";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
-import { getArticleLabel } from "@/lib/helpers/config";
-import { createFilteredMetadata } from "@/lib/helpers/metadata";
+import { getArticleLabel, getRouteSeoImage } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
 
 interface PageProps {
   params: Promise<{
@@ -29,7 +29,6 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
       <BackButton
         href={URLS.ARTICLES_LIST()}
         label={`Back to ${getArticleLabel().toLowerCase()}`}
-        Icon={ArrowLeft}
       />
       <div className="grid gap-5">
         <div className="grid gap-0.5">
@@ -67,13 +66,16 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { year } = await params;
   const count = getAllArticlesIndex().filter((a) => a.year === year).length;
-  return createFilteredMetadata({
-    filterName: year,
-    contentType: "Articles",
-    count,
-    colorScheme: { background: "6366f1", text: "ffffff" },
+
+  const metadata = createPageMetadata({
+    title: `${getArticleLabel()} from ${year}`,
+    description: `${count} ${getArticleLabel().toLowerCase()} published in ${year}.`,
+    keywords: `${getArticleLabel().toLowerCase()} from ${year}, articles, blog, development, technology, programming, tutorials`,
     url: `${URLS.ARTICLES_YEAR(year)}`,
+    image: getRouteSeoImage(URLS.ARTICLES_YEAR(year)),
   });
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

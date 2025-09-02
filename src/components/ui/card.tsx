@@ -17,7 +17,7 @@ function Card({
     <div
       data-slot="card"
       className={cn(
-        "text-card-foreground rounded-xl relative",
+        "text-card-foreground rounded-md relative",
         "border border-border/75 dark:border-border/50 bg-card dark:bg-card/25",
         "h-min py-4 group",
         "transition-all duration-100",
@@ -27,7 +27,7 @@ function Card({
       {...props}
     >
       {borderTrail && (
-        <div className="opacity-0 rounded-xl group-hover:opacity-100 transition-opacity duration-200">
+        <div className="opacity-0 rounded-md group-hover:opacity-100 transition-opacity duration-200">
           <BorderTrail
             className="bg-gradient-to-r from-primary/0 via-primary/5 to-primary/20"
             size={80}
@@ -51,7 +51,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-header"
       className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-4 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start px-4 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-4",
         className,
       )}
       {...props}
@@ -106,7 +106,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-footer"
-      className={cn("flex items-center px-4 [.border-t]:pt-5", className)}
+      className={cn("flex items-center px-4 [.border-t]:pt-4", className)}
       {...props}
     />
   );

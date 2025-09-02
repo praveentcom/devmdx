@@ -395,7 +395,7 @@ export function calculateReadTime(content: string): number {
 
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return format(date, "LLLL d, yyyy");
+  return format(date, "LLL d, yyyy");
 }
 
 export function getPublishedArticles(articles: Article[]): Article[] {

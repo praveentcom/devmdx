@@ -4,7 +4,7 @@ export class WorkExperienceItem implements WorkExperience {
   slug: string;
   role: string;
   company: string;
-  companyImagePath?: string;
+  image?: string;
   startDate: Date;
   endDate?: Date;
   bulletPoints: string[];
@@ -14,7 +14,7 @@ export class WorkExperienceItem implements WorkExperience {
     this.slug = init.slug;
     this.role = init.role;
     this.company = init.company;
-    this.companyImagePath = init.companyImagePath;
+    this.image = init.image;
     this.startDate = init.startDate;
     this.endDate = init.endDate;
     this.bulletPoints = init.bulletPoints ?? [];

@@ -1,11 +1,12 @@
 import { format } from "date-fns";
-import { Calendar, Users } from "lucide-react";
+import { Calendar, UserRound, UsersRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { TagBadge } from "@/components/ui/tag-badge";
 import { URLS } from "@/lib/constants/urls";
+import { PROFILE_NAME } from "@/lib/helpers/config";
 import { Project } from "@/types/project";
 
 interface ProjectCardProps {
@@ -13,8 +14,8 @@ interface ProjectCardProps {
   currentTag?: string;
 }
 
-export function ProjectCard({ project, currentTag }: ProjectCardProps) {
-  const { name, stack, description, bulletPoints, imagePath, coAuthors, date } =
+export function ProjectCard({ project }: ProjectCardProps) {
+  const { title, stack, description, bulletPoints, image, coAuthors, date } =
     project;
 
   return (
@@ -22,11 +23,11 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
       <Card borderTrail>
         <CardHeader>
           <div className="card-header-layout">
-            {imagePath && (
+            {image && (
               <div className="card-image-container">
                 <Image
-                  src={imagePath}
-                  alt={`${name} preview`}
+                  src={image}
+                  alt={`${title} preview`}
                   width={80}
                   height={80}
                   className="entity-image"
@@ -34,7 +35,7 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
               </div>
             )}
             <div className="grid gap-1.5">
-              <p className={`text-md leading-none font-medium`}>{name}</p>
+              <p className={`text-md leading-none font-medium`}>{title}</p>
               <div className="grid gap-0.5">
                 {date && (
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
@@ -42,10 +43,17 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
                     <span>{format(date, "MMMM yyyy")}</span>
                   </div>
                 )}
-                {coAuthors && coAuthors.length > 0 && (
+                {coAuthors && coAuthors.length > 0 ? (
                   <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
-                    <Users className="size-3" />
-                    <span>with {coAuthors.join(", ")}</span>
+                    <UsersRound className="size-3" />
+                    <span>
+                      {PROFILE_NAME}, {coAuthors.join(", ")}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center font-medium gap-1 text-xs text-muted-foreground">
+                    <UserRound className="size-3" />
+                    <span>{PROFILE_NAME}</span>
                   </div>
                 )}
               </div>
@@ -53,21 +61,20 @@ export function ProjectCard({ project, currentTag }: ProjectCardProps) {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-6 w-full">
+          <div className="grid gap-4 w-full">
+            <div className="flex flex-wrap gap-1.5">
+              {stack.map((tag, index) => (
+                <TagBadge
+                  key={index}
+                  tag={tag}
+                  source="projects"
+                />
+              ))}
+            </div>
             <div className="grid gap-4 w-full">
               <p className="text-muted-foreground leading-relaxed text-sm">
                 {description}
               </p>
-              <div className="flex flex-wrap gap-1.5">
-                {stack.map((tag, index) => (
-                  <TagBadge
-                    key={index}
-                    tag={tag}
-                    clickable={currentTag ? tag !== currentTag : false}
-                    source="projects"
-                  />
-                ))}
-              </div>
             </div>
             <ul className="bullet-list">
               {bulletPoints.map((point, index) => (

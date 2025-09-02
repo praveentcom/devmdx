@@ -14,11 +14,11 @@ export type BlurInProps = {
 
 export function BlurIn({
   children,
-  delay = 0,
-  duration = 0.3,
-  blur = "6px",
   className,
-  yOffset = 20,
+  delay = 0,
+  duration = 0.2,
+  blur = "4px",
+  yOffset = 12,
 }: BlurInProps) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 

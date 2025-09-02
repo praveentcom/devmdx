@@ -23,6 +23,7 @@ export const ArticleFrontmatterSchema = z.object({
   published: z.boolean().default(true),
   private: z.boolean().optional(),
   image: z.string().optional(),
+  ogImage: z.string().optional(),
   slug: z.string().optional(),
 });
 
@@ -116,7 +117,7 @@ export function getAllArticleSlugs(): ArticleIndexItem[] {
       categories: parsed.categories,
       published: parsed.published ?? true,
       private: parsed.private,
-
+      ogImage: parsed.ogImage,
       image: parsed.image || generateArticlePlaceholderImage(parsed.title),
       slug,
       year,
@@ -185,6 +186,7 @@ export async function getArticleBySlugCompiled(slug: string): Promise<{
     categories: parsed.categories,
     published: parsed.published ?? true,
     private: parsed.private,
+    ogImage: parsed.ogImage,
     image: parsed.image || generateArticlePlaceholderImage(parsed.title),
     slug: ensuredSlug,
     year,
@@ -225,6 +227,7 @@ export function getArticleBySlugRaw(
     categories: parsed.categories,
     published: parsed.published ?? true,
     private: parsed.private,
+    ogImage: parsed.ogImage,
     image: parsed.image || generateArticlePlaceholderImage(parsed.title),
     slug: ensuredSlug,
     year,
@@ -249,6 +252,7 @@ export function getAllArticlesIndex(limit?: number): ArticleIndexItem[] {
       categories: parsed.categories,
       published: parsed.published ?? true,
       private: parsed.private,
+      ogImage: parsed.ogImage,
       image: parsed.image || generateArticlePlaceholderImage(parsed.title),
       readTime: calculateReadTime(content),
       year: extractYearFromPath(fullPath),

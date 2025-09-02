@@ -1,4 +1,4 @@
-import { ArrowLeft, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,7 +8,11 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
-import { getAuthorName, getSiteName } from "@/lib/helpers/config";
+import { getRouteSeoImage } from "@/lib/helpers/config";
+import {
+  createNotFoundMetadata,
+  createPageMetadata,
+} from "@/lib/helpers/metadata";
 import { EnumCommunityContributionType } from "@/types/community";
 
 interface PageProps {
@@ -49,11 +53,7 @@ export default async function CommunityByTypePage({ params }: PageProps) {
 
   return (
     <div className="page-container">
-      <BackButton
-        href={URLS.COMMUNITY_LIST()}
-        label="Back to contributions"
-        Icon={ArrowLeft}
-      />
+      <BackButton href={URLS.COMMUNITY_LIST()} label="Back to contributions" />
       <div className="grid gap-5">
         <div className="grid gap-0.5">
           <div className="flex items-center gap-1.5">
@@ -79,7 +79,7 @@ export default async function CommunityByTypePage({ params }: PageProps) {
           </div>
         ) : (
           <EmptyPlaceholderCard
-            title="No contributions"
+            title="No community contributions"
             subtitle={`No contributions were found for ${getTypeLabel(validatedType)}.`}
           >
             <Link
@@ -100,22 +100,21 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { type } = await params;
   if (!isValidType(type)) {
-    return {};
+    return createNotFoundMetadata("Community contributions");
   }
+
   const validatedType = type as EnumCommunityContributionType;
   const typeLabel = getTypeLabel(validatedType);
-  const authorName = getAuthorName();
-  return {
-    title: `${authorName} | ${typeLabel}`,
+
+  const metadata = createPageMetadata({
+    title: `${typeLabel}`,
     description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
-    openGraph: {
-      title: `${authorName} | ${typeLabel}`,
-      description: `All community contributions categorized as ${typeLabel.toLowerCase()}.`,
-      type: "website",
-      siteName: getSiteName(),
-      url: `${URLS.COMMUNITY_TYPE(type)}`,
-    },
-  };
+    keywords: `${typeLabel.toLowerCase()}, community, contributions`,
+    url: `${URLS.COMMUNITY_TYPE(type)}`,
+    image: getRouteSeoImage(URLS.COMMUNITY_TYPE(type)),
+  });
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

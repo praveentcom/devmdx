@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, GitPullRequestArrow } from "lucide-react";
+import { GitPullRequestArrow } from "lucide-react";
 import Link from "next/link";
 
 import { ProjectCard } from "@/components/projects/ProjectCard";
@@ -31,18 +31,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
       aria-label="Featured projects"
       className="w-full grid gap-3"
     >
-      <div className="flex items-center justify-between gap-1.5">
-        <div className="flex items-center gap-1.5">
-          <GitPullRequestArrow className="size-4 text-primary" />
-          <h2 className="text-md font-medium">Featured projects</h2>
+      <div className="flex items-center justify-between gap-1.5 text-muted-foreground">
+        <div className="flex items-center gap-1">
+          <GitPullRequestArrow className="size-3.5" />
+          <h2 className="text-sm font-medium">Featured projects</h2>
         </div>
-        <Button variant="outline" size="sm" asChild>
-          <Link
-            href={URLS.PROJECTS_LIST()}
-            className="flex items-center gap-1.5"
-          >
-            View all
-            <ArrowRight className="size-4" />
+        <Button variant="outline" size="xs" asChild>
+          <Link href={URLS.PROJECTS_LIST()} className="flex items-center gap-1">
+            View all &rarr;
           </Link>
         </Button>
       </div>

@@ -13,18 +13,17 @@ interface WorkExperienceSectionProps {
 }
 
 function ExperienceCard({ experience }: { experience: WorkExperience }) {
-  const { role, company, companyImagePath, startDate, endDate, bulletPoints } =
-    experience;
+  const { role, company, image, startDate, endDate, bulletPoints } = experience;
 
   return (
     <Link href={URLS.WORK(experience.slug)} className="block">
       <Card borderTrail>
         <CardHeader>
           <div className="card-header-layout">
-            {companyImagePath && (
+            {image && (
               <div className="card-image-container">
                 <Image
-                  src={companyImagePath}
+                  src={image}
                   alt={`${company} logo`}
                   width={60}
                   height={60}
@@ -70,9 +69,9 @@ export function WorkExperienceSection({
       aria-label="Work experience"
       className="w-full grid gap-3"
     >
-      <div className="flex items-center gap-1.5">
-        <Briefcase className="size-4 text-primary" />
-        <h2 className="text-md font-medium">Work</h2>
+      <div className="flex items-center gap-1 text-muted-foreground">
+        <Briefcase className="size-3" />
+        <h2 className="text-sm font-medium">Work</h2>
       </div>
       {workExperience.length > 0 ? (
         <div className="space-y-4">

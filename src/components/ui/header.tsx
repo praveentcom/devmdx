@@ -6,9 +6,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
-import { getAuthorName, getNavigationItems } from "@/lib/helpers/config";
+import { getNavigationItems, PROFILE_NAME } from "@/lib/helpers/config";
 import { cn } from "@/lib/utils";
 
 const AnimatedBackground = dynamic(
@@ -17,7 +18,7 @@ const AnimatedBackground = dynamic(
       (mod) => ({ default: mod.AnimatedBackground }),
     ),
   {
-    loading: () => <div className="rounded-lg bg-card shadow-sm" />,
+    loading: () => <div className="rounded-sm bg-card shadow-sm" />,
     ssr: false,
   },
 );
@@ -28,7 +29,6 @@ export function Header() {
   const pathname = usePathname();
 
   const navigationItems = getNavigationItems();
-  const personName = getAuthorName();
   const isHomePage = pathname === "/";
   const nameHref = isHomePage ? "/about" : "/";
 
@@ -70,7 +70,7 @@ export function Header() {
     <>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-sm focus:outline-none focus:ring-2 focus:ring-ring"
       >
         Skip to main content
       </a>
@@ -91,64 +91,67 @@ export function Header() {
         )}
       >
         <div className="page-container py-0">
-          <div className="hidden md:flex items-center justify-start py-4 gap-6 h-16">
+          <div className="hidden md:flex items-center justify-between py-4 gap-5 h-16">
             <h1 className="text-md font-medium">
               <Link
                 href={nameHref}
                 aria-label={isHomePage ? "Go to about" : "Go to home"}
               >
-                {personName}
+                {PROFILE_NAME}
               </Link>
             </h1>
-            <div className="flex items-center hover:bg-background/75 rounded-xl p-1 border border-transparent hover:border-border transition-all duration-200">
-              <AnimatedBackground
-                className="rounded-lg bg-card shadow-sm"
-                transition={{
-                  type: "tween",
-                  ease: "easeOut",
-                  duration: 0.15,
-                }}
-                enableHover={true}
-              >
-                {navigationItems.map((item) => {
-                  const isActive = pathname === item.href;
-                  const isExternal = "external" in item && item.external;
+            <div className="flex gap-2 items-center">
+              <div className="flex items-center">
+                <AnimatedBackground
+                  className="rounded-xs bg-card dark:bg-card/50 border border-border/75"
+                  transition={{
+                    type: "tween",
+                    ease: "easeOut",
+                    duration: 0.15,
+                  }}
+                  enableHover={true}
+                >
+                  {navigationItems.map((item) => {
+                    const isActive = pathname === item.href;
+                    const isExternal = "external" in item && item.external;
 
-                  if (isExternal) {
+                    if (isExternal) {
+                      return (
+                        <a
+                          key={item.href}
+                          data-id={item.href}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cn(
+                            "px-3 py-1.5 rounded-xs text-sm font-medium",
+                            "text-muted-foreground hover:text-foreground",
+                          )}
+                        >
+                          {item.label}
+                        </a>
+                      );
+                    }
+
                     return (
-                      <a
+                      <PrefetchLink
                         key={item.href}
                         data-id={item.href}
                         href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className={cn(
-                          "px-3 py-1 rounded-lg text-sm font-medium",
-                          "text-muted-foreground hover:text-foreground",
+                          "px-3 py-1.5 rounded-xs text-sm font-medium",
+                          isActive
+                            ? "text-foreground"
+                            : "text-muted-foreground hover:text-foreground",
                         )}
                       >
                         {item.label}
-                      </a>
+                      </PrefetchLink>
                     );
-                  }
-
-                  return (
-                    <PrefetchLink
-                      key={item.href}
-                      data-id={item.href}
-                      href={item.href}
-                      className={cn(
-                        "px-3 py-1 rounded-lg text-sm font-medium",
-                        isActive
-                          ? "text-foreground"
-                          : "text-muted-foreground hover:text-foreground",
-                      )}
-                    >
-                      {item.label}
-                    </PrefetchLink>
-                  );
-                })}
-              </AnimatedBackground>
+                  })}
+                </AnimatedBackground>
+              </div>
+              <ThemeToggle minimal />
             </div>
           </div>
 
@@ -158,7 +161,7 @@ export function Header() {
                 href={nameHref}
                 aria-label={isHomePage ? "Go to about" : "Go to home"}
               >
-                {personName}
+                {PROFILE_NAME}
               </Link>
             </h1>
             <Button
@@ -241,7 +244,7 @@ export function Header() {
                         rel="noopener noreferrer"
                         onClick={toggleMobileMenu}
                         className={cn(
-                          "flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-[color,background-color] duration-200 ease-out",
+                          "flex items-center justify-center px-3 py-2 text-sm font-medium rounded-sm transition-[color,background-color] duration-200 ease-out",
                           "text-foreground bg-muted border border-border",
                         )}
                       >
@@ -256,7 +259,7 @@ export function Header() {
                       href={item.href}
                       onClick={toggleMobileMenu}
                       className={cn(
-                        "flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-[color,background-color] duration-200 ease-out",
+                        "flex items-center justify-center px-3 py-2 text-sm font-medium rounded-sm transition-[color,background-color] duration-200 ease-out",
                         isActive
                           ? "bg-primary text-primary-foreground shadow-sm"
                           : "text-foreground bg-muted border border-border",

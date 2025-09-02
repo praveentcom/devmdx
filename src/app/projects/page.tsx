@@ -5,11 +5,9 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { profileData } from "@/data/profile";
-import { getAuthorName, METADATA_PATTERNS } from "@/lib/helpers/metadata";
-
-const authorName = getAuthorName();
-
-export const metadata: Metadata = METADATA_PATTERNS.projectsList();
+import { URLS } from "@/lib/constants/urls";
+import { getRouteSeoImage } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
 
 export default function ProjectsPage() {
   return (
@@ -17,7 +15,7 @@ export default function ProjectsPage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: `${authorName} | Projects`,
+        name: `Projects`,
         description:
           "A comprehensive showcase of all my projects and contributions.",
       }}
@@ -50,4 +48,17 @@ export default function ProjectsPage() {
       </div>
     </PageWithStructuredData>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const metadata = createPageMetadata({
+    title: `Projects`,
+    description:
+      "A comprehensive showcase of all my projects and contributions.",
+    keywords: "projects, showcase, contributions",
+    url: URLS.PROJECTS_LIST(),
+    image: getRouteSeoImage(URLS.PROJECTS_LIST()),
+  });
+
+  return metadata;
 }

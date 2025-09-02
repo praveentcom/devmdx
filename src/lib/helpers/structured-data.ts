@@ -1,22 +1,22 @@
 import { profileData } from "@/data/profile";
-import { BASE_URL, URLS } from "@/lib/constants";
-import { getAuthorName, getSiteUrl } from "@/lib/helpers/config";
-import EducationItem from "@/models/EducationItem";
-import WorkExperienceItem from "@/models/WorkExperienceItem";
+import { URLS } from "@/lib/constants";
+import { PROFILE_NAME, SITE_URL } from "@/lib/helpers/config";
 import { Article } from "@/types/article";
 import { Community, CommunityContributionType } from "@/types/community";
+import { Education } from "@/types/education";
 import { Project } from "@/types/project";
+import { WorkExperience } from "@/types/work";
 
-export function generatePersonSchema() {
+export function generateDefaultSchema() {
   const profile = profileData.profile;
 
   return {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: getAuthorName(),
+    name: PROFILE_NAME,
     jobTitle: profile.currentPosition,
     description: profile.description,
-    url: getSiteUrl() || BASE_URL,
+    url: SITE_URL,
     image: profile.imageUrl,
     sameAs: [
       profile.socialMedia?.linkedin,
@@ -26,21 +26,22 @@ export function generatePersonSchema() {
       profile.links?.github,
       profile.links?.stackoverflow,
     ].filter(Boolean),
-    worksFor: profileData.workExperience[0]
-      ? {
-          "@type": "Organization",
-          name: profileData.workExperience[0].company,
-        }
-      : undefined,
+    worksFor:
+      profileData.workExperience.length > 0
+        ? {
+            "@type": "Organization",
+            name: profileData.workExperience[0]?.company,
+          }
+        : undefined,
     alumniOf: profileData.education.map((edu) => ({
       "@type": "EducationalOrganization",
-      name: edu.college,
+      name: edu.school,
     })),
   };
 }
 
-export function generateArticleSchema(article: Article & { year?: string }) {
-  const year = article.year ?? new Date(article.date).getFullYear().toString();
+export function generateArticleSchema(article: Article) {
+  const year = new Date(article.date).getFullYear().toString();
   const profile = profileData.profile;
 
   return {
@@ -53,12 +54,12 @@ export function generateArticleSchema(article: Article & { year?: string }) {
     dateModified: new Date(article.date).toISOString(),
     author: {
       "@type": "Person",
-      name: getAuthorName(),
-      url: getSiteUrl() || BASE_URL,
+      name: PROFILE_NAME,
+      url: SITE_URL,
     },
     publisher: {
       "@type": "Person",
-      name: getAuthorName(),
+      name: PROFILE_NAME,
       logo: {
         "@type": "ImageObject",
         url: profile.imageUrl,
@@ -74,12 +75,10 @@ export function generateArticleSchema(article: Article & { year?: string }) {
 export function generateCommunitySchema(
   community: Community & {
     content: string;
-    year?: string;
     type?: CommunityContributionType;
   },
 ) {
-  const year =
-    community.year ?? new Date(community.date).getFullYear().toString();
+  const year = new Date(community.date).getFullYear().toString();
 
   const eventData: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -90,13 +89,13 @@ export function generateCommunitySchema(
     startDate: new Date(community.date).toISOString(),
     performer: {
       "@type": "Person",
-      name: getAuthorName(),
-      url: getSiteUrl() || BASE_URL,
+      name: PROFILE_NAME,
+      url: SITE_URL,
     },
     organizer: {
       "@type": "Person",
-      name: getAuthorName(),
-      url: getSiteUrl() || BASE_URL,
+      name: PROFILE_NAME,
+      url: SITE_URL,
     },
     url: URLS.COMMUNITY(year, community.slug),
     eventStatus: "https://schema.org/EventScheduled",
@@ -127,13 +126,13 @@ export function generateProjectSchema(project: Project) {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: project.name,
+    name: project.title,
     description: project.description,
     url: project.url || URLS.PROJECTS(project.slug),
-    image: project.imagePath,
+    image: project.image,
     author: {
       "@type": "Person",
-      name: getAuthorName(),
+      name: PROFILE_NAME,
     },
     programmingLanguage: programmingLanguages.join(", "),
     dateCreated: project.date?.toISOString(),
@@ -145,7 +144,7 @@ export function generateProjectSchema(project: Project) {
   };
 }
 
-export function generateWorkSchema(work: WorkExperienceItem) {
+export function generateWorkSchema(work: WorkExperience) {
   return {
     "@context": "https://schema.org",
     "@type": "WorkExperience",
@@ -153,20 +152,20 @@ export function generateWorkSchema(work: WorkExperienceItem) {
     description: work.bulletPoints?.join(". "),
     worksFor: {
       "@type": "Organization",
-      name: work.company,
-      logo: work.companyImagePath,
+      name: work.company || "",
+      logo: work.image,
     },
     startDate: work.startDate.toISOString().split("T")[0],
     endDate: work.endDate?.toISOString().split("T")[0],
     employee: {
       "@type": "Person",
-      name: getAuthorName(),
+      name: PROFILE_NAME,
     },
-    skills: work.skills?.join(", "),
+    skills: work.skills?.join(", ") || "",
   };
 }
 
-export function generateEducationSchema(education: EducationItem) {
+export function generateEducationSchema(education: Education) {
   return {
     "@context": "https://schema.org",
     "@type": "EducationalOccupationalCredential",
@@ -175,14 +174,14 @@ export function generateEducationSchema(education: EducationItem) {
     educationalCredentialAwarded: education.degree,
     recognizedBy: {
       "@type": "EducationalOrganization",
-      name: education.college,
-      logo: education.collegeImagePath,
+      name: education.school,
+      logo: education.image,
     },
     validFrom: education.startDate.toISOString().split("T")[0],
     validUntil: education.endDate?.toISOString().split("T")[0],
     credentialSubject: {
       "@type": "Person",
-      name: getAuthorName(),
+      name: PROFILE_NAME,
     },
   };
 }

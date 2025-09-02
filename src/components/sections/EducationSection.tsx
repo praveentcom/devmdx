@@ -13,25 +13,18 @@ interface EducationSectionProps {
 }
 
 function EducationCard({ education }: { education: Education }) {
-  const {
-    degree,
-    college,
-    collegeImagePath,
-    startDate,
-    endDate,
-    bulletPoints,
-  } = education;
+  const { degree, school, image, startDate, endDate, bulletPoints } = education;
 
   return (
     <Link href={URLS.EDUCATION(education.slug)} className="block">
       <Card borderTrail>
         <CardHeader>
           <div className="card-header-layout">
-            {collegeImagePath && (
+            {image && (
               <div className="card-image-container">
                 <Image
-                  src={collegeImagePath}
-                  alt={`${college} logo`}
+                  src={image}
+                  alt={`${school} logo`}
                   width={60}
                   height={60}
                   className="entity-image"
@@ -42,7 +35,7 @@ function EducationCard({ education }: { education: Education }) {
               <CardTitle className="text-md font-medium">{degree}</CardTitle>
               <div className="flex-center-gap-1_5">
                 <GraduationCap className="size-3 text-muted-foreground" />
-                <span className="text-meta">{college}</span>
+                <span className="text-meta">{school}</span>
               </div>
               <DateRange
                 startDate={startDate}
@@ -70,9 +63,9 @@ function EducationCard({ education }: { education: Education }) {
 export function EducationSection({ education }: EducationSectionProps) {
   return (
     <section role="region" aria-label="Education" className="w-full grid gap-3">
-      <div className="flex items-center gap-1.5">
-        <GraduationCap className="size-4 text-primary" />
-        <h2 className="text-md font-medium">Education</h2>
+      <div className="flex items-center gap-1 text-muted-foreground">
+        <GraduationCap className="size-3" />
+        <h2 className="text-sm font-medium">Education</h2>
       </div>
       {education.length > 0 ? (
         <div className="space-y-4">

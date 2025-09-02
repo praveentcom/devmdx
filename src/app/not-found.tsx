@@ -9,45 +9,9 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { BASE_URL, URLS } from "@/lib/constants";
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
-import {
-  getArticleLabel,
-  getAuthorName,
-  getSiteName,
-} from "@/lib/helpers/config";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-
-const authorName = getAuthorName();
-
-export const metadata: Metadata = {
-  title: `${authorName} | Page not found`,
-  description: `The page you're looking for doesn't exist or has been moved. Return to the homepage or browse ${getArticleLabel().toLowerCase()} to find what you're looking for.`,
-  openGraph: {
-    title: `${authorName} | Page not found`,
-    description: "The page you're looking for doesn't exist or has been moved.",
-    type: "website",
-    siteName: getSiteName(),
-    url: BASE_URL,
-    images: [
-      {
-        url: generatePlaceholderImageUrl({
-          text: `${authorName} | Page not found`,
-          backgroundColor: PLACEHOLDER_COLORS.ERROR,
-          textColor: PLACEHOLDER_COLORS.WHITE,
-        }),
-        width: 1200,
-        height: 630,
-        alt: `${authorName} | Page not found`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary",
-    title: `${authorName} | Page not found`,
-    description: "The page you're looking for doesn't exist or has been moved.",
-  },
-};
+import { URLS } from "@/lib/constants";
+import { getArticleLabel } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
 
 export default function NotFound() {
   return (
@@ -102,4 +66,13 @@ export default function NotFound() {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const metadata = createPageMetadata({
+    title: `Page not found`,
+    description: `The page you're looking for doesn't exist or has been moved. Return to the homepage or browse ${getArticleLabel().toLowerCase()} to find what you're looking for.`,
+  });
+
+  return metadata;
 }

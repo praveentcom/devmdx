@@ -1,20 +1,8 @@
 import { Metadata } from "next";
 
 import { configData } from "@/data/config";
-import { profileData } from "@/data/profile";
 import { BASE_URL } from "@/lib/constants";
-import { COLOR_SCHEMES } from "@/lib/constants/colors";
-import { URLS } from "@/lib/constants/urls";
-import { getArticleLabel } from "@/lib/helpers/config";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-
-export function getAuthorName(): string {
-  return `${profileData.profile.firstName} ${profileData.profile.lastName}`;
-}
-
-export function getSiteName(): string {
-  return configData.misc.siteName || getAuthorName();
-}
+import { getFaviconPaths, PROFILE_NAME } from "@/lib/helpers/config";
 
 export function createNotFoundMetadata(type: string): Metadata {
   return {
@@ -23,318 +11,74 @@ export function createNotFoundMetadata(type: string): Metadata {
   };
 }
 
-export function createOpenGraphImage(
-  imageUrl: string | undefined,
-  fallbackText: string,
-  colorScheme: { background: string; text: string },
-  altText: string,
-  width = 1200,
-  height = 630,
-) {
-  return {
-    url:
-      imageUrl ||
-      generatePlaceholderImageUrl({
-        text: fallbackText,
-        backgroundColor: colorScheme.background,
-        textColor: colorScheme.text,
-      }),
-    width,
-    height,
-    alt: altText,
-  };
-}
-
 /**
  * Create a complete metadata object with OpenGraph and Twitter cards
  */
-export function createPageMetadata(config: {
+export function createPageMetadata(_: {
   title: string;
   description: string;
-  openGraphTitle?: string;
-  openGraphDescription?: string;
   type?: "website" | "article" | "profile";
-  imageUrl?: string;
-  fallbackImageText: string;
-  colorScheme: { background: string; text: string };
+  image?: string;
   keywords?: string;
   publishedTime?: string;
   authors?: string[];
   url?: string;
 }): Metadata {
-  const {
-    title,
-    description,
-    openGraphTitle = title,
-    openGraphDescription = description,
-    type = "website",
-    imageUrl,
-    fallbackImageText,
-    colorScheme,
-    keywords,
-    authors = [getAuthorName()],
-    url,
-  } = config;
+  const ogImage = {
+    url: _.image || "https://placehold.co/1200x630.png",
+    width: 1200,
+    height: 630,
+    alt: _.title,
+  };
 
-  const image = createOpenGraphImage(
-    imageUrl,
-    fallbackImageText,
-    colorScheme,
-    openGraphTitle,
-  );
+  const icons = getFaviconPaths();
 
   const metadata: Metadata = {
-    title,
-    description,
+    title: `${PROFILE_NAME} | ${_.title}`,
+    description: _.description,
+    icons: {
+      icon: [
+        {
+          url: icons.ico,
+          type: "image/x-icon",
+        },
+        {
+          url: icons.png,
+          type: "image/png",
+        },
+      ],
+      apple: {
+        url: icons.apple,
+        type: "image/png",
+      },
+    },
     openGraph: {
-      title: openGraphTitle,
-      description: openGraphDescription,
-      type,
-      images: [image],
-      siteName: getSiteName(),
-      url: url ? `${BASE_URL}${url}` : undefined,
+      title: _.title,
+      description: _.description,
+      type: _.type || "website",
+      images: [ogImage],
+      siteName: PROFILE_NAME,
+      url: _.url ? `${BASE_URL}${_.url}` : undefined,
     },
     twitter: {
       card: configData.seo.twitterCard || "summary_large_image",
-      title: openGraphTitle,
-      description: openGraphDescription,
-      images: [image.url],
+      title: _.title,
+      description: _.description,
+      images: [ogImage],
       site: configData.seo.twitterSite,
       creator: configData.seo.twitterCreator,
     },
-    authors: authors.map((name) => ({ name })),
+    authors: _.authors?.map((name) => ({ name })) || [
+      {
+        name: PROFILE_NAME,
+        url: BASE_URL,
+      },
+    ],
   };
 
-  if (keywords) {
-    metadata.keywords = keywords;
+  if (_.keywords) {
+    metadata.keywords = _.keywords;
   }
 
   return metadata;
 }
-
-/**
- * Create metadata for individual items (articles, projects, work, education)
- */
-export function createItemMetadata(config: {
-  itemName: string;
-  itemDescription: string;
-  authorName?: string;
-  imageUrl?: string;
-  colorScheme: { background: string; text: string };
-  type?: "website" | "article" | "profile";
-  keywords?: string;
-  publishedTime?: string;
-  url?: string;
-}): Metadata {
-  const {
-    itemName,
-    itemDescription,
-    authorName = getAuthorName(),
-    imageUrl,
-    colorScheme,
-    type = "website",
-    keywords,
-    publishedTime,
-    url,
-  } = config;
-
-  return createPageMetadata({
-    title: `${authorName} | ${itemName}`,
-    description: itemDescription,
-    openGraphTitle: `${authorName} | ${itemName}`,
-    openGraphDescription: itemDescription,
-    type,
-    imageUrl,
-    fallbackImageText: `${authorName} | ${itemName}`,
-    colorScheme,
-    keywords,
-    publishedTime,
-    authors: [authorName],
-    url,
-  });
-}
-
-/**
- * Create metadata for listing pages (articles list, projects list, etc.)
- */
-export function createListingMetadata(config: {
-  pageType: string;
-  description: string;
-  colorScheme: { background: string; text: string };
-  keywords?: string;
-  url?: string;
-}): Metadata {
-  const { pageType, description, colorScheme, keywords, url } = config;
-  const authorName = getAuthorName();
-
-  return createPageMetadata({
-    title: `${authorName} | ${pageType}`,
-    description,
-    openGraphTitle: `${authorName} | ${pageType}`,
-    openGraphDescription: description,
-    imageUrl: undefined,
-    fallbackImageText: `${authorName} | ${pageType}`,
-    colorScheme,
-    keywords,
-    url,
-  });
-}
-
-/**
- * Create metadata for filtered/tagged pages
- */
-export function createFilteredMetadata(config: {
-  filterName: string;
-  contentType: string;
-  count: number;
-  colorScheme: { background: string; text: string };
-  keywords?: string;
-  url?: string;
-}): Metadata {
-  const { filterName, contentType, count, colorScheme, keywords, url } = config;
-  const authorName = getAuthorName();
-  const pluralType = contentType.toLowerCase();
-
-  const description =
-    count > 0
-      ? `${count} ${pluralType}${count === 1 ? "" : "s"} about ${filterName}. Discover insights and solutions related to ${filterName}.`
-      : `Discover ${pluralType} related to ${filterName}.`;
-
-  return createPageMetadata({
-    title: `${authorName} | ${filterName} ${pluralType}`,
-    description,
-    openGraphTitle: `${authorName} | ${filterName} ${pluralType}`,
-    openGraphDescription: `${contentType} about ${filterName}`,
-    imageUrl: undefined,
-    fallbackImageText: `${authorName} | ${filterName} ${pluralType}`,
-    colorScheme,
-    keywords:
-      keywords ||
-      `${filterName}, ${pluralType}, development, technology, programming`,
-    url,
-  });
-}
-
-/**
- * Common patterns for different page types (articles, projects, work, education)
- */
-export const METADATA_PATTERNS = {
-  article: (
-    title: string,
-    description: string,
-    imageUrl?: string,
-    publishedTime?: string,
-    url?: string,
-    isPrivate?: boolean,
-  ) => {
-    const metadata = createItemMetadata({
-      itemName: title,
-      itemDescription: description,
-      imageUrl,
-      colorScheme: COLOR_SCHEMES.ARTICLE,
-      type: "article",
-      publishedTime,
-      url,
-    });
-
-    if (isPrivate) {
-      metadata.robots = {
-        index: false,
-        follow: false,
-      };
-    }
-
-    return metadata;
-  },
-
-  project: (
-    name: string,
-    description: string,
-    technologies: string[],
-    imageUrl?: string,
-    url?: string,
-  ) =>
-    createItemMetadata({
-      itemName: name,
-      itemDescription: description,
-      imageUrl,
-      colorScheme: COLOR_SCHEMES.PROJECT,
-      keywords: `${technologies.join(", ")}, ${name}, project, portfolio`,
-      url,
-    }),
-
-  work: (
-    role: string,
-    company: string,
-    description: string,
-    skills: string[],
-    imageUrl?: string,
-    url?: string,
-  ) =>
-    createItemMetadata({
-      itemName: `${role} at ${company}`,
-      itemDescription: description,
-      imageUrl,
-      colorScheme: COLOR_SCHEMES.WORK,
-      type: "profile",
-      keywords: `${skills.join(", ")}, ${company}, ${role}, work experience, career`,
-      url,
-    }),
-
-  education: (
-    degree: string,
-    college: string,
-    description: string,
-    imageUrl?: string,
-    url?: string,
-  ) =>
-    createItemMetadata({
-      itemName: `${degree} from ${college}`,
-      itemDescription: description,
-      imageUrl,
-      colorScheme: COLOR_SCHEMES.EDUCATION,
-      type: "profile",
-      keywords: `${college}, ${degree}, education, academic, qualification`,
-      url,
-    }),
-
-  articlesList: () =>
-    createListingMetadata({
-      pageType: getArticleLabel(),
-      description:
-        "A collection of articles about development, technology, and more. Sharing insights and knowledge from my journey as a developer.",
-      colorScheme: COLOR_SCHEMES.ARTICLE,
-      keywords:
-        "articles, blog, development, technology, programming, tutorials",
-      url: URLS.ARTICLES_LIST(),
-    }),
-
-  projectsList: () =>
-    createListingMetadata({
-      pageType: "Projects",
-      description:
-        "A comprehensive showcase of all my projects and contributions. Explore the technologies I work with and the solutions I've built.",
-      colorScheme: COLOR_SCHEMES.PROJECT,
-      keywords:
-        "projects, portfolio, development, programming, open source, web applications, software",
-      url: URLS.PROJECTS_LIST(),
-    }),
-
-  tagArticles: (tagName: string, articleCount: number, url?: string) =>
-    createFilteredMetadata({
-      filterName: tagName,
-      contentType: getArticleLabel(),
-      count: articleCount,
-      colorScheme: COLOR_SCHEMES.ARTICLE,
-      url,
-    }),
-
-  tagProjects: (tagName: string, projectCount: number, url?: string) =>
-    createFilteredMetadata({
-      filterName: tagName,
-      contentType: "Projects",
-      count: projectCount,
-      colorScheme: COLOR_SCHEMES.PROJECT,
-      url,
-    }),
-} as const;

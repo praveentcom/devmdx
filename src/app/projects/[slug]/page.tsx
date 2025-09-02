@@ -1,11 +1,11 @@
 import { format } from "date-fns";
 import {
-  ArrowLeft,
   Calendar,
   ExternalLink,
   Github,
   GitPullRequestArrow,
-  Users,
+  UserRound,
+  UsersRound,
 } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -21,9 +21,10 @@ import {
 import { TagBadge } from "@/components/ui/tag-badge";
 import { profileData } from "@/data/profile";
 import { URLS } from "@/lib/constants/urls";
+import { PROFILE_NAME } from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
-  METADATA_PATTERNS,
+  createPageMetadata,
 } from "@/lib/helpers/metadata";
 import { generateProjectSchema } from "@/lib/helpers/structured-data";
 
@@ -44,11 +45,7 @@ export default async function ProjectPage({ params }: PageProps) {
       <div className="page-container">
         {/* Desktop layout: buttons aligned in header */}
         <div className="hidden md:flex items-center justify-between">
-          <BackButton
-            href={URLS.PROJECTS_LIST()}
-            label="Back to projects"
-            Icon={ArrowLeft}
-          />
+          <BackButton href={URLS.PROJECTS_LIST()} label="Back to projects" />
           {(project.url || project.githubUrl) && (
             <div className="flex items-center gap-1.5">
               {project.url && (
@@ -81,18 +78,14 @@ export default async function ProjectPage({ params }: PageProps) {
 
         {/* Mobile layout: only back button in header */}
         <div className="md:hidden">
-          <BackButton
-            href={URLS.PROJECTS_LIST()}
-            label="Back to projects"
-            Icon={ArrowLeft}
-          />
+          <BackButton href={URLS.PROJECTS_LIST()} label="Back to projects" />
         </div>
 
         <div className="grid gap-4">
           <EntityHeader
-            imageSrc={project.imagePath}
-            imageAlt={`${project.name} preview`}
-            title={project.name}
+            imageSrc={project.image}
+            imageAlt={`${project.title} preview`}
+            title={project.title}
             subtitle={project.description}
             fallbackIcon={GitPullRequestArrow}
             size="large"
@@ -100,7 +93,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
           {/* Mobile layout: buttons below description in grid */}
           {(project.url || project.githubUrl) && (
-            <div className={`md:hidden grid gap-1.5 grid-cols-2`}>
+            <div className={`md:hidden grid gap-1.5 md:grid-cols-2`}>
               {project.url && (
                 <Button variant="default" size="sm" asChild>
                   <a
@@ -130,7 +123,7 @@ export default async function ProjectPage({ params }: PageProps) {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             {project.date && (
               <SectionCard title="Project date">
                 <div className="flex items-center gap-1.5">
@@ -141,12 +134,21 @@ export default async function ProjectPage({ params }: PageProps) {
                 </div>
               </SectionCard>
             )}
-            {project.coAuthors && project.coAuthors.length > 0 && (
+            {project.coAuthors && project.coAuthors.length > 0 ? (
               <SectionCard title="Project authors">
                 <div className="flex items-center gap-1.5">
-                  <Users className="size-4 text-muted-foreground" />
+                  <UsersRound className="size-4 text-muted-foreground" />
                   <span className="text-sm text-muted-foreground">
-                    with {project.coAuthors.join(", ")}
+                    {PROFILE_NAME}, {project.coAuthors.join(", ")}
+                  </span>
+                </div>
+              </SectionCard>
+            ) : (
+              <SectionCard title="Project authors">
+                <div className="flex items-center gap-1.5">
+                  <UserRound className="size-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">
+                    {PROFILE_NAME}
                   </span>
                 </div>
               </SectionCard>
@@ -161,6 +163,7 @@ export default async function ProjectPage({ params }: PageProps) {
                   tag={tag}
                   iconSize={14}
                   source="projects"
+                  asLink
                 />
               ))}
             </div>
@@ -187,13 +190,14 @@ export async function generateMetadata({
     return createNotFoundMetadata("Project");
   }
 
-  return METADATA_PATTERNS.project(
-    project.name,
-    project.description,
-    project.stack,
-    project.imagePath,
-    `/projects/${project.slug}`,
-  );
+  const metadata = createPageMetadata({
+    title: `${project.title}`,
+    description: project.description,
+    url: URLS.PROJECTS(project.slug),
+    image: project.ogImage,
+  });
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

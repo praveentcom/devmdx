@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="mt-6 py-6 border-t border-border">
       <div className="page-container">
-        <div className="flex flex-col md:flex-row justify-between gap-6">
+        <div className="flex flex-col md:flex-row justify-between gap-5">
           <div className="text-center md:text-left grid gap-1 h-min">
             <p className="text-muted-foreground text-xs font-medium">
               © {new Date().getFullYear()} {profileData.profile.firstName}{" "}

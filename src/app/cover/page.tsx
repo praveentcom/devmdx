@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { FileText } from "lucide-react";
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -11,57 +11,9 @@ import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { Markdown } from "@/components/ui/markdown";
 import { URLS } from "@/lib/constants";
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
-import { getAuthorName, getSiteName } from "@/lib/helpers/config";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-
-const authorName = getAuthorName();
-
-export const metadata: Metadata = {
-  title: `${authorName} | Cover letter`,
-  description:
-    "A personalized introduction highlighting my experience and interest in joining your team. Learn about my background, skills, and what I can bring to your organization.",
-  openGraph: {
-    title: `${authorName} | Cover letter`,
-    description:
-      "A personalized introduction highlighting my experience and interest in joining your team.",
-    type: "article",
-    siteName: getSiteName(),
-    url: `${URLS.COVER()}`,
-    images: [
-      {
-        url: generatePlaceholderImageUrl({
-          text: `${authorName} | Cover letter`,
-          backgroundColor: PLACEHOLDER_COLORS.INFO,
-          textColor: PLACEHOLDER_COLORS.WHITE,
-        }),
-        width: 1200,
-        height: 630,
-        alt: `${authorName} | Cover letter`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${authorName} | Cover letter`,
-    description:
-      "A personalized introduction highlighting my experience and interest in joining your team.",
-    images: [
-      generatePlaceholderImageUrl({
-        text: `${authorName} | Cover letter`,
-        backgroundColor: PLACEHOLDER_COLORS.INFO,
-        textColor: PLACEHOLDER_COLORS.WHITE,
-      }),
-    ],
-  },
-  keywords:
-    "cover letter, introduction, experience, skills, professional, career",
-  authors: [
-    {
-      name: authorName,
-    },
-  ],
-};
+import { getRouteSeoImage } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
+import { generateDefaultSchema } from "@/lib/helpers/structured-data";
 
 export default function CoverPage() {
   const coverPath = path.join(
@@ -82,15 +34,7 @@ export default function CoverPage() {
   }
 
   return (
-    <PageWithStructuredData
-      structuredData={{
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        name: `${authorName} | Cover letter`,
-        description:
-          "A personalized introduction highlighting my experience and interest in joining your team.",
-      }}
-    >
+    <PageWithStructuredData structuredData={generateDefaultSchema()}>
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
@@ -116,7 +60,7 @@ export default function CoverPage() {
                 title="Cover letter not yet written."
                 subtitle="This personalized introduction is currently being crafted. Check back soon for a detailed professional overview."
               >
-                <Button variant="outline" asChild>
+                <Button variant="outline" size={"xs"} asChild>
                   <Link href={URLS.HOME()}>Go home</Link>
                 </Button>
               </EmptyPlaceholderCard>
@@ -126,4 +70,18 @@ export default function CoverPage() {
       </div>
     </PageWithStructuredData>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const metadata = createPageMetadata({
+    title: `Cover letter`,
+    description:
+      "A personalized introduction highlighting my experience and interest in joining your team.",
+    keywords:
+      "cover letter, introduction, experience, skills, professional, career",
+    url: URLS.COVER(),
+    image: getRouteSeoImage(URLS.COVER()),
+  });
+
+  return metadata;
 }

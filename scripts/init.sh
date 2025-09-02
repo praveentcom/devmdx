@@ -74,7 +74,7 @@ export const profileData: ProfileData = {
       slug: "tech-innovations-inc",
       role: "Senior Full Stack Developer",
       company: "Tech Innovations Inc.",
-      companyImagePath: "https://placehold.co/320x320.png",
+      image: "https://placehold.co/320x320.png",
       startDate: new Date(2022, 0),
       skills: [
         "Next.js",
@@ -93,7 +93,7 @@ export const profileData: ProfileData = {
       slug: "startupxyz",
       role: "Full Stack Developer",
       company: "StartupXYZ",
-      companyImagePath: "https://placehold.co/320x320.png",
+      image: "https://placehold.co/320x320.png",
       startDate: new Date(2020, 2),
       endDate: new Date(2021, 11),
       skills: [
@@ -114,8 +114,8 @@ export const profileData: ProfileData = {
     new EducationItem({
       slug: "stanford-university",
       degree: "Master of Science in Computer Science",
-      college: "Stanford University",
-      collegeImagePath: "https://placehold.co/320x320.png",
+      school: "Stanford University",
+      image: "https://placehold.co/320x320.png",
       startDate: new Date(2017, 8),
       endDate: new Date(2019, 4),
       bulletPoints: [
@@ -129,7 +129,7 @@ export const profileData: ProfileData = {
   projects: [
     new ProjectItem({
       slug: "ecotracker-carbon-footprint-app",
-      name: "EcoTracker - Carbon Footprint App",
+      title: "EcoTracker - Carbon Footprint App",
       stack: [
         "React Native",
         "Node.js",
@@ -145,14 +145,14 @@ export const profileData: ProfileData = {
         "Social features for community challenges",
       ],
       url: "https://github.com/johndoe/ecotracker",
-      imagePath: "https://placehold.co/640x640.png",
+      image: "https://placehold.co/640x640.png",
       coAuthors: ["Jane Smith", "Mike Johnson"],
       featured: true,
       date: new Date("2023-11-01"),
     }),
     new ProjectItem({
       slug: "taskmaster-pro-project-management-tool",
-      name: "TaskMaster Pro - Project Management Tool",
+      title: "TaskMaster Pro - Project Management Tool",
       stack: [
         "Next.js",
         "TypeScript",
@@ -168,7 +168,7 @@ export const profileData: ProfileData = {
         "Integration with Slack, GitHub, and Jira",
       ],
       url: "https://taskmaster-pro.com",
-      imagePath: "https://placehold.co/640x640.png",
+      image: "https://placehold.co/640x640.png",
       featured: true,
       date: new Date("2025-03-01"),
     }),
@@ -263,7 +263,7 @@ export const configData: ConfigData = {
     // },
   },
   navigation: {
-    showHomeInNav: true,
+    showHomeInNav: false,
     showProjectsInNav: true,
     showArticlesInNav: true,
     showCommunityInNav: true,

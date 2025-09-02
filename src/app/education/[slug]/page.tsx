@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { ArrowLeft, CalendarDays, GraduationCap } from "lucide-react";
+import { CalendarDays, GraduationCap } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -15,7 +15,7 @@ import { profileData } from "@/data/profile";
 import { URLS } from "@/lib/constants/urls";
 import {
   createNotFoundMetadata,
-  METADATA_PATTERNS,
+  createPageMetadata,
 } from "@/lib/helpers/metadata";
 import { findBySlug, generateSlugParams } from "@/lib/helpers/page";
 import { generateEducationSchema } from "@/lib/helpers/structured-data";
@@ -26,6 +26,7 @@ interface PageProps {
 
 export default async function EducationPage({ params }: PageProps) {
   const { slug } = await params;
+
   const education = profileData.education.find((e) => e.slug === slug);
 
   if (!education) {
@@ -35,17 +36,13 @@ export default async function EducationPage({ params }: PageProps) {
   return (
     <PageWithStructuredData structuredData={generateEducationSchema(education)}>
       <div className="page-container">
-        <BackButton
-          href={URLS.HOME()}
-          label="Back to profile"
-          Icon={ArrowLeft}
-        />
+        <BackButton href={URLS.HOME()} label="Back to profile" />
 
         <div className="grid gap-4">
           <EntityHeader
-            imageSrc={education.collegeImagePath}
-            imageAlt={`${education.college} logo`}
-            title={education.college}
+            imageSrc={education.image}
+            imageAlt={`${education.school} logo`}
+            title={education.school}
             subtitle={education.degree}
             fallbackIcon={GraduationCap}
           />
@@ -83,17 +80,19 @@ export async function generateMetadata({
   const duration = `${format(education.startDate, "LLLL yyyy")} - ${
     education.endDate ? format(education.endDate, "LLLL yyyy") : "Present"
   }`;
-  const description = `${education.degree} from ${education.college} (${duration}). ${
+  const description = `${education.degree} from ${education.school} (${duration}). ${
     education.bulletPoints?.[0] || ""
   }`;
 
-  return METADATA_PATTERNS.education(
-    education.degree,
-    education.college,
-    description,
-    education.collegeImagePath,
-    `/education/${education.slug}`,
-  );
+  const metadata = createPageMetadata({
+    title: `${education.degree} from ${education.school}`,
+    description: description,
+    type: "article",
+    url: URLS.EDUCATION(education.slug),
+    image: education.ogImage,
+  });
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

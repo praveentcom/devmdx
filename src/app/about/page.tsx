@@ -11,56 +11,9 @@ import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { Markdown } from "@/components/ui/markdown";
 import { URLS } from "@/lib/constants";
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
-import { getAuthorName, getSiteName } from "@/lib/helpers/config";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
-
-const authorName = getAuthorName();
-
-export const metadata: Metadata = {
-  title: `${authorName} | About`,
-  description:
-    "Learn more about my background, experiences, and what drives me professionally and personally.",
-  openGraph: {
-    title: `${authorName} | About`,
-    description:
-      "Learn more about my background, experiences, and what drives me professionally and personally.",
-    type: "article",
-    siteName: getSiteName(),
-    url: `${URLS.ABOUT()}`,
-    images: [
-      {
-        url: generatePlaceholderImageUrl({
-          text: `${authorName} | About`,
-          backgroundColor: PLACEHOLDER_COLORS.INFO,
-          textColor: PLACEHOLDER_COLORS.WHITE,
-        }),
-        width: 1200,
-        height: 630,
-        alt: `${authorName} | About`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${authorName} | About`,
-    description:
-      "Learn more about my background, experiences, and what drives me professionally and personally.",
-    images: [
-      generatePlaceholderImageUrl({
-        text: `${authorName} | About`,
-        backgroundColor: PLACEHOLDER_COLORS.INFO,
-        textColor: PLACEHOLDER_COLORS.WHITE,
-      }),
-    ],
-  },
-  keywords: "about, background, experience, professional, personal, biography",
-  authors: [
-    {
-      name: getAuthorName(),
-    },
-  ],
-};
+import { getRouteSeoImage } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
+import { generateDefaultSchema } from "@/lib/helpers/structured-data";
 
 export default function AboutPage() {
   const aboutPath = path.join(process.cwd(), "data", "profile", "about.md");
@@ -76,15 +29,7 @@ export default function AboutPage() {
   }
 
   return (
-    <PageWithStructuredData
-      structuredData={{
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        name: `${authorName} | About`,
-        description:
-          "Learn more about my background, experiences, and what drives me professionally and personally.",
-      }}
-    >
+    <PageWithStructuredData structuredData={generateDefaultSchema()}>
       <div className="page-container">
         <div className="grid gap-5">
           <div className="grid">
@@ -110,7 +55,7 @@ export default function AboutPage() {
                 title="About page not yet written."
                 subtitle="This section is currently being crafted. Check back soon to learn more about my background and journey."
               >
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="xs" asChild>
                   <Link href={URLS.HOME()}>Go home</Link>
                 </Button>
               </EmptyPlaceholderCard>
@@ -120,4 +65,18 @@ export default function AboutPage() {
       </div>
     </PageWithStructuredData>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const metadata = createPageMetadata({
+    title: "About",
+    description:
+      "Learn more about my background, experiences, and what drives me professionally and personally.",
+    keywords:
+      "about, background, experience, professional, personal, biography",
+    url: URLS.ABOUT(),
+    image: getRouteSeoImage(URLS.ABOUT()),
+  });
+
+  return metadata;
 }

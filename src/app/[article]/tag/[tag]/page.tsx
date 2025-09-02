@@ -1,4 +1,3 @@
-import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,30 +9,14 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants/urls";
 import { getAllArticlesIndex } from "@/lib/helpers/article";
-import { getArticleLabel } from "@/lib/helpers/config";
-import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
+import { getArticleLabel, getRouteSeoImage } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
 import { getTagImagePath } from "@/lib/helpers/tag-mapper";
 
 interface PageProps {
   params: Promise<{
     tag: string;
   }>;
-}
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { tag } = await params;
-
-  const filteredArticles = getAllArticlesIndex().filter((article) =>
-    article.tags.includes(tag),
-  );
-
-  return METADATA_PATTERNS.tagArticles(
-    tag,
-    filteredArticles.length,
-    URLS.ARTICLES_TAG(tag),
-  );
 }
 
 export default async function TagArticlePage({ params }: PageProps) {
@@ -51,7 +34,6 @@ export default async function TagArticlePage({ params }: PageProps) {
             <BackButton
               href={URLS.ARTICLES_LIST()}
               label={`Back to ${getArticleLabel().toLowerCase()}`}
-              Icon={ArrowLeft}
             />
 
             <div className="flex items-center gap-3">
@@ -76,12 +58,12 @@ export default async function TagArticlePage({ params }: PageProps) {
             title={`No ${getArticleLabel().toLowerCase()} found.`}
             subtitle={`No ${getArticleLabel().toLowerCase()} have been published with the tag ${tag} yet. Check back later for new content!`}
           >
-            <Button variant="outline" asChild>
+            <Button variant="outline" size={"xs"} asChild>
               <Link href={URLS.ARTICLES_LIST()}>
                 {getArticleLabel().toLowerCase()}
               </Link>
             </Button>
-            <Button variant="outline" asChild>
+            <Button variant="outline" size={"xs"} asChild>
               <Link href={URLS.HOME()}>Go home</Link>
             </Button>
           </EmptyPlaceholderCard>
@@ -97,7 +79,6 @@ export default async function TagArticlePage({ params }: PageProps) {
           <BackButton
             href={URLS.ARTICLES_LIST()}
             label={`Back to ${getArticleLabel().toLowerCase()}`}
-            Icon={ArrowLeft}
           />
 
           <div className="flex items-center gap-3">
@@ -130,6 +111,26 @@ export default async function TagArticlePage({ params }: PageProps) {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { tag } = await params;
+
+  const filteredArticles = getAllArticlesIndex().filter((article) =>
+    article.tags.includes(tag),
+  );
+
+  const metadata = createPageMetadata({
+    title: `${tag} ${getArticleLabel().toLowerCase()}`,
+    description: `${filteredArticles.length} ${getArticleLabel().toLowerCase()} tagged with ${tag}.`,
+    keywords: `${tag}, ${getArticleLabel().toLowerCase()}`,
+    url: URLS.ARTICLES_TAG(tag),
+    image: getRouteSeoImage(URLS.ARTICLES_TAG(tag)),
+  });
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

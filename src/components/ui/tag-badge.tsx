@@ -9,24 +9,22 @@ import { cn } from "@/lib/utils";
 interface TagBadgeProps {
   tag: string;
   className?: string;
-  variant?: "default" | "secondary" | "destructive" | "outline";
   showIcon?: boolean;
   iconSize?: number;
-  clickable?: boolean;
+  asLink?: boolean;
   source?: "articles" | "projects" | "work";
 }
 
 export function TagBadge({
   tag,
   className,
-  variant = "outline",
   showIcon = true,
   iconSize = 16,
-  clickable = true,
+  asLink = false,
   source = "projects",
 }: TagBadgeProps) {
   const badgeContent = (
-    <Badge variant={variant} className={cn("badge-container", className)}>
+    <Badge variant={"outline"} className={cn("badge-container", className)}>
       {showIcon && (
         <Image
           src={getTagImagePath(tag)}
@@ -40,7 +38,7 @@ export function TagBadge({
     </Badge>
   );
 
-  if (clickable) {
+  if (asLink) {
     let href = "";
     switch (source) {
       case "articles":

@@ -17,12 +17,12 @@ export interface Community {
   description: string;
   content: string;
   date: string;
-  readTime: number;
   published: boolean;
   image?: string;
   youtubeUrl?: string;
   externalLinks?: CommunityLink[];
   type: CommunityContributionType;
+  ogImage?: string;
 }
 
 export interface CommunityPageData {

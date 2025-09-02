@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { ArrowLeft, Briefcase, CalendarDays } from "lucide-react";
+import { Briefcase, CalendarDays } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -16,7 +16,7 @@ import { profileData } from "@/data/profile";
 import { URLS } from "@/lib/constants/urls";
 import {
   createNotFoundMetadata,
-  METADATA_PATTERNS,
+  createPageMetadata,
 } from "@/lib/helpers/metadata";
 import { findBySlug, generateSlugParams } from "@/lib/helpers/page";
 import { generateWorkSchema } from "@/lib/helpers/structured-data";
@@ -29,58 +29,48 @@ interface PageProps {
 
 export default async function WorkExperiencePage({ params }: PageProps) {
   const { slug } = await params;
-  const experience = profileData.workExperience.find((w) => w.slug === slug);
+  const work = profileData.workExperience.find((w) => w.slug === slug);
 
-  if (!experience) {
+  if (!work) {
     notFound();
   }
 
   return (
-    <PageWithStructuredData structuredData={generateWorkSchema(experience)}>
+    <PageWithStructuredData structuredData={generateWorkSchema(work)}>
       <div className="page-container">
-        <BackButton
-          href={URLS.HOME()}
-          label="Back to profile"
-          Icon={ArrowLeft}
-        />
+        <BackButton href={URLS.HOME()} label="Back to profile" />
 
         <div className="grid gap-4">
           <EntityHeader
-            imageSrc={experience.companyImagePath}
-            imageAlt={`${experience.company} logo`}
-            title={experience.company}
-            subtitle={experience.role}
+            imageSrc={work.image}
+            imageAlt={`${work.company} logo`}
+            title={work.company}
+            subtitle={work.role}
             fallbackIcon={Briefcase}
           />
 
           <SectionCard title="Service duration">
             <DateRange
-              startDate={experience.startDate}
-              endDate={experience.endDate}
+              startDate={work.startDate}
+              endDate={work.endDate}
               Icon={CalendarDays}
               textSize="text-sm"
             />
           </SectionCard>
 
-          {experience.skills && experience.skills.length > 0 && (
+          {work.skills && work.skills.length > 0 && (
             <SectionCard title="Skills">
               <div className="flex flex-wrap gap-1.5">
-                {experience.skills.map((tag, index) => (
-                  <TagBadge
-                    key={index}
-                    tag={tag}
-                    variant="outline"
-                    iconSize={14}
-                    source="work"
-                  />
+                {work.skills.map((tag, index) => (
+                  <TagBadge key={index} tag={tag} iconSize={14} source="work" />
                 ))}
               </div>
             </SectionCard>
           )}
 
-          {experience.bulletPoints?.length > 0 && (
+          {work.bulletPoints?.length > 0 && (
             <SectionCard title="Highlights">
-              <BulletList items={experience.bulletPoints} />
+              <BulletList items={work.bulletPoints} />
             </SectionCard>
           )}
         </div>
@@ -93,27 +83,30 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const experience = findBySlug(profileData.workExperience, slug);
 
-  if (!experience) {
-    return createNotFoundMetadata("Work experience");
+  const work = findBySlug(profileData.workExperience, slug);
+
+  if (!work) {
+    return createNotFoundMetadata("Work");
   }
 
-  const duration = `${format(experience.startDate, "LLLL yyyy")} - ${
-    experience.endDate ? format(experience.endDate, "LLLL yyyy") : "Present"
-  }`;
-  const description = `${experience.role} position at ${experience.company} (${duration}). ${
-    experience.bulletPoints?.[0] || ""
+  const duration = `${format(work.startDate, "LLLL yyyy")} - ${
+    work.endDate ? format(work.endDate, "LLLL yyyy") : "Present"
   }`;
 
-  return METADATA_PATTERNS.work(
-    experience.role,
-    experience.company,
-    description,
-    experience.skills || [],
-    experience.companyImagePath,
-    `/work/${experience.slug}`,
-  );
+  const description = `${work.role} position at ${work.company} (${duration}). ${
+    work.bulletPoints?.[0] || ""
+  }`;
+
+  const metadata = createPageMetadata({
+    title: `${work.role} at ${work.company}`,
+    description: description,
+    keywords: `${work.role} at ${work.company}`,
+    url: URLS.WORK(work.slug),
+    image: work.ogImage,
+  });
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 
+import { BlurIn } from "@/components/motion-primitives";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,28 +18,22 @@ export function PageWithStructuredData({
   children: ReactNode;
 }) {
   return (
-    <>
+    <BlurIn>
       <StructuredData data={structuredData} />
       {children}
-    </>
+    </BlurIn>
   );
 }
 
-export function BackButton({
-  href,
-  label,
-  Icon,
-}: {
-  href: string;
-  label: string;
-  Icon: LucideIcon;
-}) {
+export function BackButton({ href, label }: { href: string; label: string }) {
   return (
     <div className="mb-4">
-      <Button variant="outline" size="sm" asChild>
-        <Link href={href} className="flex items-center gap-1.5">
-          <Icon className="size-4" />
-          {label}
+      <Button variant="outline" size="xs" asChild>
+        <Link
+          href={href}
+          className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
+        >
+          &larr; {label}
         </Link>
       </Button>
     </div>
@@ -83,11 +78,11 @@ export function EntityHeader({
           alt={imageAlt}
           width={imageSizes[size].width}
           height={imageSizes[size].height}
-          className={cn("rounded-md border object-cover", sizeClasses[size])}
+          className={cn("rounded-sm border object-cover", sizeClasses[size])}
         />
       ) : (
         <div
-          className={`${sizeClasses[size]} rounded-md border flex items-center justify-center bg-muted`}
+          className={`${sizeClasses[size]} rounded-sm border flex items-center justify-center bg-muted`}
         >
           <FallbackIcon className="size-4 text-muted-foreground" />
         </div>

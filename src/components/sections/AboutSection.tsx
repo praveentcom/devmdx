@@ -31,36 +31,36 @@ export function AboutSection({ profile }: AboutSectionProps) {
   return (
     <Card>
       <CardHeader>
-        <div className="flex flex-col md:flex-row gap-4 items-start">
-          {imageUrl && (
-            <div className="card-image-container">
-              <Image
-                src={imageUrl}
-                alt={`${firstName} ${lastName}`}
-                width={120}
-                height={120}
-                className="profile-image-lg"
-                priority
-              />
-            </div>
-          )}
-          <div className="text-left flex-1 grid gap-4">
-            <div className="flex-1 grid">
+        <div className="grid gap-5">
+          <div className="flex gap-3.5 items-center">
+            {imageUrl && (
+              <div className="card-image-container">
+                <Image
+                  src={imageUrl}
+                  alt={`${firstName} ${lastName}`}
+                  width={120}
+                  height={120}
+                  className="profile-image"
+                  priority
+                />
+              </div>
+            )}
+            <div className="flex-1 grid gap-1.5">
               <Link
                 href={nameHref}
-                className="text-md font-medium hover:text-primary transition-colors duration-200 w-fit"
+                className="text-md font-medium w-fit leading-none"
               >
                 {firstName} {lastName}
               </Link>
               {currentPosition && (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground leading-none">
                   {currentPosition}
                 </p>
               )}
             </div>
-            <div className="w-max">
-              <IconLinks />
-            </div>
+          </div>
+          <div className="w-max">
+            <IconLinks />
           </div>
         </div>
       </CardHeader>
@@ -80,7 +80,7 @@ export function AboutSection({ profile }: AboutSectionProps) {
           </ul>
         )}
 
-        <Button variant="outline" size="sm" asChild>
+        <Button variant="outline" size="xs" asChild>
           <Link href={URLS.BIO()}>View bio &rarr;</Link>
         </Button>
       </CardContent>

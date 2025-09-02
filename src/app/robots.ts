@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-import { BASE_URL } from "@/lib/constants";
+import { BASE_URL, URLS } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
   const allowRobots = process.env.NEXT_PUBLIC_ALLOW_ROBOTS === "true";
@@ -20,6 +20,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/_next/", "/private/"],
     },
-    sitemap: `${BASE_URL}/sitemap.xml`,
+    sitemap: `${BASE_URL}${URLS.SITEMAP()}`,
   };
 }

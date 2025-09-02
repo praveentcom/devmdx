@@ -8,7 +8,6 @@ import remarkGfm from "remark-gfm";
 import { z } from "zod";
 
 import { generateCommunityPlaceholderImage } from "@/lib/helpers/image";
-import { calculateReadTime } from "@/lib/helpers/markdown";
 import { EnumCommunityContributionType } from "@/types/community";
 
 const COMMUNITY_CONTENT_DIR = path.join(process.cwd(), "data", "community");
@@ -24,6 +23,7 @@ export const CommunityFrontmatterSchema = z.object({
   date: z.string(),
   published: z.boolean().default(true),
   image: z.string().optional(),
+  ogImage: z.string().optional(),
   slug: z.string().optional(),
   youtubeUrl: z.string().optional(),
   externalLinks: z.array(CommunityLinkSchema).optional(),
@@ -42,7 +42,6 @@ export type CommunityFrontmatter = Required<
   > & {
     year: string;
     slug: string;
-    readTime: number;
   };
 
 export type CommunityIndexItem = CommunityFrontmatter;
@@ -92,12 +91,11 @@ export function getAllCommunitySlugs(): CommunityIndexItem[] {
   const files = getAllCommunityFiles();
   const items: CommunityIndexItem[] = files.map((fullPath) => {
     const raw = fs.readFileSync(fullPath, "utf-8");
-    const { data, content } = matter(raw);
+    const { data } = matter(raw);
 
     const parsed = CommunityFrontmatterSchema.parse(data);
     const year = extractYearFromPath(fullPath);
     const slug = deriveSlug(parsed.slug, fullPath);
-    const readTime = calculateReadTime(content);
 
     const normalized: CommunityFrontmatter = {
       title: parsed.title,
@@ -105,9 +103,9 @@ export function getAllCommunitySlugs(): CommunityIndexItem[] {
       date: parsed.date,
       published: parsed.published ?? true,
       image: parsed.image || generateCommunityPlaceholderImage(parsed.title),
+      ogImage: parsed.ogImage,
       slug,
       year,
-      readTime,
       youtubeUrl: parsed.youtubeUrl,
       externalLinks: parsed.externalLinks,
       type: parsed.type,
@@ -164,7 +162,6 @@ export async function getCommunityBySlugCompiled(slug: string): Promise<{
       : undefined,
     match,
   );
-  const readTime = calculateReadTime(raw);
 
   const parsed = CommunityFrontmatterSchema.parse(frontmatter);
   const meta: CommunityFrontmatter = {
@@ -173,9 +170,9 @@ export async function getCommunityBySlugCompiled(slug: string): Promise<{
     date: parsed.date,
     published: parsed.published ?? true,
     image: parsed.image || generateCommunityPlaceholderImage(parsed.title),
+    ogImage: parsed.ogImage,
     slug: ensuredSlug,
     year,
-    readTime,
     youtubeUrl: parsed.youtubeUrl,
     externalLinks: parsed.externalLinks,
     type: parsed.type,
@@ -206,16 +203,15 @@ export function getCommunityBySlugRaw(
   const year = extractYearFromPath(match);
   const parsed = CommunityFrontmatterSchema.parse(data);
   const ensuredSlug = deriveSlug(parsed.slug, match);
-  const readTime = calculateReadTime(content);
   const meta: CommunityFrontmatter = {
     title: parsed.title,
     description: parsed.description,
     date: parsed.date,
     published: parsed.published ?? true,
     image: parsed.image || generateCommunityPlaceholderImage(parsed.title),
+    ogImage: parsed.ogImage,
     slug: ensuredSlug,
     year,
-    readTime,
     youtubeUrl: parsed.youtubeUrl,
     externalLinks: parsed.externalLinks,
     type: parsed.type,
@@ -228,7 +224,7 @@ export function getAllCommunityIndex(limit?: number): CommunityIndexItem[] {
   const files = getAllCommunityFiles(limit);
   const items: CommunityIndexItem[] = files.map((fullPath) => {
     const raw = fs.readFileSync(fullPath, "utf-8");
-    const { data, content } = matter(raw);
+    const { data } = matter(raw);
     const parsed = CommunityFrontmatterSchema.parse(data);
 
     const normalized: CommunityFrontmatter = {
@@ -237,9 +233,9 @@ export function getAllCommunityIndex(limit?: number): CommunityIndexItem[] {
       date: parsed.date,
       published: parsed.published ?? true,
       image: parsed.image || generateCommunityPlaceholderImage(parsed.title),
-      readTime: calculateReadTime(content),
       year: extractYearFromPath(fullPath),
       slug: deriveSlug(parsed.slug, fullPath),
+      ogImage: parsed.ogImage,
       youtubeUrl: parsed.youtubeUrl,
       externalLinks: parsed.externalLinks,
       type: parsed.type,

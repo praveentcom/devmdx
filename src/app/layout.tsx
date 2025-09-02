@@ -11,15 +11,10 @@ import { Footer } from "@/components/ui/footer";
 import { Header } from "@/components/ui/header";
 import { configData } from "@/data/config";
 import { BASE_URL } from "@/lib/constants";
-import {
-  getAuthorName,
-  getFaviconPaths,
-  getOgImage,
-  getSeoDescription,
-  getSeoTitle,
-  getSiteName,
-} from "@/lib/helpers/config";
-import { generateOpenGraphImage } from "@/lib/helpers/image";
+import { SITE_DESCRIPTION, SITE_IMAGE, SITE_TITLE } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
+
+import Providers from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,42 +25,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-const faviconPaths = getFaviconPaths();
-
-export const metadata: Metadata = {
-  title: getSeoTitle(),
-  description: getSeoDescription(),
-  keywords: configData.seo.keywords,
-  icons: {
-    icon: [
-      {
-        url: faviconPaths.ico,
-        type: "image/x-icon",
-      },
-      {
-        url: faviconPaths.png,
-        type: "image/png",
-      },
-    ],
-    apple: {
-      url: faviconPaths.apple,
-      type: "image/png",
-    },
-  },
-  openGraph: {
-    title: configData.seo.ogTitle,
-    description: configData.seo.ogDescription,
-    siteName: getSiteName(),
-    url: configData.seo.ogUrl || configData.misc.siteUrl || BASE_URL,
-    images: [getOgImage() || generateOpenGraphImage(getAuthorName())],
-  },
-  twitter: {
-    card: configData.seo.twitterCard || "summary_large_image",
-    site: configData.seo.twitterSite,
-    creator: configData.seo.twitterCreator,
-  },
-};
 
 export default function RootLayout({
   children,
@@ -86,7 +45,7 @@ export default function RootLayout({
           <PrefetchProvider>
             <Header />
             <main id="main-content" className="flex-1">
-              {children}
+              <Providers>{children}</Providers>
             </main>
             <Footer />
           </PrefetchProvider>
@@ -128,4 +87,16 @@ export default function RootLayout({
       </body>
     </html>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const metadata = createPageMetadata({
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    keywords: configData.seo.keywords?.join(", ") || "",
+    url: BASE_URL,
+    image: SITE_IMAGE,
+  });
+
+  return metadata;
 }

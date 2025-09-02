@@ -1,6 +1,11 @@
+import { Calendar, Eye, UserRound } from "lucide-react";
 import Image from "next/image";
 
+import { CategoryBadge } from "@/components/ui/category-badge";
+import { TagBadge } from "@/components/ui/tag-badge";
+import { PROFILE_NAME } from "@/lib/helpers/config";
 import { generateArticlePlaceholderImage } from "@/lib/helpers/image";
+import { formatDate } from "@/lib/helpers/markdown";
 
 import type { ArticleLike } from "./ArticleSummaryCard";
 
@@ -10,8 +15,8 @@ interface ArticleHeaderProps {
 
 export function ArticleHeader({ article }: ArticleHeaderProps) {
   return (
-    <>
-      <div className="relative w-full aspect-[1200/628] rounded-lg overflow-hidden mb-4">
+    <div className="grid gap-5">
+      <div className="relative w-full aspect-[1200/628] rounded-sm overflow-hidden">
         <Image
           src={article.image || generateArticlePlaceholderImage(article.title)}
           alt={article.title}
@@ -22,12 +27,37 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
         />
       </div>
 
-      <div className="pb-6 border-b border-border/50">
-        <div className="grid gap-2">
-          <h1 className="font-medium text-xl">{article.title}</h1>
+      <div className="grid gap-2">
+        <div className="flex items-center min-w-0 gap-3 text-xs text-muted-foreground font-medium">
+          <div className="flex items-center gap-1 flex-shrink-0">
+            <Calendar className="size-3" />
+            <span>{formatDate(article.date)}</span>
+          </div>
+          <div className="flex items-center gap-1 flex-shrink-0">
+            <Eye className="size-3" />
+            <span>{article.readTime} min read</span>
+          </div>
+          <div className="flex items-center gap-1 flex-shrink-0">
+            <UserRound className="size-3" />
+            <span>{PROFILE_NAME}</span>
+          </div>
+        </div>
+        <div className="grid gap-1.5">
+          <h1 className="font-medium text-lg">{article.title}</h1>
           <p className="text-muted-foreground text-sm">{article.description}</p>
         </div>
       </div>
-    </>
+
+      <div className="border-b border-border/50 pb-5">
+        <div className="flex flex-wrap gap-1.5">
+          {article.categories.map((category, index) => (
+            <CategoryBadge key={index} category={category} asLink />
+          ))}
+          {article.tags.map((tag, index) => (
+            <TagBadge key={index} tag={tag} iconSize={12} source="articles" asLink />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }

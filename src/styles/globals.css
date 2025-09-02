@@ -153,11 +153,11 @@
 
   /* Image Styles */
   .entity-image {
-    @apply rounded-md object-cover w-14 h-14;
+    @apply rounded-sm object-cover size-14;
   }
 
-  .profile-image-lg {
-    @apply rounded-lg object-cover w-20 h-20;
+  .profile-image {
+    @apply rounded-sm object-cover size-10;
   }
 
   /* List Styles */

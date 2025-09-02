@@ -10,63 +10,18 @@ import { PageWithStructuredData } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { YearBadge } from "@/components/ui/year-badge";
 import { URLS } from "@/lib/constants";
-import { COLOR_SCHEMES } from "@/lib/constants/colors";
 import { getAllArticleSlugs, getAllCategories } from "@/lib/helpers/article";
 import {
   getArticleLabel,
   getArticleLabelSingular,
-  getAuthorName,
-  getSiteName,
+  getRouteSeoImage,
 } from "@/lib/helpers/config";
-import { generatePlaceholderImageUrl } from "@/lib/helpers/image";
+import { createPageMetadata } from "@/lib/helpers/metadata";
 
 const articleLabel = getArticleLabel();
 const articleLabelSingular = getArticleLabelSingular();
-const authorName = getAuthorName();
 
-export const metadata: Metadata = {
-  title: `${authorName} | ${articleLabel}`,
-  description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more. Sharing insights and knowledge from my journey as a developer.`,
-  openGraph: {
-    title: `${authorName} | ${articleLabel}`,
-    description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
-    type: "website",
-    siteName: getSiteName(),
-    url: `${URLS.ARTICLES_LIST()}`,
-    images: [
-      {
-        url: generatePlaceholderImageUrl({
-          text: `${authorName} | ${articleLabel}`,
-          backgroundColor: COLOR_SCHEMES.ARTICLE.background,
-          textColor: COLOR_SCHEMES.ARTICLE.text,
-        }),
-        width: 1200,
-        height: 630,
-        alt: `${authorName} | ${articleLabel}`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${authorName} | ${articleLabel}`,
-    description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
-    images: [
-      generatePlaceholderImageUrl({
-        text: `${authorName} | ${articleLabel}`,
-        backgroundColor: COLOR_SCHEMES.ARTICLE.background,
-        textColor: COLOR_SCHEMES.ARTICLE.text,
-      }),
-    ],
-  },
-  keywords: `${articleLabel.toLowerCase()}, blog, development, technology, programming, tutorials`,
-  authors: [
-    {
-      name: authorName,
-    },
-  ],
-};
-
-export default function ArticlePage() {
+export default function ArticlesListPage() {
   const publishedArticles = getAllArticleSlugs();
   const tagSet = new Set<string>();
   publishedArticles.forEach((p) => p.tags.forEach((t) => tagSet.add(t)));
@@ -77,7 +32,7 @@ export default function ArticlePage() {
       structuredData={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: `${authorName} | ${articleLabel}`,
+        name: `${articleLabel}`,
         description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
       }}
     >
@@ -143,7 +98,7 @@ export default function ArticlePage() {
               title={`No ${articleLabel.toLowerCase()} yet.`}
               subtitle={`I haven't published any ${articleLabel.toLowerCase()} yet, but I'm working on some great content.`}
             >
-              <Button variant="outline" asChild>
+              <Button variant="outline" size={"xs"} asChild>
                 <Link href={URLS.HOME()}>Go home</Link>
               </Button>
             </EmptyPlaceholderCard>
@@ -152,4 +107,17 @@ export default function ArticlePage() {
       </div>
     </PageWithStructuredData>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const metadata = createPageMetadata({
+    title: `${articleLabel}`,
+    description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
+    type: "website",
+    keywords: `${articleLabel.toLowerCase()}, blog, development, technology, programming, tutorials`,
+    url: URLS.ARTICLES_LIST(),
+    image: getRouteSeoImage(URLS.ARTICLES_LIST()),
+  });
+
+  return metadata;
 }

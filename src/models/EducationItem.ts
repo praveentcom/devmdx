@@ -3,8 +3,8 @@ import { Education } from "@/types/education";
 export class EducationItem implements Education {
   slug: string;
   degree: string;
-  college: string;
-  collegeImagePath?: string;
+  school: string;
+  image?: string;
   startDate: Date;
   endDate?: Date;
   bulletPoints: string[];
@@ -12,8 +12,8 @@ export class EducationItem implements Education {
   constructor(init: Education) {
     this.slug = init.slug;
     this.degree = init.degree;
-    this.college = init.college;
-    this.collegeImagePath = init.collegeImagePath;
+    this.school = init.school;
+    this.image = init.image;
     this.startDate = init.startDate;
     this.endDate = init.endDate;
     this.bulletPoints = init.bulletPoints ?? [];

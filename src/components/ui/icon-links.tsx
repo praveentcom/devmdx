@@ -18,7 +18,7 @@ export function IconLinks() {
   return (
     <Fragment>
       {allLinks.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="flex flex-wrap justify-start gap-2.5">
           {allLinks.map(([platform, url]) => {
             const iconPath =
               socialIconPaths[platform as keyof typeof socialIconPaths];

@@ -29,10 +29,7 @@ export interface ConfigSeoData {
   title?: string;
   description?: string;
   keywords?: string[];
-  ogTitle?: string;
-  ogDescription?: string;
-  ogImage?: string;
-  ogUrl?: string;
+  image?: string;
   twitterCard?: "summary" | "summary_large_image" | "app" | "player";
   twitterSite?: string;
   twitterCreator?: string;
@@ -41,6 +38,7 @@ export interface ConfigSeoData {
     png?: string;
     apple?: string;
   };
+  routeImages?: Record<string, string>;
 }
 
 export interface ConfigNavigationData {
@@ -57,7 +55,6 @@ export interface ConfigNavigationData {
 
 export interface ConfigMiscData {
   footerSubtitle?: string;
-  siteName?: string;
   siteUrl?: string;
   locale?: string;
   timezone?: string;

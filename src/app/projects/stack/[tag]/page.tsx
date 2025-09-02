@@ -1,4 +1,3 @@
-import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +9,8 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { profileData } from "@/data/profile";
 import { URLS } from "@/lib/constants/urls";
-import { METADATA_PATTERNS } from "@/lib/helpers/metadata";
+import { getRouteSeoImage } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
 import { getTagImagePath } from "@/lib/helpers/tag-mapper";
 
 interface PageProps {
@@ -27,11 +27,15 @@ export async function generateMetadata({
     project.stack.includes(tag),
   );
 
-  return METADATA_PATTERNS.tagProjects(
-    tag,
-    filteredProjects.length,
-    `/projects/stack/${tag}`,
-  );
+  const metadata = createPageMetadata({
+    title: `${tag} projects`,
+    description: `${filteredProjects.length} ${pluralize("project", filteredProjects.length)} using ${tag}`,
+    keywords: `${tag} projects`,
+    url: URLS.PROJECTS_STACK(tag),
+    image: getRouteSeoImage(URLS.PROJECTS_STACK(tag)),
+  });
+
+  return metadata;
 }
 
 export default async function TagProjectsPage({ params }: PageProps) {
@@ -45,11 +49,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
     <div className="page-container">
       <div className="grid gap-5">
         <div className="grid gap-0.5">
-          <BackButton
-            href={URLS.PROJECTS_LIST()}
-            label="Back to projects"
-            Icon={ArrowLeft}
-          />
+          <BackButton href={URLS.PROJECTS_LIST()} label="Back to projects" />
 
           <div className="flex items-center gap-1.5">
             <Image
@@ -71,7 +71,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
         {filteredProjects.length > 0 ? (
           <div className="space-y-4">
             {filteredProjects.map((project, index) => (
-              <ProjectCard key={index} project={project} currentTag={tag} />
+              <ProjectCard key={index} project={project} />
             ))}
           </div>
         ) : (
@@ -79,10 +79,10 @@ export default async function TagProjectsPage({ params }: PageProps) {
             title="No projects found."
             subtitle={`There are currently no projects where I've used ${tag}.`}
           >
-            <Button variant="outline" asChild>
+            <Button variant="outline" size={"xs"} asChild>
               <Link href={URLS.PROJECTS_LIST()}>Projects</Link>
             </Button>
-            <Button variant="outline" asChild>
+            <Button variant="outline" size={"xs"} asChild>
               <Link href={URLS.HOME()}>Go home</Link>
             </Button>
           </EmptyPlaceholderCard>

@@ -1,10 +1,8 @@
-import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Script from "next/script";
 
 import { ArticleHeader } from "@/components/article/ArticleHeader";
-import { ArticleMetadata } from "@/components/article/ArticleMetadata";
 import { BackButton, PageWithStructuredData } from "@/components/ui/common";
 import { Markdown } from "@/components/ui/markdown";
 import { URLS } from "@/lib/constants/urls";
@@ -12,7 +10,7 @@ import { getAllArticleSlugs, getArticleBySlugRaw } from "@/lib/helpers/article";
 import { getArticleLabel, getArticleLabelSingular } from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
-  METADATA_PATTERNS,
+  createPageMetadata,
 } from "@/lib/helpers/metadata";
 import { generateArticleSchema } from "@/lib/helpers/structured-data";
 
@@ -43,20 +41,16 @@ export default async function ArticlePage({ params }: PageProps) {
       structuredData={generateArticleSchema({
         ...article,
         content: rawArticle.raw,
-        slug: article.slug,
-        year,
       })}
     >
       <div className="page-container">
         <BackButton
           href={URLS.ARTICLES_LIST()}
           label={`Back to ${getArticleLabel().toLowerCase()}`}
-          Icon={ArrowLeft}
         />
 
-        <div className="grid gap-1.5 min-w-0">
+        <div className="grid min-w-0">
           <ArticleHeader article={article} />
-          <ArticleMetadata article={article} />
           <div className="min-w-0 overflow-hidden">
             <Markdown content={rawArticle.raw} />
           </div>
@@ -98,15 +92,25 @@ export async function generateMetadata({
   }
 
   const article = rawArticle.meta;
-  const { year } = await params;
-  return METADATA_PATTERNS.article(
-    article.title,
-    article.description,
-    article.image,
-    new Date(article.date).toISOString(),
-    URLS.ARTICLES(year, article.slug),
-    article.private,
-  );
+
+  const metadata = createPageMetadata({
+    title: `${article.title}`,
+    description: article.description,
+    type: "article",
+    keywords: "articles, blog, development, technology, programming, tutorials",
+    publishedTime: article.date,
+    url: URLS.ARTICLES(article.year, article.slug),
+    image: article.ogImage || article.image,
+  });
+
+  if (article.private) {
+    metadata.robots = {
+      index: false,
+      follow: false,
+    };
+  }
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

@@ -10,4 +10,5 @@ export interface Article {
   published: boolean;
   private?: boolean;
   image?: string;
+  ogImage?: string;
 }

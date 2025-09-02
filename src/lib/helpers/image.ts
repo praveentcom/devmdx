@@ -1,4 +1,3 @@
-import { PLACEHOLDER_COLORS } from "@/lib/constants/colors";
 import { getArticleLabelSingular } from "@/lib/helpers/config";
 
 export interface PlaceholderImageOptions {
@@ -9,10 +8,15 @@ export interface PlaceholderImageOptions {
   text?: string;
 }
 
+const PLACEHOLDER_COLORS = {
+  WHITE: "ffffff",
+  GRAY: "666666",
+} as const;
+
 const DEFAULT_BLOG_OPTIONS: Required<PlaceholderImageOptions> = {
   width: 1200,
   height: 628,
-  backgroundColor: PLACEHOLDER_COLORS.ARTICLE,
+  backgroundColor: PLACEHOLDER_COLORS.GRAY,
   textColor: PLACEHOLDER_COLORS.WHITE,
   text: getArticleLabelSingular(),
 };
@@ -51,7 +55,7 @@ export function generateArticlePlaceholderImage(title: string): string {
 export function generateCommunityPlaceholderImage(title: string): string {
   return generatePlaceholderImageUrl({
     text: title,
-    backgroundColor: PLACEHOLDER_COLORS.COMMUNITY,
+    backgroundColor: PLACEHOLDER_COLORS.GRAY,
     textColor: PLACEHOLDER_COLORS.WHITE,
   });
 }
@@ -61,7 +65,7 @@ export function generateOpenGraphImage(title: string): string {
     text: title,
     width: 1200,
     height: 628,
-    backgroundColor: PLACEHOLDER_COLORS.PRIMARY,
+    backgroundColor: PLACEHOLDER_COLORS.GRAY,
     textColor: PLACEHOLDER_COLORS.WHITE,
   });
 }

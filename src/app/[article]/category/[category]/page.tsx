@@ -1,4 +1,3 @@
-import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,37 +9,20 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants/urls";
 import { getAllCategories, getArticlesByCategory } from "@/lib/helpers/article";
-import { getArticleLabel, getArticleLabelSingular } from "@/lib/helpers/config";
+import {
+  getArticleLabel,
+  getArticleLabelSingular,
+  getRouteSeoImage,
+} from "@/lib/helpers/config";
 import {
   createNotFoundMetadata,
-  METADATA_PATTERNS,
+  createPageMetadata,
 } from "@/lib/helpers/metadata";
 
 interface PageProps {
   params: Promise<{
     category: string;
   }>;
-}
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { category } = await params;
-  const decodedCategory = decodeURIComponent(category);
-
-  const allCategories = getAllCategories();
-
-  if (!allCategories.includes(decodedCategory)) {
-    return createNotFoundMetadata("Category");
-  }
-
-  const filteredArticles = getArticlesByCategory(decodedCategory);
-
-  return METADATA_PATTERNS.tagArticles(
-    decodedCategory,
-    filteredArticles.length,
-    URLS.ARTICLES_CATEGORY(category),
-  );
 }
 
 export default async function CategoryArticlePage({ params }: PageProps) {
@@ -64,20 +46,10 @@ export default async function CategoryArticlePage({ params }: PageProps) {
             <BackButton
               href={URLS.ARTICLES_LIST()}
               label={`Back to ${getArticleLabel().toLowerCase()}`}
-              Icon={ArrowLeft}
             />
-
-            <div className="flex items-center gap-1.5">
-              <div className="size-5 bg-primary/10 rounded flex items-center justify-center">
-                <span className="text-xs font-medium text-primary">
-                  {decodedCategory.charAt(0).toUpperCase()}
-                </span>
-              </div>
-              <h1 className="text-md font-medium">
-                {decodedCategory} {getArticleLabel().toLowerCase()}
-              </h1>
-            </div>
-
+            <h1 className="text-md font-medium">
+              {decodedCategory} {getArticleLabel().toLowerCase()}
+            </h1>
             <p className="text-muted-foreground text-sm">
               No {getArticleLabel().toLowerCase()} found in this category
             </p>
@@ -92,7 +64,7 @@ export default async function CategoryArticlePage({ params }: PageProps) {
                 {getArticleLabel().toLowerCase()}
               </Link>
             </Button>
-            <Button variant="outline" asChild>
+            <Button variant="outline" size={"xs"} asChild>
               <Link href={URLS.HOME()}>Go home</Link>
             </Button>
           </EmptyPlaceholderCard>
@@ -109,21 +81,11 @@ export default async function CategoryArticlePage({ params }: PageProps) {
             <BackButton
               href={URLS.ARTICLES_LIST()}
               label={`Back to ${getArticleLabel().toLowerCase()}`}
-              Icon={ArrowLeft}
             />
           </div>
-
-          <div className="flex items-center gap-1.5">
-            <div className="size-5 bg-primary/10 rounded flex items-center justify-center">
-              <span className="text-xs font-medium text-primary">
-                {decodedCategory.charAt(0).toUpperCase()}
-              </span>
-            </div>
-            <h1 className="text-md font-medium">
-              {decodedCategory} {getArticleLabel().toLowerCase()}
-            </h1>
-          </div>
-
+          <h1 className="text-md font-medium">
+            {decodedCategory} {getArticleLabel().toLowerCase()}
+          </h1>
           <p className="text-muted-foreground text-sm">
             {filteredArticles.length > 0
               ? `${filteredArticles.length} ${pluralize(getArticleLabelSingular().toLowerCase(), filteredArticles.length)} in this category`
@@ -141,6 +103,31 @@ export default async function CategoryArticlePage({ params }: PageProps) {
       </div>
     </div>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { category } = await params;
+  const decodedCategory = decodeURIComponent(category);
+
+  const allCategories = getAllCategories();
+
+  if (!allCategories.includes(decodedCategory)) {
+    return createNotFoundMetadata("Category");
+  }
+
+  const filteredArticles = getArticlesByCategory(decodedCategory);
+
+  const metadata = createPageMetadata({
+    title: `${decodedCategory} ${getArticleLabel().toLowerCase()}`,
+    description: `${filteredArticles.length} ${getArticleLabel().toLowerCase()} in this category.`,
+    keywords: `${decodedCategory}, ${getArticleLabel().toLowerCase()}`,
+    url: URLS.ARTICLES_CATEGORY(category),
+    image: getRouteSeoImage(URLS.ARTICLES_CATEGORY(category)),
+  });
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

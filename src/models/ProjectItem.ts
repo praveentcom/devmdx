@@ -2,26 +2,26 @@ import { Project } from "@/types/project";
 
 export class ProjectItem implements Project {
   slug: string;
-  name: string;
+  title: string;
   stack: string[];
   description: string;
   bulletPoints: string[];
   url?: string;
   githubUrl?: string;
-  imagePath?: string;
+  image?: string;
   coAuthors?: string[];
   featured?: boolean;
   date?: Date;
 
   constructor(init: Project) {
     this.slug = init.slug;
-    this.name = init.name;
+    this.title = init.title;
     this.stack = init.stack;
     this.description = init.description;
     this.bulletPoints = init.bulletPoints ?? [];
     this.url = init.url;
     this.githubUrl = init.githubUrl;
-    this.imagePath = init.imagePath;
+    this.image = init.image;
     this.coAuthors = init.coAuthors;
     this.featured = init.featured;
     this.date = init.date;

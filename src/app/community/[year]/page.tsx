@@ -1,4 +1,4 @@
-import { ArrowLeft, CalendarRange } from "lucide-react";
+import { CalendarRange } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -7,7 +7,8 @@ import { BackButton } from "@/components/ui/common";
 import EmptyPlaceholderCard from "@/components/ui/empty-placeholder-card";
 import { URLS } from "@/lib/constants/urls";
 import { getAllCommunityIndex } from "@/lib/helpers/community";
-import { createFilteredMetadata } from "@/lib/helpers/metadata";
+import { getRouteSeoImage } from "@/lib/helpers/config";
+import { createPageMetadata } from "@/lib/helpers/metadata";
 
 interface PageProps {
   params: Promise<{
@@ -25,11 +26,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
 
   return (
     <div className="page-container">
-      <BackButton
-        href={URLS.COMMUNITY_LIST()}
-        label="Back to contributions"
-        Icon={ArrowLeft}
-      />
+      <BackButton href={URLS.COMMUNITY_LIST()} label="Back to contributions" />
       <div className="grid gap-5">
         <div className="grid gap-0.5">
           <div className="flex items-center gap-1.5">
@@ -69,13 +66,16 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { year } = await params;
   const count = getAllCommunityIndex().filter((c) => c.year === year).length;
-  return createFilteredMetadata({
-    filterName: year,
-    contentType: "Community",
-    count,
-    colorScheme: { background: "0ea5e9", text: "ffffff" },
+
+  const metadata = createPageMetadata({
+    title: `Community contributions from ${year}`,
+    description: `${count} community contributions in ${year}.`,
+    keywords: `community, contributions, ${year}`,
     url: `${URLS.COMMUNITY_YEAR(year)}`,
+    image: getRouteSeoImage(URLS.COMMUNITY_YEAR(year)),
   });
+
+  return metadata;
 }
 
 export async function generateStaticParams() {

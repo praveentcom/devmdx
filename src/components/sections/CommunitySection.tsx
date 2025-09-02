@@ -1,4 +1,4 @@
-import { ArrowRight, Users } from "lucide-react";
+import { HeartHandshake } from "lucide-react";
 import Link from "next/link";
 
 import { CommunitySummaryCard } from "@/components/community/CommunitySummaryCard";
@@ -15,22 +15,21 @@ export function CommunitySection({
   return (
     <section
       role="region"
-      aria-label="Recent community contributions"
+      aria-label="Community contributions"
       className="w-full grid gap-3"
     >
-      <div className="flex items-center justify-between gap-1.5">
-        <div className="flex items-center gap-1.5">
-          <Users className="size-4 text-primary" />
-          <h2 className="text-md font-medium">Recent contributions</h2>
+      <div className="flex items-center justify-between gap-1.5 text-muted-foreground">
+        <div className="flex items-center gap-1">
+          <HeartHandshake className="size-3.5" />
+          <h2 className="text-sm font-medium">Community contributions</h2>
         </div>
         {contributions.length > 2 && (
-          <Button variant="outline" size="sm" asChild>
+          <Button variant="outline" size="xs" asChild>
             <Link
               href={URLS.COMMUNITY_LIST()}
-              className="flex items-center gap-1.5"
+              className="flex items-center gap-1"
             >
-              View all
-              <ArrowRight className="size-4" />
+              View all &rarr;
             </Link>
           </Button>
         )}
