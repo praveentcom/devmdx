@@ -47,7 +47,6 @@ export default async function CommunityContributionPage({ params }: PageProps) {
           content: rawCommunity.raw,
         })}
       />
-      <h2>{contribution.title}</h2>
       <div className="section-container">
         <CommunityHeader contribution={contribution} />
         <Markdown content={rawCommunity.raw} />

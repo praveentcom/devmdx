@@ -25,7 +25,7 @@ import { URLS } from "../helpers/urls";
 
 export function Header() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between -mx-2 md:mx-0">
       <div className="flex items-center gap-2">
         <Drawer direction="left" modal onOpenChange={() => {}}>
           <DrawerTrigger asChild>
@@ -34,12 +34,12 @@ export function Header() {
             </Button>
           </DrawerTrigger>
           <DrawerContent>
-            <div className="mx-auto w-full max-w-sm secondary-section-container">
+            <div className="mx-auto w-full max-w-sm list-container">
               <div className="flex items-center justify-between">
                 <h3>
                   {profileData.profile.firstName} {profileData.profile.lastName}
                 </h3>
-                <DrawerClose>
+                <DrawerClose asChild>
                   <Button variant="ghost" size="medium">
                     <XIcon />
                   </Button>
