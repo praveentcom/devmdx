@@ -10,7 +10,7 @@ import { profile } from "@/data/profile";
 
 /**
  * Build the complete RSS feed URL for the site
- * @returns Complete RSS feed URL (e.g., "https://devcard.info/feed.xml")
+ * @returns Complete RSS feed URL (e.g., "https://devmdx.com/feed.xml")
  */
 export function buildRSSFeedUrl(): string {
   return `${BASE_URL}${URLS.RSS_FEED()}`;
@@ -20,7 +20,7 @@ export function buildRSSFeedUrl(): string {
  * Build complete article URL for RSS feeds
  * @param year - Article year
  * @param slug - Article slug
- * @returns Complete article URL (e.g., "https://devcard.info/articles/2025/my-article")
+ * @returns Complete article URL (e.g., "https://devmdx.com/articles/2025/my-article")
  */
 export function buildArticleRSSUrl(year: string, slug: string): string {
   return `${BASE_URL}${URLS.ARTICLES(year, slug)}`;
@@ -39,7 +39,7 @@ export function getRSSFeedMetadata() {
     language: "en-us",
     managingEditor: profile.email || "",
     webMaster: profile.email || "",
-    generator: "DevCard RSS Feed Generator",
+    generator: "DevMDX RSS Feed Generator",
     categories: [
       "articles",
       "blog",

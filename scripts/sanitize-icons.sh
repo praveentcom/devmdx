@@ -2,7 +2,7 @@
 
 set -e
 
-ICONS_DIR="/Users/praveen/Personal/devcard/public/images/tech-icons"
+ICONS_DIR=""
 
 echo "🔧 Starting icons sanitize process..."
 

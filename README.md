@@ -1,6 +1,4 @@
-## ✨ DevCard: Developer Spotlight Template
-
-<img src="https://storage.googleapis.com/praveentcom-public/projects/devcard/open_graph_light%402x.png" />
+## ✨ DevMDX: Developer Spotlight Template
 
 A modern, customizable developer profile spotlight landing page built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui components.
 
@@ -49,7 +47,7 @@ src/
 
 #### Deployment
 
-When deploying DevCard to production, make sure to:
+When deploying DevMDX to production, make sure to:
 
 1. **Set environment variables** in your hosting platform (Vercel, Netlify, etc.)
 2. **Configure allowed hostnames** for any external image sources or CDNs

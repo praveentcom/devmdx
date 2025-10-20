@@ -1,5 +1,5 @@
 {
-  "name": "devcard",
+  "name": "devmdx",
   "version": "1.5.0",
   "license": "MIT",
   "author": "Praveen Thirumurugan",
@@ -15,19 +15,19 @@
     "last 2 ChromeAndroid versions",
     "last 2 iOS versions"
   ],
-  "description": "A modern, customizable developer profile spotlight landing page built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui components.",
+  "description": "✨ A modern, customisable developer spotlight website with blog and RSS feed built-in. Made with Next.js, TypeScript and Passport UI components.",
   "keywords": [
     "developer",
     "profile",
     "landing page"
   ],
-  "homepage": "https://devcard.praveent.com",
+  "homepage": "https://devmdx.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/praveentcom/devcard"
+    "url": "https://github.com/praveentcom/devmdx"
   },
   "bugs": {
-    "url": "https://github.com/praveentcom/devcard/issues"
+    "url": "https://github.com/praveentcom/devmdx/issues"
   },
   "contributors": [
     {

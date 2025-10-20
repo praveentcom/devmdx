@@ -6,7 +6,7 @@ if [ -d "data" ] && [ "$(ls -A data)" ]; then
   echo "│                        ⚠️  Warning                               │"
   echo "├─────────────────────────────────────────────────────────────────┤"
   echo "│  The '/data' directory is not empty.                            │"
-  echo "│  DevCard may already be initialized.                            │"
+  echo "│  DevMDX may already be initialized.                             │"
   echo "│                                                                 │"
   echo "│  Please remove the /data directory and try again.               │"
   echo "└─────────────────────────────────────────────────────────────────┘"
