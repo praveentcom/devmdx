@@ -62,7 +62,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on open-source contributions.
 
 ##### Assets and trademarks
 
-Logos and trademarks in `public/images/tech-icons` and elsewhere are the property of their respective owners and are used here for identification purposes only. If you are an owner and would like your asset removed or attributed differently, please open an issue.
+Logos and trademarks are the property of their respective owners and are used here for identification purposes only. If you are an owner and would like your asset removed or attributed differently, please open an issue.
 
 ---
 
