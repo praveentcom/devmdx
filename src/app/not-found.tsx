@@ -15,7 +15,7 @@ const articleLabel = plural(getArticleLabel());
 export default function NotFound() {
   return (
     <ContentContainer variant="relaxed">
-      <div className="mt-12 flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <Card className="w-full">
           <CardContent>
             <div className="flex flex-col text-center">
