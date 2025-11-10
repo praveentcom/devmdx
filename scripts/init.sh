@@ -16,7 +16,7 @@ fi
 # Download and extract data from zip file
 echo "📥 Downloading data from zip file..."
 echo
-curl -L -o data.zip "https://storage.googleapis.com/praveentcom-public/projects/devcard/data/data-v1.0.5.zip"
+curl -L -o data.zip "https://storage.googleapis.com/praveentcom-public/projects/devmdx/data/data-v1.0.5.zip"
 echo
 
 if [ $? -eq 0 ]; then  
