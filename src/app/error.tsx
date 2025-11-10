@@ -22,11 +22,10 @@ export default function Error() {
               <h1>500</h1>
               <h4>Uh-oh. Something went wrong.</h4>
               <p className="text-muted-foreground">
-                An error occurred while loading the page. Please try again
-                later.
+                An error occurred while loading the page.
               </p>
             </div>
-            <div className="flex mx-auto flex-col md:flex-row gap-3 justify-center w-full">
+            <div className="flex mx-auto flex-col gap-3 justify-center w-full">
               <PrefetchLink href={URLS.HOME()}>
                 <Button>
                   <Home />

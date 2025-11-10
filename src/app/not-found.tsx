@@ -28,7 +28,7 @@ export default function NotFound() {
                 for.
               </p>
             </div>
-            <div className="flex mx-auto flex-col md:flex-row gap-3 justify-center w-full">
+            <div className="flex mx-auto flex-col gap-3 justify-center w-full">
               <PrefetchLink href={URLS.HOME()}>
                 <Button>
                   <Home />
