@@ -61,7 +61,7 @@
     "lucide-react": "^0.542.0",
     "next": "15.5.3",
     "next-mdx-remote": "^5.0.0",
-    "passport-ui": "^1.0.66",
+    "passport-ui": "^1.0.67",
     "pluralize": "^8.0.0",
     "prettier": "^3.6.2",
     "react": "19.1.1",
