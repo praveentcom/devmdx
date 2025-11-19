@@ -55,8 +55,8 @@ export function getArticleSlug(): string {
 }
 
 /**
- * Get the project label (plural) from config or fallback
- * @returns The project label (plural)
+ * Get the project label (singular) from config or fallback.
+ * Returns the singular form; pluralization is handled by callers using the `plural()` function.
  */
 export function getProjectLabel(): string {
   return configData.misc.content?.projectLabel || "Project";
