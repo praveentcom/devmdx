@@ -4,7 +4,9 @@ import { GitPullRequestArrow } from "lucide-react";
 import { Button } from "passport-ui/button";
 import { EmptyState } from "passport-ui/empty-state";
 import { PrefetchLink } from "passport-ui/prefetch-link";
+import { plural } from "pluralize";
 
+import { getProjectLabel } from "@/components/helpers/config";
 import { URLS } from "@/components/helpers/urls";
 import { ProjectSummaryCard } from "@/components/projects/project-summary-card";
 import { Project } from "@/types/project";
@@ -14,6 +16,8 @@ interface ProjectsSectionProps {
 }
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
+  const projectLabel = plural(getProjectLabel());
+
   const latestProjects = [...projects]
     .sort((a, b) => {
       const aFeatured = a.featured ? 1 : 0;
@@ -28,13 +32,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <section
       role="region"
-      aria-label="Featured projects"
+      aria-label={`Featured ${projectLabel.toLowerCase()}`}
       className="section-container"
     >
       <div className="flex items-center justify-between gap-1.5 text-muted-foreground">
         <div className="flex items-center gap-1.5">
           <GitPullRequestArrow className="size-3.5" />
-          <h6 className="leading-none">Projects</h6>
+          <h6 className="leading-none">{projectLabel}</h6>
         </div>
         <PrefetchLink href={URLS.PROJECTS_LIST()}>
           <Button>View all &rarr;</Button>

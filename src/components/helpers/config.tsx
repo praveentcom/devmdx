@@ -55,6 +55,22 @@ export function getArticleSlug(): string {
 }
 
 /**
+ * Get the project label (plural) from config or fallback
+ * @returns The project label (plural)
+ */
+export function getProjectLabel(): string {
+  return configData.misc.content?.projectLabel || "Project";
+}
+
+/**
+ * Get the project URL slug from config or fallback
+ * @returns The project URL slug
+ */
+export function getProjectSlug(): string {
+  return configData.misc.content?.projectSlug || "projects";
+}
+
+/**
  * Get the route SEO image from config or fallback
  * @param route - The route to get the SEO image for
  * @returns The SEO image for the route
@@ -89,7 +105,13 @@ export function getNavigationItems(): {
       ? [{ href: URLS.COMMUNITY_LIST(), label: "Community", Icon: UsersIcon }]
       : []),
     ...(configData.navigation?.showProjectsInNav !== false
-      ? [{ href: URLS.PROJECTS_LIST(), label: "Projects", Icon: FolderIcon }]
+      ? [
+          {
+            href: URLS.PROJECTS_LIST(),
+            label: plural(getProjectLabel()),
+            Icon: FolderIcon,
+          },
+        ]
       : []),
   ];
 

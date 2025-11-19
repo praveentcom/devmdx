@@ -67,6 +67,8 @@ export interface ConfigMiscData {
   content?: {
     articleLabel?: string; // e.g., "Article", "Blog", "Essay", "Writing"
     articleSlug?: string; // e.g., "articles", "blog", "essays", "writings"
+    projectLabel?: string; // e.g., "Project", "Work", "Portfolio", "Creation"
+    projectSlug?: string; // e.g., "projects", "work", "portfolio", "creations"
   };
 }
 

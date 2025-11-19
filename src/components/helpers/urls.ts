@@ -1,4 +1,4 @@
-import { getArticleSlug } from "@/components/helpers/config";
+import { getArticleSlug, getProjectSlug } from "@/components/helpers/config";
 import { getEnvConfig } from "@/components/helpers/env-config";
 
 const envConfig = getEnvConfig();
@@ -23,9 +23,9 @@ export const URLS = {
     `/${getArticleSlug()}/category/${category}`,
 
   // Projects
-  PROJECTS_LIST: () => "/projects",
-  PROJECTS: (slug: string) => `/projects/${slug}`,
-  PROJECTS_STACK: (tag: string) => `/projects/stack/${tag}`,
+  PROJECTS_LIST: () => `/${getProjectSlug()}`,
+  PROJECTS: (slug: string) => `/${getProjectSlug()}/${slug}`,
+  PROJECTS_STACK: (tag: string) => `/${getProjectSlug()}/stack/${tag}`,
 
   // Community
   COMMUNITY_LIST: () => "/community",

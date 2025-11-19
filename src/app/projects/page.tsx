@@ -3,15 +3,21 @@ import { Breadcrumb } from "passport-ui/breadcrumb";
 import { ContentContainer } from "passport-ui/content-container";
 import { EmptyState } from "passport-ui/empty-state";
 import { StructuredData } from "passport-ui/structured-data";
+import { plural } from "pluralize";
 
-import { getRouteSeoImage } from "@/components/helpers/config";
+import { MdContent } from "@/components/common/md-content";
+import { getProjectLabel, getRouteSeoImage } from "@/components/helpers/config";
+import { getMdContent } from "@/components/helpers/md-content";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { getAllProjectSlugs } from "@/components/helpers/projects";
 import { URLS } from "@/components/helpers/urls";
 import { ProjectSummaryCard } from "@/components/projects/project-summary-card";
 
+const projectLabel = plural(getProjectLabel());
+
 export default function ProjectsPage() {
   const projects = getAllProjectSlugs();
+  const projectsContent = getMdContent("projects/intro.md");
 
   return (
     <ContentContainer variant="relaxed">
@@ -19,9 +25,8 @@ export default function ProjectsPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: `Projects`,
-          description:
-            "A comprehensive showcase of all my projects and contributions.",
+          name: `${projectLabel}`,
+          description: `A comprehensive showcase of all my ${projectLabel.toLowerCase()} and contributions.`,
         }}
       />
       <Breadcrumb
@@ -31,12 +36,15 @@ export default function ProjectsPage() {
             href: URLS.HOME(),
           },
           {
-            label: "Projects",
+            label: projectLabel,
             href: URLS.PROJECTS_LIST(),
           },
         ]}
       />
-      <h2>Projects</h2>
+      <div className="section-container">
+        <MdContent content={projectsContent} />
+      </div>
+      <h2>{projectLabel}</h2>
       {projects.length > 0 ? (
         <div className="list-container">
           {projects.map((project, index) => (
@@ -52,10 +60,9 @@ export default function ProjectsPage() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = createPageMetadata({
-    title: `Projects`,
-    description:
-      "A comprehensive showcase of all my projects and contributions.",
-    keywords: ["projects", "showcase", "contributions"],
+    title: `${projectLabel}`,
+    description: `A comprehensive showcase of all my ${projectLabel.toLowerCase()} and contributions.`,
+    keywords: [projectLabel.toLowerCase(), "showcase", "contributions"],
     url: URLS.PROJECTS_LIST(),
     image: getRouteSeoImage(URLS.PROJECTS_LIST()),
   });

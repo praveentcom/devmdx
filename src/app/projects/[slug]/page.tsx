@@ -7,10 +7,11 @@ import { ContentContainer } from "passport-ui/content-container";
 import { Markdown } from "passport-ui/markdown";
 import { PrefetchLink } from "passport-ui/prefetch-link";
 import { StructuredData } from "passport-ui/structured-data";
+import { plural } from "pluralize";
 
 import EntityHeader from "@/components/common/entity-header";
 import { TagButton } from "@/components/common/tag-button";
-import { PROFILE_NAME } from "@/components/helpers/config";
+import { getProjectLabel, PROFILE_NAME } from "@/components/helpers/config";
 import { formatDateShort } from "@/components/helpers/date";
 import {
   createNotFoundMetadata,
@@ -19,6 +20,8 @@ import {
 import { getProjectBySlugContent } from "@/components/helpers/projects";
 import { generateProjectSchema } from "@/components/helpers/structured-data";
 import { URLS } from "@/components/helpers/urls";
+
+const projectLabel = plural(getProjectLabel());
 
 interface PageProps {
   params: Promise<{
@@ -46,7 +49,7 @@ export default async function ProjectPage({ params }: PageProps) {
             href: URLS.HOME(),
           },
           {
-            label: "Projects",
+            label: projectLabel,
             href: URLS.PROJECTS_LIST(),
           },
           {
@@ -69,7 +72,7 @@ export default async function ProjectPage({ params }: PageProps) {
       </div>
       {(project.githubUrl || project.url) && (
         <div className="meta-container">
-          <h4>Project links</h4>
+          <h4>{getProjectLabel()} links</h4>
           <div className="flex gap-4">
             {project.githubUrl && (
               <PrefetchLink
@@ -97,7 +100,7 @@ export default async function ProjectPage({ params }: PageProps) {
       )}
       {project.date && (
         <div className="meta-container">
-          <h4>Project date</h4>
+          <h4>{getProjectLabel()} date</h4>
           <div className="flex items-center gap-1 text-muted-foreground">
             <p>{formatDateShort(project.date)}</p>
           </div>
@@ -105,7 +108,7 @@ export default async function ProjectPage({ params }: PageProps) {
       )}
       {project.coAuthors && project.coAuthors.length > 0 ? (
         <div className="meta-container">
-          <h4>Project authors</h4>
+          <h4>{getProjectLabel()} authors</h4>
           <div className="flex items-center gap-1 text-muted-foreground">
             <p className="leading-none">
               {PROFILE_NAME}, {project.coAuthors.join(", ")}
@@ -114,7 +117,7 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
       ) : (
         <div className="meta-container">
-          <h4>Project authors</h4>
+          <h4>{getProjectLabel()} authors</h4>
           <div className="flex items-center gap-1 text-muted-foreground">
             <UserRound className="size-3.5" />
             <p className="leading-none">{PROFILE_NAME}</p>
@@ -135,7 +138,7 @@ export async function generateMetadata({
   const projectData = getProjectBySlugContent(slug);
 
   if (!projectData) {
-    return createNotFoundMetadata("Project");
+    return createNotFoundMetadata(getProjectLabel());
   }
 
   const { meta: project } = projectData;
