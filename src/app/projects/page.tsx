@@ -41,9 +41,11 @@ export default function ProjectsPage() {
           },
         ]}
       />
-      <div className="section-container">
-        <MdContent content={projectsContent} />
-      </div>
+      {projectsContent && projectsContent.trim() !== "" && (
+        <div className="section-container">
+          <MdContent content={projectsContent} />
+        </div>
+      )}
       <h2>{projectLabel}</h2>
       {projects.length > 0 ? (
         <div className="list-container">
