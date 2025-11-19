@@ -3,15 +3,26 @@ import { Breadcrumb } from "passport-ui/breadcrumb";
 import { ContentContainer } from "passport-ui/content-container";
 import { EmptyState } from "passport-ui/empty-state";
 import { StructuredData } from "passport-ui/structured-data";
-import pluralize from "pluralize";
+import { plural } from "pluralize";
 
 import { ImageWithFallback } from "@/components/common/image-with-fallback";
-import { getRouteSeoImage } from "@/components/helpers/config";
+import { getProjectLabel, getRouteSeoImage } from "@/components/helpers/config";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { getAllProjectSlugs } from "@/components/helpers/projects";
 import { getTagImagePath } from "@/components/helpers/tag-mapper";
 import { URLS } from "@/components/helpers/urls";
 import { ProjectSummaryCard } from "@/components/projects/project-summary-card";
+
+const projectLabel = plural(getProjectLabel());
+
+/**
+ * Returns the appropriate label text based on the count of items
+ * @param count - The number of items
+ * @returns The singular or plural form of the project label in lowercase
+ */
+function getLabelText(count: number): string {
+  return count === 1 ? getProjectLabel().toLowerCase() : projectLabel.toLowerCase();
+}
 
 interface PageProps {
   params: Promise<{
@@ -30,10 +41,12 @@ export async function generateMetadata({
     project.stack.includes(tag),
   );
 
+  const labelText = getLabelText(filteredProjects.length);
+
   const metadata = createPageMetadata({
-    title: `${tag} projects`,
-    description: `${filteredProjects.length} ${pluralize("project", filteredProjects.length)} using ${tag}`,
-    keywords: [tag, "projects"],
+    title: `${tag} ${projectLabel.toLowerCase()}`,
+    description: `${filteredProjects.length} ${labelText} using ${tag}`,
+    keywords: [tag, projectLabel.toLowerCase()],
     url: URLS.PROJECTS_STACK(tag),
     image: getRouteSeoImage(URLS.PROJECTS_STACK(tag)),
   });
@@ -50,14 +63,16 @@ export default async function TagProjectsPage({ params }: PageProps) {
     project.stack.includes(tag),
   );
 
+  const labelText = getLabelText(filteredProjects.length);
+
   return (
     <ContentContainer variant="relaxed">
       <StructuredData
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: `${tag} projects`,
-          description: `${filteredProjects.length} ${pluralize("project", filteredProjects.length)} using ${tag}`,
+          name: `${tag} ${projectLabel.toLowerCase()}`,
+          description: `${filteredProjects.length} ${labelText} using ${tag}`,
         }}
       />
       <Breadcrumb
@@ -67,11 +82,11 @@ export default async function TagProjectsPage({ params }: PageProps) {
             href: URLS.HOME(),
           },
           {
-            label: "Projects",
+            label: projectLabel,
             href: URLS.PROJECTS_LIST(),
           },
           {
-            label: `${tag} projects`,
+            label: `${tag} ${projectLabel.toLowerCase()}`,
             href: URLS.PROJECTS_STACK(tag),
           },
         ]}
@@ -84,7 +99,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
           height={14}
           className="flex-shrink-0 size-4.5"
         />
-        <h2>{tag} projects</h2>
+        <h2>{tag} {projectLabel.toLowerCase()}</h2>
       </div>
       {filteredProjects.length > 0 ? (
         <div className="list-container">
