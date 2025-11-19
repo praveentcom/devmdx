@@ -20,7 +20,7 @@ export default function ProjectsPage() {
   const projectsContent = getMdContent("projects/intro.md");
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData
         data={{
           "@context": "https://schema.org",

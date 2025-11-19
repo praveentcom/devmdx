@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }: PageProps) {
   }
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData
         data={generateArticleSchema({
           ...article,

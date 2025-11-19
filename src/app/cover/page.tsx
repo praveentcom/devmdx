@@ -15,7 +15,7 @@ export default function CoverPage() {
   const coverContent = getMdContent("profile/cover.md");
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData data={generateDefaultSchema()} />
       <Breadcrumb
         path={[

@@ -24,7 +24,7 @@ export function TagButton({
   source = "projects",
 }: TagButtonProps) {
   const badgeContent = (
-    <Button variant={"outline"} className={className}>
+    <Button variant="outline" className={className}>
       {showIcon && (
         <ImageWithFallback
           src={getTagImagePath(tag)}
@@ -35,13 +35,11 @@ export function TagButton({
         />
       )}
       <span className="text-xs font-medium">{tag}</span>
-      {
-        count && count > 1 && (
-          <div className="rounded-full bg-secondary text-secondary-foreground items-center justify-center px-1 pt-0.5 py-0.25 h-min">
-            <p className="leading-none pb-0 mb-0 text-xxs font-medium">{count}</p>
-          </div>
-        )
-      }
+      {count && count > 1 && (
+        <div className="rounded-full bg-secondary text-secondary-foreground items-center justify-center px-1 pt-0.5 py-0.25 h-min">
+          <p className="leading-none pb-0 mb-0 text-xxs font-medium">{count}</p>
+        </div>
+      )}
     </Button>
   );
 

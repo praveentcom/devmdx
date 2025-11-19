@@ -35,7 +35,7 @@ export default async function CommunityContributionPage({ params }: PageProps) {
   const contribution = rawCommunity.meta;
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData
         data={generateCommunitySchema({
           ...contribution,

@@ -14,30 +14,32 @@ const articleLabel = plural(getArticleLabel());
 
 export default function Error() {
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <div className="flex items-center justify-center">
         <Card className="w-full">
           <CardContent>
-            <div className="flex flex-col text-center">
-              <h1>500</h1>
-              <h4>Uh-oh. Something went wrong.</h4>
-              <p className="text-muted-foreground">
-                An error occurred while loading the page.
-              </p>
-            </div>
-            <div className="flex mx-auto flex-col gap-3 justify-center w-full">
-              <PrefetchLink href={URLS.HOME()}>
-                <Button>
-                  <Home />
-                  Home
-                </Button>
-              </PrefetchLink>
-              <PrefetchLink href={URLS.ARTICLES_LIST()}>
-                <Button>
-                  <Newspaper />
-                  Browse {articleLabel.toLowerCase()}
-                </Button>
-              </PrefetchLink>
+            <div className="meta-container">
+              <div className="flex flex-col text-center">
+                <h1>500</h1>
+                <h4>Uh-oh. Something went wrong.</h4>
+                <p className="text-muted-foreground">
+                  An error occurred while loading the page.
+                </p>
+              </div>
+              <div className="flex mx-auto gap-3 justify-center w-full">
+                <PrefetchLink href={URLS.HOME()}>
+                  <Button>
+                    <Home />
+                    Home
+                  </Button>
+                </PrefetchLink>
+                <PrefetchLink href={URLS.ARTICLES_LIST()}>
+                  <Button>
+                    <Newspaper />
+                    Browse {articleLabel.toLowerCase()}
+                  </Button>
+                </PrefetchLink>
+              </div>
             </div>
           </CardContent>
         </Card>

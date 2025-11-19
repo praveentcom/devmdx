@@ -29,7 +29,7 @@ const education = getAllEducationSlugs();
 
 export default function HomePage() {
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData data={generateDefaultSchema()} />
       <div className="section-container">
         <MdContent content={profileContent} />

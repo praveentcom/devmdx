@@ -30,7 +30,7 @@ export default function ArticlesListPage() {
   const allCategories = getAllCategories();
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -54,10 +54,10 @@ export default function ArticlesListPage() {
       <div className="flex justify-between items-center">
         <h2>{articleLabel}</h2>
         <PrefetchLink
-            href={URLS.RSS_FEED()}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          href={URLS.RSS_FEED()}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Button>RSS feed {"\u2197"}</Button>
         </PrefetchLink>
       </div>
@@ -72,7 +72,11 @@ export default function ArticlesListPage() {
               <ArticleCategoryButton
                 key={category}
                 category={category}
-                count={publishedArticles.filter((a) => a.categories.includes(category)).length}
+                count={
+                  publishedArticles.filter((a) =>
+                    a.categories.includes(category),
+                  ).length
+                }
                 asLink
               />
             ))}

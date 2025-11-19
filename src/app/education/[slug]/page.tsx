@@ -33,7 +33,7 @@ export default async function EducationPage({ params }: PageProps) {
   const { meta: education, content } = educationData;
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData data={generateEducationSchema(education)} />
       <Breadcrumb
         path={[

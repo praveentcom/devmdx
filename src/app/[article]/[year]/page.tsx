@@ -29,7 +29,7 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
   }
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData
         data={{
           "@context": "https://schema.org",

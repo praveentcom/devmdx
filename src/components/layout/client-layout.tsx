@@ -71,7 +71,7 @@ export function ClientLayoutInner({ children }: { children: React.ReactNode }) {
             <Button
               data-slot="mobile-sidebar-trigger"
               variant="outline"
-              className="md:hidden ml-1.5"
+              className="md:!hidden ml-1.5"
               disabled={!isMobile}
               onClick={() => {
                 toggleSidebar();
@@ -99,20 +99,20 @@ export function ClientLayoutInner({ children }: { children: React.ReactNode }) {
               </NavigationMenuList>
             </NavigationMenu>
             <div className="w-8">
-              <ThemeButton minimal variant="ghost" align="end" size="medium" />
+              <ThemeButton minimal align="end" />
             </div>
           </div>
         </div>
       }
       headerOptions={{
-        variant: "relaxed",
+        variant: "broad",
         sticky: true,
         blurred: true,
         revealStylesOnScroll: true,
       }}
       footer={<Footer />}
       footerOptions={{
-        variant: "relaxed",
+        variant: "broad",
       }}
       sidebar={
         <Sidebar

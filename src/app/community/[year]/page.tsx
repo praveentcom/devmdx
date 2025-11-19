@@ -22,7 +22,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
   const contributions = getAllCommunityIndex().filter((c) => c.year === year);
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData
         data={{
           "@context": "https://schema.org",

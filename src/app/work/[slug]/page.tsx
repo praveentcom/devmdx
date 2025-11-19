@@ -34,7 +34,7 @@ export default async function WorkExperiencePage({ params }: PageProps) {
   const { meta: work, content } = workData;
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData data={generateWorkSchema(work)} />
       <Breadcrumb
         path={[

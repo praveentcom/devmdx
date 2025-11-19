@@ -16,7 +16,7 @@ export default function AboutPage() {
   const aboutContent = getMdContent("profile/about.md");
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData data={generateDefaultSchema()} />
       <Breadcrumb
         path={[

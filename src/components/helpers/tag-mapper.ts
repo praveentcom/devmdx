@@ -1,4 +1,5 @@
-const IMAGE_BASE_PATH = "https://storage.googleapis.com/praveentcom-public/projects/devmdx/icons/";
+const IMAGE_BASE_PATH =
+  "https://storage.googleapis.com/praveentcom-public/projects/devmdx/icons/";
 
 /**
  * Convert tag to lowercase filename format with spaces, dashes, and periods removed

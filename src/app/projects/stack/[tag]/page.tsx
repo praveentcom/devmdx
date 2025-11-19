@@ -21,7 +21,9 @@ const projectLabel = plural(getProjectLabel());
  * @returns The singular or plural form of the project label in lowercase
  */
 function getLabelText(count: number): string {
-  return count === 1 ? getProjectLabel().toLowerCase() : projectLabel.toLowerCase();
+  return count === 1
+    ? getProjectLabel().toLowerCase()
+    : projectLabel.toLowerCase();
 }
 
 interface PageProps {
@@ -66,7 +68,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
   const labelText = getLabelText(filteredProjects.length);
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -99,7 +101,9 @@ export default async function TagProjectsPage({ params }: PageProps) {
           height={14}
           className="flex-shrink-0 size-4.5"
         />
-        <h2>{tag} {projectLabel.toLowerCase()}</h2>
+        <h2>
+          {tag} {projectLabel.toLowerCase()}
+        </h2>
       </div>
       {filteredProjects.length > 0 ? (
         <div className="list-container">

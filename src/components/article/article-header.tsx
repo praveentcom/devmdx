@@ -58,10 +58,21 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
 
       <div className="flex flex-wrap gap-1.5">
         {article.categories.map((category, index) => (
-          <ArticleCategoryButton key={index} category={category} asLink count={article.categories.filter((c) => c === category).length} />
+          <ArticleCategoryButton
+            key={index}
+            category={category}
+            asLink
+            count={article.categories.filter((c) => c === category).length}
+          />
         ))}
         {article.tags.map((tag, index) => (
-          <TagButton key={index} tag={tag} source="articles" asLink count={article.tags.filter((t) => t === tag).length} />
+          <TagButton
+            key={index}
+            tag={tag}
+            source="articles"
+            asLink
+            count={article.tags.filter((t) => t === tag).length}
+          />
         ))}
       </div>
     </div>

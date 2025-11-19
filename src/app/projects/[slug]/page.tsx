@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: PageProps) {
   const { meta: project, content } = projectData;
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData data={generateProjectSchema(project)} />
       <Breadcrumb
         path={[
@@ -66,7 +66,13 @@ export default async function ProjectPage({ params }: PageProps) {
         />
         <div className="flex flex-wrap gap-1.5">
           {project.stack.map((tag, index) => (
-            <TagButton key={index} tag={tag} source="projects" asLink count={project.stack.filter((t) => t === tag).length} />
+            <TagButton
+              key={index}
+              tag={tag}
+              source="projects"
+              asLink
+              count={project.stack.filter((t) => t === tag).length}
+            />
           ))}
         </div>
       </div>

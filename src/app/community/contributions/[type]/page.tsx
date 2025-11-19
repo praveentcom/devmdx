@@ -53,7 +53,7 @@ export default async function CommunityByTypePage({ params }: PageProps) {
   );
 
   return (
-    <ContentContainer variant="relaxed">
+    <ContentContainer variant="broad">
       <StructuredData
         data={{
           "@context": "https://schema.org",
