@@ -15,6 +15,15 @@ import { ProjectSummaryCard } from "@/components/projects/project-summary-card";
 
 const projectLabel = plural(getProjectLabel());
 
+/**
+ * Returns the appropriate label text based on the count of items
+ * @param count - The number of items
+ * @returns The singular or plural form of the project label in lowercase
+ */
+function getLabelText(count: number): string {
+  return count === 1 ? getProjectLabel().toLowerCase() : projectLabel.toLowerCase();
+}
+
 interface PageProps {
   params: Promise<{
     tag: string;
@@ -32,9 +41,7 @@ export async function generateMetadata({
     project.stack.includes(tag),
   );
 
-  const labelText = filteredProjects.length === 1
-    ? getProjectLabel().toLowerCase()
-    : projectLabel.toLowerCase();
+  const labelText = getLabelText(filteredProjects.length);
 
   const metadata = createPageMetadata({
     title: `${tag} ${projectLabel.toLowerCase()}`,
@@ -56,9 +63,7 @@ export default async function TagProjectsPage({ params }: PageProps) {
     project.stack.includes(tag),
   );
 
-  const labelText = filteredProjects.length === 1
-    ? getProjectLabel().toLowerCase()
-    : projectLabel.toLowerCase();
+  const labelText = getLabelText(filteredProjects.length);
 
   return (
     <ContentContainer variant="relaxed">
