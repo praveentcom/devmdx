@@ -37,7 +37,7 @@ import { Footer } from "./footer";
 function NameWidget({ showPicture }: { showPicture: boolean }) {
   return (
     <PrefetchLink href={URLS.HOME()}>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <Avatar className={showPicture ? "" : "hidden md:block"} monochrome>
           <AvatarImage src={profile.image} />
           <AvatarFallback>
@@ -66,12 +66,12 @@ export function ClientLayoutInner({ children }: { children: React.ReactNode }) {
   return (
     <PageLayout
       header={
-        <div className="flex items-center justify-between -mx-2 md:mx-0">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <Button
               data-slot="mobile-sidebar-trigger"
               variant="outline"
-              className="md:!hidden ml-1.5"
+              className="md:!hidden"
               disabled={!isMobile}
               onClick={() => {
                 toggleSidebar();
@@ -98,9 +98,7 @@ export function ClientLayoutInner({ children }: { children: React.ReactNode }) {
                 })}
               </NavigationMenuList>
             </NavigationMenu>
-            <div className="w-8">
-              <ThemeButton minimal align="end" />
-            </div>
+            <ThemeButton minimal align="end" />
           </div>
         </div>
       }
@@ -123,9 +121,7 @@ export function ClientLayoutInner({ children }: { children: React.ReactNode }) {
           mobileOnly={true}
         >
           <SidebarHeader className="group-data-[state=collapsed]:hidden">
-            <div className="meta-container p-0.5">
-              <NameWidget showPicture={true} />
-            </div>
+            <NameWidget showPicture={true} />
           </SidebarHeader>
           <SidebarContent className="min-w-64">
             <SidebarGroup>

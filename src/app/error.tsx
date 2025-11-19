@@ -18,7 +18,7 @@ export default function Error() {
       <div className="flex items-center justify-center">
         <Card className="w-full">
           <CardContent>
-            <div className="meta-container">
+            <div className="section-container py-3">
               <div className="flex flex-col text-center">
                 <h1>500</h1>
                 <h4>Uh-oh. Something went wrong.</h4>
