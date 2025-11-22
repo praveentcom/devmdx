@@ -129,8 +129,9 @@ export function getCommentBoxConfig(): {
   projectId?: string;
 } {
   const commentsConfig = configData.misc.comments;
+  const projectId = commentsConfig?.commentBox?.projectId;
   return {
-    enabled: commentsConfig?.enabled ?? false,
-    projectId: commentsConfig?.commentBox?.projectId,
+    enabled: (commentsConfig?.enabled ?? false) && !!projectId,
+    projectId,
   };
 }
