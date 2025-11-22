@@ -70,6 +70,12 @@ export interface ConfigMiscData {
     projectLabel?: string; // e.g., "Project", "Work", "Portfolio", "Creation"
     projectSlug?: string; // e.g., "projects", "work", "portfolio", "creations"
   };
+  comments?: {
+    enabled?: boolean;
+    commentBox?: {
+      projectId: string;
+    };
+  };
 }
 
 export interface ConfigData {
