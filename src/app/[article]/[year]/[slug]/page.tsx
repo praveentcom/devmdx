@@ -7,11 +7,15 @@ import { StructuredData } from "passport-ui/structured-data";
 import { plural } from "pluralize";
 
 import { ArticleHeader } from "@/components/article/article-header";
+import { CommentBox } from "@/components/common/comment-box";
 import {
   getAllArticleSlugs,
   getArticleBySlugRaw,
 } from "@/components/helpers/article";
-import { getArticleLabel } from "@/components/helpers/config";
+import {
+  getArticleLabel,
+  getCommentBoxConfig,
+} from "@/components/helpers/config";
 import {
   createNotFoundMetadata,
   createPageMetadata,
@@ -28,8 +32,10 @@ interface PageProps {
 
 const articleLabel = plural(getArticleLabel());
 
+
 export default async function ArticlePage({ params }: PageProps) {
   const { slug, year } = await params;
+  const commentBoxConfig = getCommentBoxConfig();
   const rawArticle = getArticleBySlugRaw(slug);
 
   if (!rawArticle) {
@@ -70,6 +76,14 @@ export default async function ArticlePage({ params }: PageProps) {
       <div className="section-container">
         <ArticleHeader article={article} />
         <Markdown content={rawArticle.raw} theme="vs" />
+        {commentBoxConfig.enabled && commentBoxConfig.projectId && (
+          <div className="mt-12">
+            <CommentBox
+              projectId={commentBoxConfig.projectId}
+              className="max-w-none"
+            />
+          </div>
+        )}
       </div>
     </ContentContainer>
   );

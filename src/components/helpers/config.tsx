@@ -119,3 +119,19 @@ export function getNavigationItems(): {
 
   return [...baseItems, ...customItems];
 }
+
+/**
+ * Get the comment box configuration from config
+ * @returns The comment box configuration
+ */
+export function getCommentBoxConfig(): {
+  enabled: boolean;
+  projectId?: string;
+} {
+  const commentsConfig = configData.misc.comments;
+  const projectId = commentsConfig?.commentBox?.projectId;
+  return {
+    enabled: (commentsConfig?.enabled ?? false) && !!projectId,
+    projectId,
+  };
+}
