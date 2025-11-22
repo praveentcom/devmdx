@@ -31,10 +31,11 @@ interface PageProps {
 }
 
 const articleLabel = plural(getArticleLabel());
-const commentBoxConfig = getCommentBoxConfig();
+
 
 export default async function ArticlePage({ params }: PageProps) {
   const { slug, year } = await params;
+  const commentBoxConfig = getCommentBoxConfig();
   const rawArticle = getArticleBySlugRaw(slug);
 
   if (!rawArticle) {
