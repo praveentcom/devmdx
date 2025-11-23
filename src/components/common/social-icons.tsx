@@ -52,7 +52,7 @@ export function SocialIconLinks() {
           return (
             <PrefetchLink
               key={platform}
-              href={url}
+              href={url as string}
               target="_blank"
               rel="noopener noreferrer"
               title={platform.charAt(0).toUpperCase() + platform.slice(1)}
