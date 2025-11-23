@@ -152,7 +152,6 @@ export function ClientLayoutInner({ children }: { children: React.ReactNode }) {
                       <SidebarMenuItem key={`mobile-menu-item-${index}`}>
                         <SidebarMenuButton asChild isActive={isActive}>
                           <PrefetchLink
-                            key={`mobile-menu-item-${index}`}
                             href={link.href}
                             onClick={handleLinkClick}
                             className="font-medium"
