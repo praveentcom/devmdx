@@ -20,8 +20,8 @@ export function ImageWithFallback({
 }: ImageWithFallbackProps) {
   const [hasError, setHasError] = useState(false);
 
-  const handleError = (error: unknown) => {
-    console.error("Image error:", error);
+  const handleError = () => {
+    console.error("Image failed to load:", src);
     setHasError(true);
   };
 
