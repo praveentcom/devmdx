@@ -193,7 +193,7 @@
 
 	/* Container Styles */
 	.list-container {
-		@apply grid gap-5;
+		@apply grid gap-5 md:gap-4;
 	}
 
 	/* Text Styles */
