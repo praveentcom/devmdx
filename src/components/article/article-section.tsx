@@ -1,7 +1,6 @@
 import { UserRoundPen } from "lucide-react";
-import { Button } from "passport-ui/button";
-import { EmptyState } from "passport-ui/empty-state";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { Button } from "@workspace/ui/components/button";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 import { plural } from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/article-summary-card";
@@ -16,16 +15,14 @@ export function ArticleSection({
 }: {
   articles: ArticleFrontmatter[];
 }) {
+  const showAllArticles = articles.length > 20;
+
   return (
-    <section
-      role="region"
-      aria-label={`Recent ${articleLabel.toLowerCase()}`}
-      className="section-container"
-    >
-      <div className="flex items-center justify-between gap-1.5 text-muted-foreground">
-        <div className="flex items-center gap-1.5">
-          <UserRoundPen className="size-3.5" />
-          <h6 className="leading-none">{articleLabel}</h6>
+    <section aria-label={`Recent ${articleLabel.toLowerCase()}`}>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <UserRoundPen className="size-4" />
+          <h5>{articleLabel}</h5>
         </div>
         <div className="flex items-center gap-2">
           <PrefetchLink
@@ -33,24 +30,22 @@ export function ArticleSection({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button>RSS feed {"\u2197"}</Button>
+            <Button variant={showAllArticles ? "outline" : "default"} size="sm">
+              View RSS feed
+            </Button>
           </PrefetchLink>
-          {articles.length > 2 && (
+          {showAllArticles && (
             <PrefetchLink href={URLS.ARTICLES_LIST()}>
-              <Button>View all &rarr;</Button>
+              <Button size="sm">View all articles</Button>
             </PrefetchLink>
           )}
         </div>
       </div>
-      {articles.length > 0 ? (
-        <div className="list-container">
-          {articles.map((article, index) => (
-            <ArticleSummaryCard key={index} article={article} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
+      <div className="list-container">
+        {articles.map((article, index) => (
+          <ArticleSummaryCard key={index} article={article} />
+        ))}
+      </div>
     </section>
   );
 }

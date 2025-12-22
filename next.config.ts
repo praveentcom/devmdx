@@ -1,6 +1,5 @@
-import withBundleAnalyzer from "@next/bundle-analyzer";
-import createMDX from "@next/mdx";
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 import { getEnvConfig } from "./src/components/helpers/env-config";
 
@@ -16,7 +15,6 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   experimental: {
     optimizePackageImports: ["lucide-react", "highlight.js", "date-fns"],
-    scrollRestoration: true,
   },
   webpack: (config) => {
     config.resolve.alias = {
@@ -93,8 +91,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
-});
-
-export default bundleAnalyzer(withMDX(nextConfig));
+export default withMDX(nextConfig);

@@ -50,7 +50,11 @@ export function getRSSFeedMetadata() {
     ],
     copyright: `Copyright ${new Date().getFullYear()} ${PROFILE_NAME}. All rights reserved.`,
     image: {
-      url: profile.image || configData.seo.favicon?.png || "",
+      url:
+        configData.seo.image ||
+        profile.image ||
+        configData.seo.favicon?.png ||
+        "",
       title: SITE_TITLE,
       link: `${BASE_URL}${URLS.ARTICLES_LIST()}`,
       width: 144,

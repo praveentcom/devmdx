@@ -31,7 +31,9 @@ function generateRSSFeed(): string {
     .join("");
 
   const lastBuildDate =
-    articles.length > 0 ? articles[0].pubDate : new Date().toUTCString();
+    articles.length > 0
+      ? articles[0]?.pubDate || new Date().toUTCString()
+      : new Date().toUTCString();
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">

@@ -14,4 +14,4 @@ fi
 PORT=${PORT:-3001}
 
 echo "Starting development server on port $PORT..."
-next dev --turbopack --port $PORT
+next dev --port $PORT

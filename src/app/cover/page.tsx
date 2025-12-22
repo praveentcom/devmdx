@@ -1,11 +1,15 @@
 import { Metadata } from "next";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { StructuredData } from "@workspace/ui/components/structured-data";
+import { Markdown } from "@workspace/ui/components/markdown";
 
-import { MdContent } from "@/components/common/md-content";
-import { getRouteSeoImage } from "@/components/helpers/config";
 import { getMdContent } from "@/components/helpers/md-content";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { generateDefaultSchema } from "@/components/helpers/structured-data";
@@ -15,23 +19,22 @@ export default function CoverPage() {
   const coverContent = getMdContent("profile/cover.md");
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData data={generateDefaultSchema()} />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: "Cover letter",
-            href: URLS.COVER(),
-          },
-        ]}
-      />
-      <h2>Cover letter</h2>
-      <MdContent content={coverContent} fallback={<EmptyState />} />
-    </ContentContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Cover letter</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h3>Cover letter</h3>
+      <Markdown content={coverContent ?? ""} />
+    </div>
   );
 }
 
@@ -49,7 +52,6 @@ export async function generateMetadata(): Promise<Metadata> {
       "career",
     ],
     url: URLS.COVER(),
-    image: getRouteSeoImage(URLS.COVER()),
   });
 
   return metadata;

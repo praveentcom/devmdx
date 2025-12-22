@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import {
   getFaviconPaths,
   PROFILE_NAME,
+  SITE_IMAGE,
   SITE_TITLE,
 } from "@/components/helpers/config";
 import { BASE_URL } from "@/components/helpers/urls";
@@ -36,7 +37,7 @@ export function createPageMetadata(_: {
   url?: string;
 }): Metadata {
   const ogImage = {
-    url: _.image || "https://placehold.co/1200x630.png",
+    url: _.image ? _.image : SITE_IMAGE,
     width: 1200,
     height: 630,
     alt: _.title,
@@ -58,10 +59,6 @@ export function createPageMetadata(_: {
           type: "image/png",
         },
       ],
-      apple: {
-        url: icons.apple,
-        type: "image/png",
-      },
     },
     openGraph: {
       title: _.title || SITE_TITLE,

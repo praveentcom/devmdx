@@ -78,9 +78,10 @@ export function getAllProjectSlugs(): ProjectIndexItem[] {
     }
   }
 
-  return projectItems.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+  return projectItems.sort((a, b) => {
+    if (!a.date || !b.date) return 0;
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
 }
 
 export function getProjectBySlugContent(

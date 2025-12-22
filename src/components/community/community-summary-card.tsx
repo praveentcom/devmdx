@@ -1,6 +1,6 @@
 "use client";
 
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { CommunityIndexItem } from "@/components/helpers/community";
 import { formatDate } from "@/components/helpers/date";
@@ -12,20 +12,18 @@ export function CommunitySummaryCard({
   contribution: CommunityIndexItem;
 }) {
   return (
-    <div className="meta-container">
-      <div className="flex gap-1.5 md:gap-3 group">
-        <p className="min-w-24 text-muted-foreground group-hover:text-foreground">
+    <PrefetchLink
+      href={URLS.COMMUNITY(contribution.year, contribution.slug)}
+      prefetchOnVisible={true}
+    >
+      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 group">
+        <p className="text-sm sm:text-base sm:min-w-24 text-muted-foreground group-hover:text-foreground">
           {formatDate(contribution.date)}
         </p>
-        <PrefetchLink
-          href={URLS.COMMUNITY(contribution.year, contribution.slug)}
-          prefetchOnVisible={true}
-        >
-          <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50 line-clamp-1">
-            {contribution.title}
-          </p>
-        </PrefetchLink>
+        <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50 sm:line-clamp-1">
+          {contribution.title}
+        </p>
       </div>
-    </div>
+    </PrefetchLink>
   );
 }

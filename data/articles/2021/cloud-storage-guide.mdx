@@ -1,0 +1,34 @@
+---
+title: "Choosing the Right Cloud Storage Tier"
+description: "A practical guide to understanding cloud storage options and picking the right tier for your needs."
+date: "2021-09-15"
+tags: ["AWS", "Cloud"]
+categories: ["Cloud"]
+published: true
+---
+
+## The Problem
+
+You've got data to store—backups, archives, assets. Local drives fail. Free cloud tiers run out. Enterprise solutions cost a fortune. What do you do?
+
+## Storage Tiers Explained
+
+Most cloud providers offer tiered storage:
+
+| Tier | Cost | Access Time | Best For |
+|------|------|-------------|----------|
+| Standard | $$$ | Instant | Active data |
+| Infrequent | $$ | Seconds | Backups |
+| Archive | $ | Minutes-hours | Long-term storage |
+
+## My Recommendation
+
+For most developers, a mix of Standard (for active projects) and Archive (for everything else) hits the sweet spot. You'll save 70-80% compared to storing everything in Standard.
+
+## Getting Started
+
+1. Audit what you're storing
+2. Move anything older than 90 days to Infrequent
+3. Archive anything you rarely access
+4. Set up lifecycle policies to automate this
+

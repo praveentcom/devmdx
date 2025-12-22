@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { Markdown } from "passport-ui/markdown";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { Markdown } from "@workspace/ui/components/markdown";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 import { plural } from "pluralize";
 
 import { ArticleHeader } from "@/components/article/article-header";
-import { CommentBox } from "@/components/common/comment-box";
 import {
   getAllArticleSlugs,
   getArticleBySlugRaw,
 } from "@/components/helpers/article";
-import {
-  getArticleLabel,
-  getCommentBoxConfig,
-} from "@/components/helpers/config";
+import { getArticleLabel } from "@/components/helpers/config";
 import {
   createNotFoundMetadata,
   createPageMetadata,
@@ -32,10 +34,8 @@ interface PageProps {
 
 const articleLabel = plural(getArticleLabel());
 
-
 export default async function ArticlePage({ params }: PageProps) {
   const { slug, year } = await params;
-  const commentBoxConfig = getCommentBoxConfig();
   const rawArticle = getArticleBySlugRaw(slug);
 
   if (!rawArticle) {
@@ -50,42 +50,34 @@ export default async function ArticlePage({ params }: PageProps) {
   }
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={generateArticleSchema({
           ...article,
           content: rawArticle.raw,
         })}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: articleLabel,
-            href: URLS.ARTICLES_LIST(),
-          },
-          {
-            label: article.title,
-            href: URLS.ARTICLES(article.year, article.slug),
-          },
-        ]}
-      />
-      <div className="section-container">
-        <ArticleHeader article={article} />
-        <Markdown content={rawArticle.raw} theme="vs" />
-        {commentBoxConfig.enabled && commentBoxConfig.projectId && (
-          <div className="mt-12">
-            <CommentBox
-              projectId={commentBoxConfig.projectId}
-              className="max-w-none"
-            />
-          </div>
-        )}
-      </div>
-    </ContentContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.ARTICLES_LIST()}>
+              {articleLabel}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{article.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <ArticleHeader article={article} />
+      <hr />
+      <Markdown content={rawArticle.raw} />
+    </div>
   );
 }
 

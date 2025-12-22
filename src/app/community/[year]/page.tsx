@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { ContentContainer } from "@workspace/ui/layouts/content-container";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 import pluralize from "pluralize";
 
 import { CommunitySummaryCard } from "@/components/community/community-summary-card";
 import { getAllCommunityIndex } from "@/components/helpers/community";
-import { getRouteSeoImage } from "@/components/helpers/config";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { URLS } from "@/components/helpers/urls";
 
@@ -22,7 +27,7 @@ export default async function CommunityByYearPage({ params }: PageProps) {
   const contributions = getAllCommunityIndex().filter((c) => c.year === year);
 
   return (
-    <ContentContainer variant="broad">
+    <ContentContainer variant="relaxed">
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -31,22 +36,23 @@ export default async function CommunityByYearPage({ params }: PageProps) {
           description: `${contributions.length} contributions in ${year}.`,
         }}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: "Community",
-            href: URLS.COMMUNITY_LIST(),
-          },
-          {
-            label: `${year} contributions`,
-            href: URLS.COMMUNITY_YEAR(year),
-          },
-        ]}
-      />
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.COMMUNITY_LIST()}>
+              Community
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{year} contributions</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div className="section-container">
         <h2>Contributions from {year}</h2>
         <p className="text-muted-foreground">
@@ -54,18 +60,14 @@ export default async function CommunityByYearPage({ params }: PageProps) {
           {pluralize("contribution", contributions.length)}
         </p>
       </div>
-      {contributions.length > 0 ? (
-        <div className="list-container">
-          {contributions.map((community) => (
-            <CommunitySummaryCard
-              key={`${community.year}-${community.slug}`}
-              contribution={community}
-            />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
+      <div className="list-container">
+        {contributions.map((community) => (
+          <CommunitySummaryCard
+            key={`${community.year}-${community.slug}`}
+            contribution={community}
+          />
+        ))}
+      </div>
     </ContentContainer>
   );
 }
@@ -81,7 +83,6 @@ export async function generateMetadata({
     description: `${count} contributions in ${year}.`,
     keywords: ["community", year],
     url: `${URLS.COMMUNITY_YEAR(year)}`,
-    image: getRouteSeoImage(URLS.COMMUNITY_YEAR(year)),
   });
 
   return metadata;

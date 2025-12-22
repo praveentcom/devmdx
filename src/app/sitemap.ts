@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     URLS.ARTICLES_LIST(),
     URLS.COMMUNITY_LIST(),
     URLS.PROJECTS_LIST(),
+    URLS.WORK_LIST(),
+    URLS.EDUCATION_LIST(),
     URLS.COVER(),
     URLS.RSS_FEED(),
   ].map((route) => ({

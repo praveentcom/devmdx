@@ -5,9 +5,13 @@ import { format } from "date-fns";
  * @param dateString - The date string to format
  * @returns The formatted date string
  */
-export function formatDate(dateString: string): string {
+export function formatDate(dateString?: string): string {
+  if (!dateString) {
+    return "";
+  }
+
   const date = new Date(dateString);
-  return format(date, "dd MMM yyyy");
+  return format(date, "d MMM yyyy");
 }
 
 /**
@@ -15,7 +19,11 @@ export function formatDate(dateString: string): string {
  * @param dateString - The date string to format
  * @returns The formatted date string
  */
-export function formatDateShort(dateString: string): string {
+export function formatDateShort(dateString?: string): string {
+  if (!dateString) {
+    return "";
+  }
+
   const date = new Date(dateString);
   return format(date, "MMM yyyy");
 }
@@ -25,7 +33,11 @@ export function formatDateShort(dateString: string): string {
  * @param dateString - The date string to format
  * @returns The formatted date string
  */
-export function formatDateYear(dateString: string): string {
+export function formatDateYear(dateString?: string): string {
+  if (!dateString) {
+    return "";
+  }
+
   const date = new Date(dateString);
   return format(date, "yyyy");
 }

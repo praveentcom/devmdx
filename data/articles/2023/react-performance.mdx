@@ -1,0 +1,42 @@
+---
+title: "React Performance Wins"
+description: "Quick fixes that made my React apps noticeably faster."
+date: "2023-08-10"
+tags: ["React"]
+categories: ["Development"]
+published: true
+---
+
+## The Problem
+
+My app felt sluggish. Clicks had noticeable delays. Time to investigate.
+
+## What I Found
+
+1. **Too many re-renders** - Components updating when they didn't need to
+2. **Heavy computations** - Calculations running on every render
+3. **Large bundles** - Shipping too much JavaScript
+
+## The Fixes
+
+### Use React.memo wisely
+
+Wrap components that receive the same props frequently. Don't wrap everything—profile first.
+
+### useMemo for expensive calculations
+
+```typescript
+const sorted = useMemo(() => 
+  items.sort((a, b) => a.name.localeCompare(b.name)), 
+  [items]
+);
+```
+
+### Code splitting
+
+Lazy load routes and heavy components. Users don't need everything upfront.
+
+## Results
+
+Load time dropped 40%. Interactions feel instant. Users are happier.
+

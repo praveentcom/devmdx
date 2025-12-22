@@ -1,13 +1,14 @@
 import { MicVocal, MonitorPlay, Presentation } from "lucide-react";
-import { Button, ButtonProps } from "passport-ui/button";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import type { VariantProps } from "class-variance-authority";
+import { Button, type buttonVariants } from "@workspace/ui/components/button";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { URLS } from "@/components/helpers/urls";
 import { EnumCommunityContributionType } from "@/types/community";
 
 interface CommunityTypeButtonProps {
   type: EnumCommunityContributionType;
-  variant?: ButtonProps["variant"];
+  variant?: VariantProps<typeof buttonVariants>["variant"];
   className?: string;
 }
 

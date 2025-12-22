@@ -1,12 +1,11 @@
-import { Button, ButtonProps } from "passport-ui/button";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { Button } from "@workspace/ui/components/button";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { URLS } from "@/components/helpers/urls";
 
 interface YearButtonProps {
   year: string;
   type: "article" | "community";
-  variant?: ButtonProps["variant"];
   className?: string;
   asLink?: boolean;
 }
@@ -14,14 +13,13 @@ interface YearButtonProps {
 export function YearButton({
   year,
   type,
-  variant = "outline",
   className,
   asLink = false,
 }: YearButtonProps) {
   const safeYear = /^\d+$/.test(year) ? year : "unknown";
   const badgeContent = (
-    <Button variant={variant} className={className}>
-      <span className="text-xs font-medium">{safeYear}</span>
+    <Button variant="outline" className={className}>
+      {safeYear}
     </Button>
   );
 

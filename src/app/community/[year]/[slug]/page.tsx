@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { Markdown } from "passport-ui/markdown";
-import { StructuredData } from "passport-ui/structured-data";
+import { notFound, redirect } from "next/navigation";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { Markdown } from "@workspace/ui/components/markdown";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 
 import { CommunityHeader } from "@/components/community/community-header";
 import {
@@ -25,7 +31,7 @@ interface PageProps {
 }
 
 export default async function CommunityContributionPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug, year } = await params;
   const rawCommunity = getCommunityBySlugRaw(slug);
 
   if (!rawCommunity) {
@@ -33,36 +39,41 @@ export default async function CommunityContributionPage({ params }: PageProps) {
   }
 
   const contribution = rawCommunity.meta;
+  const contributionYear = contribution.year;
+
+  if (contributionYear !== year) {
+    redirect(`/community/${contributionYear}/${contribution.slug}`);
+  }
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={generateCommunitySchema({
           ...contribution,
           content: rawCommunity.raw,
         })}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: "Community",
-            href: URLS.COMMUNITY_LIST(),
-          },
-          {
-            label: contribution.title,
-            href: URLS.COMMUNITY(contribution.year, contribution.slug),
-          },
-        ]}
-      />
-      <div className="section-container">
-        <CommunityHeader contribution={contribution} />
-        <Markdown content={rawCommunity.raw} theme="vs" />
-      </div>
-    </ContentContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.COMMUNITY_LIST()}>
+              Community
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{contribution.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <CommunityHeader contribution={contribution} />
+      <hr />
+      <Markdown content={rawCommunity.raw} />
+    </div>
   );
 }
 

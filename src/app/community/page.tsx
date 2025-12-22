@@ -1,78 +1,78 @@
 import { Calendar, HeartHandshake } from "lucide-react";
 import type { Metadata } from "next";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 
-import { MdContent } from "@/components/common/md-content";
 import { YearButton } from "@/components/common/year-button";
 import { CommunitySummaryCard } from "@/components/community/community-summary-card";
 import { getAllCommunitySlugs } from "@/components/helpers/community";
-import { getRouteSeoImage } from "@/components/helpers/config";
 import { getMdContent } from "@/components/helpers/md-content";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { URLS } from "@/components/helpers/urls";
-import { communityData } from "@/data/community";
 import { configData } from "@/data/config";
+import { Markdown } from "@workspace/ui/components/markdown";
 
 export default function CommunityPage() {
   const publishedContributions = getAllCommunitySlugs();
   const communityContent = getMdContent("community/intro.md");
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: `Community Contributions`,
           description: configData.seo.description || "",
-          image: communityData.image,
         }}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: "Community",
-            href: URLS.COMMUNITY_LIST(),
-          },
-        ]}
-      />
-      <div className="section-container">
-        <MdContent content={communityContent} />
-      </div>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Community</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h3>Community</h3>
+      <Markdown content={communityContent ?? ""} />
       {publishedContributions.length > 0 &&
-      Array.from(new Set(publishedContributions.map((c) => c.year))).length >
-        1 ? (
-        <div className="section-container">
-          <div className="flex items-center gap-1.5">
-            <Calendar className="size-3 text-muted-foreground" />
-            <h6 className="leading-none">Browse by year</h6>
-          </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            {Array.from(new Set(publishedContributions.map((c) => c.year))).map(
-              (year) => (
+        Array.from(new Set(publishedContributions.map((c) => c.year))).length >
+          1 && (
+          <section aria-label="Browse by year">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Calendar className="size-4" />
+              <h5>Browse by year</h5>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              {Array.from(
+                new Set(publishedContributions.map((c) => c.year)),
+              ).map((year) => (
                 <YearButton
                   key={`${year}-community`}
                   year={year}
                   type="community"
                   asLink
                 />
-              ),
-            )}
-          </div>
-        </div>
-      ) : null}
-      {publishedContributions.length > 0 ? (
-        <div className="section-container">
-          <div className="flex items-center gap-1.5">
-            <HeartHandshake className="size-3 text-muted-foreground" />
-            <h6 className="leading-none">Community Contributions</h6>
+              ))}
+            </div>
+          </section>
+        )}
+      {publishedContributions.length > 0 && (
+        <section aria-label="Community contributions">
+          <div className="flex items-center gap-2">
+            <HeartHandshake className="size-4" />
+            <h5>Community Contributions</h5>
           </div>
           <div className="list-container">
             {publishedContributions.map((community) => (
@@ -82,11 +82,9 @@ export default function CommunityPage() {
               />
             ))}
           </div>
-        </div>
-      ) : (
-        <EmptyState />
+        </section>
       )}
-    </ContentContainer>
+    </div>
   );
 }
 
@@ -104,7 +102,6 @@ export async function generateMetadata(): Promise<Metadata> {
       "developer community",
     ],
     url: URLS.COMMUNITY_LIST(),
-    image: getRouteSeoImage(URLS.COMMUNITY_LIST()),
   });
 
   return metadata;

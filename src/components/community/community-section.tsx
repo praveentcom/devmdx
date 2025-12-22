@@ -1,9 +1,8 @@
 "use client";
 
 import { HeartHandshake } from "lucide-react";
-import { Button } from "passport-ui/button";
-import { EmptyState } from "passport-ui/empty-state";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { Button } from "@workspace/ui/components/button";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { CommunitySummaryCard } from "@/components/community/community-summary-card";
 import { URLS } from "@/components/helpers/urls";
@@ -20,10 +19,10 @@ export function CommunitySection({
       aria-label="Community Contributions"
       className="section-container"
     >
-      <div className="flex items-center justify-between gap-1.5 text-muted-foreground">
-        <div className="flex items-center gap-1.5">
-          <HeartHandshake className="size-3.5" />
-          <h6 className="leading-none">Community Contributions</h6>
+      <div className="flex items-center justify-between gap-2 text-muted-foreground">
+        <div className="flex items-center gap-2">
+          <HeartHandshake className="size-4" />
+          <h5>Community Contributions</h5>
         </div>
         {contributions.length > 2 && (
           <PrefetchLink href={URLS.COMMUNITY_LIST()}>
@@ -31,15 +30,11 @@ export function CommunitySection({
           </PrefetchLink>
         )}
       </div>
-      {contributions.length > 0 ? (
-        <div className="list-container">
-          {contributions.map((contribution, index) => (
-            <CommunitySummaryCard key={index} contribution={contribution} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
+      <div className="list-container">
+        {contributions.map((contribution, index) => (
+          <CommunitySummaryCard key={index} contribution={contribution} />
+        ))}
+      </div>
     </section>
   );
 }

@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 import { plural } from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/article-summary-card";
 import { ImageWithFallback } from "@/components/common/image-with-fallback";
 import { getAllArticlesIndex } from "@/components/helpers/article";
-import { getArticleLabel, getRouteSeoImage } from "@/components/helpers/config";
+import { getArticleLabel } from "@/components/helpers/config";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { getTagImagePath } from "@/components/helpers/tag-mapper";
 import { URLS } from "@/components/helpers/urls";
@@ -22,78 +27,79 @@ interface PageProps {
 const articleLabel = plural(getArticleLabel());
 
 export default async function TagArticlePage({ params }: PageProps) {
-  const { tag } = await params;
+  const { tag: decodedTag } = await params;
+  const tag = decodeURIComponent(decodedTag);
 
   const filteredArticles = getAllArticlesIndex().filter((article) =>
     article.tags.includes(tag),
   );
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: `${tag} ${articleLabel.toLowerCase()}`,
+          name: `${tag} ${articleLabel}`,
           description: `${filteredArticles.length} ${articleLabel.toLowerCase()} tagged with ${tag}.`,
         }}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: articleLabel,
-            href: URLS.ARTICLES_LIST(),
-          },
-          {
-            label: `${tag} ${articleLabel.toLowerCase()}`,
-            href: URLS.ARTICLES_TAG(tag),
-          },
-        ]}
-      />
-      <div className="flex items-center gap-2">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.ARTICLES_LIST()}>
+              {articleLabel}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>
+              {tag} {articleLabel}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <div className="flex items-center gap-3">
         <ImageWithFallback
           src={getTagImagePath(tag)}
           alt={`${tag} icon`}
-          width={14}
-          height={14}
-          className="flex-shrink-0 size-4.5"
+          width={20}
+          height={20}
+          className="shrink-0 size-6"
         />
-        <h2>
-          {tag} {articleLabel.toLowerCase()}
-        </h2>
+        <h3>
+          {tag} {articleLabel}
+        </h3>
       </div>
-      {filteredArticles.length > 0 ? (
-        <div className="list-container">
-          {filteredArticles.map((article, index) => (
-            <ArticleSummaryCard key={index} article={article} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
-    </ContentContainer>
+      <div className="list-container">
+        {filteredArticles.map((article, index) => (
+          <ArticleSummaryCard key={index} article={article} />
+        ))}
+      </div>
+    </div>
   );
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { tag } = await params;
+  const { tag: decodedTag } = await params;
+  const tag = decodeURIComponent(decodedTag);
 
   const filteredArticles = getAllArticlesIndex().filter((article) =>
     article.tags.includes(tag),
   );
 
   const metadata = createPageMetadata({
-    title: `${tag} ${articleLabel.toLowerCase()}`,
-    description: `${filteredArticles.length} ${articleLabel.toLowerCase()} tagged with ${tag}.`,
+    title: `${tag} ${articleLabel}`,
+    description: `${filteredArticles.length} ${articleLabel} tagged with ${tag}.`,
     keywords: [
       tag,
-      articleLabel.toLowerCase(),
+      articleLabel,
       "articles",
       "blog",
       "development",
@@ -102,7 +108,6 @@ export async function generateMetadata({
       "tutorials",
     ],
     url: URLS.ARTICLES_TAG(tag),
-    image: getRouteSeoImage(URLS.ARTICLES_TAG(tag)),
   });
 
   return metadata;

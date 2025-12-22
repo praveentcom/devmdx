@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 import { plural } from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/article-summary-card";
 import { getAllArticlesIndex } from "@/components/helpers/article";
-import { getArticleLabel, getRouteSeoImage } from "@/components/helpers/config";
+import { getArticleLabel } from "@/components/helpers/config";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { URLS } from "@/components/helpers/urls";
 
@@ -29,44 +34,43 @@ export default async function ArticlesByYearPage({ params }: PageProps) {
   }
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: `Articles from ${year}`,
-          description: `A comprehensive showcase of all my articles from ${year}.`,
+          name: `${year} ${articleLabel}`,
+          description: `${articles.length} ${articleLabel} published in ${year}.`,
         }}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: articleLabel,
-            href: URLS.ARTICLES_LIST(),
-          },
-          {
-            label: `${articleLabel} from ${year}`,
-            href: URLS.ARTICLES_YEAR(year),
-          },
-        ]}
-      />
-      <h2>
-        {articleLabel} from {year}
-      </h2>
-      {articles.length > 0 ? (
-        <div className="list-container">
-          {articles.map((article) => (
-            <ArticleSummaryCard key={article.slug} article={article} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
-    </ContentContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.ARTICLES_LIST()}>
+              {articleLabel}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>
+              {year} {articleLabel}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h3>
+        {year} {articleLabel}
+      </h3>
+      <div className="list-container">
+        {articles.map((article) => (
+          <ArticleSummaryCard key={article.slug} article={article} />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -77,7 +81,7 @@ export async function generateMetadata({
   const count = getAllArticlesIndex().filter((a) => a.year === year).length;
 
   const metadata = createPageMetadata({
-    title: `${articleLabel} from ${year}`,
+    title: `${year} ${articleLabel}`,
     description: `${count} ${articleLabel.toLowerCase()} published in ${year}.`,
     keywords: [
       articleLabel.toLowerCase(),
@@ -90,7 +94,6 @@ export async function generateMetadata({
       "tutorials",
     ],
     url: `${URLS.ARTICLES_YEAR(year)}`,
-    image: getRouteSeoImage(URLS.ARTICLES_YEAR(year)),
   });
 
   return metadata;

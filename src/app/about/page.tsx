@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { Card, CardContent } from "passport-ui/card";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
-
-import { MdContent } from "@/components/common/md-content";
-import { getRouteSeoImage } from "@/components/helpers/config";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { StructuredData } from "@workspace/ui/components/structured-data";
+import { Markdown } from "@workspace/ui/components/markdown";
 import { getMdContent } from "@/components/helpers/md-content";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { generateDefaultSchema } from "@/components/helpers/structured-data";
@@ -16,31 +18,22 @@ export default function AboutPage() {
   const aboutContent = getMdContent("profile/about.md");
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData data={generateDefaultSchema()} />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: "About",
-            href: URLS.ABOUT(),
-          },
-        ]}
-      />
-      <h2>About</h2>
-      {aboutContent ? (
-        <Card>
-          <CardContent>
-            <MdContent content={aboutContent} />
-          </CardContent>
-        </Card>
-      ) : (
-        <EmptyState />
-      )}
-    </ContentContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>About</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h3>About</h3>
+      <Markdown content={aboutContent ?? ""} />
+    </div>
   );
 }
 
@@ -58,7 +51,6 @@ export async function generateMetadata(): Promise<Metadata> {
       "biography",
     ],
     url: URLS.ABOUT(),
-    image: getRouteSeoImage(URLS.ABOUT()),
   });
 
   return metadata;

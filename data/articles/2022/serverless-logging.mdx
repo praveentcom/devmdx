@@ -1,0 +1,44 @@
+---
+title: "Setting Up Logging for Serverless Apps"
+description: "How to implement proper logging in serverless applications without losing your mind."
+date: "2022-04-14"
+tags: ["Node.js", "Cloud"]
+categories: ["Cloud"]
+published: true
+---
+
+## Why Logging Matters
+
+Serverless is great until something breaks at 2 AM and you have no idea why. Proper logging is your best friend for debugging production issues.
+
+## The Approach
+
+Create a simple logging wrapper that works across your serverless functions:
+
+```typescript
+class Logger {
+  async log(level: string, message: string, data?: object) {
+    const entry = {
+      timestamp: new Date().toISOString(),
+      level,
+      message,
+      ...data
+    };
+    
+    // Send to your logging service
+    await this.sendToCloudLogging(entry);
+  }
+}
+```
+
+## Key Tips
+
+1. **Always await logs** - Serverless functions terminate fast
+2. **Include context** - Request ID, user ID, function name
+3. **Use structured logging** - JSON is easier to query than text
+4. **Set up alerts** - Get notified when errors spike
+
+## What I Use
+
+A combination of structured JSON logs sent to a cloud logging service with alerts configured for error spikes. Simple but effective.
+

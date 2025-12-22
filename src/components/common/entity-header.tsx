@@ -13,7 +13,7 @@ function EntityHeader({
   subtitle: string;
 }) {
   return (
-    <div className="section-container">
+    <div className="grid gap-6">
       {imageSrc && (
         <Image
           src={imageSrc}
@@ -23,10 +23,8 @@ function EntityHeader({
           className="rounded-sm border object-cover size-14"
         />
       )}
-      <div className="meta-container">
-        <h3>{title}</h3>
-        <p className="text-muted-foreground">{subtitle}</p>
-      </div>
+      <h3>{title}</h3>
+      <p className="text-muted-foreground">{subtitle}</p>
     </div>
   );
 }

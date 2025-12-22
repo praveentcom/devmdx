@@ -156,7 +156,9 @@ export function generateProjectSchema(project: Project) {
       name: PROFILE_NAME,
     },
     programmingLanguage: programmingLanguages.join(", "),
-    dateCreated: new Date(project.date).toISOString(),
+    dateCreated: project.date
+      ? new Date(project.date).toISOString()
+      : undefined,
     codeRepository: project.githubUrl,
     contributor: project.coAuthors?.map((name) => ({
       "@type": "Person",
@@ -181,7 +183,9 @@ export function generateWorkSchema(work: WorkExperience) {
       name: work.company || "",
       logo: work.image,
     },
-    startDate: new Date(work.startDate).toISOString().split("T")[0],
+    startDate: work.startDate
+      ? new Date(work.startDate).toISOString().split("T")[0]
+      : undefined,
     endDate: work.endDate
       ? new Date(work.endDate).toISOString().split("T")[0]
       : undefined,
@@ -210,7 +214,9 @@ export function generateEducationSchema(education: Education) {
       name: education.school,
       logo: education.image,
     },
-    validFrom: new Date(education.startDate).toISOString().split("T")[0],
+    validFrom: education.startDate
+      ? new Date(education.startDate).toISOString().split("T")[0]
+      : undefined,
     validUntil: education.endDate
       ? new Date(education.endDate).toISOString().split("T")[0]
       : undefined,

@@ -1,11 +1,16 @@
 import { Calendar, Folders, UserRoundPen } from "lucide-react";
 import type { Metadata } from "next";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { Button } from "passport-ui/button";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { PrefetchLink } from "passport-ui/prefetch-link";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { Button } from "@workspace/ui/components/button";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 import { plural } from "pluralize";
 
 import { ArticleCategoryButton } from "@/components/article/article-category-button";
@@ -15,7 +20,7 @@ import {
   getAllArticleSlugs,
   getAllCategories,
 } from "@/components/helpers/article";
-import { getArticleLabel, getRouteSeoImage } from "@/components/helpers/config";
+import { getArticleLabel } from "@/components/helpers/config";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { URLS } from "@/components/helpers/urls";
 
@@ -30,7 +35,7 @@ export default function ArticlesListPage() {
   const allCategories = getAllCategories();
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -39,35 +44,34 @@ export default function ArticlesListPage() {
           description: `A collection of ${articleLabel.toLowerCase()} about development, technology, and more.`,
         }}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: articleLabel,
-            href: URLS.ARTICLES_LIST(),
-          },
-        ]}
-      />
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{articleLabel}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <div className="flex justify-between items-center">
-        <h2>{articleLabel}</h2>
+        <h3>{articleLabel}</h3>
         <PrefetchLink
           href={URLS.RSS_FEED()}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button>RSS feed {"\u2197"}</Button>
+          <Button>View RSS feed</Button>
         </PrefetchLink>
       </div>
       {allCategories.length > 0 && (
-        <div className="section-container">
-          <div className="flex items-center gap-1.5 text-muted-foreground">
-            <Folders className="size-3.5" />
-            <h6 className="leading-none">Categories</h6>
+        <section aria-label="Browse by category">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Folders className="size-4" />
+            <h5>Browse by category</h5>
           </div>
-          <div className="flex items-center gap-1.5 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap">
             {allCategories.map((category) => (
               <ArticleCategoryButton
                 key={category}
@@ -81,45 +85,44 @@ export default function ArticlesListPage() {
               />
             ))}
           </div>
-        </div>
+        </section>
       )}
       {publishedArticles.length > 0 &&
-      Array.from(new Set(publishedArticles.map((a) => a.year))).length > 1 ? (
-        <div className="section-container">
-          <div className="flex items-center gap-1.5 text-muted-foreground">
-            <Calendar className="size-3.5" />
-            <h6 className="leading-none">Browse by year</h6>
-          </div>
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
-              (year) => (
-                <YearButton
-                  key={`${year}-article`}
-                  year={year}
-                  type="article"
-                  asLink
-                />
-              ),
-            )}
-          </div>
-        </div>
-      ) : null}
-      {publishedArticles.length > 0 ? (
-        <div className="section-container">
-          <div className="flex items-center gap-1.5 text-muted-foreground">
-            <UserRoundPen className="size-3.5" />
-            <h6 className="leading-none">All {articleLabel.toLowerCase()}</h6>
+        Array.from(new Set(publishedArticles.map((a) => a.year))).length >
+          1 && (
+          <section aria-label="Browse by year">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Calendar className="size-4" />
+              <h5>Browse by year</h5>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              {Array.from(new Set(publishedArticles.map((a) => a.year))).map(
+                (year) => (
+                  <YearButton
+                    key={`${year}-article`}
+                    year={year}
+                    type="article"
+                    asLink
+                  />
+                ),
+              )}
+            </div>
+          </section>
+        )}
+      {publishedArticles.length > 0 && (
+        <section aria-label="All articles">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <UserRoundPen className="size-4" />
+            <h5>All {articleLabel}</h5>
           </div>
           <div className="list-container">
             {publishedArticles.map((article) => (
               <ArticleSummaryCard key={article.slug} article={article} />
             ))}
           </div>
-        </div>
-      ) : (
-        <EmptyState />
+        </section>
       )}
-    </ContentContainer>
+    </div>
   );
 }
 
@@ -137,7 +140,6 @@ export async function generateMetadata(): Promise<Metadata> {
       "tutorials",
     ],
     url: URLS.ARTICLES_LIST(),
-    image: getRouteSeoImage(URLS.ARTICLES_LIST()),
   });
 
   return metadata;

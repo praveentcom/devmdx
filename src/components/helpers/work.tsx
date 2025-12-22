@@ -82,9 +82,10 @@ export function getAllWorkSlugs(): WorkExperienceIndexItem[] {
     }
   }
 
-  return workItems.sort(
-    (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
-  );
+  return workItems.sort((a, b) => {
+    if (!a.startDate || !b.startDate) return 0;
+    return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+  });
 }
 
 export async function getWorkBySlugCompiled(slug: string): Promise<{

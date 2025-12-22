@@ -1,72 +1,61 @@
 import type { Metadata } from "next";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
-import { plural } from "pluralize";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 
-import { MdContent } from "@/components/common/md-content";
-import { getProjectLabel, getRouteSeoImage } from "@/components/helpers/config";
-import { getMdContent } from "@/components/helpers/md-content";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { getAllProjectSlugs } from "@/components/helpers/projects";
 import { URLS } from "@/components/helpers/urls";
 import { ProjectSummaryCard } from "@/components/projects/project-summary-card";
 
-const projectLabel = plural(getProjectLabel());
-
 export default function ProjectsPage() {
   const projects = getAllProjectSlugs();
-  const projectsContent = getMdContent("projects/intro.md");
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: `${projectLabel}`,
-          description: `A comprehensive showcase of all my ${projectLabel.toLowerCase()} and contributions.`,
+          name: `Projects`,
+          description:
+            "A comprehensive showcase of all my projects and contributions.",
         }}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: projectLabel,
-            href: URLS.PROJECTS_LIST(),
-          },
-        ]}
-      />
-      {projectsContent && projectsContent.trim() !== "" && (
-        <div className="section-container">
-          <MdContent content={projectsContent} />
-        </div>
-      )}
-      <h2>{projectLabel}</h2>
-      {projects.length > 0 ? (
-        <div className="list-container">
-          {projects.map((project, index) => (
-            <ProjectSummaryCard key={index} project={project} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
-    </ContentContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Projects</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h3>Projects</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {projects.map((project, index) => (
+          <ProjectSummaryCard key={index} project={project} />
+        ))}
+      </div>
+    </div>
   );
 }
 
 export async function generateMetadata(): Promise<Metadata> {
   const metadata = createPageMetadata({
-    title: `${projectLabel}`,
-    description: `A comprehensive showcase of all my ${projectLabel.toLowerCase()} and contributions.`,
-    keywords: [projectLabel.toLowerCase(), "showcase", "contributions"],
+    title: `Projects`,
+    description:
+      "A comprehensive showcase of all my projects and contributions.",
+    keywords: ["projects", "showcase", "contributions"],
     url: URLS.PROJECTS_LIST(),
-    image: getRouteSeoImage(URLS.PROJECTS_LIST()),
   });
 
   return metadata;

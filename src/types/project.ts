@@ -3,13 +3,18 @@ import { z } from "zod";
 const ProjectSchema = z.object({
   slug: z.string(),
   title: z.string(),
-  stack: z.array(z.string()),
   description: z.string(),
+  shortText: z.string().optional(),
+  image: z.string().optional(),
+  stack: z.array(z.string()),
   url: z.string().optional(),
   githubUrl: z.string().optional(),
-  image: z.string().optional(),
+  appStoreUrl: z.string().optional(),
+  playStoreUrl: z.string().optional(),
+  youtubeVideoId: z.string().optional(),
   coAuthors: z.array(z.string()).optional(),
-  featured: z.boolean().optional(),
+  actualPrice: z.number().optional(),
+  originalPrice: z.number().optional(),
   date: z
     .union([z.string(), z.date()])
     .transform((val) =>

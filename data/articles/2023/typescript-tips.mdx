@@ -1,0 +1,41 @@
+---
+title: "5 TypeScript Patterns I Use Every Day"
+description: "Practical TypeScript patterns that make your code safer and easier to maintain."
+date: "2023-03-22"
+tags: ["TypeScript"]
+categories: ["Development"]
+published: true
+---
+
+## Why TypeScript
+
+After years of JavaScript, TypeScript changed how I write code. Here are five patterns I reach for constantly.
+
+## 1. Discriminated Unions
+
+Perfect for handling different states:
+
+```typescript
+type Result<T> = 
+  | { status: 'success'; data: T }
+  | { status: 'error'; error: string };
+```
+
+## 2. Type Guards
+
+Narrow types safely at runtime:
+
+```typescript
+function isUser(obj: unknown): obj is User {
+  return typeof obj === 'object' && obj !== null && 'id' in obj;
+}
+```
+
+## 3. Utility Types
+
+`Partial`, `Pick`, `Omit` save so much boilerplate. Learn them once, use them forever.
+
+## 4. Const Assertions
+
+Lock down literal types with `as const`. Great for config objects and action types.
+

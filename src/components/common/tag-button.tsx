@@ -1,10 +1,11 @@
-import { Button } from "passport-ui/button";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { Button } from "@workspace/ui/components/button";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { getTagImagePath } from "@/components/helpers/tag-mapper";
 import { URLS } from "@/components/helpers/urls";
 
 import { ImageWithFallback } from "./image-with-fallback";
+import { Badge } from "@workspace/ui/components/badge";
 
 interface TagButtonProps {
   tag: string;
@@ -24,22 +25,18 @@ export function TagButton({
   source = "projects",
 }: TagButtonProps) {
   const badgeContent = (
-    <Button variant="outline" className={className}>
+    <Button variant={"outline"} className={className}>
       {showIcon && (
         <ImageWithFallback
           src={getTagImagePath(tag)}
           alt={`${tag} icon`}
-          width={14}
-          height={14}
-          className="flex-shrink-0 size-4.5"
+          width={20}
+          height={20}
+          className="shrink-0 size-5"
         />
       )}
-      <span className="text-xs font-medium">{tag}</span>
-      {count && count > 1 && (
-        <div className="rounded-full bg-secondary text-secondary-foreground items-center justify-center px-1 pt-0.5 py-0.25 h-min">
-          <p className="leading-none pb-0 mb-0 text-xxs font-medium">{count}</p>
-        </div>
-      )}
+      <span className="font-medium">{tag}</span>
+      {count && count > 1 && <Badge variant="outline">{count}</Badge>}
     </Button>
   );
 

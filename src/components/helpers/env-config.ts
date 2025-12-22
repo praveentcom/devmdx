@@ -36,18 +36,10 @@ export function createImageRemotePatterns(
 
 /**
  * Generate Content Security Policy based on environment and hostnames
- * @param strictMode - Whether to use strict CSP
  * @param allowedHostnames - Array of allowed hostnames
  * @returns CSP policy string
  */
-export function generateCSP(
-  strictMode: boolean,
-  allowedHostnames: string[] = [],
-): string {
-  if (strictMode) {
-    return "default-src 'self'; script-src 'none'; sandbox;";
-  }
-
+export function generateCSP(allowedHostnames: string[] = []): string {
   const hostnameList =
     allowedHostnames.length > 0
       ? ` ${allowedHostnames.map((h) => `https://${h}`).join(" ")}`
@@ -63,9 +55,10 @@ export function getEnvConfig() {
   const isDevelopment = process.env.NODE_ENV === "development";
   const isProduction = process.env.NODE_ENV === "production";
 
+  const imageHostnamesFallback = ["placehold.co", "cdn.jsdelivr.net"];
   const imageHostnames = parseHostnames(
     process.env.NEXT_PUBLIC_ALLOWED_IMAGE_HOSTNAMES,
-    ["placehold.co"],
+    imageHostnamesFallback,
   );
 
   const allowedHostnames = parseHostnames(
@@ -76,19 +69,13 @@ export function getEnvConfig() {
   const imageRemotePatterns = createImageRemotePatterns(imageHostnames);
 
   if (isDevelopment) {
-    const devImageHostnames = parseHostnames(
-      process.env.NEXT_PUBLIC_DEV_IMAGE_HOSTNAMES,
-      ["localhost", "127.0.0.1"],
-    );
-
     imageRemotePatterns.push(
-      ...createImageRemotePatterns(devImageHostnames, "http"),
-      ...createImageRemotePatterns(devImageHostnames, "https"),
+      ...createImageRemotePatterns(allowedHostnames, "http"),
+      ...createImageRemotePatterns(allowedHostnames, "https"),
     );
   }
 
-  const strictCSP = process.env.NEXT_PUBLIC_STRICT_CSP === "true";
-  const contentSecurityPolicy = generateCSP(strictCSP, allowedHostnames);
+  const contentSecurityPolicy = generateCSP(allowedHostnames);
 
   return {
     isDevelopment,
@@ -98,7 +85,6 @@ export function getEnvConfig() {
     imageRemotePatterns,
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "",
     allowRobots: process.env.NEXT_PUBLIC_ALLOW_ROBOTS === "true",
-    strictCSP,
     contentSecurityPolicy,
   };
 }

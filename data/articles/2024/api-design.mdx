@@ -1,0 +1,44 @@
+---
+title: "Designing APIs That Don't Suck"
+description: "Lessons learned from building and consuming hundreds of APIs."
+date: "2024-06-20"
+tags: ["Node.js", "API"]
+categories: ["Development"]
+published: true
+---
+
+## The Goal
+
+Build APIs that are intuitive, consistent, and a joy to work with.
+
+## Naming Matters
+
+- Use nouns for resources: `/users`, `/orders`
+- Use verbs for actions: `/users/123/activate`
+- Be consistent with pluralization
+
+## Status Codes
+
+Use them correctly:
+- `200` - Success
+- `201` - Created
+- `400` - Bad request (your fault)
+- `401` - Unauthorized
+- `404` - Not found
+- `500` - Server error (our fault)
+
+## Error Responses
+
+Always include:
+```json
+{
+  "error": "validation_failed",
+  "message": "Email is required",
+  "field": "email"
+}
+```
+
+## Versioning
+
+Prefix your routes: `/v1/users`. When v2 comes, old clients keep working.
+

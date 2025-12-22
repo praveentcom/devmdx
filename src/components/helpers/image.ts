@@ -14,7 +14,7 @@ export const PLACEHOLDER_COLORS = {
 } as const;
 
 /**
- * Generates a placeholder image URL using placehold.co service
+ * Generates a placeholder image URL
  *
  * @param options Configuration options for the placeholder image
  * @returns Complete URL for the placeholder image

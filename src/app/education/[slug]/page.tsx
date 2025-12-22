@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { Markdown } from "passport-ui/markdown";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { Markdown } from "@workspace/ui/components/markdown";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 
 import { DateRange } from "@/components/common/date-range";
 import EntityHeader from "@/components/common/entity-header";
@@ -33,36 +39,34 @@ export default async function EducationPage({ params }: PageProps) {
   const { meta: education, content } = educationData;
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData data={generateEducationSchema(education)} />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: education.school,
-            href: URLS.EDUCATION(education.slug),
-          },
-        ]}
-      />
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{education.school}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <EntityHeader
         imageSrc={education.image}
         title={education.school}
         subtitle={education.degree}
       />
       <div className="meta-container">
-        <h4>Program duration</h4>
+        <h5>Program Duration</h5>
         <DateRange
           startDate={education.startDate}
           endDate={education.endDate}
         />
       </div>
-      <div className="section-container">
-        <Markdown content={content} theme="vs" />
-      </div>
-    </ContentContainer>
+      <hr />
+      <Markdown content={content} />
+    </div>
   );
 }
 
@@ -95,9 +99,8 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const { getAllEducationSlugs } = await import(
-    "@/components/helpers/education"
-  );
+  const { getAllEducationSlugs } =
+    await import("@/components/helpers/education");
   const educationItems = getAllEducationSlugs();
   return educationItems.map((education) => ({
     slug: education.slug,

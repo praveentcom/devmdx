@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { Markdown } from "passport-ui/markdown";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { Markdown } from "@workspace/ui/components/markdown";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 
 import { DateRange } from "@/components/common/date-range";
 import EntityHeader from "@/components/common/entity-header";
@@ -34,43 +40,38 @@ export default async function WorkExperiencePage({ params }: PageProps) {
   const { meta: work, content } = workData;
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData data={generateWorkSchema(work)} />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: work.company,
-            href: URLS.WORK(work.slug),
-          },
-        ]}
-      />
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{work.company}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
       <EntityHeader
         imageSrc={work.image}
         title={work.company}
         subtitle={work.role}
       />
       <div className="meta-container">
-        <h4>Service period</h4>
+        <h5>Service Period</h5>
         <DateRange startDate={work.startDate} endDate={work.endDate} />
       </div>
       {work.skills && work.skills.length > 0 && (
-        <div className="meta-container">
-          <h4>Skills</h4>
-          <div className="flex flex-wrap gap-1.5">
-            {work.skills.map((tag, index) => (
-              <TagButton key={index} tag={tag} source="work" />
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2">
+          {work.skills.map((tag, index) => (
+            <TagButton key={index} tag={tag} source="work" />
+          ))}
         </div>
       )}
-      <div className="section-container">
-        <Markdown content={content} theme="vs" />
-      </div>
-    </ContentContainer>
+      <hr />
+      <Markdown content={content} />
+    </div>
   );
 }
 

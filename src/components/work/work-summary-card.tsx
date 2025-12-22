@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { formatDateShort } from "@/components/helpers/date";
 import { URLS } from "@/components/helpers/urls";
@@ -17,33 +17,29 @@ export function WorkSummaryCard({
     : "Present";
 
   return (
-    <div className="meta-container">
-      <PrefetchLink href={URLS.WORK(experience.slug)} prefetchOnVisible={true}>
-        <div className="flex justify-between items-center gap-3 group">
-          <div className="flex gap-2 items-center">
-            {experience.image && (
-              <div className="flex-shrink-0">
-                <Image
-                  src={experience.image}
-                  alt={`${experience.company} logo`}
-                  width={14}
-                  height={14}
-                  className="object-cover size-4.5"
-                />
-              </div>
-            )}
-            <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50 line-clamp-1">
-              {experience.company}
-            </p>
+    <PrefetchLink href={URLS.WORK(experience.slug)} prefetchOnVisible={true}>
+      <div className="flex flex-col gap-1 group">
+        {experience.image && (
+          <div className="shrink-0">
+            <Image
+              src={experience.image}
+              alt={`${experience.company} logo`}
+              width={40}
+              height={40}
+              className="object-cover size-10 rounded-sm"
+            />
           </div>
-          <div className="flex items-center text-muted-foreground group-hover:text-foreground">
-            <p className="min-w-max line-clamp-1">{experience.role}</p>
-            <p className="min-w-max line-clamp-1 before:content-['·'] before:mx-1.5 hide-on-mobile">
-              {formatDateShort(experience.startDate)} - {endDateText}
-            </p>
-          </div>
-        </div>
-      </PrefetchLink>
-    </div>
+        )}
+        <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50">
+          {experience.company}
+        </p>
+        <p className="text-sm text-muted-foreground group-hover:text-foreground">
+          {experience.role}
+          <span className="before:content-['·'] before:mx-1.5">
+            {formatDateShort(experience.startDate)} - {endDateText}
+          </span>
+        </p>
+      </div>
+    </PrefetchLink>
   );
 }

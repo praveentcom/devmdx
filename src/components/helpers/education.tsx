@@ -78,7 +78,10 @@ export function getAllEducationSlugs(): EducationIndexItem[] {
     }
   }
 
-  return educationItems.sort((a, b) => b.startDate.localeCompare(a.startDate));
+  return educationItems.sort((a, b) => {
+    if (!a.startDate || !b.startDate) return 0;
+    return b.startDate.localeCompare(a.startDate);
+  });
 }
 
 export function getEducationBySlugContent(

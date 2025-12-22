@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 import { plural } from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/article-summary-card";
@@ -11,7 +16,7 @@ import {
   getAllCategories,
   getArticlesByCategory,
 } from "@/components/helpers/article";
-import { getArticleLabel, getRouteSeoImage } from "@/components/helpers/config";
+import { getArticleLabel } from "@/components/helpers/config";
 import {
   createNotFoundMetadata,
   createPageMetadata,
@@ -27,79 +32,78 @@ interface PageProps {
 const articleLabel = plural(getArticleLabel());
 
 export default async function CategoryArticlePage({ params }: PageProps) {
-  const { category } = await params;
-  const decodedCategory = decodeURIComponent(category);
+  const { category: decodedCategory } = await params;
+  const category = decodeURIComponent(decodedCategory);
 
   const allCategories = getAllCategories();
 
-  if (!allCategories.includes(decodedCategory)) {
+  if (!allCategories.includes(category)) {
     notFound();
   }
 
-  const filteredArticles = getArticlesByCategory(decodedCategory);
+  const filteredArticles = getArticlesByCategory(category);
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={{
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          name: `${decodedCategory} ${articleLabel.toLowerCase()}`,
-          description: `${filteredArticles.length} ${articleLabel.toLowerCase()} published in this category.`,
+          name: `${category} ${articleLabel}`,
+          description: `${filteredArticles.length} ${articleLabel} published in this category.`,
         }}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: articleLabel,
-            href: URLS.ARTICLES_LIST(),
-          },
-          {
-            label: `${decodedCategory} ${articleLabel.toLowerCase()}`,
-            href: URLS.ARTICLES_CATEGORY(category),
-          },
-        ]}
-      />
-      <h2>
-        {decodedCategory} {articleLabel.toLowerCase()}
-      </h2>
-      {filteredArticles.length > 0 ? (
-        <div className="list-container">
-          {filteredArticles.map((article, index) => (
-            <ArticleSummaryCard key={index} article={article} />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
-    </ContentContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.ARTICLES_LIST()}>
+              {articleLabel}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>
+              {category} {articleLabel}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h3>
+        {category} {articleLabel}
+      </h3>
+      <div className="list-container">
+        {filteredArticles.map((article, index) => (
+          <ArticleSummaryCard key={index} article={article} />
+        ))}
+      </div>
+    </div>
   );
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const { category } = await params;
-  const decodedCategory = decodeURIComponent(category);
+  const { category: decodedCategory } = await params;
+  const category = decodeURIComponent(decodedCategory);
 
   const allCategories = getAllCategories();
 
-  if (!allCategories.includes(decodedCategory)) {
+  if (!allCategories.includes(category)) {
     return createNotFoundMetadata("Category");
   }
 
-  const filteredArticles = getArticlesByCategory(decodedCategory);
+  const filteredArticles = getArticlesByCategory(category);
 
   const metadata = createPageMetadata({
-    title: `${decodedCategory} ${articleLabel.toLowerCase()}`,
-    description: `${filteredArticles.length} ${articleLabel.toLowerCase()} published in this category.`,
+    title: `${category} ${articleLabel}`,
+    description: `${filteredArticles.length} ${articleLabel} published in this category.`,
     keywords: [
-      decodedCategory,
-      articleLabel.toLowerCase(),
+      category,
+      articleLabel,
       "articles",
       "blog",
       "development",
@@ -108,7 +112,6 @@ export async function generateMetadata({
       "tutorials",
     ],
     url: URLS.ARTICLES_CATEGORY(category),
-    image: getRouteSeoImage(URLS.ARTICLES_CATEGORY(category)),
   });
 
   return metadata;

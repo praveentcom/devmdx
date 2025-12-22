@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { formatDateYear } from "@/components/helpers/date";
 import { URLS } from "@/components/helpers/urls";
@@ -13,35 +13,32 @@ export function EducationSummaryCard({ education }: { education: Education }) {
     : "Present";
 
   return (
-    <div className="meta-container">
-      <PrefetchLink
-        href={URLS.EDUCATION(education.slug)}
-        prefetchOnVisible={true}
-      >
-        <div className="flex justify-between items-center gap-3 group">
-          <div className="flex gap-2 items-center">
-            {education.image && (
-              <div className="flex-shrink-0">
-                <Image
-                  src={education.image}
-                  alt={`${education.school} logo`}
-                  width={14}
-                  height={14}
-                  className="object-cover size-4.5"
-                />
-              </div>
-            )}
-            <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50 line-clamp-1">
-              {education.degree}
-            </p>
+    <PrefetchLink
+      href={URLS.EDUCATION(education.slug)}
+      prefetchOnVisible={true}
+    >
+      <div className="flex flex-col gap-1 group">
+        {education.image && (
+          <div className="shrink-0">
+            <Image
+              src={education.image}
+              alt={`${education.school} logo`}
+              width={40}
+              height={40}
+              className="object-cover size-10 rounded-sm"
+            />
           </div>
-          <div className="flex items-center text-muted-foreground group-hover:text-foreground">
-            <p className="min-w-max line-clamp-1">
-              {formatDateYear(education.startDate)} - {endDateText}
-            </p>
-          </div>
-        </div>
-      </PrefetchLink>
-    </div>
+        )}
+        <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50">
+          {education.degree}
+        </p>
+        <p className="text-sm text-muted-foreground group-hover:text-foreground">
+          {education.school}
+          <span className="before:content-['·'] before:mx-1.5">
+            {formatDateYear(education.startDate)} - {endDateText}
+          </span>
+        </p>
+      </div>
+    </PrefetchLink>
   );
 }

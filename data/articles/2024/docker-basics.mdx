@@ -1,0 +1,40 @@
+---
+title: "Docker for the Skeptical Developer"
+description: "I avoided Docker for years. Here's what finally made it click."
+date: "2024-01-15"
+tags: ["Docker"]
+categories: ["DevOps"]
+published: true
+---
+
+## My Resistance
+
+"It works on my machine" was fine until it wasn't. Spent too many hours debugging environment issues.
+
+## The Aha Moment
+
+Docker isn't about containers or VMs. It's about reproducibility. Same environment everywhere—your laptop, CI, production.
+
+## Getting Started
+
+A simple Dockerfile for a Node.js app:
+
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+CMD ["npm", "start"]
+```
+
+## What Changed
+
+- New developers onboard in minutes, not hours
+- "Works on my machine" is now actually useful
+- Deployments are boring (in a good way)
+
+## My Advice
+
+Start simple. Containerize one project. Feel the pain points disappear. Then expand.
+

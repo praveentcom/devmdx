@@ -1,6 +1,8 @@
 import {
   BookOpenIcon,
+  BriefcaseIcon,
   FolderIcon,
+  GraduationCapIcon,
   HomeIcon,
   LucideIcon,
   UsersIcon,
@@ -19,8 +21,7 @@ export const PROFILE_NAME = `${profile.firstName} ${profile.lastName}`;
 export const SITE_TITLE = configData.seo.title || PROFILE_NAME;
 export const SITE_DESCRIPTION = configData.seo.description || "";
 export const SITE_KEYWORDS = configData.seo.keywords || [];
-export const SITE_IMAGE =
-  configData.seo.image || "https://placehold.co/1200x630.png";
+export const SITE_IMAGE = configData.seo.image || "";
 
 /**
  * Get favicon paths from config with fallbacks to Next.js defaults
@@ -29,12 +30,10 @@ export const SITE_IMAGE =
 export function getFaviconPaths(): {
   ico: string;
   png: string;
-  apple: string;
 } {
   return {
     ico: configData.seo.favicon?.ico || "/favicon.ico",
-    png: configData.seo.favicon?.png || "/icon.png",
-    apple: configData.seo.favicon?.apple || "/apple-icon.png",
+    png: configData.seo.favicon?.png || "/favicon.png",
   };
 }
 
@@ -55,31 +54,6 @@ export function getArticleSlug(): string {
 }
 
 /**
- * Get the project label (singular) from config or fallback.
- * Returns the singular form; pluralization is handled by callers using the `plural()` function.
- */
-export function getProjectLabel(): string {
-  return configData.misc.content?.projectLabel || "Project";
-}
-
-/**
- * Get the project URL slug from config or fallback
- * @returns The project URL slug
- */
-export function getProjectSlug(): string {
-  return configData.misc.content?.projectSlug || "projects";
-}
-
-/**
- * Get the route SEO image from config or fallback
- * @param route - The route to get the SEO image for
- * @returns The SEO image for the route
- */
-export function getRouteSeoImage(route: string): string {
-  return configData.seo.routeImages?.[route] || SITE_IMAGE;
-}
-
-/**
  * Get the navigation items from config or fallback
  * @returns The navigation items
  */
@@ -88,11 +62,11 @@ export function getNavigationItems(): {
   label: string;
   Icon: LucideIcon;
 }[] {
-  const baseItems = [
-    ...(configData.navigation?.showHomeInNav !== false
+  const baseLinks = [
+    ...(configData.navigation?.home !== false
       ? [{ href: URLS.HOME(), label: "Home", Icon: HomeIcon }]
       : []),
-    ...(configData.navigation?.showArticlesInNav !== false
+    ...(configData.navigation?.articles !== false
       ? [
           {
             href: URLS.ARTICLES_LIST(),
@@ -101,37 +75,27 @@ export function getNavigationItems(): {
           },
         ]
       : []),
-    ...(configData.navigation?.showCommunityInNav !== false
+    ...(configData.navigation?.community !== false
       ? [{ href: URLS.COMMUNITY_LIST(), label: "Community", Icon: UsersIcon }]
       : []),
-    ...(configData.navigation?.showProjectsInNav !== false
+    ...(configData.navigation?.projects !== false
+      ? [{ href: URLS.PROJECTS_LIST(), label: "Projects", Icon: FolderIcon }]
+      : []),
+    ...(configData.navigation?.work !== false
+      ? [{ href: URLS.WORK_LIST(), label: "Work", Icon: BriefcaseIcon }]
+      : []),
+    ...(configData.navigation?.education !== false
       ? [
           {
-            href: URLS.PROJECTS_LIST(),
-            label: plural(getProjectLabel()),
-            Icon: FolderIcon,
+            href: URLS.EDUCATION_LIST(),
+            label: "Education",
+            Icon: GraduationCapIcon,
           },
         ]
       : []),
   ];
 
-  const customItems = configData.navigation?.customMenuItems || [];
+  const customLinks = configData.navigation?.customLinks || [];
 
-  return [...baseItems, ...customItems];
-}
-
-/**
- * Get the comment box configuration from config
- * @returns The comment box configuration
- */
-export function getCommentBoxConfig(): {
-  enabled: boolean;
-  projectId?: string;
-} {
-  const commentsConfig = configData.misc.comments;
-  const projectId = commentsConfig?.commentBox?.projectId;
-  return {
-    enabled: (commentsConfig?.enabled ?? false) && !!projectId,
-    projectId,
-  };
+  return [...baseLinks, ...customLinks];
 }

@@ -1,17 +1,21 @@
-import { Github, UserRound } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { Button } from "passport-ui/button";
-import { ContentContainer } from "passport-ui/content-container";
-import { Markdown } from "passport-ui/markdown";
-import { PrefetchLink } from "passport-ui/prefetch-link";
-import { StructuredData } from "passport-ui/structured-data";
-import { plural } from "pluralize";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { Button } from "@workspace/ui/components/button";
+import { Markdown } from "@workspace/ui/components/markdown";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 
 import EntityHeader from "@/components/common/entity-header";
 import { TagButton } from "@/components/common/tag-button";
-import { getProjectLabel, PROFILE_NAME } from "@/components/helpers/config";
+import { PROFILE_NAME } from "@/components/helpers/config";
 import { formatDateShort } from "@/components/helpers/date";
 import {
   createNotFoundMetadata,
@@ -20,8 +24,6 @@ import {
 import { getProjectBySlugContent } from "@/components/helpers/projects";
 import { generateProjectSchema } from "@/components/helpers/structured-data";
 import { URLS } from "@/components/helpers/urls";
-
-const projectLabel = plural(getProjectLabel());
 
 interface PageProps {
   params: Promise<{
@@ -40,100 +42,82 @@ export default async function ProjectPage({ params }: PageProps) {
   const { meta: project, content } = projectData;
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData data={generateProjectSchema(project)} />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: projectLabel,
-            href: URLS.PROJECTS_LIST(),
-          },
-          {
-            label: project.title,
-            href: URLS.PROJECTS(project.slug),
-          },
-        ]}
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.PROJECTS_LIST()}>
+              Projects
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{project.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <EntityHeader
+        imageSrc={project.image}
+        title={project.title}
+        subtitle={project.description}
       />
-      <div className="section-container">
-        <EntityHeader
-          imageSrc={project.image}
-          title={project.title}
-          subtitle={project.description}
-        />
-        <div className="flex flex-wrap gap-1.5">
-          {project.stack.map((tag, index) => (
-            <TagButton
-              key={index}
-              tag={tag}
-              source="projects"
-              asLink
-              count={project.stack.filter((t) => t === tag).length}
-            />
-          ))}
-        </div>
+      <div className="flex flex-wrap gap-2">
+        {project.stack.map((tag, index) => (
+          <TagButton
+            key={index}
+            tag={tag}
+            source="projects"
+            asLink
+            count={project.stack.filter((t) => t === tag).length}
+          />
+        ))}
       </div>
       {(project.githubUrl || project.url) && (
-        <div className="meta-container">
-          <h4>{getProjectLabel()} links</h4>
-          <div className="flex gap-4">
-            {project.githubUrl && (
-              <PrefetchLink
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button>
-                  <Github />
-                  GitHub {"\u2197"}
-                </Button>
-              </PrefetchLink>
-            )}
-            {project.url && (
-              <PrefetchLink
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button>Website {"\u2197"}</Button>
-              </PrefetchLink>
-            )}
-          </div>
+        <div className="flex gap-2">
+          {project.githubUrl && (
+            <PrefetchLink
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button>View on GitHub</Button>
+            </PrefetchLink>
+          )}
+          {project.url && (
+            <PrefetchLink
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button>View Project</Button>
+            </PrefetchLink>
+          )}
         </div>
       )}
       {project.date && (
-        <div className="meta-container">
-          <h4>{getProjectLabel()} date</h4>
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <p>{formatDateShort(project.date)}</p>
-          </div>
+        <div>
+          <h5>Project Date</h5>
+          <p className="text-muted-foreground">
+            {formatDateShort(project.date)}
+          </p>
         </div>
       )}
-      {project.coAuthors && project.coAuthors.length > 0 ? (
-        <div className="meta-container">
-          <h4>{getProjectLabel()} authors</h4>
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <p className="leading-none">
-              {PROFILE_NAME}, {project.coAuthors.join(", ")}
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div className="meta-container">
-          <h4>{getProjectLabel()} authors</h4>
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <UserRound className="size-3.5" />
-            <p className="leading-none">{PROFILE_NAME}</p>
-          </div>
+      {project.coAuthors && project.coAuthors.length > 0 && (
+        <div>
+          <h5>Project Contributors</h5>
+          <p className="text-muted-foreground">
+            {PROFILE_NAME}, {project.coAuthors.join(", ")}
+          </p>
         </div>
       )}
-      <div className="section-container">
-        <Markdown content={content} theme="vs" />
-      </div>
-    </ContentContainer>
+      <hr />
+      <Markdown content={content} />
+    </div>
   );
 }
 
@@ -144,7 +128,7 @@ export async function generateMetadata({
   const projectData = getProjectBySlugContent(slug);
 
   if (!projectData) {
-    return createNotFoundMetadata(getProjectLabel());
+    return createNotFoundMetadata("Project");
   }
 
   const { meta: project } = projectData;

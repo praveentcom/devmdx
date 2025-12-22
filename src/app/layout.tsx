@@ -1,9 +1,23 @@
-import "../styles/globals.css";
-
 import type { Metadata } from "next";
-import { ThemeProvider } from "passport-ui/theme-provider";
+import { Google_Sans_Flex, Google_Sans_Code } from "next/font/google";
 
-import { Analytics } from "@/components/helpers/analytics";
+import "./globals.css";
+import { Providers } from "@/components/providers";
+
+const fontSans = Google_Sans_Flex({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  adjustFontFallback: false,
+});
+
+const fontMono = Google_Sans_Code({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+  adjustFontFallback: false,
+});
+
 import {
   SITE_DESCRIPTION,
   SITE_IMAGE,
@@ -11,9 +25,8 @@ import {
 } from "@/components/helpers/config";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { BASE_URL, URLS } from "@/components/helpers/urls";
-import { WebVitals } from "@/components/helpers/web-vitals";
-import { ClientLayout } from "@/components/layout/client-layout";
 import { configData } from "@/data/config";
+import { ClientLayout } from "@/components/layout/client-layout";
 
 export default function RootLayout({
   children,
@@ -23,18 +36,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`min-h-screen flex flex-col max-w-full overflow-x-hidden`}
+        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased min-h-screen flex flex-col max-w-full overflow-x-hidden`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <ClientLayout>{children}</ClientLayout>
-        </ThemeProvider>
-        <Analytics />
-        <WebVitals />
+        </Providers>
       </body>
     </html>
   );

@@ -1,10 +1,9 @@
 "use client";
 
 import { Home, Newspaper } from "lucide-react";
-import { Button } from "passport-ui/button";
-import { Card, CardContent } from "passport-ui/card";
-import { ContentContainer } from "passport-ui/content-container";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { Button } from "@workspace/ui/components/button";
+import { Card, CardContent } from "@workspace/ui/components/card";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 import { plural } from "pluralize";
 
 import { getArticleLabel } from "@/components/helpers/config";
@@ -14,36 +13,32 @@ const articleLabel = plural(getArticleLabel());
 
 export default function Error() {
   return (
-    <ContentContainer variant="broad">
-      <div className="flex items-center justify-center">
-        <Card className="w-full">
-          <CardContent>
-            <div className="section-container py-3">
-              <div className="flex flex-col text-center">
-                <h1>500</h1>
-                <h4>Uh-oh. Something went wrong.</h4>
-                <p className="text-muted-foreground">
-                  An error occurred while loading the page.
-                </p>
-              </div>
-              <div className="flex mx-auto gap-3 justify-center w-full">
-                <PrefetchLink href={URLS.HOME()}>
-                  <Button>
-                    <Home />
-                    Home
-                  </Button>
-                </PrefetchLink>
-                <PrefetchLink href={URLS.ARTICLES_LIST()}>
-                  <Button>
-                    <Newspaper />
-                    Browse {articleLabel.toLowerCase()}
-                  </Button>
-                </PrefetchLink>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </ContentContainer>
+    <div className="flex items-center justify-center">
+      <Card className="w-full">
+        <CardContent className="grid gap-6">
+          <div className="flex flex-col text-center">
+            <h2>500</h2>
+            <h4>Uh-oh. Something went wrong.</h4>
+            <p className="text-muted-foreground">
+              An error occurred while loading the page.
+            </p>
+          </div>
+          <div className="flex flex-col items-center md:flex-row mx-auto gap-3 justify-center w-full">
+            <PrefetchLink href={URLS.HOME()}>
+              <Button>
+                <Home />
+                Home
+              </Button>
+            </PrefetchLink>
+            <PrefetchLink href={URLS.ARTICLES_LIST()}>
+              <Button variant="outline">
+                <Newspaper />
+                Browse {articleLabel.toLowerCase()}
+              </Button>
+            </PrefetchLink>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

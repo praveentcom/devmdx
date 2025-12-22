@@ -1,6 +1,6 @@
 "use client";
 
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { formatDate } from "@/components/helpers/date";
 import { URLS } from "@/components/helpers/urls";
@@ -21,20 +21,18 @@ export type ArticleLike = Pick<
 
 export function ArticleSummaryCard({ article }: { article: ArticleLike }) {
   return (
-    <div className="meta-container">
-      <PrefetchLink
-        href={URLS.ARTICLES(article.year, article.slug)}
-        prefetchOnVisible={true}
-      >
-        <div className="flex gap-1.5 md:gap-3 group">
-          <p className="min-w-24 text-muted-foreground group-hover:text-foreground">
-            {formatDate(article.date)}
-          </p>
-          <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50 line-clamp-1">
-            {article.title}
-          </p>
-        </div>
-      </PrefetchLink>
-    </div>
+    <PrefetchLink
+      href={URLS.ARTICLES(article.year, article.slug)}
+      prefetchOnVisible={true}
+    >
+      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 group">
+        <p className="text-sm sm:text-base sm:min-w-24 text-muted-foreground group-hover:text-foreground">
+          {formatDate(article.date)}
+        </p>
+        <p className="group-hover:underline underline-offset-4 decoration-muted-foreground/50 sm:line-clamp-1">
+          {article.title}
+        </p>
+      </div>
+    </PrefetchLink>
   );
 }

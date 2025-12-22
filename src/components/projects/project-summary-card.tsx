@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { PrefetchLink } from "passport-ui/prefetch-link";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { formatDateShort } from "@/components/helpers/date";
 import { URLS } from "@/components/helpers/urls";
 import { Project } from "@/types/project";
+import { Badge } from "@workspace/ui/components/badge";
 
 interface ProjectCardProps {
   project: Project;
@@ -14,30 +15,32 @@ interface ProjectCardProps {
 
 export function ProjectSummaryCard({ project }: ProjectCardProps) {
   return (
-    <div className="meta-container">
-      <PrefetchLink href={URLS.PROJECTS(project.slug)} className="block">
-        <div className="flex justify-between items-center gap-3 group">
-          <div className="flex gap-2 items-center">
-            {project.image && (
-              <div className="flex-shrink-0">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={14}
-                  height={14}
-                  className="object-cover size-4.5"
-                />
-              </div>
-            )}
-            <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50 line-clamp-1">
-              {project.title}
-            </p>
+    <PrefetchLink href={URLS.PROJECTS(project.slug)}>
+      <div className="flex flex-col gap-1 group">
+        {project.image && (
+          <div className="shrink-0">
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={40}
+              height={40}
+              className="object-cover size-10 rounded-sm"
+            />
           </div>
-          <p className="min-w-max line-clamp-1 text-muted-foreground group-hover:text-foreground">
-            {formatDateShort(project.date)}
+        )}
+        <div className="flex gap-2 items-center">
+          <p className="group-hover:underline text-foreground underline-offset-4 decoration-muted-foreground/50">
+            {project.title}
           </p>
+          {project.githubUrl && <Badge>Open Source</Badge>}
         </div>
-      </PrefetchLink>
-    </div>
+        {project.shortText && (
+          <p className="text-sm text-muted-foreground">{project.shortText}</p>
+        )}
+        <p className="text-sm text-muted-foreground">
+          {formatDateShort(project.date)}
+        </p>
+      </div>
+    </PrefetchLink>
   );
 }

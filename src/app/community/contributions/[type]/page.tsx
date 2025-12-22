@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Breadcrumb } from "passport-ui/breadcrumb";
-import { ContentContainer } from "passport-ui/content-container";
-import { EmptyState } from "passport-ui/empty-state";
-import { StructuredData } from "passport-ui/structured-data";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@workspace/ui/components/breadcrumb";
+import { StructuredData } from "@workspace/ui/components/structured-data";
 import pluralize from "pluralize";
 
 import { CommunitySummaryCard } from "@/components/community/community-summary-card";
 import { getAllCommunityIndex } from "@/components/helpers/community";
-import { getRouteSeoImage } from "@/components/helpers/config";
 import {
   createNotFoundMetadata,
   createPageMetadata,
@@ -53,7 +57,7 @@ export default async function CommunityByTypePage({ params }: PageProps) {
   );
 
   return (
-    <ContentContainer variant="broad">
+    <div>
       <StructuredData
         data={{
           "@context": "https://schema.org",
@@ -62,36 +66,33 @@ export default async function CommunityByTypePage({ params }: PageProps) {
           description: `${contributions.length} ${pluralize("contribution", contributions.length)}`,
         }}
       />
-      <Breadcrumb
-        path={[
-          {
-            label: "Home",
-            href: URLS.HOME(),
-          },
-          {
-            label: "Community",
-            href: URLS.COMMUNITY_LIST(),
-          },
-          {
-            label: getTypeLabel(validatedType),
-            href: URLS.COMMUNITY_TYPE(type),
-          },
-        ]}
-      />
-      <h2>{getTypeLabel(validatedType)}</h2>
-      {contributions.length > 0 ? (
-        <div className="list-container">
-          {contributions.map((community) => (
-            <CommunitySummaryCard
-              key={`${community.year}-${community.slug}`}
-              contribution={community}
-            />
-          ))}
-        </div>
-      ) : (
-        <EmptyState />
-      )}
-    </ContentContainer>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.HOME()}>Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={URLS.COMMUNITY_LIST()}>
+              Community
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{getTypeLabel(validatedType)}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <h3>{getTypeLabel(validatedType)}</h3>
+      <div className="list-container">
+        {contributions.map((community) => (
+          <CommunitySummaryCard
+            key={`${community.year}-${community.slug}`}
+            contribution={community}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -111,7 +112,6 @@ export async function generateMetadata({
     description: `All ${typeLabel.toLowerCase()} contributions.`,
     keywords: [typeLabel.toLowerCase(), "community"],
     url: `${URLS.COMMUNITY_TYPE(type)}`,
-    image: getRouteSeoImage(URLS.COMMUNITY_TYPE(type)),
   });
 
   return metadata;

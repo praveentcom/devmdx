@@ -15,15 +15,8 @@ export interface ConfigAnalyticsData {
     websiteId: string;
     src?: string;
   };
-  matomo?: {
-    url: string;
-    siteId: string;
-  };
   microsoftClarity?: {
     projectId: string;
-  };
-  mixpanel?: {
-    token: string;
   };
 }
 
@@ -38,17 +31,17 @@ export interface ConfigSeoData {
   favicon?: {
     ico?: string;
     png?: string;
-    apple?: string;
   };
-  routeImages?: Record<string, string>;
 }
 
 export interface ConfigNavigationData {
-  showHomeInNav?: boolean;
-  showProjectsInNav?: boolean;
-  showArticlesInNav?: boolean;
-  showCommunityInNav?: boolean;
-  customMenuItems?: Array<{
+  home?: boolean;
+  projects?: boolean;
+  articles?: boolean;
+  community?: boolean;
+  education?: boolean;
+  work?: boolean;
+  customLinks?: Array<{
     href: string;
     label: string;
     Icon: LucideIcon;
@@ -57,30 +50,18 @@ export interface ConfigNavigationData {
 }
 
 export interface ConfigMiscData {
-  footerSubtitle?: string;
+  footerLabel?: string;
   locale?: string;
   timezone?: string;
-  webVitals?: {
-    enabled?: boolean;
-    logToConsole?: boolean;
-  };
   content?: {
-    articleLabel?: string; // e.g., "Article", "Blog", "Essay", "Writing"
-    articleSlug?: string; // e.g., "articles", "blog", "essays", "writings"
-    projectLabel?: string; // e.g., "Project", "Work", "Portfolio", "Creation"
-    projectSlug?: string; // e.g., "projects", "work", "portfolio", "creations"
-  };
-  comments?: {
-    enabled?: boolean;
-    commentBox?: {
-      projectId: string;
-    };
+    articleLabel?: string; // e.g., "Article", "Blog", "Essay"
+    articleSlug?: string; // e.g., "articles", "blog", "essays"
   };
 }
 
 export interface ConfigData {
   analytics: ConfigAnalyticsData;
-  seo: ConfigSeoData;
   navigation?: ConfigNavigationData;
   misc: ConfigMiscData;
+  seo: ConfigSeoData;
 }
