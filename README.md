@@ -2,6 +2,8 @@
 
 DevMDX is a simple, lightweight blog template built with Next.js and MDX. It renders MDX files as blog posts with a focus on performance and SEO, with built-in support for sitemap and RSS feed.
 
+<img width="2400" height="1260" alt="cover-image" src="https://github.com/user-attachments/assets/f384c2ba-644e-49c7-b797-3131f5fd2731" />
+
 ## Backstory
 
 While I have used multiple blog platforms to host my articles in the past, it always made sense to build one which I can maintain to my taste and own the content.
