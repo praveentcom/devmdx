@@ -1,10 +1,11 @@
 "use client";
 
-import { Header } from "./header";
-import { Footer } from "./footer";
-import { HeaderContainer } from "@workspace/ui/layouts/header-container";
-import { FooterContainer } from "@workspace/ui/layouts/footer-container";
 import { ContentContainer } from "@workspace/ui/layouts/content-container";
+import { FooterContainer } from "@workspace/ui/layouts/footer-container";
+import { HeaderContainer } from "@workspace/ui/layouts/header-container";
+
+import { Footer } from "./footer";
+import { Header } from "./header";
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -46,6 +46,7 @@ export function createPageMetadata(_: {
   const icons = getFaviconPaths();
 
   const metadata: Metadata = {
+    metadataBase: new URL(BASE_URL),
     title: _.title ? `${_.title} | ${SITE_TITLE}` : SITE_TITLE,
     description: _.description || "",
     icons: {

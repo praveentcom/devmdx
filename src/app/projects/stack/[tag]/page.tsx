@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,6 +7,7 @@ import {
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import type { Metadata } from "next";
 import pluralize from "pluralize";
 
 import { ImageWithFallback } from "@/components/common/image-with-fallback";

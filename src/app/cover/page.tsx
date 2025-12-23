@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,8 +6,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
-import { StructuredData } from "@workspace/ui/components/structured-data";
 import { Markdown } from "@workspace/ui/components/markdown";
+import { StructuredData } from "@workspace/ui/components/structured-data";
+import { Metadata } from "next";
 
 import { getMdContent } from "@/components/helpers/md-content";
 import { createPageMetadata } from "@/components/helpers/metadata";

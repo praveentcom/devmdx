@@ -5,12 +5,11 @@ I've loved crafting this template as an OSS template. Get started today and for 
 ## Getting started
 
 - Fork and clone the repo
-- Install dependencies: `npm install`
-- Run dev server: `npm dev`
-- Run lint: `npm run lint`
-- Run build: `npm build`
+- Install dependencies: `pnpm install`
+- Run dev server: `pnpm dev`
+- Run lint: `pnpm lint`
+- Run build: `pnpm build`
 
 ## Commit messages
 
 - Use clear, descriptive messages. Conventional Commits are appreciated but not required.
-

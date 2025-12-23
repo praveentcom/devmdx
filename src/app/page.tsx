@@ -1,5 +1,6 @@
-import { Metadata } from "next";
+import { Markdown } from "@workspace/ui/components/markdown";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import { Metadata } from "next";
 
 import { ArticleSection } from "@/components/article/article-section";
 import { getAllArticlesIndex } from "@/components/helpers/article";
@@ -9,7 +10,6 @@ import { createPageMetadata } from "@/components/helpers/metadata";
 import { generateDefaultSchema } from "@/components/helpers/structured-data";
 import { URLS } from "@/components/helpers/urls";
 import { configData } from "@/data/config";
-import { Markdown } from "@workspace/ui/components/markdown";
 
 const recentArticles = getAllArticlesIndex(20);
 const profileContent = getMdContent("profile/intro.md");

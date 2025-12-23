@@ -1,6 +1,5 @@
-import React from "react";
-
 import { cn } from "@workspace/ui/lib/utils";
+import React from "react";
 
 export interface BlockquoteProps extends React.ComponentProps<"blockquote"> {
   /**

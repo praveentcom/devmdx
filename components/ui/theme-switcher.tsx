@@ -1,9 +1,5 @@
 "use client";
 
-import * as React from "react";
-import { Moon, Sun, Monitor, Check } from "lucide-react";
-
-import { cn } from "@workspace/ui/lib/utils";
 import { Button } from "@workspace/ui/components/button";
 import {
   DropdownMenu,
@@ -11,6 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import { cn } from "@workspace/ui/lib/utils";
+import { Check, Monitor, Moon, Sun } from "lucide-react";
+import * as React from "react";
 
 const THEME_OPTIONS = [
   { value: "light", label: "Light", icon: Sun },

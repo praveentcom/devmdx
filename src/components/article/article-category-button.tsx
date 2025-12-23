@@ -1,8 +1,8 @@
+import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
 import { URLS } from "@/components/helpers/urls";
-import { Badge } from "@workspace/ui/components/badge";
 
 interface ArticleCategoryButtonProps {
   category: string;

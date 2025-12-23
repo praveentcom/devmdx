@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
-import { Google_Sans_Flex, Google_Sans_Code } from "next/font/google";
-
 import "./globals.css";
+
+import type { Metadata } from "next";
+import { Google_Sans_Code, Google_Sans_Flex } from "next/font/google";
+
 import { Providers } from "@/components/providers";
 
 const fontSans = Google_Sans_Flex({
@@ -25,8 +26,8 @@ import {
 } from "@/components/helpers/config";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { BASE_URL, URLS } from "@/components/helpers/urls";
-import { configData } from "@/data/config";
 import { ClientLayout } from "@/components/layout/client-layout";
+import { configData } from "@/data/config";
 
 export default function RootLayout({
   children,

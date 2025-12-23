@@ -1,3 +1,4 @@
+import { Badge } from "@workspace/ui/components/badge";
 import { Button } from "@workspace/ui/components/button";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 
@@ -5,7 +6,6 @@ import { getTagImagePath } from "@/components/helpers/tag-mapper";
 import { URLS } from "@/components/helpers/urls";
 
 import { ImageWithFallback } from "./image-with-fallback";
-import { Badge } from "@workspace/ui/components/badge";
 
 interface TagButtonProps {
   tag: string;

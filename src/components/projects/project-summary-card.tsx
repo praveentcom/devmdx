@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
+import { Badge } from "@workspace/ui/components/badge";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import Image from "next/image";
 
 import { formatDateShort } from "@/components/helpers/date";
 import { URLS } from "@/components/helpers/urls";
 import { Project } from "@/types/project";
-import { Badge } from "@workspace/ui/components/badge";
 
 interface ProjectCardProps {
   project: Project;

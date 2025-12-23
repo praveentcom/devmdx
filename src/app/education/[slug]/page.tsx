@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,6 +8,8 @@ import {
 } from "@workspace/ui/components/breadcrumb";
 import { Markdown } from "@workspace/ui/components/markdown";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { DateRange } from "@/components/common/date-range";
 import EntityHeader from "@/components/common/entity-header";

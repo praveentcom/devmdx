@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-
+import { cn } from "@workspace/ui/lib/utils";
 import hljs from "highlight.js/lib/core";
 import bash from "highlight.js/lib/languages/bash";
 import cpp from "highlight.js/lib/languages/cpp";
@@ -34,8 +33,7 @@ import typescript from "highlight.js/lib/languages/typescript";
 import xml from "highlight.js/lib/languages/xml";
 import yaml from "highlight.js/lib/languages/yaml";
 import { Check, Copy } from "lucide-react";
-
-import { cn } from "@workspace/ui/lib/utils";
+import React, { useState } from "react";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("js", javascript);

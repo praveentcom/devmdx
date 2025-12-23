@@ -1,8 +1,8 @@
-import { Home, Newspaper } from "lucide-react";
-import type { Metadata } from "next";
 import { Button } from "@workspace/ui/components/button";
 import { Card, CardContent } from "@workspace/ui/components/card";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import { Home, Newspaper } from "lucide-react";
+import type { Metadata } from "next";
 import { plural } from "pluralize";
 
 import { getArticleLabel } from "@/components/helpers/config";

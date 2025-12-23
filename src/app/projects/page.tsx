@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,6 +7,7 @@ import {
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import type { Metadata } from "next";
 
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { getAllProjectSlugs } from "@/components/helpers/projects";

@@ -1,11 +1,9 @@
 "use client";
 
-import { ReactNode } from "react";
-
-import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
-
 import { Button } from "@workspace/ui/components/button";
 import { Card, CardContent } from "@workspace/ui/components/card";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import { ReactNode } from "react";
 
 export interface EmptyStateProps {
   title?: string;

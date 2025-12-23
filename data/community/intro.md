@@ -4,4 +4,4 @@ There's something special about sharing what you know and learning from others i
 
 ---
 
-*📦 This community section is part of the DevMDX demo. Replace this content with your own speaking engagements and contributions.*
+_📦 This community section is part of the DevMDX demo. Replace this content with your own speaking engagements and contributions._

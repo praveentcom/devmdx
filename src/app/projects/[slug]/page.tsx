@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,6 +10,8 @@ import { Button } from "@workspace/ui/components/button";
 import { Markdown } from "@workspace/ui/components/markdown";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import EntityHeader from "@/components/common/entity-header";
 import { TagButton } from "@/components/common/tag-button";

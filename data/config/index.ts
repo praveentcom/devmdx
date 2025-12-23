@@ -23,7 +23,7 @@ export const configData: ConfigData = {
       "react",
       "typescript",
     ],
-    image: "https://placehold.co/1200x630/1a1a2e/ffffff?text=DevMDX+Demo",
+    image: "/cover-image.png",
     twitterCard: "summary_large_image",
     twitterSite: "@johndoe",
     twitterCreator: "@johndoe",

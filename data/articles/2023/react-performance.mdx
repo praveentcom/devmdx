@@ -26,9 +26,9 @@ Wrap components that receive the same props frequently. Don't wrap everything—
 ### useMemo for expensive calculations
 
 ```typescript
-const sorted = useMemo(() => 
-  items.sort((a, b) => a.name.localeCompare(b.name)), 
-  [items]
+const sorted = useMemo(
+  () => items.sort((a, b) => a.name.localeCompare(b.name)),
+  [items],
 );
 ```
 
@@ -39,4 +39,3 @@ Lazy load routes and heavy components. Users don't need everything upfront.
 ## Results
 
 Load time dropped 40%. Interactions feel instant. Users are happier.
-

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,11 +7,12 @@ import {
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import type { Metadata } from "next";
 
+import { EducationSummaryCard } from "@/components/education/education-summary-card";
 import { getAllEducationSlugs } from "@/components/helpers/education";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { URLS } from "@/components/helpers/urls";
-import { EducationSummaryCard } from "@/components/education/education-summary-card";
 
 export default function EducationPage() {
   const education = getAllEducationSlugs();

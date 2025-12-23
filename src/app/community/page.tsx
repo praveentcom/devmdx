@@ -1,5 +1,3 @@
-import { Calendar, HeartHandshake } from "lucide-react";
-import type { Metadata } from "next";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,7 +6,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
+import { Markdown } from "@workspace/ui/components/markdown";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import { Calendar, HeartHandshake } from "lucide-react";
+import type { Metadata } from "next";
 
 import { YearButton } from "@/components/common/year-button";
 import { CommunitySummaryCard } from "@/components/community/community-summary-card";
@@ -17,7 +18,6 @@ import { getMdContent } from "@/components/helpers/md-content";
 import { createPageMetadata } from "@/components/helpers/metadata";
 import { URLS } from "@/components/helpers/urls";
 import { configData } from "@/data/config";
-import { Markdown } from "@workspace/ui/components/markdown";
 
 export default function CommunityPage() {
   const publishedContributions = getAllCommunitySlugs();

@@ -16,9 +16,9 @@ After years of JavaScript, TypeScript changed how I write code. Here are five pa
 Perfect for handling different states:
 
 ```typescript
-type Result<T> = 
-  | { status: 'success'; data: T }
-  | { status: 'error'; error: string };
+type Result<T> =
+  | { status: "success"; data: T }
+  | { status: "error"; error: string };
 ```
 
 ## 2. Type Guards
@@ -27,7 +27,7 @@ Narrow types safely at runtime:
 
 ```typescript
 function isUser(obj: unknown): obj is User {
-  return typeof obj === 'object' && obj !== null && 'id' in obj;
+  return typeof obj === "object" && obj !== null && "id" in obj;
 }
 ```
 
@@ -38,4 +38,3 @@ function isUser(obj: unknown): obj is User {
 ## 4. Const Assertions
 
 Lock down literal types with `as const`. Great for config objects and action types.
-

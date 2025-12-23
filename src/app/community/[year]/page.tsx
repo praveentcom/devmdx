@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,8 +6,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
-import { ContentContainer } from "@workspace/ui/layouts/content-container";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import { ContentContainer } from "@workspace/ui/layouts/content-container";
+import type { Metadata } from "next";
 import pluralize from "pluralize";
 
 import { CommunitySummaryCard } from "@/components/community/community-summary-card";

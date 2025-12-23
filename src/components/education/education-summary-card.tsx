@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import Image from "next/image";
 
 import { formatDateYear } from "@/components/helpers/date";
 import { URLS } from "@/components/helpers/urls";

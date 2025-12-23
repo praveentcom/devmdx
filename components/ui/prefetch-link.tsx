@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-
+import { cn } from "@workspace/ui/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-import { cn } from "@workspace/ui/lib/utils";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 export interface PrefetchLinkProps {
   href: string;

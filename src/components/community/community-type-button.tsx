@@ -1,7 +1,7 @@
-import { MicVocal, MonitorPlay, Presentation } from "lucide-react";
-import type { VariantProps } from "class-variance-authority";
 import { Button, type buttonVariants } from "@workspace/ui/components/button";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import type { VariantProps } from "class-variance-authority";
+import { MicVocal, MonitorPlay, Presentation } from "lucide-react";
 
 import { URLS } from "@/components/helpers/urls";
 import { EnumCommunityContributionType } from "@/types/community";

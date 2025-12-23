@@ -1,8 +1,6 @@
-import { Fragment, ReactNode } from "react";
-
-import { cva } from "class-variance-authority";
-
 import { cn } from "@workspace/ui/lib/utils";
+import { cva } from "class-variance-authority";
+import { Fragment, ReactNode } from "react";
 
 export type ContentContainerVariant = "compact" | "relaxed" | "broad" | "full";
 

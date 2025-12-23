@@ -24,7 +24,7 @@
       "@workspace/ui/components/*": ["./components/ui/*"],
       "@workspace/ui/lib/*": ["./lib/*"],
       "@workspace/ui/hooks/*": ["./hooks/*"],
-      "@workspace/ui/layouts/*": ["./layouts/*"],
+      "@workspace/ui/layouts/*": ["./layouts/*"]
     }
   },
   "include": [

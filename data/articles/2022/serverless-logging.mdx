@@ -22,9 +22,9 @@ class Logger {
       timestamp: new Date().toISOString(),
       level,
       message,
-      ...data
+      ...data,
     };
-    
+
     // Send to your logging service
     await this.sendToCloudLogging(entry);
   }
@@ -41,4 +41,3 @@ class Logger {
 ## What I Use
 
 A combination of structured JSON logs sent to a cloud logging service with alerts configured for error spikes. Simple but effective.
-

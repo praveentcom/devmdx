@@ -20,6 +20,7 @@ Build APIs that are intuitive, consistent, and a joy to work with.
 ## Status Codes
 
 Use them correctly:
+
 - `200` - Success
 - `201` - Created
 - `400` - Bad request (your fault)
@@ -30,6 +31,7 @@ Use them correctly:
 ## Error Responses
 
 Always include:
+
 ```json
 {
   "error": "validation_failed",
@@ -41,4 +43,3 @@ Always include:
 ## Versioning
 
 Prefix your routes: `/v1/users`. When v2 comes, old clients keep working.
-

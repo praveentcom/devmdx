@@ -1,8 +1,8 @@
 "use client";
 
-import { HeartHandshake } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import { HeartHandshake } from "lucide-react";
 
 import { CommunitySummaryCard } from "@/components/community/community-summary-card";
 import { URLS } from "@/components/helpers/urls";

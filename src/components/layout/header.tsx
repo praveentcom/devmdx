@@ -1,29 +1,29 @@
 "use client";
 
-import { URLS } from "../helpers/urls";
-import { Menu } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
-
-import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  navigationMenuTriggerStyle,
-} from "@workspace/ui/components/navigation-menu";
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@workspace/ui/components/navigation-menu";
+import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 import { ThemeSwitcher } from "@workspace/ui/components/theme-switcher";
+import { cn } from "@workspace/ui/lib/utils";
+import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
 
 import { profile } from "@/data/profile";
-import { usePathname } from "next/navigation";
-import { cn } from "@workspace/ui/lib/utils";
-import { useTheme } from "next-themes";
+
+import { URLS } from "../helpers/urls";
 
 const NAV_ITEMS = [
   { label: "Articles", href: URLS.ARTICLES_LIST() },

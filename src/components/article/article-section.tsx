@@ -1,6 +1,6 @@
-import { UserRoundPen } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import { UserRoundPen } from "lucide-react";
 import { plural } from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/article-summary-card";

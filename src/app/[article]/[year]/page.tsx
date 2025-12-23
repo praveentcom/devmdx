@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,6 +7,8 @@ import {
   BreadcrumbSeparator,
 } from "@workspace/ui/components/breadcrumb";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { plural } from "pluralize";
 
 import { ArticleSummaryCard } from "@/components/article/article-summary-card";

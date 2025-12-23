@@ -1,8 +1,8 @@
 "use client";
 
-import { GitPullRequestArrow } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import { GitPullRequestArrow } from "lucide-react";
 
 import { URLS } from "@/components/helpers/urls";
 import { ProjectSummaryCard } from "@/components/projects/project-summary-card";

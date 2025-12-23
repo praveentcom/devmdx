@@ -1,5 +1,3 @@
-import { Calendar, Folders, UserRoundPen } from "lucide-react";
-import type { Metadata } from "next";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,6 +9,8 @@ import {
 import { Button } from "@workspace/ui/components/button";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
 import { StructuredData } from "@workspace/ui/components/structured-data";
+import { Calendar, Folders, UserRoundPen } from "lucide-react";
+import type { Metadata } from "next";
 import { plural } from "pluralize";
 
 import { ArticleCategoryButton } from "@/components/article/article-category-button";

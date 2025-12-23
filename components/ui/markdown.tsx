@@ -1,8 +1,10 @@
 "use client";
 
-import React from "react";
-
 import { Blockquote } from "@workspace/ui/components/blockquote";
+import {
+  CodeBlock,
+  type HighlightTheme,
+} from "@workspace/ui/components/code-block";
 import {
   Table,
   TableBody,
@@ -11,14 +13,10 @@ import {
   TableHeader,
   TableRow,
 } from "@workspace/ui/components/table";
-import { processInlineMarkdown } from "@workspace/ui/lib/markdown/processInlineMarkdown";
-
 import parseMarkdown from "@workspace/ui/lib/markdown/parseMarkdown";
+import { processInlineMarkdown } from "@workspace/ui/lib/markdown/processInlineMarkdown";
 import { cn } from "@workspace/ui/lib/utils";
-import {
-  CodeBlock,
-  type HighlightTheme,
-} from "@workspace/ui/components/code-block";
+import React from "react";
 
 interface BlockquoteData {
   type: "blockquote";
@@ -491,7 +489,6 @@ export function Markdown({ content, theme = "vs", className }: MarkdownProps) {
 
   let sanitizedHtml = html;
   if (typeof window !== "undefined") {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const DOMPurify = require("dompurify");
 
     sanitizedHtml = DOMPurify.sanitize(html, sanitizeConfig);

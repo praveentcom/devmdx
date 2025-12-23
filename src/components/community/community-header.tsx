@@ -1,7 +1,7 @@
-import { Calendar, MapPin, Youtube } from "lucide-react";
-import Image from "next/image";
 import { Button } from "@workspace/ui/components/button";
 import { PrefetchLink } from "@workspace/ui/components/prefetch-link";
+import { Calendar, MapPin, Youtube } from "lucide-react";
+import Image from "next/image";
 
 import { CommunityTypeButton } from "@/components/community/community-type-button";
 import type { CommunityIndexItem } from "@/components/helpers/community";

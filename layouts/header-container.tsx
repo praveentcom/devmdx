@@ -1,10 +1,8 @@
 "use client";
 
-import { ReactNode } from "react";
-
-import { cva } from "class-variance-authority";
-
 import { cn } from "@workspace/ui/lib/utils";
+import { cva } from "class-variance-authority";
+import { ReactNode } from "react";
 
 export type HeaderContainerVariant = "compact" | "relaxed" | "broad" | "full";
 
