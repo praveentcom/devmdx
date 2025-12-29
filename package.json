@@ -103,7 +103,7 @@
     "react-dom": "19.2.3",
     "react-hook-form": "^7.69.0",
     "react-resizable-panels": "^4.0.13",
-    "recharts": "2.15.4",
+    "recharts": "3.6.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
