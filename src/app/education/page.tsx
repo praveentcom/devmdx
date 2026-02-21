@@ -40,8 +40,8 @@ export default function EducationPage() {
       </Breadcrumb>
       <h3>Education</h3>
       <div className="grid grid-cols-1 gap-8">
-        {education.map((edu, index) => (
-          <EducationSummaryCard key={index} education={edu} />
+        {education.map((edu) => (
+          <EducationSummaryCard key={edu.slug} education={edu} />
         ))}
       </div>
     </div>

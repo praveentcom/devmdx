@@ -46,7 +46,7 @@ export default async function ArticlePage({ params }: PageProps) {
   const articleYear = article.year;
 
   if (articleYear !== year) {
-    redirect(`/articles/${articleYear}/${article.slug}`);
+    redirect(URLS.ARTICLES(articleYear, article.slug));
   }
 
   return (

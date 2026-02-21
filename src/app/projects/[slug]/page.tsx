@@ -67,9 +67,9 @@ export default async function ProjectPage({ params }: PageProps) {
         subtitle={project.description}
       />
       <div className="flex flex-wrap gap-2">
-        {project.stack.map((tag, index) => (
+        {project.stack.map((tag) => (
           <TagButton
-            key={index}
+            key={tag}
             tag={tag}
             source="projects"
             asLink
@@ -137,7 +137,7 @@ export async function generateMetadata({
     title: `${project.title}`,
     description: project.description,
     url: URLS.PROJECTS(project.slug),
-    image: project.ogImage,
+    image: project.ogImage || project.image,
   });
 
   return metadata;

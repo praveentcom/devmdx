@@ -41,8 +41,8 @@ export default function ProjectsPage() {
       </Breadcrumb>
       <h3>Projects</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {projects.map((project, index) => (
-          <ProjectSummaryCard key={index} project={project} />
+        {projects.map((project) => (
+          <ProjectSummaryCard key={project.slug} project={project} />
         ))}
       </div>
     </div>
