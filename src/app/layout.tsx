@@ -1,22 +1,22 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Google_Sans_Code, Google_Sans_Flex } from "next/font/google";
+import localFont from "next/font/local";
 
 import { Providers } from "@/components/providers";
 
-const fontSans = Google_Sans_Flex({
-  subsets: ["latin"],
+const fontSans = localFont({
+  src: "../../node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2",
   variable: "--font-sans",
   display: "swap",
-  adjustFontFallback: false,
+  weight: "100 900",
 });
 
-const fontMono = Google_Sans_Code({
-  subsets: ["latin"],
+const fontMono = localFont({
+  src: "../../node_modules/geist/dist/fonts/geist-mono/GeistMono-Variable.woff2",
   variable: "--font-mono",
   display: "swap",
-  adjustFontFallback: false,
+  weight: "100 900",
 });
 
 import {
