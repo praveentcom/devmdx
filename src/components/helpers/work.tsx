@@ -172,7 +172,7 @@ export function getWorkBySlugRaw(
   if (!match) return null;
 
   const raw = fs.readFileSync(match, "utf-8");
-  const { data } = matter(raw);
+  const { data, content } = matter(raw);
   const parsed = WorkExperienceSchema.safeParse(data);
 
   if (!parsed.success) return null;
@@ -193,7 +193,7 @@ export function getWorkBySlugRaw(
       }),
   };
 
-  return { meta, raw };
+  return { meta, raw: content };
 }
 
 export function getWorkBySlugContent(

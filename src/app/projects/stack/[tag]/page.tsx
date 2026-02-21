@@ -91,8 +91,8 @@ export default async function TagProjectsPage({ params }: PageProps) {
         <h3>{tag} projects</h3>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {filteredProjects.map((project, index) => (
-          <ProjectSummaryCard key={index} project={project} />
+        {filteredProjects.map((project) => (
+          <ProjectSummaryCard key={project.slug} project={project} />
         ))}
       </div>
     </div>

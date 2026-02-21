@@ -76,8 +76,8 @@ export default async function CategoryArticlePage({ params }: PageProps) {
         {category} {articleLabel}
       </h3>
       <div className="list-container">
-        {filteredArticles.map((article, index) => (
-          <ArticleSummaryCard key={index} article={article} />
+        {filteredArticles.map((article) => (
+          <ArticleSummaryCard key={article.slug} article={article} />
         ))}
       </div>
     </div>

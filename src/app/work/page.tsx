@@ -41,8 +41,8 @@ export default function WorkPage() {
       </Breadcrumb>
       <h3>Work Experience</h3>
       <div className="grid grid-cols-1 gap-8">
-        {work.map((experience, index) => (
-          <WorkSummaryCard key={index} experience={experience} />
+        {work.map((experience) => (
+          <WorkSummaryCard key={experience.slug} experience={experience} />
         ))}
       </div>
     </div>
